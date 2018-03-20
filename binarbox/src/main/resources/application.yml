@@ -1,0 +1,22 @@
+---
+spring:
+    profiles: dev
+    jpa:
+        hibernate:
+          ddlAuto: none
+          namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
+        show-sql: true
+    liquibase:
+        change-log: classpath:/liquibase/master.xml
+
+server:
+    port: 6060
+
+
+database:
+    driverClassName: org.mariadb.jdbc.Driver
+    jdbcUrl: jdbc:mariadb://localhost:3306/lb
+    username: root
+    password: root
+    poolSize: 60
+    autoCommit: false
