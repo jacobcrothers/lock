@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="base-0" author="tnalex">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER"/>
+            </column>
+            <column name="last_name" type="nvarchar(100)"/>
+            <column name="first_name" type="nvarchar(100)"/>
+            <column name="email" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="nvarchar(100)"/>
+            <column name="password" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_password_token" type="nvarchar(100)"/>
+            <column name="city" type="nvarchar(100)"/>
+            <column name="country" type="nvarchar(100)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,13 +1,17 @@
 package binar.box.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
+@Entity
 @Table(name = "user")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "last_name")
     private String lastName;
@@ -31,7 +35,15 @@ public class User {
     private String city;
 
     @Column(name = "country")
-    private String Country;
+    private String country;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLastName() {
         return lastName;
@@ -90,10 +102,10 @@ public class User {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
     }
 }
