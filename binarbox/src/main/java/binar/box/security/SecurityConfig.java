@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.anonymous().disable();
         http.cors().disable();
-        http.addFilterBefore(new TokenAuthenticationFiler(tokenService), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
 
     }
 
@@ -42,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(Constants.SWAGGER_V2_API_DOCS)
                 .antMatchers(Constants.SWAGGER_UI_HTML)
                 .antMatchers(Constants.SWAGGER_WEBJARS)
-                .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.REGISTER_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.LOGIN_ENDPOINT)
                 .and()
                 .debug(true);
     }

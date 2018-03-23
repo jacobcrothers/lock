@@ -20,11 +20,11 @@ import java.io.IOException;
 /**
  * Created by Timis Nicu Alexandru on 23-Mar-18.
  */
-public class TokenAuthenticationFiler extends OncePerRequestFilter {
+public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private TokenService tokenService;
 
-    public TokenAuthenticationFiler(TokenService tokenService) {
+    public TokenAuthenticationFilter(TokenService tokenService) {
         this.tokenService = tokenService;
 
     }

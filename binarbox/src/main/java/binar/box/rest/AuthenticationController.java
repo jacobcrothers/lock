@@ -2,6 +2,7 @@ package binar.box.rest;
 
 import binar.box.dto.TokenDto;
 import binar.box.dto.UserDto;
+import binar.box.dto.UserLoginDto;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -31,5 +32,13 @@ public class AuthenticationController {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
         return userService.registerUser(userDto);
+    }
+
+    @PostMapping(value = Constants.LOGIN_ENDPOINT)
+    private TokenDto login(@RequestBody @Valid UserLoginDto userLoginDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new LockBridgesException(bindingResult.getAllErrors().toString());
+        }
+        return userService.loginUser(userLoginDto);
     }
 }

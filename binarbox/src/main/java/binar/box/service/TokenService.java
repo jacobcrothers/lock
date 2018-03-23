@@ -38,6 +38,7 @@ public class TokenService {
         }
         token.setToken(JWT.create()
                 .withClaim(Constants.JWT_PAYLOAD_CLAIM_USER, user.getId())
+                .withIssuedAt(new Date())
                 .sign(algorithmHS));
         token.setUser(user);
         token.setCreatedDate(new Date());

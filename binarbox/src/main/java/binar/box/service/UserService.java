@@ -3,6 +3,7 @@ package binar.box.service;
 import binar.box.domain.User;
 import binar.box.dto.TokenDto;
 import binar.box.dto.UserDto;
+import binar.box.dto.UserLoginDto;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -41,5 +42,23 @@ public class UserService {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new LockBridgesException(Constants.USER_ALREADY_REGISTERED);
         }
+    }
+
+    public TokenDto loginUser(UserLoginDto userLoginDto) {
+        User user;
+        try {
+            user = getUserByEmail(userLoginDto.getEmail());
+        } catch (LockBridgesException e) {
+            throw new LockBridgesException(Constants.BAD_CREDENTIALS);
+        }
+
+        if (!BCrypt.checkpw(userLoginDto.getPassword(), user.getPassword())) {
+            throw new LockBridgesException(Constants.BAD_CREDENTIALS);
+        }
+        return tokenService.createUserToken(user);
+    }
+
+    private User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
     }
 }

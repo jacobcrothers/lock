@@ -23,4 +23,6 @@ public class Constants {
     public static final String SYSTEM = "system";
     public static final String REGISTER_ENDPOINT = "/register";
     public static final String LOGIN_ENDPOINT = "/login";
+    public static final String USER_NOT_FOUND = "User not found!";
+    public static final String BAD_CREDENTIALS = "Bad credentials!";
 }
