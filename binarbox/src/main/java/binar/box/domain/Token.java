@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Token extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -21,6 +21,9 @@ public class Token extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Token() {
+    }
 
     public Long getId() {
         return id;

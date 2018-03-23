@@ -6,7 +6,7 @@ package binar.box.util;
 public class Constants {
     public static final String DATABASE_PASSWORD_PROPERTY = "password";
     public static final String DATABASE_USERNAME_PROPERTY = "user";
-    public static final String API = "/api/";
+    public static final String API = "/api/v0/";
     public static final String AUTHENTICATION = "authentication";
     public static final String USER_ALREADY_REGISTERED = "User already registered!";
     public static final String AUTHENTICATION_TOKEN_NOT_FOUND = "Authentication token not found!";
@@ -16,4 +16,11 @@ public class Constants {
     public static final String INVALID_TOKEN = "Invalid token!";
     public static final String TOKEN_HEADER_REQUEST = "token";
     public static final String UNSUPORTED_ENCODING_EXCEPTION = "Unsuported encoding exception : ";
+    public static final String SWAGGER_RESOURCES = "/swagger-resources/**";
+    public static final String SWAGGER_V2_API_DOCS = "/v2/api-docs";
+    public static final String SWAGGER_UI_HTML = "/swagger-ui.html";
+    public static final String SWAGGER_WEBJARS = "/webjars/**";
+    public static final String SYSTEM = "system";
+    public static final String REGISTER_ENDPOINT = "/register";
+    public static final String LOGIN_ENDPOINT = "/login";
 }

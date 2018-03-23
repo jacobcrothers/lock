@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Date;
 
 /**
  * Created by Timis Nicu Alexandru on 21-Mar-18.
@@ -30,6 +31,8 @@ public class UserService {
         checkIfUserIsAlreadyRegistered(userDto.getEmail());
         User user = new User(userDto);
         user.setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12)));
+        user.setCreatedDate(new Date());
+        user.setLastModifiedDate(new Date());
         userRepository.save(user);
         return tokenService.createUserToken(user);
     }

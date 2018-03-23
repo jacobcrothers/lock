@@ -1,8 +1,6 @@
 package binar.box.domain;
 
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
@@ -17,18 +15,11 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseEntity {
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
-
     @CreatedDate
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "created_date")
     private Date createdDate;
 
-    @Column(name = "last_modified_by")
-    @LastModifiedBy
-    private String lastModifiedBy;
 
     @LastModifiedDate
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -39,19 +30,10 @@ public class BaseEntity {
     }
 
     public BaseEntity(String createdBy, Date createdDate, String lastModifiedBy, Date lastModifiedDate) {
-        this.createdBy = createdBy;
         this.createdDate = createdDate;
-        this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
 
     public Date getCreatedDate() {
         return createdDate;
@@ -59,14 +41,6 @@ public class BaseEntity {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
     }
 
     public Date getLastModifiedDate() {

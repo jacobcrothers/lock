@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 /**
  * Created by Timis Nicu Alexandru on 21-Mar-18.
@@ -39,6 +40,8 @@ public class TokenService {
                 .withClaim(Constants.JWT_PAYLOAD_CLAIM_USER, user.getId())
                 .sign(algorithmHS));
         token.setUser(user);
+        token.setCreatedDate(new Date());
+        token.setLastModifiedDate(new Date());
         tokenRepository.save(token);
         return new TokenDto(token);
     }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -39,6 +39,9 @@ public class User extends BaseEntity {
 
     @Column(name = "country")
     private String country;
+
+    public User() {
+    }
 
     public User(UserDto userDto) {
         this.lastName = userDto.getLastName();
