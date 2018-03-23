@@ -23,6 +23,43 @@
             <column name="reset_password_token" type="nvarchar(100)"/>
             <column name="city" type="nvarchar(100)"/>
             <column name="country" type="nvarchar(100)"/>
+            <column name="created_by" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="token">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TOKEN"/>
+            </column>
+            <column name="token" type="nvarchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" referencedTableName="user" referencedColumnNames="id"
+                             foreignKeyName="FK_USER"/>
+            </column>
+            <column name="created_by" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

@@ -1,60 +1,32 @@
-package binar.box.domain;
+package binar.box.dto;
 
-import binar.box.dto.UserDto;
-
-import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
-@Entity
-@Table(name = "user")
-public class User extends BaseEntity {
+public class UserDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "email")
+    @NotEmpty
+    @NotNull
     private String email;
 
-    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "password")
+    @NotNull
+    @NotNull
     private String password;
 
-    @Column(name = "reset_password_token")
-    private String resetPasswordToken;
-
-    @Column(name = "city")
     private String city;
 
-    @Column(name = "country")
     private String country;
 
-    public User(UserDto userDto) {
-        this.lastName = userDto.getLastName();
-        this.firstName = userDto.getFirstName();
-        this.email = userDto.getEmail();
-        this.phone = userDto.getPhone();
-        this.city = userDto.getCity();
-        this.country = userDto.getCountry();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public UserDto() {
     }
 
     public String getLastName() {
@@ -95,14 +67,6 @@ public class User extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getResetPasswordToken() {
-        return resetPasswordToken;
-    }
-
-    public void setResetPasswordToken(String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
     }
 
     public String getCity() {
