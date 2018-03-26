@@ -1,11 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {AppComponent} from './app.component';
+import {RouterModule} from '@angular/router';
 import {LoginComponent} from './user/login/login.component';
+import {AuthGuard} from './_guards/auth.guard';
+import {HomeComponent} from './bridge/home/home.component';
 
 const routes = [{
         path: '',
+        component: HomeComponent
+    }, {
+        path: 'login',
         component: LoginComponent
     }
 ];
