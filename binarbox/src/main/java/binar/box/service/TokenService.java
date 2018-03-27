@@ -28,7 +28,7 @@ public class TokenService {
     @Autowired
     private TokenRepository tokenRepository;
 
-    public TokenDto createUserToken(User user) {
+    public TokenDto createUserToken(User user, boolean rememberMe) {
         Token token = new Token();
         Algorithm algorithmHS;
         try {
@@ -46,7 +46,11 @@ public class TokenService {
         token.setLastModifiedDate(new Date());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, 7);
+        if (rememberMe) {
+            calendar.add(Calendar.DATE, 7);
+        } else {
+            calendar.add(Calendar.HOUR, 1);
+        }
         token.setExpirationTime(calendar.getTime());
         tokenRepository.save(token);
         return new TokenDto(token);
