@@ -20,3 +20,12 @@ database:
     password: root
     poolSize: 60
     autoCommit: false
+
+mail:
+    starttls: true
+    host: smtp.mail.yahoo.com
+    port: 587
+    username: alex.timis95@yahoo.com
+    password: fordevelopment6
+    subject: Reset Password
+    from: alex.timis95@yahoo.com
