@@ -38,15 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web
                 .ignoring()
+                .antMatchers(HttpMethod.OPTIONS, Constants.CORS_URL_PATTERN)
                 .antMatchers(Constants.SWAGGER_RESOURCES)
                 .antMatchers(Constants.SWAGGER_V2_API_DOCS)
                 .antMatchers(Constants.SWAGGER_UI_HTML)
                 .antMatchers(Constants.SWAGGER_WEBJARS)
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.REGISTER_ENDPOINT)
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.LOGIN_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.REQUEST_RESET_PASSWORD_EDNPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.RESET_PASSWORD_ENDPOINT)
                 .and()
                 .debug(true);
     }
-
-
 }

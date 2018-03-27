@@ -25,4 +25,9 @@ public class Constants {
     public static final String LOGIN_ENDPOINT = "/login";
     public static final String USER_NOT_FOUND = "User not found!";
     public static final String BAD_CREDENTIALS = "Bad credentials!";
+    public static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+    public static final String USER = "user";
+    public static final String REQUEST_RESET_PASSWORD_EDNPOINT = "/request/reset/password";
+    public static final String RESET_PASSWORD_ENDPOINT = "/reset/password";
+    public static final String CORS_URL_PATTERN = "/**";
 }
