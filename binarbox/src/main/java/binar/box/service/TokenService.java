@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -43,6 +44,10 @@ public class TokenService {
         token.setUser(user);
         token.setCreatedDate(new Date());
         token.setLastModifiedDate(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, 7);
+        token.setExpirationTime(calendar.getTime());
         tokenRepository.save(token);
         return new TokenDto(token);
     }

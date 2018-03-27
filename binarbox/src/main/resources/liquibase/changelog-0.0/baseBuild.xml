@@ -42,6 +42,9 @@
                 <constraints nullable="false" referencedTableName="user" referencedColumnNames="id"
                              foreignKeyName="FK_USER"/>
             </column>
+            <column name="expiration_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_date" type="date">
                 <constraints nullable="false"/>
             </column>

@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by Timis Nicu Alexandru on 23-Mar-18.
@@ -36,6 +37,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             throw new LockBridgesException(Constants.AUTHENTICATION_TOKEN_NOT_FOUND);
         }
         Token userToken = tokenService.findOneByToken(token);
+        Date todayDate = new Date();
+        if (userToken.getExpirationTime().before(todayDate)) {
+            throw new LockBridgesException(Constants.TOKEN_EXPIRED);
+        }
         DecodedJWT decodedJWT = tokenService.decodeJwtToken(userToken);
         if (decodedJWT.getClaim(Constants.JWT_PAYLOAD_CLAIM_USER).asLong().equals(userToken.getUser().getId())) {
             Authentication authentication = new UsernamePasswordAuthenticationToken(userToken.getUser().getEmail(), userToken.getUser().getPassword());

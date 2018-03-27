@@ -30,4 +30,5 @@ public class Constants {
     public static final String REQUEST_RESET_PASSWORD_EDNPOINT = "/request/reset/password";
     public static final String RESET_PASSWORD_ENDPOINT = "/reset/password";
     public static final String CORS_URL_PATTERN = "/**";
+    public static final String TOKEN_EXPIRED = "Token expired!";
 }
