@@ -10,6 +10,7 @@ import {LoginComponent} from './user/login/login.component';
 import { HomeComponent } from './bridge/home/home.component';
 import {AuthGuard} from './_guards/auth.guard';
 import {UserService} from './_services/user.service';
+import { RegisterComponent } from './user/register/register.component';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -19,7 +20,8 @@ export function tokenGetter() {
     declarations: [
         AppComponent,
         LoginComponent,
-        HomeComponent
+        HomeComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,

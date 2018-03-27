@@ -3,7 +3,8 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-    private authenticateUrl = '/login';
+    private baseUrl = 'http://localhost:6060/api/v0/';
+    private authenticateUrl = this.baseUrl + 'authentication/login';
 
     constructor(private http: HttpClient) {
     }
@@ -12,7 +13,7 @@ export class UserService {
         return true;
     }
 
-    authenticateUser(data) {
+    login (data) {
         return this.http.post(this.authenticateUrl, data, {
             responseType: 'json'
         });
