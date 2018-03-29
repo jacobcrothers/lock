@@ -1,20 +1,17 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {JwtModule} from '@auth0/angular-jwt';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 
-import {AppComponent} from './app.component';
-import {LoginComponent} from './user/login/login.component';
-import { HomeComponent } from './bridge/home/home.component';
 import {AuthGuard} from './_guards/auth.guard';
 import {UserService} from './_services/user.service';
-import { RegisterComponent } from './user/register/register.component';
+import {RequestInterceptor} from './_interceptors/requestInterceptor';
 
-export function tokenGetter() {
-    return localStorage.getItem('access_token');
-}
+import {AppComponent} from './app.component';
+import {HomeComponent} from './bridge/home/home.component';
+import {LoginComponent} from './user/login/login.component';
+import {RegisterComponent} from './user/register/register.component';
 
 @NgModule({
     declarations: [
@@ -27,14 +24,16 @@ export function tokenGetter() {
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        AppRoutingModule,
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: tokenGetter
-            }
-        })
+        AppRoutingModule
     ],
-    providers: [AuthGuard, UserService],
+    providers: [
+        AuthGuard,
+        UserService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestInterceptor,
+            multi: true
+        }],
     bootstrap: [AppComponent]
 })
 export class AppModule {

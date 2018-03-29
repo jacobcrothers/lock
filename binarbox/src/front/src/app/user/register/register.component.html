@@ -3,7 +3,7 @@
         <div class="col-xl-8 col-md-6 card m-3 p-3">
             <h2>Register</h2>
 
-            <a routerLink="/login">Already have an account? login here.</a>
+            <a routerLink="/login">Already have an account? Login here.</a>
 
             <form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
                 <div class="form-group">
@@ -54,6 +54,16 @@
                         class="form-control"
                         id="lastNameInput"
                         placeholder="Brody"
+                        [ngModel]/>
+                </div>
+                <div class="form-group">
+                    <label for="phoneInput">Phone Number</label>
+                    <input
+                        name="phone"
+                        type="tel"
+                        class="form-control"
+                        id="phoneInput"
+                        placeholder="+46 758 035 587"
                         [ngModel]/>
                 </div>
 
@@ -337,16 +347,12 @@
                             <option value="ZW">Zimbabwe</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
-                    </div>
                 </div>
                 <div class="form-group">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="gridCheck">
                         <label class="form-check-label" for="gridCheck">
-                            Check me out
+                            By clicking here you attest that you have read and agreed to the <a href="#">terms and conditions</a>.
                         </label>
                     </div>
                 </div>
