@@ -41,6 +41,10 @@ public class UserService {
         user.setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12)));
         user.setCreatedDate(new Date());
         user.setLastModifiedDate(new Date());
+        String emailToken = UUID.randomUUID().toString();
+        user.setConfirmEmailToken(emailToken);
+        emailService.sendEmail(user.getEmail(), "Welcome", "Welcome to Lock Bridges : please confirm email : " +
+                emailToken);
         userRepository.save(user);
         return tokenService.createUserToken(user, true);
     }
@@ -73,7 +77,7 @@ public class UserService {
         User user = getUserByEmail(email);
         String resetPasswordToken = UUID.randomUUID().toString();
         user.setResetPasswordToken(resetPasswordToken);
-        emailService.sendRequestResetPasswordEmail(user.getEmail(), resetPasswordToken);
+        emailService.sendEmail(user.getEmail(), "Reset Password", resetPasswordToken);
         userRepository.save(user);
     }
 
@@ -95,5 +99,16 @@ public class UserService {
 
     private User getAuthenticatedUser() {
         return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    public void confirmUserEmail(String token) {
+        User user = getUserByEmailToken(token);
+        user.setConfirmEmailToken(null);
+        user.setEmailConfirmed(true);
+        userRepository.save(user);
+    }
+
+    private User getUserByEmailToken(String token) {
+        return userRepository.findByConfirmEmailToken(token).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
     }
 }

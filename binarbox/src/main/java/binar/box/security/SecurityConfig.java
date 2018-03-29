@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.LOGIN_ENDPOINT)
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.REQUEST_RESET_PASSWORD_EDNPOINT)
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.RESET_PASSWORD_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.CONFIRM_EMAIL_ENDPOINT)
                 .and()
                 .debug(true);
     }

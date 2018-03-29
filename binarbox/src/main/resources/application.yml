@@ -27,5 +27,4 @@ mail:
     port: 587
     username: alex.timis95@yahoo.com
     password: fordevelopment6
-    subject: Reset Password
     from: alex.timis95@yahoo.com

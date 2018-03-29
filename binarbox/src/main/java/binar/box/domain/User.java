@@ -40,6 +40,12 @@ public class User extends BaseEntity {
     @Column(name = "country")
     private String country;
 
+    @Column(name = "confirm_email_token")
+    private String confirmEmailToken;
+
+    @Column(name = "email_confirmed")
+    private boolean emailConfirmed;
+
     public User() {
     }
 
@@ -50,6 +56,22 @@ public class User extends BaseEntity {
         this.phone = userDto.getPhone();
         this.city = userDto.getCity();
         this.country = userDto.getCountry();
+    }
+
+    public String getConfirmEmailToken() {
+        return confirmEmailToken;
+    }
+
+    public void setConfirmEmailToken(String confirmEmailToken) {
+        this.confirmEmailToken = confirmEmailToken;
+    }
+
+    public boolean isEmailConfirmed() {
+        return emailConfirmed;
+    }
+
+    public void setEmailConfirmed(boolean emailConfirmed) {
+        this.emailConfirmed = emailConfirmed;
     }
 
     public Long getId() {

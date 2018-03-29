@@ -19,13 +19,12 @@ public class EmailService {
     private Environment environment;
 
 
-    public void sendRequestResetPasswordEmail(String userEmail, String resetPasswordToken) {
+    public void sendEmail(String userEmail, String subject, String text) {
         String from = environment.getProperty("mail.from");
-        String subject = environment.getProperty("mail.subject");
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom(from);
         simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(resetPasswordToken);
+        simpleMailMessage.setText(text);
         simpleMailMessage.setTo(userEmail);
         emailConfiguration.javaMailSender().send(simpleMailMessage);
     }

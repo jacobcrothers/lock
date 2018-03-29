@@ -32,4 +32,5 @@ public class Constants {
     public static final String CORS_URL_PATTERN = "/**";
     public static final String TOKEN_EXPIRED = "Token expired!";
     public static final String RENEW_TOKEN_ENDPOINT = "/renew";
+    public static final String CONFIRM_EMAIL_ENDPOINT = "/email/confirm";
 }

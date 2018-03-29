@@ -37,8 +37,11 @@ public class UserController {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
         userService.changeUserPassword(token, resetPasswordDto);
-
     }
 
+    @PostMapping(value = Constants.CONFIRM_EMAIL_ENDPOINT)
+    private void confirmEmail(@Param("token") String token) {
+        userService.confirmUserEmail(token);
+    }
 
 }
