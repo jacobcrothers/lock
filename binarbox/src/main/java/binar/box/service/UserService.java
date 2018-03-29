@@ -9,6 +9,7 @@ import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class UserService {
         user.setCreatedDate(new Date());
         user.setLastModifiedDate(new Date());
         userRepository.save(user);
-        return tokenService.createUserToken(user);
+        return tokenService.createUserToken(user, true);
     }
 
     private void checkIfUserIsAlreadyRegistered(String email) {
@@ -50,7 +51,7 @@ public class UserService {
         }
     }
 
-    public TokenDto loginUser(UserLoginDto userLoginDto) {
+    public TokenDto loginUser(UserLoginDto userLoginDto, boolean rememberMe) {
         User user;
         try {
             user = getUserByEmail(userLoginDto.getEmail());
@@ -61,7 +62,7 @@ public class UserService {
         if (!BCrypt.checkpw(userLoginDto.getPassword(), user.getPassword())) {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
         }
-        return tokenService.createUserToken(user);
+        return tokenService.createUserToken(user, rememberMe);
     }
 
     private User getUserByEmail(String email) {
@@ -85,5 +86,14 @@ public class UserService {
 
     private User getUserByResetPasswordToken(String token) {
         return userRepository.findByResetPasswordToken(token).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
+    }
+
+    public TokenDto renewUserToken() {
+        User user = getAuthenticatedUser();
+        return tokenService.createUserToken(user, true);
+    }
+
+    private User getAuthenticatedUser() {
+        return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }
