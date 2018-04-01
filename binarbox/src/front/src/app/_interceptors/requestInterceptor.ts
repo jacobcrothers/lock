@@ -9,15 +9,14 @@ const BASE_URL = 'http://localhost:6060/api/v0';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-    constructor(private user: UserService) {
+    constructor() {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        const token = this.user.getUserToken();
-        console.log(token);
+        const token = UserService.getUserToken();
 
-        // Clone the request to add the new header.
+        // Clone the request to add the authentication token header.
         const authReq = req.clone({
             headers: req.headers.set('token', token),
             url: `${BASE_URL}/${req.url}`

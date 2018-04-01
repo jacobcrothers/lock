@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../_services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,8 @@ import {UserService} from '../../_services/user.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-      private user: UserService
+      private user: UserService,
+      private router: Router
   ) { }
 
   ngOnInit() {
@@ -20,7 +22,14 @@ export class LoginComponent implements OnInit {
           return;
       }
 
-      this.user.login(formValue).subscribe(data => console.log(data));
+      this.user.login(formValue).subscribe(data => {
+          if (data) {
+              if (data['token']) {
+                  UserService.setUserToken(data['token']);
+                  this.router.navigate(['/']);
+              }
+          }
+      });
   }
 
 }

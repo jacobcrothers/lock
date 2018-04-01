@@ -9,11 +9,13 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    public isLoggedIn() {
-        return true;
+    static isLoggedIn() {
+        const token = localStorage.getItem('token');
+
+        return Boolean(token);
     }
 
-    setUserToken(value) {
+    static setUserToken(value) {
         try {
             localStorage.setItem('token', value);
         } catch (e) {
@@ -23,9 +25,13 @@ export class UserService {
         return true;
     }
 
-    getUserToken() {
+    static getUserToken() {
         const token = localStorage.getItem('token');
         return token ? token : '';
+    }
+
+    static logout () {
+        localStorage.removeItem('token');
     }
 
     login(data) {
@@ -35,7 +41,6 @@ export class UserService {
     }
 
     register(data) {
-        console.log('inside');
         return this.http.post(this.registrationUrl, data, {
             responseType: 'json'
         });

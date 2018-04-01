@@ -1,3 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="collapseMenu = !collapseMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse" [hidden]="!collapseMenu">
+        <ul class="navbar-nav col-md-8 mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">See all locks <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Add a lock</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item" *ngIf="isLoggedIn">
+                <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item" *ngIf="isLoggedIn">
+                <a class="nav-link" routerLink="/logout">Logout</a>
+            </li>
+            <li class="nav-item" *ngIf="!isLoggedIn">
+                <a class="nav-link" routerLink="/login">Login</a>
+            </li>
+        </ul>
+
+
+    </div>
+</nav>
+
 <div class="backdrop">
     <div>
         <h1>Coming soon</h1>
