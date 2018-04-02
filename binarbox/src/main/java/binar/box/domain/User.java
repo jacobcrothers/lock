@@ -3,6 +3,7 @@ package binar.box.domain;
 import binar.box.dto.UserDto;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
@@ -46,6 +47,10 @@ public class User extends BaseEntity {
     @Column(name = "email_confirmed")
     private boolean emailConfirmed;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"))
+    private List<UserAuthority> authority;
+
     public User() {
     }
 
@@ -56,6 +61,14 @@ public class User extends BaseEntity {
         this.phone = userDto.getPhone();
         this.city = userDto.getCity();
         this.country = userDto.getCountry();
+    }
+
+    public List<UserAuthority> getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(List<UserAuthority> authority) {
+        this.authority = authority;
     }
 
     public String getConfirmEmailToken() {

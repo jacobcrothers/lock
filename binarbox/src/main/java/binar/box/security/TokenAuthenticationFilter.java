@@ -7,6 +7,8 @@ import binar.box.util.LockBridgesException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,7 +18,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Timis Nicu Alexandru on 23-Mar-18.
@@ -43,6 +47,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         }
         DecodedJWT decodedJWT = tokenService.decodeJwtToken(userToken);
         if (decodedJWT.getClaim(Constants.JWT_PAYLOAD_CLAIM_USER).asLong().equals(userToken.getUser().getId())) {
+            List<GrantedAuthority> authorities = new ArrayList<>(1);
+            userToken.getUser().getAuthority().parallelStream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
             Authentication authentication = new UsernamePasswordAuthenticationToken(userToken.getUser().getEmail(), userToken.getUser().getPassword());
             SecurityContext securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(authentication);
