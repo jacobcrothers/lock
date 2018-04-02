@@ -14,7 +14,7 @@
             <column name="last_name" type="nvarchar(100)"/>
             <column name="first_name" type="nvarchar(100)"/>
             <column name="email" type="nvarchar(100)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_EMAIL"/>
             </column>
             <column name="phone" type="nvarchar(100)"/>
             <column name="password" type="nvarchar(100)">
