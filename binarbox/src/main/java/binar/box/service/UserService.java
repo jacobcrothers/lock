@@ -1,10 +1,12 @@
 package binar.box.service;
 
 import binar.box.domain.User;
+import binar.box.domain.UserAuthority;
 import binar.box.dto.ResetPasswordDto;
 import binar.box.dto.TokenDto;
 import binar.box.dto.UserDto;
 import binar.box.dto.UserLoginDto;
+import binar.box.repository.AuthorityRepository;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -34,6 +37,9 @@ public class UserService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
 
     public TokenDto registerUser(@Valid UserDto userDto) {
         checkIfUserIsAlreadyRegistered(userDto.getEmail());
@@ -43,6 +49,8 @@ public class UserService {
         user.setLastModifiedDate(new Date());
         String emailToken = UUID.randomUUID().toString();
         user.setConfirmEmailToken(emailToken);
+        List<UserAuthority> userAuthorities = authorityRepository.findByName(Constants.USER_AUTHORITY_STRING);
+        user.setAuthority(userAuthorities);
         emailService.sendEmail(user.getEmail(), "Welcome", "Welcome to Lock Bridges : please confirm email : " +
                 emailToken);
         userRepository.save(user);

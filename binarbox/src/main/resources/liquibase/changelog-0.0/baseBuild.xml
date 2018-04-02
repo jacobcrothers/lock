@@ -72,6 +72,9 @@
                              foreignKeyName="FK_ROLE_USER"/>
             </column>
         </createTable>
+        <insert tableName="authority">
+            <column name="name" value="USER" type="nvarchar(100)"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>
