@@ -3,8 +3,10 @@ package binar.box.security;
 import binar.box.service.TokenService;
 import binar.box.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,7 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Created by Timis Nicu Alexandru on 23-Mar-18.
  */
 @Configuration
+@EnableAutoConfiguration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -47,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.LOGIN_ENDPOINT)
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.REQUEST_RESET_PASSWORD_EDNPOINT)
                 .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.RESET_PASSWORD_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.CONFIRM_EMAIL_ENDPOINT)
                 .and()
                 .debug(true);
     }

@@ -1,10 +1,12 @@
 package binar.box.service;
 
 import binar.box.domain.User;
+import binar.box.domain.UserAuthority;
 import binar.box.dto.ResetPasswordDto;
 import binar.box.dto.TokenDto;
 import binar.box.dto.UserDto;
 import binar.box.dto.UserLoginDto;
+import binar.box.repository.AuthorityRepository;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -34,6 +37,9 @@ public class UserService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
 
     public TokenDto registerUser(@Valid UserDto userDto) {
         checkIfUserIsAlreadyRegistered(userDto.getEmail());
@@ -41,6 +47,12 @@ public class UserService {
         user.setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12)));
         user.setCreatedDate(new Date());
         user.setLastModifiedDate(new Date());
+        String emailToken = UUID.randomUUID().toString();
+        user.setConfirmEmailToken(emailToken);
+        List<UserAuthority> userAuthorities = authorityRepository.findByName(Constants.USER_AUTHORITY_STRING);
+        user.setAuthority(userAuthorities);
+        emailService.sendEmail(user.getEmail(), "Welcome", "Welcome to Lock Bridges : please confirm email : " +
+                emailToken);
         userRepository.save(user);
         return tokenService.createUserToken(user, true);
     }
@@ -73,7 +85,7 @@ public class UserService {
         User user = getUserByEmail(email);
         String resetPasswordToken = UUID.randomUUID().toString();
         user.setResetPasswordToken(resetPasswordToken);
-        emailService.sendRequestResetPasswordEmail(user.getEmail(), resetPasswordToken);
+        emailService.sendEmail(user.getEmail(), "Reset Password", resetPasswordToken);
         userRepository.save(user);
     }
 
@@ -95,5 +107,16 @@ public class UserService {
 
     private User getAuthenticatedUser() {
         return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    public void confirmUserEmail(String token) {
+        User user = getUserByEmailToken(token);
+        user.setConfirmEmailToken(null);
+        user.setEmailConfirmed(true);
+        userRepository.save(user);
+    }
+
+    private User getUserByEmailToken(String token) {
+        return userRepository.findByConfirmEmailToken(token).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
     }
 }
