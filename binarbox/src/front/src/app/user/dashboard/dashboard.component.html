@@ -1,3 +1,38 @@
-<p>
-  dashboard works!
-</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Dashboard</h2>
+        </div>
+        <div class="col-md-4">
+            <ul>
+                <li>
+                    <a routerLink="profile">
+                        <i-user class="i-size-16"></i-user>
+                        Change profile data
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="payment">
+                        <i-credit-card class="i-size-16"></i-credit-card>
+                        Change payment details
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="locks">
+                        <i-lock class="i-size-16"></i-lock>
+                        Manage locks
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="social">
+                        <i-facebook class="i-size-16"></i-facebook>
+                        Social media integration
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

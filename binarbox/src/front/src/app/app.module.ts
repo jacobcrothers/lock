@@ -12,8 +12,14 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './bridge/home/home.component';
 import {LoginComponent} from './user/login/login.component';
 import {RegisterComponent} from './user/register/register.component';
-import { DashboardComponent } from './user/dashboard/dashboard.component';
-import { LogoutComponent } from './user/logout/logout.component';
+import {DashboardComponent} from './user/dashboard/dashboard.component';
+import {LogoutComponent} from './user/logout/logout.component';
+import {IconsModule} from './_icons/icons.module';
+import {ProfileComponent} from './user/dashboard/profile/profile.component';
+import {PaymentComponent} from './user/dashboard/payment/payment.component';
+import { LocksComponent } from './user/dashboard/locks/locks.component';
+import { SocialComponent } from './user/dashboard/social/social.component';
+import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
 
 @NgModule({
     declarations: [
@@ -22,22 +28,28 @@ import { LogoutComponent } from './user/logout/logout.component';
         HomeComponent,
         RegisterComponent,
         DashboardComponent,
-        LogoutComponent
+        LogoutComponent,
+        ProfileComponent,
+        PaymentComponent,
+        LocksComponent,
+        SocialComponent,
+        ForgotPasswordComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        IconsModule
     ],
-    providers: [
-        AuthGuard,
-        UserService,
-        {
+    providers: [{
             provide: HTTP_INTERCEPTORS,
             useClass: RequestInterceptor,
             multi: true
-        }],
+        },
+        AuthGuard,
+        UserService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,0 +1,35 @@
+.body {background:red;}
+
+.i-fill-white {
+    fill: #FFFFFF!important;
+}
+
+.i-size-12 {
+    height: 12px!important;
+    width: 12px!important;
+}
+
+.i-size-16 {
+    height: 16px!important;
+    width: 16px!important;
+}
+
+.i-size-24 {
+    height: 24px!important;
+    width: 24px!important;
+}
+
+.i-size-32 {
+    height: 32px!important;
+    width: 32px!important;
+}
+
+.i-size-36 {
+    height: 36px!important;
+    width: 36px!important;
+}
+
+.i-size-42 {
+    height: 42px!important;
+    width: 42px!important;
+}
