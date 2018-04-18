@@ -20,7 +20,6 @@ public class Constants {
     public static final String SWAGGER_V2_API_DOCS = "/v2/api-docs";
     public static final String SWAGGER_UI_HTML = "/swagger-ui.html";
     public static final String SWAGGER_WEBJARS = "/webjars/**";
-    public static final String SYSTEM = "system";
     public static final String REGISTER_ENDPOINT = "/register";
     public static final String LOGIN_ENDPOINT = "/login";
     public static final String USER_NOT_FOUND = "User not found!";
@@ -34,4 +33,5 @@ public class Constants {
     public static final String RENEW_TOKEN_ENDPOINT = "/renew";
     public static final String CONFIRM_EMAIL_ENDPOINT = "/email/confirm";
     public static final String USER_AUTHORITY_STRING = "USER";
+    public static final String LOCK = "lock";
 }

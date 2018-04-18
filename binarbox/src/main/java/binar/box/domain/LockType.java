@@ -1,0 +1,74 @@
+package binar.box.domain;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
+
+/**
+ * Created by Timis Nicu Alexandru on 16-Apr-18.
+ */
+@Entity
+@Table(name = "lock_type")
+public class LockType {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "lock_type")
+    private String type;
+
+    @Column(name = "price")
+    private BigDecimal bigDecimal;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lockType")
+    private List<File> files;
+
+    @Column(name = "total_rating")
+    private float totalRating;
+
+    public LockType() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public BigDecimal getBigDecimal() {
+        return bigDecimal;
+    }
+
+    public void setBigDecimal(BigDecimal bigDecimal) {
+        this.bigDecimal = bigDecimal;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    public float getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(float totalRating) {
+        this.totalRating = totalRating;
+    }
+}

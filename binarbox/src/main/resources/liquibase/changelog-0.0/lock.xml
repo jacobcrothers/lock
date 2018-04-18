@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="lock-0" author="tnalex">
+        <createTable tableName="lock_type">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCK_TYPE"/>
+            </column>
+            <column name="lock_type" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_rating" type="float">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="lock_section">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCK_TYPE"/>
+            </column>
+            <column name="section" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="lock">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCK"/>
+            </column>
+            <column name="longitude" type="double"/>
+            <column name="latitude" type="double"/>
+            <column name="message" type="nvarchar(100)"/>
+            <column name="font_size" type="int"/>
+            <column name="font_style" type="nvarchar(100)"/>
+            <column name="lock_section_id" type="bigint">
+                <constraints nullable="false" referencedTableName="lock_section" referencedColumnNames="id"
+                             foreignKeyName="FK_LOCK_LOCK_SECTION"/>
+            </column>
+            <column name="lock_type_id" type="bigint">
+                <constraints nullable="false" referencedTableName="lock_type" referencedColumnNames="id"
+                             foreignKeyName="FK_LOCK_LOCK_TYPE"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" referencedTableName="user" referencedColumnNames="id"
+                             foreignKeyName="FK_LOCK_USER"/>
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="file">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FILE"/>
+            </column>
+            <column name="file_name" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path_to_file" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lock_type_id" type="bigint">
+                <constraints nullable="false" referencedTableName="lock_type" referencedColumnNames="id"
+                             foreignKeyName="FK_FILE_LOCK_TYPE"/>
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
