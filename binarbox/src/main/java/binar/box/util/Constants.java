@@ -41,4 +41,8 @@ public class Constants {
     public static final String LOCK_TYPE_NOT_FOUND = "Lock type not found";
     public static final String LOCK_TYPE_FILE_ENDPOINT = "/type/file";
     public static final String ADMIN_AUTHORITY = "ADMIN";
+    public static final String FILE_ENDPOINT = "file";
+    public static final String FILE_NOT_FOUND = "File not found!";
+    public static final String EXCEPTION_DOWNLOADING_THE_FILE = "Exception downloading the file";
+    public static final String DOWNLOAD = "/download";
 }

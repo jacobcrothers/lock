@@ -80,4 +80,9 @@ public class FileService {
         }
         return fileList;
     }
+
+
+    public binar.box.domain.File getFile(long fileId) {
+        return fileRepository.findById(fileId).orElseThrow(() -> new LockBridgesException(Constants.FILE_NOT_FOUND));
+    }
 }

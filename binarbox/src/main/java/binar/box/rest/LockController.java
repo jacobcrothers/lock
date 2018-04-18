@@ -38,7 +38,7 @@ public class LockController {
     }
 
     @PostMapping(value = Constants.LOCK_TYPE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    private void addLockTypeFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("lockType") long lockTypeId) {
+    private void addLockTypeFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("id") long lockTypeId) {
         fileService.saveFilesToLockType(files, lockTypeId);
     }
 

@@ -27,7 +27,7 @@ public class LockType {
     private List<File> files;
 
     @Column(name = "total_rating")
-    private float totalRating;
+    private Float totalRating;
 
     public LockType() {
     }
