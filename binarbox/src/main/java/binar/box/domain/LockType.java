@@ -20,7 +20,7 @@ public class LockType {
     private String type;
 
     @Column(name = "price")
-    private BigDecimal bigDecimal;
+    private BigDecimal price;
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lockType")
@@ -48,12 +48,12 @@ public class LockType {
         this.type = type;
     }
 
-    public BigDecimal getBigDecimal() {
-        return bigDecimal;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setBigDecimal(BigDecimal bigDecimal) {
-        this.bigDecimal = bigDecimal;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public List<File> getFiles() {

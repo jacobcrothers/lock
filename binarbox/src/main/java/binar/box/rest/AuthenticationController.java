@@ -20,7 +20,7 @@ import javax.validation.Valid;
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
 @RestController
-@RequestMapping(value = Constants.API + Constants.AUTHENTICATION)
+@RequestMapping(value = Constants.API + Constants.AUTHENTICATION_ENDPOINT)
 public class AuthenticationController {
 
     @Autowired

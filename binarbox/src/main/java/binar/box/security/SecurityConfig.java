@@ -35,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.anonymous().disable();
         http.cors().disable();
         http.addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+        http.authorizeRequests().antMatchers(HttpMethod.POST, Constants.API + Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_ENDPOINT).hasAuthority(Constants.ADMIN_AUTHORITY);
+        http.authorizeRequests().antMatchers(HttpMethod.POST, Constants.API + Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_FILE_ENDPOINT).hasAuthority(Constants.ADMIN_AUTHORITY);
 
     }
 
@@ -47,11 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(Constants.SWAGGER_V2_API_DOCS)
                 .antMatchers(Constants.SWAGGER_UI_HTML)
                 .antMatchers(Constants.SWAGGER_WEBJARS)
-                .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.REGISTER_ENDPOINT)
-                .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION + Constants.LOGIN_ENDPOINT)
-                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.REQUEST_RESET_PASSWORD_EDNPOINT)
-                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.RESET_PASSWORD_ENDPOINT)
-                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER + Constants.CONFIRM_EMAIL_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION_ENDPOINT + Constants.REGISTER_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.AUTHENTICATION_ENDPOINT + Constants.LOGIN_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER_ENDPOINT + Constants.REQUEST_RESET_PASSWORD_EDNPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER_ENDPOINT + Constants.RESET_PASSWORD_ENDPOINT)
+                .antMatchers(HttpMethod.POST, Constants.API + Constants.USER_ENDPOINT + Constants.CONFIRM_EMAIL_ENDPOINT)
                 .and()
                 .debug(true);
     }

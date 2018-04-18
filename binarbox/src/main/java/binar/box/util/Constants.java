@@ -7,7 +7,7 @@ public class Constants {
     public static final String DATABASE_PASSWORD_PROPERTY = "password";
     public static final String DATABASE_USERNAME_PROPERTY = "user";
     public static final String API = "/api/v0/";
-    public static final String AUTHENTICATION = "authentication";
+    public static final String AUTHENTICATION_ENDPOINT = "authentication";
     public static final String USER_ALREADY_REGISTERED = "User already registered!";
     public static final String AUTHENTICATION_TOKEN_NOT_FOUND = "Authentication token not found!";
     public static final String TOKEN_NOT_FOUND = "Token not found!";
@@ -25,13 +25,20 @@ public class Constants {
     public static final String USER_NOT_FOUND = "User not found!";
     public static final String BAD_CREDENTIALS = "Bad credentials!";
     public static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
-    public static final String USER = "user";
+    public static final String USER_ENDPOINT = "user";
     public static final String REQUEST_RESET_PASSWORD_EDNPOINT = "/request/reset/password";
     public static final String RESET_PASSWORD_ENDPOINT = "/reset/password";
     public static final String CORS_URL_PATTERN = "/**";
     public static final String TOKEN_EXPIRED = "Token expired!";
     public static final String RENEW_TOKEN_ENDPOINT = "/renew";
     public static final String CONFIRM_EMAIL_ENDPOINT = "/email/confirm";
-    public static final String USER_AUTHORITY_STRING = "USER";
-    public static final String LOCK = "lock";
+    public static final String USER_AUTHORITY_STRING = "USER_ENDPOINT";
+    public static final String LOCK_ENDPOINT = "lock";
+    public static final String LOCK_TYPE_ENDPOINT = "/type";
+    public static final String OS_NAME = "os.name";
+    public static final String WIN = "win";
+    public static final String EXCEPTION_SAVING_FILES = "Exception saving files : ";
+    public static final String LOCK_TYPE_NOT_FOUND = "Lock type not found";
+    public static final String LOCK_TYPE_FILE_ENDPOINT = "/type/file";
+    public static final String ADMIN_AUTHORITY = "ADMIN";
 }

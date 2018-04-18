@@ -8,6 +8,11 @@ spring:
         show-sql: true
     liquibase:
         change-log: classpath:/liquibase/master.xml
+    servlet:
+        multipart:
+          maxFileSize: 10MB
+          maxRequestSize: 100MB
+
 
 server:
     port: 6060
@@ -28,3 +33,7 @@ mail:
     username: alex.timis95@yahoo.com
     password: fordevelopment6
     from: alex.timis95@yahoo.com
+
+filesPath:
+    windows: D:\temp\lb
+    linux:  /var/tmp/lb
