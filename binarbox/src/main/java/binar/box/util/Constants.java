@@ -45,4 +45,5 @@ public class Constants {
     public static final String FILE_NOT_FOUND = "File not found!";
     public static final String EXCEPTION_DOWNLOADING_THE_FILE = "Exception downloading the file";
     public static final String DOWNLOAD = "/download";
+    public static final String LOCK_SECTION_ENDPOINT = "/section";
 }

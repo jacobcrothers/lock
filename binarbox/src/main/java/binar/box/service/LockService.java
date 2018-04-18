@@ -1,11 +1,13 @@
 package binar.box.service;
 
 import binar.box.domain.File;
+import binar.box.domain.LockSection;
 import binar.box.domain.LockType;
 import binar.box.dto.FileDto;
 import binar.box.dto.LockTypeDto;
 import binar.box.dto.LockTypeDtoResponse;
 import binar.box.repository.FileRepository;
+import binar.box.repository.LockSectionRepository;
 import binar.box.repository.LockTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,9 @@ public class LockService {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private LockSectionRepository lockSectionRepository;
 
 
     public LockTypeDtoResponse addLockType(LockTypeDto lockTypeDto) {
@@ -55,5 +60,9 @@ public class LockService {
 
     private FileDto toFileDto(File file) {
         return new FileDto(file);
+    }
+
+    public List<LockSection> getLockSections() {
+        return lockSectionRepository.findAll();
     }
 }

@@ -1,5 +1,6 @@
 package binar.box.rest;
 
+import binar.box.domain.LockSection;
 import binar.box.dto.LockTypeDto;
 import binar.box.dto.LockTypeDtoResponse;
 import binar.box.service.FileService;
@@ -48,5 +49,10 @@ public class LockController {
         return lockService.getLockTypes();
     }
 
+
+    @GetMapping(value = Constants.LOCK_SECTION_ENDPOINT)
+    private List<LockSection> lockSections() {
+        return lockService.getLockSections();
+    }
 
 }
