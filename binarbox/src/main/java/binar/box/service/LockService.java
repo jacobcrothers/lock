@@ -1,19 +1,20 @@
 package binar.box.service;
 
-import binar.box.domain.File;
-import binar.box.domain.LockSection;
-import binar.box.domain.LockType;
-import binar.box.dto.FileDto;
-import binar.box.dto.LockTypeDto;
-import binar.box.dto.LockTypeDtoResponse;
+import binar.box.domain.*;
+import binar.box.dto.*;
 import binar.box.repository.FileRepository;
+import binar.box.repository.LockRepository;
 import binar.box.repository.LockSectionRepository;
 import binar.box.repository.LockTypeRepository;
+import binar.box.util.Constants;
+import binar.box.util.LockBridgesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -34,6 +35,12 @@ public class LockService {
 
     @Autowired
     private LockSectionRepository lockSectionRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private LockRepository lockRepository;
 
 
     public LockTypeDtoResponse addLockType(LockTypeDto lockTypeDto) {
@@ -64,5 +71,43 @@ public class LockService {
 
     public List<LockSection> getLockSections() {
         return lockSectionRepository.findAll();
+    }
+
+    public void addUserLock(LockDto lockDto) {
+        Random randomLongitude = new Random();
+        Random randomLatitude = new Random();
+        User user = userService.getAuthenticatedUser();
+        LockSection lockSection = getLockSection(lockDto.getLockSection());
+        LockType lockType = getLockType(lockDto.getLockType());
+        Lock lock = new Lock();
+        lock.setLongitude(randomLongitude.nextDouble());
+        lock.setLatitude(randomLatitude.nextDouble());
+        lock.setUser(user);
+        lock.setLockType(lockType);
+        lock.setLockSection(lockSection);
+        lock.setMessage(lockDto.getMessage());
+        lock.setFontSize(lockDto.getFontSize());
+        lock.setFontStyle(lockDto.getFontStyle());
+        lock.setCreatedDate(new Date());
+        lock.setLastModifiedDate(new Date());
+        lockRepository.save(lock);
+    }
+
+    private LockType getLockType(Long lockTypeId) {
+        return lockTypeRepository.findById(lockTypeId).orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND));
+    }
+
+    private LockSection getLockSection(Long lockSectionId) {
+        return lockSectionRepository.findById(lockSectionId).orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
+    }
+
+    public List<LockResponseDto> getLocks() {
+        User user = userService.getAuthenticatedUser();
+        List<Lock> lockList = lockRepository.findByUser(user);
+        return lockList.stream().map(this::toLockResponseDto).collect(Collectors.toList());
+    }
+
+    private LockResponseDto toLockResponseDto(Lock lock) {
+        return new LockResponseDto(lock);
     }
 }

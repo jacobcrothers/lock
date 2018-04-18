@@ -17,9 +17,7 @@
             <column name="price" type="decimal">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_rating" type="float">
-                <constraints nullable="false"/>
-            </column>
+            <column name="total_rating" type="float"/>
         </createTable>
 
         <createTable tableName="lock_section">
@@ -31,7 +29,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="lock">
+        <createTable tableName="lock_entity">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCK"/>
             </column>

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Timis Nicu Alexandru on 16-Apr-18.
  */
 @Entity
-@Table(name = "lock")
+@Table(name = "lock_entity")
 public class Lock extends BaseEntity {
 
     @Id

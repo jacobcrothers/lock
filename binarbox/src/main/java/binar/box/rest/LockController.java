@@ -1,6 +1,8 @@
 package binar.box.rest;
 
 import binar.box.domain.LockSection;
+import binar.box.dto.LockDto;
+import binar.box.dto.LockResponseDto;
 import binar.box.dto.LockTypeDto;
 import binar.box.dto.LockTypeDtoResponse;
 import binar.box.service.FileService;
@@ -53,6 +55,20 @@ public class LockController {
     @GetMapping(value = Constants.LOCK_SECTION_ENDPOINT)
     private List<LockSection> lockSections() {
         return lockService.getLockSections();
+    }
+
+
+    @PostMapping(value = Constants.LOCK_ACTION_ENDPOINT)
+    private void addLock(@RequestBody @Valid LockDto lockDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new LockBridgesException(bindingResult.getAllErrors().toString());
+        }
+        lockService.addUserLock(lockDto);
+    }
+
+    @GetMapping(value = Constants.LOCK_ACTION_ENDPOINT)
+    private List<LockResponseDto> getLocks() {
+        return lockService.getLocks();
     }
 
 }

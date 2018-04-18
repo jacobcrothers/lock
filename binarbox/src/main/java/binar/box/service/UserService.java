@@ -105,7 +105,7 @@ public class UserService {
         return tokenService.createUserToken(user, true);
     }
 
-    private User getAuthenticatedUser() {
+    User getAuthenticatedUser() {
         return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 

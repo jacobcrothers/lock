@@ -32,7 +32,7 @@ public class Constants {
     public static final String TOKEN_EXPIRED = "Token expired!";
     public static final String RENEW_TOKEN_ENDPOINT = "/renew";
     public static final String CONFIRM_EMAIL_ENDPOINT = "/email/confirm";
-    public static final String USER_AUTHORITY_STRING = "USER_ENDPOINT";
+    public static final String USER_AUTHORITY_STRING = "USER";
     public static final String LOCK_ENDPOINT = "lock";
     public static final String LOCK_TYPE_ENDPOINT = "/type";
     public static final String OS_NAME = "os.name";
@@ -46,4 +46,6 @@ public class Constants {
     public static final String EXCEPTION_DOWNLOADING_THE_FILE = "Exception downloading the file";
     public static final String DOWNLOAD = "/download";
     public static final String LOCK_SECTION_ENDPOINT = "/section";
+    public static final String LOCK_ACTION_ENDPOINT = "/action";
+    public static final String LOCK_SECTION_NOT_FOUND = "File section not found!";
 }
