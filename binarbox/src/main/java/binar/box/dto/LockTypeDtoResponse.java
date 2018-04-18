@@ -3,6 +3,7 @@ package binar.box.dto;
 import binar.box.domain.LockType;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.
@@ -15,6 +16,8 @@ public class LockTypeDtoResponse {
 
     private BigDecimal price;
 
+    private List<FileDto> fileDtoList;
+
     public LockTypeDtoResponse() {
     }
 
@@ -22,6 +25,14 @@ public class LockTypeDtoResponse {
         this.id = lockType.getId();
         this.type = lockType.getType();
         this.price = lockType.getPrice();
+    }
+
+    public List<FileDto> getFileDtoList() {
+        return fileDtoList;
+    }
+
+    public void setFileDtoList(List<FileDto> fileDtoList) {
+        this.fileDtoList = fileDtoList;
     }
 
     public long getId() {

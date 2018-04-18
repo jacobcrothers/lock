@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Timis Nicu Alexandru on 16-Apr-18.
@@ -39,6 +40,12 @@ public class LockController {
     @PostMapping(value = Constants.LOCK_TYPE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     private void addLockTypeFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("lockType") long lockTypeId) {
         fileService.saveFilesToLockType(files, lockTypeId);
+    }
+
+
+    @GetMapping(value = Constants.LOCK_TYPE_ENDPOINT)
+    private List<LockTypeDtoResponse> getLockTypes() {
+        return lockService.getLockTypes();
     }
 
 
