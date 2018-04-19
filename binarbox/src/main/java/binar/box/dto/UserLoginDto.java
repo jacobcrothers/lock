@@ -12,7 +12,7 @@ public class UserLoginDto {
     @NotNull
     private String email;
 
-    @NotNull
+    @NotEmpty
     @NotNull
     private String password;
 

@@ -6,8 +6,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include relativeToChangelogFile="false" file="classpath:/liquibase/changelog-0.0/baseBuild.xml"/>
-    <include relativeToChangelogFile="false" file="classpath:/liquibase/changelog-0.0/lock.xml"/>
-    <include relativeToChangelogFile="false" file="classpath:/liquibase/changelog-0.0/facebook.xml"/>
-
+    <changeSet id="facebook-0" author="tnalex">
+        <addColumn tableName="user">
+            <column name="facebook_id" type="nvarchar(100)"></column>
+        </addColumn>
+        <addColumn tableName="user">
+            <column name="facebook_access_token" type="nvarchar(300)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -2,10 +2,7 @@ package binar.box.service;
 
 import binar.box.domain.User;
 import binar.box.domain.UserAuthority;
-import binar.box.dto.ResetPasswordDto;
-import binar.box.dto.TokenDto;
-import binar.box.dto.UserDto;
-import binar.box.dto.UserLoginDto;
+import binar.box.dto.*;
 import binar.box.repository.AuthorityRepository;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
@@ -13,12 +10,15 @@ import binar.box.util.LockBridgesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -70,8 +70,9 @@ public class UserService {
         } catch (LockBridgesException e) {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
         }
-
-        if (!BCrypt.checkpw(userLoginDto.getPassword(), user.getPassword())) {
+        if (user.getPassword() == null) {
+            throw new LockBridgesException(Constants.BAD_CREDENTIALS);
+        } else if (!BCrypt.checkpw(userLoginDto.getPassword(), user.getPassword())) {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
         }
         return tokenService.createUserToken(user, rememberMe);
@@ -119,4 +120,36 @@ public class UserService {
     private User getUserByEmailToken(String token) {
         return userRepository.findByConfirmEmailToken(token).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
     }
+
+    public TokenDto loginUser(FacebookTokenDto facebookTokenDto) {
+        String accessToken = facebookTokenDto.getToken();
+        Facebook facebook = new FacebookTemplate(accessToken);
+        org.springframework.social.facebook.api.User facebookUser = facebook.userOperations().getUserProfile();
+        Optional<User> user = userRepository.findByFacebookId(facebookUser.getId());
+        if (user.isPresent()) {
+            User registeredUser = user.get();
+            registeredUser.setFacebookAccessToken(accessToken);
+            userRepository.save(registeredUser);
+            return tokenService.createUserToken(registeredUser, true);
+        }
+        User toRegisterUser = new User();
+        facebookUserToOurUser(facebookUser, toRegisterUser, accessToken);
+        userRepository.save(toRegisterUser);
+        return tokenService.createUserToken(toRegisterUser, true);
+    }
+
+    private void facebookUserToOurUser(org.springframework.social.facebook.api.User facebookUser, User toRegisterUser, String accessToken) {
+        List<UserAuthority> userAuthorities = authorityRepository.findByName(Constants.USER_AUTHORITY_STRING);
+        toRegisterUser.setAuthority(userAuthorities);
+        toRegisterUser.setEmail(facebookUser.getEmail());
+        toRegisterUser.setLastName(facebookUser.getLastName());
+        toRegisterUser.setFirstName(facebookUser.getFirstName());
+        toRegisterUser.setCountry(facebookUser.getLocale() == null ? null : facebookUser.getLocale().getCountry());
+        toRegisterUser.setCity(facebookUser.getHometown() == null ? null : facebookUser.getHometown().getName());
+        toRegisterUser.setFacebookId(facebookUser.getId());
+        toRegisterUser.setFacebookAccessToken(accessToken);
+        toRegisterUser.setCreatedDate(new Date());
+        toRegisterUser.setLastModifiedDate(new Date());
+    }
+
 }

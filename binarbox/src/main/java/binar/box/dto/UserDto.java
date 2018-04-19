@@ -18,7 +18,7 @@ public class UserDto {
 
     private String phone;
 
-    @NotNull
+    @NotEmpty
     @NotNull
     private String password;
 

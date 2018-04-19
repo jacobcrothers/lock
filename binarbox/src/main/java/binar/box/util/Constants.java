@@ -48,4 +48,5 @@ public class Constants {
     public static final String LOCK_SECTION_ENDPOINT = "/section";
     public static final String LOCK_ACTION_ENDPOINT = "/action";
     public static final String LOCK_SECTION_NOT_FOUND = "File section not found!";
+    public static final String FACEBOOK_ENDPOINT = "/facebook";
 }

@@ -47,6 +47,12 @@ public class User extends BaseEntity {
     @Column(name = "email_confirmed")
     private boolean emailConfirmed;
 
+    @Column(name = "facebook_id")
+    private String facebookId;
+
+    @Column(name = "facebook_access_token")
+    private String facebookAccessToken;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"))
     private List<UserAuthority> authority;
@@ -62,6 +68,23 @@ public class User extends BaseEntity {
         this.city = userDto.getCity();
         this.country = userDto.getCountry();
     }
+
+    public String getFacebookAccessToken() {
+        return facebookAccessToken;
+    }
+
+    public void setFacebookAccessToken(String facebookAccessToken) {
+        this.facebookAccessToken = facebookAccessToken;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
 
     public List<UserAuthority> getAuthority() {
         return authority;
