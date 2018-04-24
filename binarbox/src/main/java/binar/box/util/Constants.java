@@ -49,4 +49,19 @@ public class Constants {
     public static final String LOCK_ACTION_ENDPOINT = "/action";
     public static final String LOCK_SECTION_NOT_FOUND = "File section not found!";
     public static final String FACEBOOK_ENDPOINT = "/facebook";
+    public static final String FACEBOOK_CLIENT_ID = "facebook.clientId";
+    public static final String FACEBOOK_CLIENT_SECRET = "facebook.clientSecret";
+    public static final String HTTPS_GRAPH_FACEBOOK_COM_OAUTH_ACCESS_TOKEN = "https://graph.facebook.com/oauth/access_token";
+    public static final String GRANT_TYPE = "grant_type";
+    public static final String FB_EXCHANGE_TOKEN = "fb_exchange_token";
+    public static final String CLIENT_ID = "client_id";
+    public static final String CLIENT_SECRET = "client_secret";
+    public static final String DOUBLE_QUOTE = "\"";
+    public static final String FACEBOOK_ME = "me";
+    public static final String FACEBOOK_ID = "id";
+    public static final String FACEBOOK_EMAIL = "email";
+    public static final String FACEBOOK_FIRST_NAME = "first_name";
+    public static final String FACEBOOK_LAST_NAME = "last_name";
+    public static final String FACEBOOK_HOMETOWN = "hometown";
+    public static final String FACEBOOK_LOCALE = "locale";
 }

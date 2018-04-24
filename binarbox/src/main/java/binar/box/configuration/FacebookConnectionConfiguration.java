@@ -1,5 +1,6 @@
 package binar.box.configuration;
 
+import binar.box.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -23,8 +24,8 @@ public class FacebookConnectionConfiguration implements SocialConfigurer {
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
         connectionFactoryConfigurer.addConnectionFactory(new FacebookConnectionFactory(
-                environment.getProperty("facebook.clientId"),
-                environment.getProperty("facebook.clientSecret")));
+                environment.getProperty(Constants.FACEBOOK_CLIENT_ID),
+                environment.getProperty(Constants.FACEBOOK_CLIENT_SECRET)));
     }
 
     @Override

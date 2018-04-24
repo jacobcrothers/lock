@@ -1,12 +1,12 @@
 package binar.box.configuration;
 
 import binar.box.util.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import javax.annotation.Resource;
 import java.util.Properties;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Properties;
 @Configuration
 public class EmailConfiguration {
 
-    @Resource
+    @Autowired
     private Environment environment;
 
 
