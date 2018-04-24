@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.0.RELEASE'
+        springBootVersion = '2.0.1.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -18,7 +18,7 @@ apply plugin: 'war'
 
 group = 'binar.box'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 10
 
 repositories {
     mavenCentral()
@@ -59,5 +59,7 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-bean-validators', version: '2.8.0'
     // https://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook
     compile group: 'org.springframework.social', name: 'spring-social-facebook', version: '2.0.3.RELEASE'
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 
 }

@@ -8,17 +8,20 @@ import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
+import org.springframework.social.support.URIBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -39,6 +42,9 @@ public class UserService {
 
     @Autowired
     private AuthorityRepository authorityRepository;
+
+    @Autowired
+    private Environment environment;
 
 
     public TokenDto registerUser(@Valid UserDto userDto) {
@@ -122,24 +128,41 @@ public class UserService {
     }
 
     public TokenDto loginUser(FacebookTokenDto facebookTokenDto) {
-        String accessToken = facebookTokenDto.getToken();
-        Facebook facebook = new FacebookTemplate(accessToken);
-        org.springframework.social.facebook.api.User facebookUser = facebook.userOperations().getUserProfile();
-        Optional<User> user = userRepository.findByFacebookId(facebookUser.getId());
+        var accessToken = facebookTokenDto.getToken();
+        var facebook = new FacebookTemplate(accessToken);
+        var facebookUser = facebook.userOperations().getUserProfile();
+        var user = userRepository.findByFacebookId(facebookUser.getId());
         if (user.isPresent()) {
-            User registeredUser = user.get();
+            var registeredUser = user.get();
             registeredUser.setFacebookAccessToken(accessToken);
             userRepository.save(registeredUser);
+            getLongLiveFacebookToken(registeredUser);
             return tokenService.createUserToken(registeredUser, true);
         }
-        User toRegisterUser = new User();
+        var toRegisterUser = new User();
         facebookUserToOurUser(facebookUser, toRegisterUser, accessToken);
         userRepository.save(toRegisterUser);
+        getLongLiveFacebookToken(toRegisterUser);
         return tokenService.createUserToken(toRegisterUser, true);
     }
 
+    @Async
+    private void getLongLiveFacebookToken(User user) {
+        var facebookTemplate = new FacebookTemplate(user.getFacebookAccessToken());
+        var clientId = environment.getProperty("facebook.clientId");
+        var clientSecret = environment.getProperty("facebook.clientSecret");
+        var uri = URIBuilder
+                .fromUri("https://graph.facebook.com/oauth/access_token")
+                .queryParam(" grant_type", "fb_exchange_token")
+                .queryParam("client_id", clientId)
+                .queryParam("client_secret", clientSecret)
+                .queryParam("fb_exchange_token", user.getFacebookAccessToken()).build();
+        var url = uri.toString();
+        var facebookLongLiveToken = facebookTemplate.restOperations().exchange(url, HttpMethod.GET, HttpEntity.EMPTY, String.class);
+    }
+
     private void facebookUserToOurUser(org.springframework.social.facebook.api.User facebookUser, User toRegisterUser, String accessToken) {
-        List<UserAuthority> userAuthorities = authorityRepository.findByName(Constants.USER_AUTHORITY_STRING);
+        var userAuthorities = authorityRepository.findByName(Constants.USER_AUTHORITY_STRING);
         toRegisterUser.setAuthority(userAuthorities);
         toRegisterUser.setEmail(facebookUser.getEmail());
         toRegisterUser.setLastName(facebookUser.getLastName());
