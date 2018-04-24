@@ -130,7 +130,8 @@ public class UserService {
     public TokenDto loginUser(FacebookTokenDto facebookTokenDto) {
         var accessToken = facebookTokenDto.getToken();
         var facebook = new FacebookTemplate(accessToken);
-        var facebookUser = facebook.userOperations().getUserProfile();
+        var facebookUserFields = new String[]{"id", "email", "first_name", "last_name", "hometown", "locale"};
+        var facebookUser = facebook.fetchObject("me", org.springframework.social.facebook.api.User.class, facebookUserFields);
         var user = userRepository.findByFacebookId(facebookUser.getId());
         if (user.isPresent()) {
             var registeredUser = user.get();
