@@ -22,6 +22,8 @@ import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Timis Nicu Alexandru on 21-Mar-18.
@@ -44,6 +46,8 @@ public class UserService {
 
     @Autowired
     private Environment environment;
+
+    private ExecutorService executors = Executors.newFixedThreadPool(2);
 
 
     public TokenDto registerUser(@Valid UserDto userDto) {
@@ -134,13 +138,13 @@ public class UserService {
         var user = userRepository.findByFacebookId(facebookUser.getId());
         if (user.isPresent()) {
             var registeredUser = user.get();
-            getLongLiveFacebookToken(registeredUser);
+            executors.submit(() -> getLongLiveFacebookToken(registeredUser));
             return tokenService.createUserToken(registeredUser, true);
         }
         var toRegisterUser = new User();
         facebookUserToOurUser(facebookUser, toRegisterUser, accessToken);
         userRepository.save(toRegisterUser);
-        getLongLiveFacebookToken(toRegisterUser);
+        executors.submit(() -> getLongLiveFacebookToken(toRegisterUser));
         return tokenService.createUserToken(toRegisterUser, true);
     }
 
@@ -154,8 +158,7 @@ public class UserService {
                 .queryParam(Constants.CLIENT_ID, clientId)
                 .queryParam(Constants.CLIENT_SECRET, clientSecret)
                 .queryParam(Constants.FB_EXCHANGE_TOKEN, user.getFacebookAccessToken()).build();
-        var url = uri.toString();
-        var facebookLongLiveToken = facebookTemplate.restOperations().exchange(url, HttpMethod.GET, HttpEntity.EMPTY, String.class);
+        var facebookLongLiveToken = facebookTemplate.restOperations().exchange(uri.toString(), HttpMethod.GET, HttpEntity.EMPTY, String.class);
         var accessToken = facebookLongLiveToken.toString().split(Constants.DOUBLE_QUOTE);
         if (accessToken.length >= 2) {
             user.setFacebookAccessToken(accessToken[3]);
