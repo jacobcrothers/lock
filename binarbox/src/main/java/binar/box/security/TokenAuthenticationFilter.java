@@ -49,7 +49,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (decodedJWT.getClaim(Constants.JWT_PAYLOAD_CLAIM_USER).asLong().equals(userToken.getUser().getId())) {
             List<GrantedAuthority> authorities = new ArrayList<>(1);
             userToken.getUser().getAuthority().parallelStream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
-            Authentication authentication = new UsernamePasswordAuthenticationToken(userToken.getUser().getEmail(), userToken.getUser().getPassword());
+            Authentication authentication = new UsernamePasswordAuthenticationToken(userToken.getUser().getEmail(), userToken.getUser().getPassword(), authorities);
             SecurityContext securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(authentication);
             filterChain.doFilter(request, response);

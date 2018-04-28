@@ -17,9 +17,7 @@
                 <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_EMAIL"/>
             </column>
             <column name="phone" type="nvarchar(100)"/>
-            <column name="password" type="nvarchar(100)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="password" type="nvarchar(100)"/>
             <column name="reset_password_token" type="nvarchar(100)"/>
             <column name="city" type="nvarchar(100)"/>
             <column name="country" type="nvarchar(100)"/>

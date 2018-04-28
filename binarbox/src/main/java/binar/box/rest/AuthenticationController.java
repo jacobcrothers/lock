@@ -1,5 +1,6 @@
 package binar.box.rest;
 
+import binar.box.dto.FacebookTokenDto;
 import binar.box.dto.TokenDto;
 import binar.box.dto.UserDto;
 import binar.box.dto.UserLoginDto;
@@ -20,7 +21,7 @@ import javax.validation.Valid;
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
 @RestController
-@RequestMapping(value = Constants.API + Constants.AUTHENTICATION)
+@RequestMapping(value = Constants.API + Constants.AUTHENTICATION_ENDPOINT)
 public class AuthenticationController {
 
     @Autowired
@@ -41,6 +42,14 @@ public class AuthenticationController {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
         return userService.loginUser(userLoginDto, rememberMe);
+    }
+
+    @PostMapping(value = Constants.LOGIN_ENDPOINT + Constants.FACEBOOK_ENDPOINT)
+    private TokenDto facebookLogin(@RequestBody @Valid FacebookTokenDto facebookTokenDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new LockBridgesException(bindingResult.getAllErrors().toString());
+        }
+        return userService.loginUser(facebookTokenDto);
     }
 
 

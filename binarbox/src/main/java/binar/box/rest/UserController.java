@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * Created by Timis Nicu Alexandru on 27-Mar-18.
  */
 @RestController
-@RequestMapping(value = Constants.API + Constants.USER)
+@RequestMapping(value = Constants.API + Constants.USER_ENDPOINT)
 public class UserController {
 
     @Autowired
