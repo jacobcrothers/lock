@@ -110,4 +110,8 @@ public class LockService {
     private LockResponseDto toLockResponseDto(Lock lock) {
         return new LockResponseDto(lock);
     }
+
+    public void removeUserLock(long id) {
+        lockRepository.deleteById(id);
+    }
 }

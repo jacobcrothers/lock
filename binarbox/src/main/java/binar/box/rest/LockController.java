@@ -71,4 +71,9 @@ public class LockController {
         return lockService.getLocks();
     }
 
+    @DeleteMapping(value = Constants.LOCK_ACTION_ENDPOINT)
+    private void removeALock(@RequestParam("id") long id) {
+        lockService.removeUserLock(id);
+    }
+
 }
