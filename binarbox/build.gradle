@@ -29,9 +29,10 @@ configurations {
 }
 
 bootRun {
-    systemProperties = System.properties
+    doFirst {
+        jvmArgs = ["-Dspring.profiles.active=" + "$profile"]
+    }
 }
-
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
