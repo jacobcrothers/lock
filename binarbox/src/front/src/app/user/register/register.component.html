@@ -5,7 +5,7 @@
 
             <a routerLink="/login">Already have an account? Login here.</a>
 
-            <form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
+            <form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)" novalidate="novalidate">
                 <div class="form-group">
                     <label for="emailInput">Email address</label>
                     <input
@@ -13,9 +13,22 @@
                         type="email"
                         class="form-control"
                         id="emailInput"
+                        required="required"
                         aria-describedby="emailHelp"
                         placeholder="Enter email"
-                        [ngModel]/>
+                        [ngModel]
+                        [ngModelOptions]="{updateOn: 'blur'}"
+                        email
+                        #email="ngModel"/>
+
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                        <div *ngIf="email.errors['required']">
+                            You need to provide us with your email address to be able for us to create your account.
+                        </div>
+                        <div *ngIf="email.errors['email'] && !email.errors['required']">
+                            It seems your email address is not valid. Maybe you made a typo.
+                        </div>
+                    </div>
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
@@ -28,10 +41,23 @@
                         aria-describedby="passwordHelp"
                         placeholder="Password"
                         [minlength]="6"
-                        [ngModel]>
+                        [ngModel]
+                        [ngModelOptions]="{updateOn: 'blur'}"
+                        #password="ngModel">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+                        <div *ngIf="password.errors['required']">
+                            We know it's a drag remembering *another* password but passwords are good for protecting your data.
+                        </div>
+                        <div *ngIf="password.errors['minlength'] && !password.errors['required']">
+                            We *insist* you have a password longer than {{password.errors['minlength']['requiredLength'] - 1}} characters.
+                            <br>
+                            Just {{password.errors['minlength']['requiredLength'] - password.errors['minlength']['actualLength']}} more characters to go.
+                        </div>
+                    </div>
                     <small id="passwordHelp" class="form-text text-muted">
                         We impose a minimum password length of 6 characters but recommend a much much larger password (the longer the better).
-                        A good password would be "correct staple horse".</small>
+                        A good password would be "correct staple horse".
+                    </small>
                 </div>
 
                 <hr>
@@ -357,6 +383,8 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+                {{registerForm.value | json}}
             </form>
         </div>
     </div>

@@ -9,22 +9,13 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-    constructor (
-        private user: UserService,
-        private router: Router) {
+    constructor (private user: UserService) {
     }
 
     ngOnInit() {
     }
 
     public register(formValue) {
-        this.user.register(formValue).subscribe(data => {
-            if (data) {
-                if (data['token']) {
-                    UserService.setUserToken(data['token']);
-                    this.router.navigate(['/']);
-                }
-            }
-        });
+        this.user.register(formValue);
     }
 }

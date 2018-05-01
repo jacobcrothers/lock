@@ -1,35 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../_services/user.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  constructor(
-      private user: UserService,
-      private router: Router
-  ) { }
+    constructor(
+        private user: UserService
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  public login (formValue) {
-      if (!formValue) {
-          return;
-      }
+    public login(formValue) {
+        if (!formValue || !(formValue['email'] && formValue['password'])) {
+            return;
+        }
 
-      this.user.login(formValue).subscribe(data => {
-          if (data) {
-              if (data['token']) {
-                  UserService.setUserToken(data['token']);
-                  this.router.navigate(['/']);
-              }
-          }
-      });
-  }
+        this.user.login(formValue);
+    }
+
+    public socialLogin(provider) {
+        this.user.loginSocial(provider);
+    }
 
 }

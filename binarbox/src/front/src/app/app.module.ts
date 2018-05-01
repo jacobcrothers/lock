@@ -17,9 +17,27 @@ import {LogoutComponent} from './user/logout/logout.component';
 import {IconsModule} from './_icons/icons.module';
 import {ProfileComponent} from './user/dashboard/profile/profile.component';
 import {PaymentComponent} from './user/dashboard/payment/payment.component';
-import { LocksComponent } from './user/dashboard/locks/locks.component';
-import { SocialComponent } from './user/dashboard/social/social.component';
-import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
+import {LocksComponent} from './user/dashboard/locks/locks.component';
+import {SocialComponent} from './user/dashboard/social/social.component';
+import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
+import {
+    SocialLoginModule,
+    AuthServiceConfig,
+    FacebookLoginProvider,
+} from 'angular5-social-login';
+import { ConfirmEmailComponent } from './user/confirm-email/confirm-email.component';
+
+
+// Configs
+export function getAuthServiceConfigs() {
+    const config = new AuthServiceConfig(
+        [{
+                id: FacebookLoginProvider.PROVIDER_ID,
+                provider: new FacebookLoginProvider('415210252282694')
+            }
+        ]);
+    return config;
+}
 
 @NgModule({
     declarations: [
@@ -33,20 +51,25 @@ import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.
         PaymentComponent,
         LocksComponent,
         SocialComponent,
-        ForgotPasswordComponent
+        ForgotPasswordComponent,
+        ConfirmEmailComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        IconsModule
+        IconsModule,
+        SocialLoginModule
     ],
     providers: [{
-            provide: HTTP_INTERCEPTORS,
-            useClass: RequestInterceptor,
-            multi: true
-        },
+        provide: HTTP_INTERCEPTORS,
+        useClass: RequestInterceptor,
+        multi: true
+    }, {
+        provide: AuthServiceConfig,
+        useFactory: getAuthServiceConfigs
+    },
         AuthGuard,
         UserService
     ],

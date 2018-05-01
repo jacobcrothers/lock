@@ -12,6 +12,7 @@ import {PaymentComponent} from './user/dashboard/payment/payment.component';
 import {LocksComponent} from './user/dashboard/locks/locks.component';
 import {SocialComponent} from './user/dashboard/social/social.component';
 import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
+import {ConfirmEmailComponent} from './user/confirm-email/confirm-email.component';
 
 const routes = [{
         path: '',
@@ -22,6 +23,12 @@ const routes = [{
     }, {
         path: 'forgot-password',
         component: ForgotPasswordComponent
+    }, {
+        path: 'confirm-email',
+        component: ConfirmEmailComponent
+    }, {
+        path: 'confirm-email/:token',
+        component: ConfirmEmailComponent
     }, {
         path: 'logout',
         component: LogoutComponent

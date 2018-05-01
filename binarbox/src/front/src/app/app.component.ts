@@ -8,12 +8,16 @@ import {UserService} from './_services/user.service';
 })
 export class AppComponent implements OnInit {
     public collapseMenu = false;
-    public isLoggedIn = false;
+    public loggedIn: any = false;
 
-    constructor() {
+    constructor(
+        private user: UserService
+    ) {
     }
 
     ngOnInit() {
-        this.isLoggedIn = UserService.isLoggedIn();
+        this.user.isUserLoggedIn$.subscribe((loggedIn) => {
+            this.loggedIn = loggedIn;
+        });
     }
 }

@@ -30,8 +30,10 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block mt-3">Submit</button>
+
                 <div class="text-center">- or -</div>
-                <button class="btn btn-primary btn-block mt-3"><i-facebook class="i-size-24 i-fill-white align-top"></i-facebook> Log in with facebook</button>
+
+                <button class="btn btn-primary btn-block mt-3" (click)="socialLogin('facebook')"><i-facebook class="i-size-24 i-fill-white align-top"></i-facebook> Log in with facebook</button>
                 <br>
                 <a routerLink="/forgot-password">Forgot your password? No problem, click here!</a>
             </form>

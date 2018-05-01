@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-md-6 card m-3 p-3 text-white bg-dark">
+            <h2>Confirm your email address</h2>
+
+            <div *ngIf="status === 'tokenless'">
+                <span>Didn't get an email? <a>Click here [NOT WORKING AT THE MOMENT]</a></span>
+
+                <form #confirmEmailForm="ngForm" (ngSubmit)="confirmEmail(confirmEmailForm.value)">
+                    <br>
+                    <div class="form-group">
+                        <label for="tokenInput">Email confirmation token</label>
+                        <input
+                            name="token"
+                            type="token"
+                            class="form-control"
+                            id="tokenInput"
+                            aria-describedby="tokenHelp"
+                            placeholder="Enter your token here"
+                            [ngModel]/>
+
+                        <small id="tokenHelp" class="form-text text-muted">
+                            Please enter the token you received in the email message we sent you here. Your token should look something like this:
+                            <br>
+                            <code>7014cad1-ccb2-4d30-8e2e-d3543d075399</code> (this is not your actual code)
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Confirm your email</button>
+                </form>
+            </div>
+
+            <div *ngIf="status === 'hasToken'">
+                <span>Your confirmation token is: <strong>{{token}}</strong></span>
+                <br>
+                <span>We'll confirm your email in just a moment, please stand by.</span>
+            </div>
+
+            <div *ngIf="status === 'sending'">
+                Confirming your email...
+            </div>
+
+            <div *ngIf="status === 'confirmed'">
+                Your email has been confirmed. We'll redirect you to the main page in a moment
+            </div>
+        </div>
+    </div>
+</div>
