@@ -1,0 +1,610 @@
+03:59:56.649 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8h54m4s12ms969µs402ns). 
+18:15:27.794 [http-nio-6060-exec-2] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/swagger-ui.html':
+
+org.apache.catalina.connector.RequestFacade@7f2095
+
+servletPath:/swagger-ui.html
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+upgrade-insecure-requests: 1
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:28.560 [http-nio-6060-exec-9] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT':
+
+org.apache.catalina.connector.RequestFacade@7f2095
+
+servletPath:/webjars/springfox-swagger-ui/springfox.css
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: text/css,*/*;q=0.1
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:28.567 [http-nio-6060-exec-8] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/springfox.js?v=2.8.0-SNAPSHOT':
+
+org.apache.catalina.connector.RequestFacade@42f78c6e
+
+servletPath:/webjars/springfox-swagger-ui/springfox.js
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:28.579 [http-nio-6060-exec-4] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/swagger-ui-bundle.js?v=2.8.0-SNAPSHOT':
+
+org.apache.catalina.connector.RequestFacade@30616038
+
+servletPath:/webjars/springfox-swagger-ui/swagger-ui-bundle.js
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:28.582 [http-nio-6060-exec-1] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/swagger-ui-standalone-preset.js?v=2.8.0-SNAPSHOT':
+
+org.apache.catalina.connector.RequestFacade@41d09ee1
+
+servletPath:/webjars/springfox-swagger-ui/swagger-ui-standalone-preset.js
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:28.584 [http-nio-6060-exec-6] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/swagger-ui.css?v=2.8.0-SNAPSHOT':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/webjars/springfox-swagger-ui/swagger-ui.css
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: text/css,*/*;q=0.1
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.646 [http-nio-6060-exec-10] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/swagger-resources/configuration/ui':
+
+org.apache.catalina.connector.RequestFacade@30616038
+
+servletPath:/swagger-resources/configuration/ui
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.655 [http-nio-6060-exec-3] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/favicon-32x32.png?v=2.8.0-SNAPSHOT':
+
+org.apache.catalina.connector.RequestFacade@41d09ee1
+
+servletPath:/webjars/springfox-swagger-ui/favicon-32x32.png
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: image/webp,image/apng,image/*,*/*;q=0.8
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.678 [http-nio-6060-exec-7] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/favicon-16x16.png?v=2.8.0-SNAPSHOT':
+
+org.apache.catalina.connector.RequestFacade@41d09ee1
+
+servletPath:/webjars/springfox-swagger-ui/favicon-16x16.png
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: image/webp,image/apng,image/*,*/*;q=0.8
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.786 [http-nio-6060-exec-5] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/swagger-resources/configuration/security':
+
+org.apache.catalina.connector.RequestFacade@30616038
+
+servletPath:/swagger-resources/configuration/security
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.813 [http-nio-6060-exec-2] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/swagger-resources':
+
+org.apache.catalina.connector.RequestFacade@30616038
+
+servletPath:/swagger-resources
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.872 [http-nio-6060-exec-9] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/v2/api-docs':
+
+org.apache.catalina.connector.RequestFacade@30616038
+
+servletPath:/v2/api-docs
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+accept: application/json,*/*
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+referer: http://localhost:6060/swagger-ui.html
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.885 [http-nio-6060-exec-8] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/fonts/titillium-web-v6-latin-700.woff2':
+
+org.apache.catalina.connector.RequestFacade@41d09ee1
+
+servletPath:/webjars/springfox-swagger-ui/fonts/titillium-web-v6-latin-700.woff2
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+origin: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:29.887 [http-nio-6060-exec-6] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/fonts/open-sans-v15-latin-regular.woff2':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/webjars/springfox-swagger-ui/fonts/open-sans-v15-latin-regular.woff2
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+origin: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:30.123 [http-nio-6060-exec-1] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/fonts/open-sans-v15-latin-700.woff2':
+
+org.apache.catalina.connector.RequestFacade@30616038
+
+servletPath:/webjars/springfox-swagger-ui/fonts/open-sans-v15-latin-700.woff2
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+origin: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:30.124 [http-nio-6060-exec-4] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/fonts/source-code-pro-v7-latin-300.woff2':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/webjars/springfox-swagger-ui/fonts/source-code-pro-v7-latin-300.woff2
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+origin: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:31.473 [http-nio-6060-exec-3] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/fonts/source-code-pro-v7-latin-600.woff2':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/webjars/springfox-swagger-ui/fonts/source-code-pro-v7-latin-600.woff2
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+origin: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:15:39.355 [http-nio-6060-exec-7] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/fonts/titillium-web-v6-latin-600.woff2':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/webjars/springfox-swagger-ui/fonts/titillium-web-v6-latin-600.woff2
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+origin: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:16:16.882 [http-nio-6060-exec-10] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for GET '/webjars/springfox-swagger-ui/fonts/titillium-web-v6-latin-regular.woff2':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/webjars/springfox-swagger-ui/fonts/titillium-web-v6-latin-regular.woff2
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+pragma: no-cache
+cache-control: no-cache
+origin: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+accept: */*
+referer: http://localhost:6060/webjars/springfox-swagger-ui/springfox.css?v=2.8.0-SNAPSHOT
+accept-encoding: gzip, deflate, br
+accept-language: en,en-US;q=0.9,ro-RO;q=0.8,ro;q=0.7,en-GB;q=0.6
+dnt: 1
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:18:37.792 [http-nio-6060-exec-4] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for OPTIONS '/api/v0/authentication/login':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/api/v0/authentication/login
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+accept: */*
+accept-encoding: gzip, deflate, br
+accept-language: en-US
+access-control-request-headers: content-type,token
+access-control-request-method: POST
+origin: http://localhost:4200
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:18:37.823 [http-nio-6060-exec-3] INFO  Spring Security Debugger - 
+
+************************************************************
+
+Request received for POST '/api/v0/authentication/login':
+
+org.apache.catalina.connector.RequestFacade@5ad2c005
+
+servletPath:/api/v0/authentication/login
+pathInfo:null
+headers: 
+host: localhost:6060
+connection: keep-alive
+content-length: 53
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: en-US
+content-type: application/json
+origin: http://localhost:4200
+referer: http://localhost:6060
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36
+token: 
+
+
+Security filter chain: [] empty (bypassed by security='none') 
+
+
+************************************************************
+
+ 
+18:18:38.328 [http-nio-6060-exec-3] INFO  o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory 

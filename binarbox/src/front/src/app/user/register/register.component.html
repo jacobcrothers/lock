@@ -17,7 +17,6 @@
                         aria-describedby="emailHelp"
                         placeholder="Enter email"
                         [ngModel]
-                        [ngModelOptions]="{updateOn: 'blur'}"
                         email
                         #email="ngModel"/>
 
@@ -42,8 +41,7 @@
                         placeholder="Password"
                         [minlength]="6"
                         [ngModel]
-                        [ngModelOptions]="{updateOn: 'blur'}"
-                        #password="ngModel">
+                        #password="ngModel" />
                     <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
                         <div *ngIf="password.errors['required']">
                             We know it's a drag remembering *another* password but passwords are good for protecting your data.
@@ -70,7 +68,14 @@
                         class="form-control"
                         id="firstNameInput"
                         placeholder="Jason"
-                        [ngModel]/>
+                        pattern="[A-Za-z]{2,}[A-Za-z0-9 \-']*"
+                        [ngModel]
+                        #firstName="ngModel" />
+                    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-danger">
+                        <div *ngIf="firstName.errors['pattern']">
+                            Is that really your name? Please double-check as there seems to be something wrong.
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="lastNameInput">Last name</label>
@@ -80,7 +85,14 @@
                         class="form-control"
                         id="lastNameInput"
                         placeholder="Brody"
-                        [ngModel]/>
+                        pattern="[A-Za-z]{2,}[A-Za-z0-9 \-']*"
+                        [ngModel]
+                        #lastName="ngModel" />
+                    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-danger">
+                        <div *ngIf="lastName.errors['pattern']">
+                            Is that really your name? Please double-check as there seems to be something wrong.
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="phoneInput">Phone Number</label>
@@ -90,7 +102,8 @@
                         class="form-control"
                         id="phoneInput"
                         placeholder="+46 758 035 587"
-                        [ngModel]/>
+                        [ngModel]
+                        #phone="ngModel"/>
                 </div>
 
                 <hr>
@@ -115,7 +128,7 @@
                             id="inputCity"
                             [ngModel]>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label for="country">Country</label>
                         <select
                             name="country"

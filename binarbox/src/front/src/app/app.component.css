@@ -1,3 +1,17 @@
+.main-menu {
+    position: absolute;
+    width: 100%;
+    z-index: 400;
+}
+
+.wrapper {
+    height: 100%;
+    padding-top: 55px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 li a[routerLink].activeLink {
     color: #FFCC00;
 }
