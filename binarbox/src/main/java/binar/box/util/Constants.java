@@ -64,4 +64,6 @@ public class Constants {
     public static final String FACEBOOK_LAST_NAME = "last_name";
     public static final String FACEBOOK_HOMETOWN = "hometown";
     public static final String FACEBOOK_LOCALE = "locale";
+    public static final String CHANGE_PASSWORD = "/change/password";
+    public static final String OLD_PASSWORD_DOES_NOT_MATCH = "Old password doesn't match!";
 }

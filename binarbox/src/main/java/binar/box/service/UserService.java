@@ -180,4 +180,24 @@ public class UserService {
         toRegisterUser.setLastModifiedDate(new Date());
     }
 
+    public UserProfileDto getUser() {
+        return new UserProfileDto(getAuthenticatedUser());
+    }
+
+    public void updateUser(UserProfileDto userProfileDto) {
+        var user = getAuthenticatedUser();
+        user.setLastName(userProfileDto.getLastName());
+        user.setFirstName(userProfileDto.getFirstName());
+        user.setPhone(userProfileDto.getPhone());
+        user.setCity(userProfileDto.getCity());
+        user.setCountry(userProfileDto.getCountry());
+    }
+
+    public void changeUserPassword(ChangePasswordDto changePasswordDto) {
+        var user = getAuthenticatedUser();
+        if (!BCrypt.checkpw(changePasswordDto.getOldPassword(), user.getPassword())) {
+            throw new LockBridgesException(Constants.OLD_PASSWORD_DOES_NOT_MATCH);
+        }
+        user.setPassword(BCrypt.hashpw(changePasswordDto.getPassword(), BCrypt.gensalt(12)));
+    }
 }
