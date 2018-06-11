@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -74,14 +73,12 @@ public class LockService {
     }
 
     public void addUserLock(LockDto lockDto) {
-        Random randomLongitude = new Random();
-        Random randomLatitude = new Random();
         User user = userService.getAuthenticatedUser();
         LockSection lockSection = getLockSection(lockDto.getLockSection());
         LockType lockType = getLockType(lockDto.getLockType());
         Lock lock = new Lock();
-        lock.setLongitude(randomLongitude.nextDouble());
-        lock.setLatitude(randomLatitude.nextDouble());
+        lock.setLongitude(lockDto.getLongitude());
+        lock.setLatitude(lockDto.getLatitude());
         lock.setUser(user);
         lock.setLockType(lockType);
         lock.setLockSection(lockSection);

@@ -9,7 +9,9 @@ import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,7 @@ public class LockController {
     private FileService fileService;
 
 
+    @ApiOperation(value = "ADMIN: Add lock type", notes = "This endpoint is for admin, admin add lock types into database.", response = LockTypeDtoResponse.class)
     @PostMapping(value = Constants.LOCK_TYPE_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
     private LockTypeDtoResponse addLockType(@RequestBody @Valid LockTypeDto lockTypeDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -40,6 +43,7 @@ public class LockController {
         return lockService.addLockType(lockTypeDto);
     }
 
+    @ApiOperation(value = "ADMIN: Add lock images", notes = "This endpoint is for admin, admin add lock images.", response = HttpStatus.class)
     @PostMapping(value = Constants.LOCK_TYPE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     private void addLockTypeFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("id") long lockTypeId) {
         fileService.saveFilesToLockType(files, lockTypeId);
@@ -57,7 +61,6 @@ public class LockController {
         return lockService.getLockSections();
     }
 
-
     @PostMapping(value = Constants.LOCK_ACTION_ENDPOINT)
     private void addLock(@RequestBody @Valid LockDto lockDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -72,6 +75,7 @@ public class LockController {
     }
 
     @DeleteMapping(value = Constants.LOCK_ACTION_ENDPOINT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     private void removeALock(@RequestParam("id") long id) {
         lockService.removeUserLock(id);
     }

@@ -25,9 +25,30 @@ public class LockDto {
     @NotNull
     private Long lockType;
 
+    @NotNull
+    private double longitude;
+
+    @NotNull
+    private double latitude;
+
     public LockDto() {
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
     public String getMessage() {
         return message;
