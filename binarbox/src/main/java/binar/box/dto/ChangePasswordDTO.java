@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
-public class ChangePasswordDto {
+public class ChangePasswordDTO {
 
     @NotEmpty
     @NotNull
@@ -16,7 +16,7 @@ public class ChangePasswordDto {
     @NotNull
     private String password;
 
-    public ChangePasswordDto() {
+    public ChangePasswordDTO() {
     }
 
     public String getOldPassword() {

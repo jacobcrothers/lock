@@ -1,6 +1,6 @@
 package binar.box.rest;
 
-import binar.box.dto.ChangePasswordDto;
+import binar.box.dto.ChangePasswordDTO;
 import binar.box.dto.ResetPasswordDto;
 import binar.box.dto.UserProfileDto;
 import binar.box.service.UserService;
@@ -54,8 +54,8 @@ public class UserController {
     }
 
     @PostMapping(value = Constants.USER_ENDPOINT + Constants.CHANGE_PASSWORD)
-    private void changeUserPassword(@RequestBody ChangePasswordDto changePasswordDto) {
-        userService.changeUserPassword(changePasswordDto);
+    private void changeUserPassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
+        userService.changeUserPassword(changePasswordDTO);
     }
 
 }

@@ -193,11 +193,11 @@ public class UserService {
         user.setCountry(userProfileDto.getCountry());
     }
 
-    public void changeUserPassword(ChangePasswordDto changePasswordDto) {
+    public void changeUserPassword(ChangePasswordDTO changePasswordDTO) {
         var user = getAuthenticatedUser();
-        if (!BCrypt.checkpw(changePasswordDto.getOldPassword(), user.getPassword())) {
+        if (!BCrypt.checkpw(changePasswordDTO.getOldPassword(), user.getPassword())) {
             throw new LockBridgesException(Constants.OLD_PASSWORD_DOES_NOT_MATCH);
         }
-        user.setPassword(BCrypt.hashpw(changePasswordDto.getPassword(), BCrypt.gensalt(12)));
+        user.setPassword(BCrypt.hashpw(changePasswordDTO.getPassword(), BCrypt.gensalt(12)));
     }
 }

@@ -42,7 +42,19 @@ public class Lock extends BaseEntity {
     @JoinColumn(name = "lock_type_id")
     private LockType lockType;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "panel_id")
+    private Panel panel;
+
     public Lock() {
+    }
+
+    public Panel getPanel() {
+        return panel;
+    }
+
+    public void setPanel(Panel panel) {
+        this.panel = panel;
     }
 
     public Long getId() {

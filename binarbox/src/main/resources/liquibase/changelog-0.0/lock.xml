@@ -109,4 +109,27 @@
         </insert>
     </changeSet>
 
+    <changeSet id="panel-0" author="tnalex">
+        <createTable tableName="panel_entity">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PANEL_ENTITY"/>
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addColumn tableName="lock_entity">
+            <column name="panel_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="FK_LOCK_ENTITY_PANEL" referencedTableName="panel_entity"
+                             referencedColumnNames="id"/>
+            </column>
+        </addColumn>
+        <sqlFile endDelimiter="#" path="classpath:/liquibase/panelProcedure.sql"/>
+        <sql>CALL insertRandomPanelsEntity();</sql>
+    </changeSet>
+
 </databaseChangeLog>
