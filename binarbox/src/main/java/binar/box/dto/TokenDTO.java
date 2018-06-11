@@ -7,14 +7,14 @@ import java.util.Date;
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
-public class TokenDto {
+public class TokenDTO {
     private String token;
     private Date expirationTime;
 
-    public TokenDto() {
+    public TokenDTO() {
     }
 
-    public TokenDto(Token token) {
+    public TokenDTO(Token token) {
         this.token = token.getToken();
         this.expirationTime = token.getExpirationTime();
     }

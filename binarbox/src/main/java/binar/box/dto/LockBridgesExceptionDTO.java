@@ -5,14 +5,14 @@ import binar.box.util.LockBridgesException;
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
-public class LockBridgesExceptionDto {
+public class LockBridgesExceptionDTO {
     private String message;
     private String cause;
 
-    public LockBridgesExceptionDto() {
+    public LockBridgesExceptionDTO() {
     }
 
-    public LockBridgesExceptionDto(LockBridgesException lockBridges) {
+    public LockBridgesExceptionDTO(LockBridgesException lockBridges) {
         this.message = lockBridges.getMessage();
         this.cause = lockBridges.getCause().getMessage();
     }

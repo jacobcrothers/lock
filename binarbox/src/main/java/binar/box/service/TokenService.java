@@ -2,7 +2,7 @@ package binar.box.service;
 
 import binar.box.domain.Token;
 import binar.box.domain.User;
-import binar.box.dto.TokenDto;
+import binar.box.dto.TokenDTO;
 import binar.box.repository.TokenRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -28,7 +28,7 @@ public class TokenService {
     @Autowired
     private TokenRepository tokenRepository;
 
-    public TokenDto createUserToken(User user, boolean rememberMe) {
+    TokenDTO createUserToken(User user, boolean rememberMe) {
         Token token = new Token();
         Algorithm algorithmHS;
         try {
@@ -53,7 +53,7 @@ public class TokenService {
         }
         token.setExpirationTime(calendar.getTime());
         tokenRepository.save(token);
-        return new TokenDto(token);
+        return new TokenDTO(token);
     }
 
     public Token findOneByToken(String token) {

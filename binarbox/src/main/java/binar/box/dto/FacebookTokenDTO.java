@@ -6,13 +6,13 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Timis Nicu Alexandru on 19-Apr-18.
  */
-public class FacebookTokenDto {
+public class FacebookTokenDTO {
 
     @NotEmpty
     @NotNull
     private String token;
 
-    public FacebookTokenDto() {
+    public FacebookTokenDTO() {
     }
 
     public String getToken() {

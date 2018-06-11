@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Timis Nicu Alexandru on 23-Mar-18.
  */
-public class UserLoginDto {
+public class UserLoginDTO {
 
     @NotEmpty
     @NotNull
@@ -16,7 +16,7 @@ public class UserLoginDto {
     @NotNull
     private String password;
 
-    public UserLoginDto() {
+    public UserLoginDTO() {
     }
 
 

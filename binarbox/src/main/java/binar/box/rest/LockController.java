@@ -1,9 +1,9 @@
 package binar.box.rest;
 
 import binar.box.domain.LockSection;
-import binar.box.dto.LockDto;
-import binar.box.dto.LockResponseDto;
-import binar.box.dto.LockTypeDto;
+import binar.box.dto.LockDTO;
+import binar.box.dto.LockResponseDTO;
+import binar.box.dto.LockTypeDTO;
 import binar.box.dto.LockTypeDtoResponse;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
@@ -36,11 +36,11 @@ public class LockController {
 
     @ApiOperation(value = "ADMIN: Add lock type", notes = "This endpoint is for admin, admin add lock types into database.", response = LockTypeDtoResponse.class)
     @PostMapping(value = Constants.LOCK_TYPE_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    private LockTypeDtoResponse addLockType(@RequestBody @Valid LockTypeDto lockTypeDto, BindingResult bindingResult) {
+    private LockTypeDtoResponse addLockType(@RequestBody @Valid LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        return lockService.addLockType(lockTypeDto);
+        return lockService.addLockType(lockTypeDTO);
     }
 
     @ApiOperation(value = "ADMIN: Add lock images", notes = "This endpoint is for admin, admin add lock images.", response = HttpStatus.class)
@@ -62,15 +62,15 @@ public class LockController {
     }
 
     @PostMapping(value = Constants.LOCK_ACTION_ENDPOINT)
-    private void addLock(@RequestBody @Valid LockDto lockDto, BindingResult bindingResult) {
+    private void addLock(@RequestBody @Valid LockDTO lockDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        lockService.addUserLock(lockDto);
+        lockService.addUserLock(lockDTO);
     }
 
     @GetMapping(value = Constants.LOCK_ACTION_ENDPOINT)
-    private List<LockResponseDto> getLocks() {
+    private List<LockResponseDTO> getLocks() {
         return lockService.getLocks();
     }
 

@@ -1,8 +1,8 @@
 package binar.box.rest;
 
 import binar.box.dto.ChangePasswordDTO;
-import binar.box.dto.ResetPasswordDto;
-import binar.box.dto.UserProfileDto;
+import binar.box.dto.ResetPasswordDTO;
+import binar.box.dto.UserProfileDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -31,11 +31,11 @@ public class UserController {
 
 
     @PostMapping(value = Constants.USER_ENDPOINT + Constants.RESET_PASSWORD_ENDPOINT)
-    private void resetPassword(@Param("token") String token, @RequestBody @Valid ResetPasswordDto resetPasswordDto, BindingResult bindingResult) {
+    private void resetPassword(@Param("token") String token, @RequestBody @Valid ResetPasswordDTO resetPasswordDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        userService.changeUserPassword(token, resetPasswordDto);
+        userService.changeUserPassword(token, resetPasswordDTO);
     }
 
     @PostMapping(value = Constants.USER_ENDPOINT + Constants.CONFIRM_EMAIL_ENDPOINT)
@@ -44,13 +44,13 @@ public class UserController {
     }
 
     @GetMapping(value = Constants.USER_ENDPOINT)
-    private UserProfileDto getUser() {
+    private UserProfileDTO getUser() {
         return userService.getUser();
     }
 
     @PutMapping(value = Constants.USER_ENDPOINT)
-    private void updateUser(@RequestBody UserProfileDto userProfileDto) {
-        userService.updateUser(userProfileDto);
+    private void updateUser(@RequestBody UserProfileDTO userProfileDTO) {
+        userService.updateUser(userProfileDTO);
     }
 
     @PostMapping(value = Constants.USER_ENDPOINT + Constants.CHANGE_PASSWORD)

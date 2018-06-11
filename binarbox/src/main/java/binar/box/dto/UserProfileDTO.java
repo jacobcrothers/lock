@@ -1,32 +1,32 @@
 package binar.box.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import binar.box.domain.User;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
-public class UserDto {
+public class UserProfileDTO {
+
 
     private String lastName;
 
     private String firstName;
 
-    @NotEmpty
-    @NotNull
-    private String email;
-
     private String phone;
-
-    @NotEmpty
-    @NotNull
-    private String password;
 
     private String city;
 
     private String country;
 
-    public UserDto() {
+    public UserProfileDTO() {
+    }
+
+    public UserProfileDTO(User user) {
+        this.lastName = user.getLastName();
+        this.firstName = user.getFirstName();
+        this.phone = user.getPhone();
+        this.city = user.getCity();
+        this.country = user.getCountry();
     }
 
     public String getLastName() {
@@ -45,28 +45,12 @@ public class UserDto {
         this.firstName = firstName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getCity() {

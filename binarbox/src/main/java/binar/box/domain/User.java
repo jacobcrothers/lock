@@ -1,6 +1,6 @@
 package binar.box.domain;
 
-import binar.box.dto.UserDto;
+import binar.box.dto.UserDTO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -60,13 +60,13 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(UserDto userDto) {
-        this.lastName = userDto.getLastName();
-        this.firstName = userDto.getFirstName();
-        this.email = userDto.getEmail();
-        this.phone = userDto.getPhone();
-        this.city = userDto.getCity();
-        this.country = userDto.getCountry();
+    public User(UserDTO userDTO) {
+        this.lastName = userDTO.getLastName();
+        this.firstName = userDTO.getFirstName();
+        this.email = userDTO.getEmail();
+        this.phone = userDTO.getPhone();
+        this.city = userDTO.getCity();
+        this.country = userDTO.getCountry();
     }
 
     public String getFacebookAccessToken() {

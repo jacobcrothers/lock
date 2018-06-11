@@ -1,9 +1,9 @@
 package binar.box.rest;
 
-import binar.box.dto.FacebookTokenDto;
-import binar.box.dto.TokenDto;
-import binar.box.dto.UserDto;
-import binar.box.dto.UserLoginDto;
+import binar.box.dto.FacebookTokenDTO;
+import binar.box.dto.TokenDTO;
+import binar.box.dto.UserDTO;
+import binar.box.dto.UserLoginDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -29,32 +29,32 @@ public class AuthenticationController {
 
 
     @PostMapping(value = Constants.REGISTER_ENDPOINT)
-    private TokenDto register(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
+    private TokenDTO register(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        return userService.registerUser(userDto);
+        return userService.registerUser(userDTO);
     }
 
     @PostMapping(value = Constants.LOGIN_ENDPOINT)
-    private TokenDto login(@RequestBody @Valid UserLoginDto userLoginDto, BindingResult bindingResult, @Param("rememberMe") boolean rememberMe) {
+    private TokenDTO login(@RequestBody @Valid UserLoginDTO userLoginDTO, BindingResult bindingResult, @Param("rememberMe") boolean rememberMe) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        return userService.loginUser(userLoginDto, rememberMe);
+        return userService.loginUser(userLoginDTO, rememberMe);
     }
 
     @PostMapping(value = Constants.LOGIN_ENDPOINT + Constants.FACEBOOK_ENDPOINT)
-    private TokenDto facebookLogin(@RequestBody @Valid FacebookTokenDto facebookTokenDto, BindingResult bindingResult) {
+    private TokenDTO facebookLogin(@RequestBody @Valid FacebookTokenDTO facebookTokenDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        return userService.loginUser(facebookTokenDto);
+        return userService.loginUser(facebookTokenDTO);
     }
 
 
     @PostMapping(value = Constants.RENEW_TOKEN_ENDPOINT)
-    private TokenDto renewToken() {
+    private TokenDTO renewToken() {
         return userService.renewUserToken();
     }
 }

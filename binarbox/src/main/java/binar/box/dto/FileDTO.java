@@ -5,16 +5,16 @@ import binar.box.domain.File;
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
-public class FileDto {
+public class FileDTO {
 
     private long id;
 
     private String name;
 
-    public FileDto() {
+    public FileDTO() {
     }
 
-    public FileDto(File file) {
+    public FileDTO(File file) {
         this.id = file.getId();
         this.name = file.getFileName();
     }

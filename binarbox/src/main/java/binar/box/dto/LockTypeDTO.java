@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
-public class LockTypeDto {
+public class LockTypeDTO {
 
     @NotEmpty
     @NotNull
@@ -16,7 +16,7 @@ public class LockTypeDto {
     @NotNull
     private BigDecimal price;
 
-    public LockTypeDto() {
+    public LockTypeDTO() {
     }
 
     public String getType() {

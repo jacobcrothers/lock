@@ -50,10 +50,10 @@ public class UserService {
     private ExecutorService executors = Executors.newFixedThreadPool(2);
 
 
-    public TokenDto registerUser(@Valid UserDto userDto) {
-        checkIfUserIsAlreadyRegistered(userDto.getEmail());
-        User user = new User(userDto);
-        user.setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(12)));
+    public TokenDTO registerUser(@Valid UserDTO userDTO) {
+        checkIfUserIsAlreadyRegistered(userDTO.getEmail());
+        User user = new User(userDTO);
+        user.setPassword(BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt(12)));
         user.setCreatedDate(new Date());
         user.setLastModifiedDate(new Date());
         String emailToken = UUID.randomUUID().toString();
@@ -72,16 +72,16 @@ public class UserService {
         }
     }
 
-    public TokenDto loginUser(UserLoginDto userLoginDto, boolean rememberMe) {
+    public TokenDTO loginUser(UserLoginDTO userLoginDTO, boolean rememberMe) {
         User user;
         try {
-            user = getUserByEmail(userLoginDto.getEmail());
+            user = getUserByEmail(userLoginDTO.getEmail());
         } catch (LockBridgesException e) {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
         }
         if (user.getPassword() == null) {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
-        } else if (!BCrypt.checkpw(userLoginDto.getPassword(), user.getPassword())) {
+        } else if (!BCrypt.checkpw(userLoginDTO.getPassword(), user.getPassword())) {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
         }
         return tokenService.createUserToken(user, rememberMe);
@@ -99,9 +99,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void changeUserPassword(String token, ResetPasswordDto resetPasswordDto) {
+    public void changeUserPassword(String token, ResetPasswordDTO resetPasswordDTO) {
         User user = getUserByResetPasswordToken(token);
-        user.setPassword(BCrypt.hashpw(resetPasswordDto.getPassword(), BCrypt.gensalt(12)));
+        user.setPassword(BCrypt.hashpw(resetPasswordDTO.getPassword(), BCrypt.gensalt(12)));
         user.setResetPasswordToken(null);
         userRepository.save(user);
     }
@@ -110,7 +110,7 @@ public class UserService {
         return userRepository.findByResetPasswordToken(token).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
     }
 
-    public TokenDto renewUserToken() {
+    public TokenDTO renewUserToken() {
         User user = getAuthenticatedUser();
         return tokenService.createUserToken(user, true);
     }
@@ -130,8 +130,8 @@ public class UserService {
         return userRepository.findByConfirmEmailToken(token).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
     }
 
-    public TokenDto loginUser(FacebookTokenDto facebookTokenDto) {
-        var accessToken = facebookTokenDto.getToken();
+    public TokenDTO loginUser(FacebookTokenDTO facebookTokenDTO) {
+        var accessToken = facebookTokenDTO.getToken();
         var facebook = new FacebookTemplate(accessToken);
         var facebookUserFields = new String[]{Constants.FACEBOOK_ID, Constants.FACEBOOK_EMAIL, Constants.FACEBOOK_FIRST_NAME, Constants.FACEBOOK_LAST_NAME, Constants.FACEBOOK_HOMETOWN, Constants.FACEBOOK_LOCALE};
         var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME, org.springframework.social.facebook.api.User.class, facebookUserFields);
@@ -180,17 +180,17 @@ public class UserService {
         toRegisterUser.setLastModifiedDate(new Date());
     }
 
-    public UserProfileDto getUser() {
-        return new UserProfileDto(getAuthenticatedUser());
+    public UserProfileDTO getUser() {
+        return new UserProfileDTO(getAuthenticatedUser());
     }
 
-    public void updateUser(UserProfileDto userProfileDto) {
+    public void updateUser(UserProfileDTO userProfileDTO) {
         var user = getAuthenticatedUser();
-        user.setLastName(userProfileDto.getLastName());
-        user.setFirstName(userProfileDto.getFirstName());
-        user.setPhone(userProfileDto.getPhone());
-        user.setCity(userProfileDto.getCity());
-        user.setCountry(userProfileDto.getCountry());
+        user.setLastName(userProfileDTO.getLastName());
+        user.setFirstName(userProfileDTO.getFirstName());
+        user.setPhone(userProfileDTO.getPhone());
+        user.setCity(userProfileDTO.getCity());
+        user.setCountry(userProfileDTO.getCountry());
     }
 
     public void changeUserPassword(ChangePasswordDTO changePasswordDTO) {

@@ -16,7 +16,7 @@ public class LockTypeDtoResponse {
 
     private BigDecimal price;
 
-    private List<FileDto> fileDtoList;
+    private List<FileDTO> fileDTOList;
 
     public LockTypeDtoResponse() {
     }
@@ -27,12 +27,12 @@ public class LockTypeDtoResponse {
         this.price = lockType.getPrice();
     }
 
-    public List<FileDto> getFileDtoList() {
-        return fileDtoList;
+    public List<FileDTO> getFileDtoList() {
+        return fileDTOList;
     }
 
-    public void setFileDtoList(List<FileDto> fileDtoList) {
-        this.fileDtoList = fileDtoList;
+    public void setFileDtoList(List<FileDTO> fileDTOList) {
+        this.fileDTOList = fileDTOList;
     }
 
     public long getId() {

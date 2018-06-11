@@ -1,12 +1,23 @@
 package binar.box.dto;
 
+
+import binar.box.domain.Lock;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
-public class LockDto {
+public class LockResponseDTO {
+
+    private long id;
+
+    @NotNull
+    private Double longitude;
+
+    @NotNull
+    private Double latitude;
 
     @NotEmpty
     @NotNull
@@ -20,33 +31,47 @@ public class LockDto {
     private String fontStyle;
 
     @NotNull
-    private Long lockSection;
+    private String lockSection;
 
     @NotNull
-    private Long lockType;
+    private String lockType;
 
-    @NotNull
-    private double longitude;
+    public LockResponseDTO(Lock lock) {
+        this.id = lock.getId();
+        this.longitude = lock.getLongitude();
+        this.latitude = lock.getLatitude();
+        this.message = lock.getMessage();
+        this.fontSize = lock.getFontSize();
+        this.fontStyle = lock.getFontStyle();
+        this.lockSection = lock.getLockSection().getSection();
+        this.lockType = lock.getLockType().getType();
 
-    @NotNull
-    private double latitude;
-
-    public LockDto() {
     }
 
-    public double getLongitude() {
+    public LockResponseDTO() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
@@ -74,19 +99,19 @@ public class LockDto {
         this.fontStyle = fontStyle;
     }
 
-    public Long getLockSection() {
+    public String getLockSection() {
         return lockSection;
     }
 
-    public void setLockSection(Long lockSection) {
+    public void setLockSection(String lockSection) {
         this.lockSection = lockSection;
     }
 
-    public Long getLockType() {
+    public String getLockType() {
         return lockType;
     }
 
-    public void setLockType(Long lockType) {
+    public void setLockType(String lockType) {
         this.lockType = lockType;
     }
 }

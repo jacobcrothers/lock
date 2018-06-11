@@ -1,6 +1,6 @@
 package binar.box.rest;
 
-import binar.box.dto.LockBridgesExceptionDto;
+import binar.box.dto.LockBridgesExceptionDTO;
 import binar.box.util.LockBridgesException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class ExceptionHandler {
 
-    private LockBridgesExceptionDto lockBridgesException(LockBridgesException lockBridges) {
-        return new LockBridgesExceptionDto(lockBridges);
+    private LockBridgesExceptionDTO lockBridgesException(LockBridgesException lockBridges) {
+        return new LockBridgesExceptionDTO(lockBridges);
     }
 }

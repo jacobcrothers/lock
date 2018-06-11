@@ -42,10 +42,10 @@ public class LockService {
     private LockRepository lockRepository;
 
 
-    public LockTypeDtoResponse addLockType(LockTypeDto lockTypeDto) {
+    public LockTypeDtoResponse addLockType(LockTypeDTO lockTypeDTO) {
         LockType lockType = new LockType();
-        lockType.setPrice(lockTypeDto.getPrice());
-        lockType.setType(lockTypeDto.getType());
+        lockType.setPrice(lockTypeDTO.getPrice());
+        lockType.setType(lockTypeDTO.getType());
         lockTypeRepository.save(lockType);
         return new LockTypeDtoResponse(lockType);
     }
@@ -64,27 +64,27 @@ public class LockService {
         return lockTypeDtoResponse;
     }
 
-    private FileDto toFileDto(File file) {
-        return new FileDto(file);
+    private FileDTO toFileDto(File file) {
+        return new FileDTO(file);
     }
 
     public List<LockSection> getLockSections() {
         return lockSectionRepository.findAll();
     }
 
-    public void addUserLock(LockDto lockDto) {
+    public void addUserLock(LockDTO lockDTO) {
         User user = userService.getAuthenticatedUser();
-        LockSection lockSection = getLockSection(lockDto.getLockSection());
-        LockType lockType = getLockType(lockDto.getLockType());
+        LockSection lockSection = getLockSection(lockDTO.getLockSection());
+        LockType lockType = getLockType(lockDTO.getLockType());
         Lock lock = new Lock();
-        lock.setLongitude(lockDto.getLongitude());
-        lock.setLatitude(lockDto.getLatitude());
+        lock.setLongitude(lockDTO.getLongitude());
+        lock.setLatitude(lockDTO.getLatitude());
         lock.setUser(user);
         lock.setLockType(lockType);
         lock.setLockSection(lockSection);
-        lock.setMessage(lockDto.getMessage());
-        lock.setFontSize(lockDto.getFontSize());
-        lock.setFontStyle(lockDto.getFontStyle());
+        lock.setMessage(lockDTO.getMessage());
+        lock.setFontSize(lockDTO.getFontSize());
+        lock.setFontStyle(lockDTO.getFontStyle());
         lock.setCreatedDate(new Date());
         lock.setLastModifiedDate(new Date());
         lockRepository.save(lock);
@@ -98,14 +98,14 @@ public class LockService {
         return lockSectionRepository.findById(lockSectionId).orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
     }
 
-    public List<LockResponseDto> getLocks() {
+    public List<LockResponseDTO> getLocks() {
         User user = userService.getAuthenticatedUser();
         List<Lock> lockList = lockRepository.findByUser(user);
         return lockList.stream().map(this::toLockResponseDto).collect(Collectors.toList());
     }
 
-    private LockResponseDto toLockResponseDto(Lock lock) {
-        return new LockResponseDto(lock);
+    private LockResponseDTO toLockResponseDto(Lock lock) {
+        return new LockResponseDTO(lock);
     }
 
     public void removeUserLock(long id) {

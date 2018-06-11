@@ -5,13 +5,13 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Timis Nicu Alexandru on 27-Mar-18.
  */
-public class ResetPasswordDto {
+public class ResetPasswordDTO {
 
     @NotNull
     @NotNull
     private String password;
 
-    public ResetPasswordDto() {
+    public ResetPasswordDTO() {
     }
 
     public String getPassword() {
