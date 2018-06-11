@@ -129,7 +129,7 @@
             </column>
         </addColumn>
         <sqlFile endDelimiter="#" path="classpath:/liquibase/panelProcedure.sql"/>
-        <sql>CALL insertRandomPanelsEntity(300000);</sql>
+        <sql>CALL insertRandomPanelsEntity(30);</sql>
     </changeSet>
 
 </databaseChangeLog>

@@ -7,6 +7,8 @@ import binar.box.dto.PanelDTO;
 import binar.box.repository.PanelRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,10 @@ import java.util.stream.Collectors;
  */
 @Service
 public class PanelService {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private PanelRepository panelRepository;
-
     @Autowired
     private LockService lockService;
 
@@ -47,5 +49,15 @@ public class PanelService {
 
     public PanelDTO getPanelDTO(long id) {
         return toPanelDto(getPanel(id));
+    }
+
+    void maintainPanels() {
+        log.info(Constants.MAINTAINING_PANELS);
+        var numberOfPanelsAvailable = panelRepository.countPanels().orElseThrow(() -> new LockBridgesException(Constants.SOMETHING_WENT_WRONG_WITH_PANELS_COUNTING));
+        if (numberOfPanelsAvailable.intValue() < 2) {
+            panelRepository.addPanels(2);
+        } else if (numberOfPanelsAvailable.intValue() <= 2) {
+            panelRepository.addPanels(1);
+        }
     }
 }

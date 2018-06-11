@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -43,6 +45,8 @@ public class LockService {
 
     @Autowired
     private PanelService panelService;
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(10);
 
 
     public LockTypeDtoResponse addLockType(LockTypeDTO lockTypeDTO) {
@@ -76,6 +80,7 @@ public class LockService {
     }
 
     public void addUserLock(LockDTO lockDTO) {
+        executorService.submit(() -> panelService.maintainPanels());
         var user = userService.getAuthenticatedUser();
         var lockSection = getLockSection(lockDTO.getLockSection());
         var lockType = getLockType(lockDTO.getLockType());
