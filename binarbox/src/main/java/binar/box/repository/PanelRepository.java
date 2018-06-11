@@ -14,5 +14,5 @@ import java.util.List;
 public interface PanelRepository extends JpaRepository<Panel, Long> {
 
     @Query(value = "SELECT * FROM panel_entity ORDER BY RAND() LIMIT 30;", nativeQuery = true)
-    List<Panel> findPanel();
+    List<Panel> findRandomPanels();
 }

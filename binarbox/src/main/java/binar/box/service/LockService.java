@@ -41,6 +41,9 @@ public class LockService {
     @Autowired
     private LockRepository lockRepository;
 
+    @Autowired
+    private PanelService panelService;
+
 
     public LockTypeDtoResponse addLockType(LockTypeDTO lockTypeDTO) {
         LockType lockType = new LockType();
@@ -56,7 +59,7 @@ public class LockService {
     }
 
     private LockTypeDtoResponse toLockTypeDtoResponse(LockType lockType) {
-        LockTypeDtoResponse lockTypeDtoResponse = new LockTypeDtoResponse();
+        var lockTypeDtoResponse = new LockTypeDtoResponse();
         lockTypeDtoResponse.setId(lockType.getId());
         lockTypeDtoResponse.setPrice(lockType.getPrice());
         lockTypeDtoResponse.setType(lockType.getType());
@@ -73,10 +76,10 @@ public class LockService {
     }
 
     public void addUserLock(LockDTO lockDTO) {
-        User user = userService.getAuthenticatedUser();
-        LockSection lockSection = getLockSection(lockDTO.getLockSection());
-        LockType lockType = getLockType(lockDTO.getLockType());
-        Lock lock = new Lock();
+        var user = userService.getAuthenticatedUser();
+        var lockSection = getLockSection(lockDTO.getLockSection());
+        var lockType = getLockType(lockDTO.getLockType());
+        var lock = new Lock();
         lock.setLongitude(lockDTO.getLongitude());
         lock.setLatitude(lockDTO.getLatitude());
         lock.setUser(user);
@@ -87,6 +90,8 @@ public class LockService {
         lock.setFontStyle(lockDTO.getFontStyle());
         lock.setCreatedDate(new Date());
         lock.setLastModifiedDate(new Date());
+        var panel = panelService.getPanel(lockDTO.getPanelId());
+        lock.setPanel(panel);
         lockRepository.save(lock);
     }
 
@@ -104,7 +109,7 @@ public class LockService {
         return lockList.stream().map(this::toLockResponseDto).collect(Collectors.toList());
     }
 
-    private LockResponseDTO toLockResponseDto(Lock lock) {
+    LockResponseDTO toLockResponseDto(Lock lock) {
         return new LockResponseDTO(lock);
     }
 

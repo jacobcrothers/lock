@@ -26,12 +26,23 @@ public class LockDTO {
     private Long lockType;
 
     @NotNull
-    private double longitude;
+    private Double longitude;
 
     @NotNull
-    private double latitude;
+    private Double latitude;
+
+    @NotNull
+    private Long panelId;
 
     public LockDTO() {
+    }
+
+    public long getPanelId() {
+        return panelId;
+    }
+
+    public void setPanelId(long panelId) {
+        this.panelId = panelId;
     }
 
     public double getLongitude() {

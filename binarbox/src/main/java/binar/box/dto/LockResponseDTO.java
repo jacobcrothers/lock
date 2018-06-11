@@ -36,6 +36,9 @@ public class LockResponseDTO {
     @NotNull
     private String lockType;
 
+    @NotNull
+    private long panelId;
+
     public LockResponseDTO(Lock lock) {
         this.id = lock.getId();
         this.longitude = lock.getLongitude();
@@ -45,10 +48,19 @@ public class LockResponseDTO {
         this.fontStyle = lock.getFontStyle();
         this.lockSection = lock.getLockSection().getSection();
         this.lockType = lock.getLockType().getType();
+        this.panelId = lock.getPanel().getId();
 
     }
 
     public LockResponseDTO() {
+    }
+
+    public long getPanelId() {
+        return panelId;
+    }
+
+    public void setPanelId(long panelId) {
+        this.panelId = panelId;
     }
 
     public long getId() {

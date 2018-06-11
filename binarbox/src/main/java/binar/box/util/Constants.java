@@ -67,4 +67,6 @@ public class Constants {
     public static final String CHANGE_PASSWORD = "/change/password";
     public static final String OLD_PASSWORD_DOES_NOT_MATCH = "Old password doesn't match!";
     public static final String PANEL_ENDPOINT = "panel";
+    public static final String PANEL_NOT_FOUND = "Panel not found!";
+    public static final String RANDOM_PANEL = "/random";
 }
