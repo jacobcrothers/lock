@@ -1,0 +1,6 @@
+<div class="message-container">
+    <div *ngFor="let message of messages; let i = index" class="{{message.type}}">
+        {{message.text}}
+        <span class="close" title="Dismiss message" (click)="removeMessage(i)">&times;</span>
+    </div>
+</div>

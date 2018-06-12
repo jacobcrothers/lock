@@ -1,5 +1,5 @@
 <nav class="main-menu navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Lock Bridges</a>
     <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="collapseMenu = !collapseMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,13 +7,15 @@
     <div class="navbar-collapse" [hidden]="!collapseMenu">
         <ul class="navbar-nav col-md-8 mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" routerLink="" [routerLinkActive]="['activeLink']">
+                <a class="nav-link" routerLink="/" [routerLinkActive]="['activeLink']">
                     See all locks
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Add a lock</a>
+                <a class="nav-link" routerLink="/add-lock" [routerLinkActive]="['activeLink']">
+                    Add a lock
+                </a>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -27,11 +29,11 @@
                 <a class="nav-link" routerLink="/login" [routerLinkActive]="['activeLink']">Login</a>
             </li>
         </ul>
-
-
     </div>
 </nav>
 
 <div class="wrapper">
     <router-outlet></router-outlet>
 </div>
+
+<app-message></app-message>

@@ -26,6 +26,9 @@ import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.co
 //     FacebookLoginProvider,
 // } from 'angular5-social-login';
 import { ConfirmEmailComponent } from './user/confirm-email/confirm-email.component';
+import { MessageComponent } from './message/message.component';
+import {MessageService} from './_services/message.service';
+import { LockComponent } from './lock/lock.component';
 
 
 // // Configs
@@ -52,7 +55,9 @@ import { ConfirmEmailComponent } from './user/confirm-email/confirm-email.compon
         LocksComponent,
         SocialComponent,
         ForgotPasswordComponent,
-        ConfirmEmailComponent
+        ConfirmEmailComponent,
+        MessageComponent,
+        LockComponent
     ],
     imports: [
         BrowserModule,
@@ -71,7 +76,8 @@ import { ConfirmEmailComponent } from './user/confirm-email/confirm-email.compon
         // useFactory: getAuthServiceConfigs
     },
         AuthGuard,
-        UserService
+        UserService,
+        MessageService
     ],
     bootstrap: [AppComponent]
 })

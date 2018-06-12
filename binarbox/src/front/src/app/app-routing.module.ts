@@ -13,6 +13,7 @@ import {LocksComponent} from './user/dashboard/locks/locks.component';
 import {SocialComponent} from './user/dashboard/social/social.component';
 import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
 import {ConfirmEmailComponent} from './user/confirm-email/confirm-email.component';
+import {LockComponent} from './lock/lock.component';
 
 const routes = [{
         path: '',
@@ -32,6 +33,14 @@ const routes = [{
     }, {
         path: 'logout',
         component: LogoutComponent
+    }, {
+        path: 'add-lock',
+        component: LockComponent,
+        canActivate: [AuthGuard]
+    }, {
+        path: 'add-lock/:id',
+        component: LockComponent,
+        canActivate: [AuthGuard]
     }, {
         path: 'register',
         component: RegisterComponent
