@@ -2,18 +2,18 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Router} from '@angular/router';
-// import {
-//     AuthService,
-//     FacebookLoginProvider,
-//     GoogleLoginProvider
-// } from 'angular5-social-login';
+import {
+    AuthService,
+    FacebookLoginProvider,
+    GoogleLoginProvider
+} from 'angular5-social-login';
 
 @Injectable()
 export class UserService {
 
     private authenticateUrl = 'authentication/login';
     private registrationUrl = 'authentication/register';
-    // private socialLoginUrl = 'authentication/social';
+    private socialLoginUrl = 'authentication/social';
     private resetPasswordUrl = 'user/request/reset/password';
     private confirmEmailUrl = '/user/email/confirm';
 
@@ -22,7 +22,7 @@ export class UserService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        // private socialAuthService: AuthService
+        private socialAuthService: AuthService
     ) {
     }
 
@@ -80,24 +80,24 @@ export class UserService {
     }
 
     loginSocial(provider) {
-    //     let socialPlatformProvider;
-    //
-    //     if (provider === 'facebook') {
-    //         socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    //     } else if (provider === 'google') {
-    //         socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    //     }
-    //
-    //     this.socialAuthService.signIn(socialPlatformProvider).then(
-    //         (userData) => {
-    //             if (userData['token']) {
-    //                 const $request = this.http.post(this.socialLoginUrl, userData, {
-    //                     responseType: 'json'
-    //                 });
-    //
-    //                 $request.subscribe(requestData => this.setLoginData.call(this, requestData));
-    //             }
-    //         });
+        let socialPlatformProvider;
+
+        if (provider === 'facebook') {
+            socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+        } else if (provider === 'google') {
+            socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+        }
+
+        this.socialAuthService.signIn(socialPlatformProvider).then(
+            (userData) => {
+                if (userData['token']) {
+                    const $request = this.http.post(this.socialLoginUrl, userData, {
+                        responseType: 'json'
+                    });
+
+                    $request.subscribe(requestData => this.setLoginData.call(this, requestData));
+                }
+            });
     }
 
     register(data) {

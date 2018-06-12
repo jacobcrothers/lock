@@ -20,27 +20,27 @@ import {PaymentComponent} from './user/dashboard/payment/payment.component';
 import {LocksComponent} from './user/dashboard/locks/locks.component';
 import {SocialComponent} from './user/dashboard/social/social.component';
 import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
-// import {
-//     SocialLoginModule,
-//     AuthServiceConfig,
-//     FacebookLoginProvider,
-// } from 'angular5-social-login';
+import {
+    SocialLoginModule,
+    AuthServiceConfig,
+    FacebookLoginProvider,
+} from 'angular5-social-login';
 import { ConfirmEmailComponent } from './user/confirm-email/confirm-email.component';
 import { MessageComponent } from './message/message.component';
 import {MessageService} from './_services/message.service';
 import { LockComponent } from './lock/lock.component';
 
 
-// // Configs
-// export function getAuthServiceConfigs() {
-//     const config = new AuthServiceConfig(
-//         [{
-//                 id: FacebookLoginProvider.PROVIDER_ID,
-//                 provider: new FacebookLoginProvider('415210252282694')
-//             }
-//         ]);
-//     return config;
-// }
+// Configs
+export function getAuthServiceConfigs() {
+    const config = new AuthServiceConfig(
+        [{
+                id: FacebookLoginProvider.PROVIDER_ID,
+                provider: new FacebookLoginProvider('415210252282694')
+            }
+        ]);
+    return config;
+}
 
 @NgModule({
     declarations: [
@@ -65,15 +65,15 @@ import { LockComponent } from './lock/lock.component';
         HttpClientModule,
         AppRoutingModule,
         IconsModule,
-        // SocialLoginModule
+        SocialLoginModule
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
         useClass: RequestInterceptor,
         multi: true
-    // }, {
-        // provide: AuthServiceConfig,
-        // useFactory: getAuthServiceConfigs
+    }, {
+        provide: AuthServiceConfig,
+        useFactory: getAuthServiceConfigs
     },
         AuthGuard,
         UserService,
