@@ -13,7 +13,7 @@ export class UserService {
 
     private authenticateUrl = 'authentication/login';
     private registrationUrl = 'authentication/register';
-    private socialLoginUrl = 'authentication/social';
+    private socialLoginUrl = 'authentication/facebook';
     private resetPasswordUrl = 'user/request/reset/password';
     private confirmEmailUrl = '/user/email/confirm';
 
