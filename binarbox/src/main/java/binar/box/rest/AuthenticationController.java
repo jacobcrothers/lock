@@ -44,7 +44,7 @@ public class AuthenticationController {
         return userService.loginUser(userLoginDTO, rememberMe);
     }
 
-    @PostMapping(value = Constants.LOGIN_ENDPOINT + Constants.FACEBOOK_ENDPOINT)
+    @PostMapping(value = Constants.FACEBOOK_ENDPOINT)
     private TokenDTO facebookLogin(@RequestBody @Valid FacebookTokenDTO facebookTokenDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
