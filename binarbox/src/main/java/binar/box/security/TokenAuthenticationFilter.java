@@ -29,7 +29,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private TokenService tokenService;
 
-    public TokenAuthenticationFilter(TokenService tokenService) {
+    TokenAuthenticationFilter(TokenService tokenService) {
         this.tokenService = tokenService;
 
     }
@@ -44,6 +44,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         Date todayDate = new Date();
         if (userToken.getExpirationTime().before(todayDate)) {
             throw new LockBridgesException(Constants.TOKEN_EXPIRED);
+        } else if (!userToken.getUser().isEmailConfirmed()) {
+            throw new LockBridgesException(Constants.EMAIL_NOT_CONFIRMED);
         }
         DecodedJWT decodedJWT = tokenService.decodeJwtToken(userToken);
         if (decodedJWT.getClaim(Constants.JWT_PAYLOAD_CLAIM_USER).asLong().equals(userToken.getUser().getId())) {
