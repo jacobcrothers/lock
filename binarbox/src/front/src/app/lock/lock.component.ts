@@ -23,7 +23,7 @@ export class LockComponent implements OnInit {
         id: 3,
         price: 3,
         type: 'Padlock'
-    }, ];
+    }];
 
     constructor(
         private route: ActivatedRoute

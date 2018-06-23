@@ -29,6 +29,7 @@ import { ConfirmEmailComponent } from './user/confirm-email/confirm-email.compon
 import { MessageComponent } from './message/message.component';
 import {MessageService} from './_services/message.service';
 import { LockComponent } from './lock/lock.component';
+import { LockDetailsComponent } from './user/dashboard/locks/lock-details/lock-details.component';
 
 
 // Configs
@@ -57,7 +58,8 @@ export function getAuthServiceConfigs() {
         ForgotPasswordComponent,
         ConfirmEmailComponent,
         MessageComponent,
-        LockComponent
+        LockComponent,
+        LockDetailsComponent
     ],
     imports: [
         BrowserModule,

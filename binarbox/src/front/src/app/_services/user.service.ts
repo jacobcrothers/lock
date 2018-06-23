@@ -11,11 +11,13 @@ import {
 @Injectable()
 export class UserService {
 
-    private authenticateUrl = 'authentication/login';
-    private registrationUrl = 'authentication/register';
-    private socialLoginUrl = 'authentication/facebook';
-    private resetPasswordUrl = 'user/request/reset/password';
-    private confirmEmailUrl = '/user/email/confirm';
+    private authenticateUrl     = 'authentication/login';
+    private registrationUrl     = 'authentication/register';
+    private socialLoginUrl      = 'authentication/facebook';
+    private resetPasswordUrl    = 'user/request/reset/password';
+    private confirmEmailUrl     = 'user/email/confirm';
+    private changePasswordUrl   = 'user/change/password';
+    private userUrl             = 'user';
 
     public isUserLoggedIn$ = new BehaviorSubject(Boolean(UserService.getUserToken()));
 
@@ -116,9 +118,19 @@ export class UserService {
         });
     }
 
+    changePassword(data) {
+        return this.http.post(this.changePasswordUrl, data);
+    }
+
     confirmEmail(data) {
-        return this.http.post(this.confirmEmailUrl, data, {
-            responseType: 'json'
-        });
+        return this.http.post(this.confirmEmailUrl, data);
+    }
+
+    getUserData() {
+        return this.http.get(this.userUrl, {});
+    }
+
+    setUserData(data) {
+        return this.http.put(this.userUrl, data);
     }
 }

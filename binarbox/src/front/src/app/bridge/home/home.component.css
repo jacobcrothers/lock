@@ -1,4 +1,10 @@
 * { box-sizing: border-box; }
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Video BG */
 .video-background {
     background: #000;
     position: fixed;
@@ -32,3 +38,4 @@
 @media all and (max-width: 500px) {
     .vid-info .acronym { display: none; }
 }
+/* End video BG */

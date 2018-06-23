@@ -1,3 +1,33 @@
+<h4>Your Locks</h4>
 <p>
-  locks works!
+    Here you can see and manage all the locks you've placed.
 </p>
+<div class="row">
+    <div class="col">
+        <div *ngIf="locks">
+            <p>
+                So, you have a special date you want to commemorate?
+                Or maybe you want to show that special someone how special they are?
+                We're the same, that's why we created this site, after all. And the locks...
+            </p>
+            <div class="lock-container">
+                <div class="lock" *ngFor="let lock of locks; let i = index" (click)="selectLock(i)" [ngClass]="{'bg-dark': lock.selected}">
+                    <div class="lock-image">
+
+                    </div>
+                    <h4>{{lock.type}}</h4>
+                    <span class="date">Added on {{lock.date}}</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!locks">
+            You haven't added any locks yet. Adding a lock to one of our bridges is a good way to show that special someone that you care.
+            <div>
+                <a routerLink="/add-lock" class="btn btn-primary">Add a lock</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="currentLock">
+        <app-lock-details [currentLock]="currentLock"></app-lock-details>
+</div>

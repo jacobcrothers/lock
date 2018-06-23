@@ -1,0 +1,20 @@
+.lock-container {
+    width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.lock {
+    display: inline-block;
+    max-width: 200px;
+    margin-right: 30px;
+}
+
+.lock-image {
+    background-color: grey;
+    padding: 20px;
+    min-height: 200px;
+    min-width: 200px;
+}
