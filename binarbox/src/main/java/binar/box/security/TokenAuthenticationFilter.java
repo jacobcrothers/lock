@@ -44,9 +44,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         Date todayDate = new Date();
         if (userToken.getExpirationTime().before(todayDate)) {
             throw new LockBridgesException(Constants.TOKEN_EXPIRED);
-        } else if (!userToken.getUser().isEmailConfirmed()) {
-            throw new LockBridgesException(Constants.EMAIL_NOT_CONFIRMED);
         }
+        //TODO uncomment after FE logic is implemented
+//        else if (!userToken.getUser().isEmailConfirmed()) {
+//            throw new LockBridgesException(Constants.EMAIL_NOT_CONFIRMED);
+//        }
         DecodedJWT decodedJWT = tokenService.decodeJwtToken(userToken);
         if (decodedJWT.getClaim(Constants.JWT_PAYLOAD_CLAIM_USER).asLong().equals(userToken.getUser().getId())) {
             List<GrantedAuthority> authorities = new ArrayList<>(1);

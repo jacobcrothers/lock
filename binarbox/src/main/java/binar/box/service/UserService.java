@@ -72,6 +72,7 @@ public class UserService {
         }
     }
 
+    //TODO check email if confirmed!
     public TokenDTO loginUser(UserLoginDTO userLoginDTO, boolean rememberMe) {
         User user;
         try {
