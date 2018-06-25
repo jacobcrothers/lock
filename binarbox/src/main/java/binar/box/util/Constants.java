@@ -71,4 +71,5 @@ public class Constants {
     public static final String RANDOM_PANEL = "/random";
     public static final String SOMETHING_WENT_WRONG_WITH_PANELS_COUNTING = "Something went wrong with panels counting!";
     public static final String MAINTAINING_PANELS = "Maintaining panels.";
+    public static final String EMAIL_NOT_CONFIRMED = "Email not confirmed.";
 }

@@ -17,5 +17,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByConfirmEmailToken(String token);
 
-    Optional<User> findByFacebookId(String facebookId);
+    Optional<User> findByFacebookIdOrEmail(String facebookId, String email);
 }
