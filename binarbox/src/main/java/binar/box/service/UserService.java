@@ -73,7 +73,7 @@ public class UserService {
     }
 
     //TODO check email if confirmed!
-    public TokenDTO loginUser(UserLoginDTO userLoginDTO, boolean rememberMe) {
+    public TokenDTO loginUser(UserLoginDTO userLoginDTO) {
         User user;
         try {
             user = getUserByEmail(userLoginDTO.getEmail());

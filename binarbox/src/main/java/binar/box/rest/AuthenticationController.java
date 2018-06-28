@@ -37,11 +37,11 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = Constants.LOGIN_ENDPOINT)
-    private TokenDTO login(@RequestBody @Valid UserLoginDTO userLoginDTO, BindingResult bindingResult, @Param("rememberMe") boolean rememberMe) {
+    private TokenDTO login(@RequestBody @Valid UserLoginDTO userLoginDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        return userService.loginUser(userLoginDTO, rememberMe);
+        return userService.loginUser(userLoginDTO);
     }
 
     @PostMapping(value = Constants.FACEBOOK_ENDPOINT)
