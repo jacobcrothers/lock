@@ -8,7 +8,6 @@ import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,11 +28,11 @@ public class AuthenticationController {
 
 
     @PostMapping(value = Constants.REGISTER_ENDPOINT)
-    private TokenDTO register(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult) {
+    private void register(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new LockBridgesException(bindingResult.getAllErrors().toString());
         }
-        return userService.registerUser(userDTO);
+         userService.registerUser(userDTO);
     }
 
     @PostMapping(value = Constants.LOGIN_ENDPOINT)

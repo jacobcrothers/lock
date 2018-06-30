@@ -50,7 +50,7 @@ public class UserService {
     private ExecutorService executors = Executors.newFixedThreadPool(2);
 
 
-    public TokenDTO registerUser(@Valid UserDTO userDTO) {
+    public void registerUser(UserDTO userDTO) {
         checkIfUserIsAlreadyRegistered(userDTO.getEmail());
         User user = new User(userDTO);
         user.setPassword(BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt(12)));
@@ -63,7 +63,6 @@ public class UserService {
         emailService.sendEmail(user.getEmail(), "Welcome", "Welcome to Lock Bridges : please confirm email : " +
                 emailToken);
         userRepository.save(user);
-        return tokenService.createUserToken(user, 7);
     }
 
     private void checkIfUserIsAlreadyRegistered(String email) {
@@ -72,7 +71,7 @@ public class UserService {
         }
     }
 
-    //TODO check email if confirmed!
+    
     public TokenDTO loginUser(UserLoginDTO userLoginDTO) {
         User user;
         try {
@@ -84,6 +83,9 @@ public class UserService {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
         } else if (!BCrypt.checkpw(userLoginDTO.getPassword(), user.getPassword())) {
             throw new LockBridgesException(Constants.BAD_CREDENTIALS);
+        }
+        if (!user.isEmailConfirmed()) {
+        	throw new LockBridgesException(Constants.EMAIL_NOT_CONFIRMED);
         }
         return tokenService.createUserToken(user, 7);
     }
