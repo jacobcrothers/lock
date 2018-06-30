@@ -68,6 +68,12 @@ public class User extends BaseEntity {
 	@JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"))
 	private List<UserAuthority> authority;
 
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "linked_with_facebook")
+	private boolean linkedWithFacebbok;
+
 	public User() {
 	}
 
@@ -78,6 +84,7 @@ public class User extends BaseEntity {
 		this.phone = userDTO.getPhone();
 		this.city = userDTO.getCity();
 		this.country = userDTO.getCountry();
+		this.address = userDTO.getAddress();
 	}
 
 	public String getFacebookAccessToken() {
@@ -190,5 +197,21 @@ public class User extends BaseEntity {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public boolean isLinkedWithFacebbok() {
+		return linkedWithFacebbok;
+	}
+
+	public void setLinkedWithFacebbok(boolean linkedWithFacebbok) {
+		this.linkedWithFacebbok = linkedWithFacebbok;
 	}
 }

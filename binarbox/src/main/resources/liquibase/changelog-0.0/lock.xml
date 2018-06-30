@@ -55,6 +55,7 @@
 				<constraints nullable="false" referencedTableName="user"
 					referencedColumnNames="id" foreignKeyName="FK_LOCK_USER" />
 			</column>
+			<column name="delete_token" type="nvarchar(50)"></column>
 			<column name="created_date" type="date">
 				<constraints nullable="false" />
 			</column>
@@ -140,14 +141,6 @@
 		<sqlFile endDelimiter="#"
 			path="classpath:/liquibase/panelProcedure.sql" />
 		<sql>CALL insertRandomPanelsEntity(30);</sql>
-	</changeSet>
-
-	<changeSet id="lock-1" author="tnalex">
-
-		<addColumn tableName="lock_entity">
-			<column name="delete_token" type="nvarchar(50)"></column>
-		</addColumn>
-
 	</changeSet>
 
 </databaseChangeLog>

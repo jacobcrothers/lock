@@ -11,11 +11,17 @@ public class UserProfileDTO {
 
 	private String firstName;
 
+	private String email;
+
 	private String phone;
 
 	private String city;
 
 	private String country;
+
+	private String address;
+
+	private boolean linkedWithFacebbok;
 
 	public UserProfileDTO() {
 	}
@@ -26,6 +32,9 @@ public class UserProfileDTO {
 		this.phone = user.getPhone();
 		this.city = user.getCity();
 		this.country = user.getCountry();
+		this.email = user.getEmail();
+		this.address = user.getAddress();
+		this.linkedWithFacebbok = user.isLinkedWithFacebbok();
 	}
 
 	public String getLastName() {
@@ -66,5 +75,29 @@ public class UserProfileDTO {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public boolean isLinkedWithFacebbok() {
+		return linkedWithFacebbok;
+	}
+
+	public void setLinkedWithFacebbok(boolean linkedWithFacebbok) {
+		this.linkedWithFacebbok = linkedWithFacebbok;
 	}
 }

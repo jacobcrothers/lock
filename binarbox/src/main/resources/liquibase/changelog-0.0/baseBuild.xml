@@ -20,9 +20,11 @@
             <column name="password" type="nvarchar(100)"/>
             <column name="reset_password_token" type="nvarchar(100)"/>
             <column name="city" type="nvarchar(100)"/>
+            <column name="address" type="nvarchar(100)"/>
             <column name="country" type="nvarchar(100)"/>
             <column name="confirm_email_token" type="nvarchar(100)"/>
             <column name="email_confirmed" type="boolean" defaultValueBoolean="false"/>
+            <column name="linked_with_facebook" type="boolean" defaultValueBoolean="false"/>
             <column name="created_date" type="date">
                 <constraints nullable="false"/>
             </column>

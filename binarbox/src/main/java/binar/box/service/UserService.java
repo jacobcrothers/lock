@@ -127,7 +127,7 @@ public class UserService {
 	}
 
 	public void confirmUserEmail(String token) {
-		User user = getUserByEmailToken(token);
+		var user = getUserByEmailToken(token);
 		user.setConfirmEmailToken(null);
 		user.setEmailConfirmed(true);
 		userRepository.save(user);
@@ -151,6 +151,7 @@ public class UserService {
 			var registeredUser = user.get();
 			executors.submit(() -> getLongLiveFacebookToken(registeredUser, accessToken));
 			registeredUser.setEmailConfirmed(true);
+			registeredUser.setLinkedWithFacebbok(true);
 			userRepository.save(registeredUser);
 			return tokenService.createUserToken(registeredUser, 60);
 		}
@@ -192,6 +193,7 @@ public class UserService {
 		toRegisterUser.setCreatedDate(new Date());
 		toRegisterUser.setLastModifiedDate(new Date());
 		toRegisterUser.setEmailConfirmed(true);
+		toRegisterUser.setLinkedWithFacebbok(true);
 	}
 
 	public UserProfileDTO getUser() {
@@ -205,6 +207,8 @@ public class UserService {
 		user.setPhone(userProfileDTO.getPhone());
 		user.setCity(userProfileDTO.getCity());
 		user.setCountry(userProfileDTO.getCountry());
+		user.setAddress(userProfileDTO.getAddress());
+		userRepository.save(user);
 	}
 
 	public void changeUserPassword(ChangePasswordDTO changePasswordDTO) {
