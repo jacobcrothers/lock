@@ -7,31 +7,31 @@ import binar.box.domain.File;
  */
 public class FileDTO {
 
-    private long id;
+	private long id;
 
-    private String name;
+	private String name;
 
-    public FileDTO() {
-    }
+	public FileDTO() {
+	}
 
-    public FileDTO(File file) {
-        this.id = file.getId();
-        this.name = file.getFileName();
-    }
+	public FileDTO(File file) {
+		this.id = file.getId();
+		this.name = file.getFileName();
+	}
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 }

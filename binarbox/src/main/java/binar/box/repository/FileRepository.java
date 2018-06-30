@@ -1,7 +1,8 @@
 package binar.box.repository;
 
-import binar.box.domain.File;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import binar.box.domain.File;
 
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.

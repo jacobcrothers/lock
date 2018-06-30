@@ -8,18 +8,18 @@ import javax.validation.constraints.NotNull;
  */
 public class FacebookTokenDTO {
 
-    @NotEmpty
-    @NotNull
-    private String token;
+	@NotEmpty
+	@NotNull
+	private String token;
 
-    public FacebookTokenDTO() {
-    }
+	public FacebookTokenDTO() {
+	}
 
-    public String getToken() {
-        return token;
-    }
+	public String getToken() {
+		return token;
+	}
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

@@ -1,6 +1,14 @@
 package binar.box.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Created by Timis Nicu Alexandru on 16-Apr-18.
@@ -9,123 +17,133 @@ import javax.persistence.*;
 @Table(name = "lock_entity")
 public class Lock extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "longitude")
-    private double longitude;
+	@Column(name = "longitude")
+	private double longitude;
 
-    @Column(name = "latitude")
-    private double latitude;
+	@Column(name = "latitude")
+	private double latitude;
 
-    @Column(name = "message")
-    private String message;
+	@Column(name = "message")
+	private String message;
 
-    @Column(name = "font_size")
-    private int fontSize;
+	@Column(name = "font_size")
+	private int fontSize;
 
-    @Column(name = "font_style")
-    private String fontStyle;
+	@Column(name = "font_style")
+	private String fontStyle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lock_section_id")
-    private LockSection lockSection;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lock_section_id")
+	private LockSection lockSection;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "lock_type_id")
+	private LockType lockType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "lock_type_id")
-    private LockType lockType;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "panel_id")
+	private Panel panel;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "panel_id")
-    private Panel panel;
+	@Column(name = "delete_token")
+	private String deleteToken;
 
-    public Lock() {
-    }
+	public Lock() {
+	}
 
-    public Panel getPanel() {
-        return panel;
-    }
+	public String getDeleteToken() {
+		return deleteToken;
+	}
 
-    public void setPanel(Panel panel) {
-        this.panel = panel;
-    }
+	public void setDeleteToken(String deleteToken) {
+		this.deleteToken = deleteToken;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Panel getPanel() {
+		return panel;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setPanel(Panel panel) {
+		this.panel = panel;
+	}
 
-    public double getLongitude() {
-        return longitude;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public double getLatitude() {
-        return latitude;
-    }
+	public double getLongitude() {
+		return longitude;
+	}
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public double getLatitude() {
+		return latitude;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
 
-    public int getFontSize() {
-        return fontSize;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setFontSize(int fontSize) {
-        this.fontSize = fontSize;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public String getFontStyle() {
-        return fontStyle;
-    }
+	public int getFontSize() {
+		return fontSize;
+	}
 
-    public void setFontStyle(String fontStyle) {
-        this.fontStyle = fontStyle;
-    }
+	public void setFontSize(int fontSize) {
+		this.fontSize = fontSize;
+	}
 
-    public LockSection getLockSection() {
-        return lockSection;
-    }
+	public String getFontStyle() {
+		return fontStyle;
+	}
 
-    public void setLockSection(LockSection lockSection) {
-        this.lockSection = lockSection;
-    }
+	public void setFontStyle(String fontStyle) {
+		this.fontStyle = fontStyle;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public LockSection getLockSection() {
+		return lockSection;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setLockSection(LockSection lockSection) {
+		this.lockSection = lockSection;
+	}
 
-    public LockType getLockType() {
-        return lockType;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setLockType(LockType lockType) {
-        this.lockType = lockType;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public LockType getLockType() {
+		return lockType;
+	}
+
+	public void setLockType(LockType lockType) {
+		this.lockType = lockType;
+	}
 }

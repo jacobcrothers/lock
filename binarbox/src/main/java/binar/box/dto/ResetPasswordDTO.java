@@ -7,18 +7,18 @@ import javax.validation.constraints.NotNull;
  */
 public class ResetPasswordDTO {
 
-    @NotNull
-    @NotNull
-    private String password;
+	@NotNull
+	@NotNull
+	private String password;
 
-    public ResetPasswordDTO() {
-    }
+	public ResetPasswordDTO() {
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

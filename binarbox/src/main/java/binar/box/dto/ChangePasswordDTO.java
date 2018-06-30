@@ -8,30 +8,30 @@ import javax.validation.constraints.NotNull;
  */
 public class ChangePasswordDTO {
 
-    @NotEmpty
-    @NotNull
-    private String oldPassword;
+	@NotEmpty
+	@NotNull
+	private String oldPassword;
 
-    @NotEmpty
-    @NotNull
-    private String password;
+	@NotEmpty
+	@NotNull
+	private String password;
 
-    public ChangePasswordDTO() {
-    }
+	public ChangePasswordDTO() {
+	}
 
-    public String getOldPassword() {
-        return oldPassword;
-    }
+	public String getOldPassword() {
+		return oldPassword;
+	}
 
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

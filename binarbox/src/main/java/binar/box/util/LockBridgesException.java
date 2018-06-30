@@ -5,7 +5,7 @@ package binar.box.util;
  */
 public class LockBridgesException extends RuntimeException {
 
-    public LockBridgesException(String lockBridgesMessage) {
-        super(lockBridgesMessage);
-    }
+	public LockBridgesException(String lockBridgesMessage) {
+		super(lockBridgesMessage);
+	}
 }

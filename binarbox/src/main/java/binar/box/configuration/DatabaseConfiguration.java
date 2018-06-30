@@ -1,13 +1,15 @@
 package binar.box.configuration;
 
-import binar.box.util.Constants;
-import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import javax.sql.DataSource;
+import com.zaxxer.hikari.HikariDataSource;
+
+import binar.box.util.Constants;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
@@ -15,25 +17,25 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfiguration {
 
-    @Autowired
-    private Environment environment;
+	@Autowired
+	private Environment environment;
 
-    @Bean
-    public DataSource dataSource() {
-        final String driverClassName = environment.getProperty("database.driverClassName");
-        final String jdbcUrl = environment.getProperty("database.jdbcUrl");
-        final String username = environment.getProperty("database.username");
-        final String password = environment.getProperty("database.password");
-        int maxPoolSize = Integer.valueOf(environment.getProperty("database.poolSize"));
-        boolean isAutoCommit = Boolean.valueOf(environment.getProperty("database.autoCommit"));
+	@Bean
+	public DataSource dataSource() {
+		final String driverClassName = environment.getProperty("database.driverClassName");
+		final String jdbcUrl = environment.getProperty("database.jdbcUrl");
+		final String username = environment.getProperty("database.username");
+		final String password = environment.getProperty("database.password");
+		int maxPoolSize = Integer.valueOf(environment.getProperty("database.poolSize"));
+		boolean isAutoCommit = Boolean.valueOf(environment.getProperty("database.autoCommit"));
 
-        final HikariDataSource hikariDataSource = new HikariDataSource();
-        hikariDataSource.setMaximumPoolSize(maxPoolSize);
-        hikariDataSource.setDriverClassName(driverClassName);
-        hikariDataSource.setJdbcUrl(jdbcUrl);
-        hikariDataSource.addDataSourceProperty(Constants.DATABASE_USERNAME_PROPERTY, username);
-        hikariDataSource.addDataSourceProperty(Constants.DATABASE_PASSWORD_PROPERTY, password);
-        hikariDataSource.setAutoCommit(isAutoCommit);
-        return hikariDataSource;
-    }
+		final HikariDataSource hikariDataSource = new HikariDataSource();
+		hikariDataSource.setMaximumPoolSize(maxPoolSize);
+		hikariDataSource.setDriverClassName(driverClassName);
+		hikariDataSource.setJdbcUrl(jdbcUrl);
+		hikariDataSource.addDataSourceProperty(Constants.DATABASE_USERNAME_PROPERTY, username);
+		hikariDataSource.addDataSourceProperty(Constants.DATABASE_PASSWORD_PROPERTY, password);
+		hikariDataSource.setAutoCommit(isAutoCommit);
+		return hikariDataSource;
+	}
 }
