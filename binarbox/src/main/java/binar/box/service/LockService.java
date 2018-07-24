@@ -17,6 +17,7 @@ import binar.box.domain.File;
 import binar.box.domain.Lock;
 import binar.box.domain.LockSection;
 import binar.box.domain.LockType;
+import binar.box.domain.User;
 import binar.box.dto.FileDTO;
 import binar.box.dto.LockDTO;
 import binar.box.dto.LockResponseDTO;
@@ -93,6 +94,11 @@ public class LockService {
 		var lockSection = getLockSection(lockDTO.getLockSection());
 		var lockType = getLockType(lockDTO.getLockType());
 		var lock = new Lock();
+		setLockFields(lockDTO, user, lockSection, lockType, lock);
+		lockRepository.save(lock);
+	}
+
+	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType, Lock lock) {
 		lock.setLongitude(lockDTO.getLongitude());
 		lock.setLatitude(lockDTO.getLatitude());
 		lock.setUser(user);
@@ -101,11 +107,11 @@ public class LockService {
 		lock.setMessage(lockDTO.getMessage());
 		lock.setFontSize(lockDTO.getFontSize());
 		lock.setFontStyle(lockDTO.getFontStyle());
+		lock.setFontColor(lockDTO.getFontColor());
 		lock.setCreatedDate(new Date());
 		lock.setLastModifiedDate(new Date());
 		var panel = panelService.getPanel(lockDTO.getPanelId());
 		lock.setPanel(panel);
-		lockRepository.save(lock);
 	}
 
 	private LockType getLockType(Long lockTypeId) {
@@ -154,6 +160,20 @@ public class LockService {
 		lockRepository.save(lockEntity);
 		emailService.sendEmail(user.getEmail(), "Claim to remove user lock ",
 				"Remove your lock using token : " + token);
+
+	}
+
+	private Lock getLockById(long lockId) {
+		return lockRepository.findById(lockId).orElseThrow(() -> new LockBridgesException(Constants.LOCK_NOT_FOUND));
+	}
+
+	public void updateUserLock(LockDTO lockDTO, long lockId) {
+		var user = userService.getAuthenticatedUser();
+		var lockSection = getLockSection(lockDTO.getLockSection());
+		var lockType = getLockType(lockDTO.getLockType());
+		var lock = getLockById(lockId);
+		setLockFields(lockDTO, user, lockSection, lockType, lock);
+		lockRepository.save(lock);
 
 	}
 }

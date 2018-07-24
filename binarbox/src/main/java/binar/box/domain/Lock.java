@@ -37,6 +37,9 @@ public class Lock extends BaseEntity {
 	@Column(name = "font_style")
 	private String fontStyle;
 
+	@Column(name = "font_color")
+	private String fontColor;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lock_section_id")
 	private LockSection lockSection;
@@ -55,6 +58,9 @@ public class Lock extends BaseEntity {
 
 	@Column(name = "delete_token")
 	private String deleteToken;
+
+	@Column(name = "paid")
+	private boolean paid;
 
 	public Lock() {
 	}
@@ -145,5 +151,21 @@ public class Lock extends BaseEntity {
 
 	public void setLockType(LockType lockType) {
 		this.lockType = lockType;
+	}
+
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	public void setFontColor(String fontColor) {
+		this.fontColor = fontColor;
+	}
+
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
 	}
 }

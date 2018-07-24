@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CorsFilter implements Filter {
 
+	@Override
 	public void init(FilterConfig filterConfig) {
 
 	}
@@ -43,6 +44,7 @@ public class CorsFilter implements Filter {
 		chain.doFilter(httpServletRequest, httpServletResponse);
 	}
 
+	@Override
 	public void destroy() {
 
 	}

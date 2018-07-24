@@ -1,37 +1,26 @@
 package binar.box.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
 public class LockDTO {
 
-	@NotEmpty
-	@NotNull
 	private String message;
 
-	@NotNull
 	private Integer fontSize;
 
-	@NotEmpty
-	@NotNull
 	private String fontStyle;
+	
+	private String fontColor;
 
-	@NotNull
 	private Long lockSection;
 
-	@NotNull
 	private Long lockType;
 
-	@NotNull
 	private Double longitude;
 
-	@NotNull
 	private Double latitude;
 
-	@NotNull
 	private Long panelId;
 
 	public LockDTO() {
@@ -99,5 +88,25 @@ public class LockDTO {
 
 	public void setLockType(Long lockType) {
 		this.lockType = lockType;
+	}
+
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	public void setFontColor(String fontColor) {
+		this.fontColor = fontColor;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setPanelId(Long panelId) {
+		this.panelId = panelId;
 	}
 }

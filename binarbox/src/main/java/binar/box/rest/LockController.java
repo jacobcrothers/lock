@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,11 +72,13 @@ public class LockController {
 	}
 
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
-	private void addLock(@RequestBody @Valid LockDTO lockDTO, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			throw new LockBridgesException(bindingResult.getAllErrors().toString());
-		}
+	private void addLock(@RequestBody LockDTO lockDTO) {
 		lockService.addUserLock(lockDTO);
+	}
+
+	@PutMapping(value = Constants.LOCK_ENDPOINT)
+	private void updateLock(@RequestBody LockDTO lockDTO, @RequestParam("lockId") long lockId) {
+		lockService.updateUserLock(lockDTO, lockId);
 	}
 
 	@GetMapping(value = Constants.LOCK_ENDPOINT)

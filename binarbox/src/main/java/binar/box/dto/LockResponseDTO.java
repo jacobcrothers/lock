@@ -1,8 +1,5 @@
 package binar.box.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import binar.box.domain.Lock;
 
 /**
@@ -12,30 +9,22 @@ public class LockResponseDTO {
 
 	private long id;
 
-	@NotNull
 	private Double longitude;
 
-	@NotNull
 	private Double latitude;
 
-	@NotEmpty
-	@NotNull
 	private String message;
 
-	@NotNull
 	private Integer fontSize;
 
-	@NotEmpty
-	@NotNull
 	private String fontStyle;
 
-	@NotNull
+	private String fontColor;
+
 	private String lockSection;
 
-	@NotNull
 	private String lockType;
 
-	@NotNull
 	private long panelId;
 
 	public LockResponseDTO(Lock lock) {
@@ -45,6 +34,7 @@ public class LockResponseDTO {
 		this.message = lock.getMessage();
 		this.fontSize = lock.getFontSize();
 		this.fontStyle = lock.getFontStyle();
+		this.fontColor = lock.getFontColor();
 		this.lockSection = lock.getLockSection().getSection();
 		this.lockType = lock.getLockType().getType();
 		this.panelId = lock.getPanel().getId();
@@ -124,5 +114,13 @@ public class LockResponseDTO {
 
 	public void setLockType(String lockType) {
 		this.lockType = lockType;
+	}
+
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	public void setFontColor(String fontColor) {
+		this.fontColor = fontColor;
 	}
 }

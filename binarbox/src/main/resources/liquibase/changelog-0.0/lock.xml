@@ -41,8 +41,10 @@
 			<column name="message" type="nvarchar(100)" />
 			<column name="font_size" type="int" />
 			<column name="font_style" type="nvarchar(100)" />
+			<column name="font_color" type="nvarchar(100)" />
+			<column name="paid" type="boolean" />
 			<column name="lock_section_id" type="bigint">
-				<constraints nullable="false"
+				<constraints nullable="true"
 					referencedTableName="lock_section" referencedColumnNames="id"
 					foreignKeyName="FK_LOCK_LOCK_SECTION" />
 			</column>
