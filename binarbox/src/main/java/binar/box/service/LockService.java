@@ -139,6 +139,7 @@ public class LockService {
 		lock.setFontStyle(lockDTO.getFontStyle());
 		lock.setFontColor(lockDTO.getFontColor());
 		lock.setLockColor(lockDTO.getLockColor());
+		lock.setPrivateLock(lockDTO.getPrivateLock() == null ? false : lockDTO.getPrivateLock());
 		lock.setLastModifiedDate(new Date());
 		lock.setPanel(panel);
 	}

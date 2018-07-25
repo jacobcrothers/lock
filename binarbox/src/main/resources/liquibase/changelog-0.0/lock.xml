@@ -43,6 +43,7 @@
 			<column name="font_style" type="nvarchar(100)" />
 			<column name="font_color" type="nvarchar(100)" />
 			<column name="paid" type="boolean" />
+			<column name="private_lock" type="boolean" />
 			<column name="lock_color" type="nvarchar(100)" />
 			<column name="lock_section_id" type="bigint">
 				<constraints nullable="true"

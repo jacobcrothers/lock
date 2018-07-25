@@ -4,7 +4,7 @@ package binar.box.dto;
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
 public class LockDTO {
-	
+
 	private Long id;
 
 	private String message;
@@ -27,7 +27,17 @@ public class LockDTO {
 
 	private Long panelId;
 
+	private Boolean privateLock;
+
 	public LockDTO() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getMessage() {
@@ -60,6 +70,14 @@ public class LockDTO {
 
 	public void setFontColor(String fontColor) {
 		this.fontColor = fontColor;
+	}
+
+	public String getLockColor() {
+		return lockColor;
+	}
+
+	public void setLockColor(String lockColor) {
+		this.lockColor = lockColor;
 	}
 
 	public Long getLockSection() {
@@ -102,20 +120,12 @@ public class LockDTO {
 		this.panelId = panelId;
 	}
 
-	public String getLockColor() {
-		return lockColor;
+	public Boolean getPrivateLock() {
+		return privateLock;
 	}
 
-	public void setLockColor(String lockColor) {
-		this.lockColor = lockColor;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setPrivateLock(Boolean privateLock) {
+		this.privateLock = privateLock;
 	}
 
 }

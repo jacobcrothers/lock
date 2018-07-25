@@ -61,10 +61,12 @@ public class Lock extends BaseEntity {
 
 	@Column(name = "paid")
 	private boolean paid;
-	
-	
-	@Column(name="lock_color")
+
+	@Column(name = "lock_color")
 	private String lockColor;
+
+	@Column(name = "private_lock")
+	private boolean privateLock;
 
 	public Lock() {
 	}
@@ -179,5 +181,13 @@ public class Lock extends BaseEntity {
 
 	public void setLockColor(String lockColor) {
 		this.lockColor = lockColor;
+	}
+
+	public boolean isPrivateLock() {
+		return privateLock;
+	}
+
+	public void setPrivateLock(boolean privateLock) {
+		this.privateLock = privateLock;
 	}
 }

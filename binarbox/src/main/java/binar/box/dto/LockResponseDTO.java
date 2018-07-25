@@ -29,6 +29,8 @@ public class LockResponseDTO {
 
 	private Long panelId;
 
+	private boolean privateLock;
+
 	public LockResponseDTO(Lock lock) {
 		this.id = lock.getId();
 		this.longitude = lock.getLongitude();
@@ -41,6 +43,7 @@ public class LockResponseDTO {
 		this.lockSection = lock.getLockSection() == null ? null : lock.getLockSection().getSection();
 		this.lockType = lock.getLockType() == null ? null : lock.getLockType().getType();
 		this.panelId = lock.getPanel() == null ? null : lock.getPanel().getId();
+		this.privateLock = lock.isPrivateLock();
 
 	}
 
@@ -133,6 +136,14 @@ public class LockResponseDTO {
 
 	public void setPanelId(Long panelId) {
 		this.panelId = panelId;
+	}
+
+	public boolean isPrivateLock() {
+		return privateLock;
+	}
+
+	public void setPrivateLock(boolean privateLock) {
+		this.privateLock = privateLock;
 	}
 
 }
