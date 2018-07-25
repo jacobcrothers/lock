@@ -18,6 +18,8 @@ import binar.box.dto.UserProfileDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 
 /**
  * Created by Timis Nicu Alexandru on 27-Mar-18.
@@ -48,16 +50,22 @@ public class UserController {
 		userService.confirmUserEmail(token);
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.USER_ENDPOINT)
 	private UserProfileDTO getUser() {
 		return userService.getUser();
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PutMapping(value = Constants.USER_ENDPOINT)
 	private void updateUser(@RequestBody UserProfileDTO userProfileDTO) {
 		userService.updateUser(userProfileDTO);
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PostMapping(value = Constants.USER_ENDPOINT + Constants.CHANGE_PASSWORD)
 	private void changeUserPassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
 		userService.changeUserPassword(changePasswordDTO);

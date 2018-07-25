@@ -46,6 +46,8 @@ public class LockController {
 	@Autowired
 	private FileService fileService;
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "ADMIN: Add lock type", notes = "This endpoint is for admin, admin add lock types into database.", response = LockTypeDtoResponse.class)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TYPE_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -56,6 +58,8 @@ public class LockController {
 		return lockService.addLockType(lockTypeDTO);
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "ADMIN: Add lock images", notes = "This endpoint is for admin, admin add lock images.", response = HttpStatus.class)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TYPE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -63,11 +67,15 @@ public class LockController {
 		fileService.saveFilesToLockType(files, lockTypeId);
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_ENDPOINT)
 	private List<LockTypeDtoResponse> getLockTypes() {
 		return lockService.getLockTypes();
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_SECTION_ENDPOINT)
 	private List<LockSection> lockSections() {
 		return lockService.getLockSections();
@@ -94,6 +102,8 @@ public class LockController {
 		return lockService.getLocks();
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@DeleteMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_DELETE_USING_PASSWORD)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	private void removeALockUsingPassword(@RequestParam("id") long id, @RequestBody @Valid PasswordDTO passwordDTO,
@@ -104,11 +114,15 @@ public class LockController {
 		lockService.removeUserLock(id, passwordDTO);
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PostMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_DELETE_USING_TOKEN)
 	private void claimToRemoveLock(@RequestParam("id") long id) {
 		lockService.claimToRemoveUserLock(id);
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@DeleteMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_DELETE_USING_TOKEN)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	private void removeALockUsingToken(@RequestParam("token") String token) {

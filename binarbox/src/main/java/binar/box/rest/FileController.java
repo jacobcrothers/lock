@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import binar.box.service.FileService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.
@@ -28,6 +30,8 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.DOWNLOAD, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	private ResponseEntity<InputStreamResource> downloadFile(@RequestParam("id") long fileId) {
 		binar.box.domain.File fileEntity = fileService.getFile(fileId);

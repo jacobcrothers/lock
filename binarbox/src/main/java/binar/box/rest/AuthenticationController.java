@@ -16,6 +16,8 @@ import binar.box.dto.UserLoginDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
@@ -51,6 +53,8 @@ public class AuthenticationController {
 		return userService.loginUser(facebookTokenDTO);
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PostMapping(value = Constants.RENEW_TOKEN_ENDPOINT)
 	private TokenDTO renewToken() {
 		return userService.renewUserToken();
