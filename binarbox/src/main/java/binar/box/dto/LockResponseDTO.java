@@ -21,11 +21,13 @@ public class LockResponseDTO {
 
 	private String fontColor;
 
+	private String lockColor;
+
 	private String lockSection;
 
 	private String lockType;
 
-	private long panelId;
+	private Long panelId;
 
 	public LockResponseDTO(Lock lock) {
 		this.id = lock.getId();
@@ -35,21 +37,14 @@ public class LockResponseDTO {
 		this.fontSize = lock.getFontSize();
 		this.fontStyle = lock.getFontStyle();
 		this.fontColor = lock.getFontColor();
-		this.lockSection = lock.getLockSection().getSection();
-		this.lockType = lock.getLockType().getType();
-		this.panelId = lock.getPanel().getId();
+		this.fontColor = lock.getLockColor();
+		this.lockSection = lock.getLockSection() == null ? null : lock.getLockSection().getSection();
+		this.lockType = lock.getLockType() == null ? null : lock.getLockType().getType();
+		this.panelId = lock.getPanel() == null ? null : lock.getPanel().getId();
 
 	}
 
 	public LockResponseDTO() {
-	}
-
-	public long getPanelId() {
-		return panelId;
-	}
-
-	public void setPanelId(long panelId) {
-		this.panelId = panelId;
 	}
 
 	public long getId() {
@@ -100,6 +95,22 @@ public class LockResponseDTO {
 		this.fontStyle = fontStyle;
 	}
 
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	public void setFontColor(String fontColor) {
+		this.fontColor = fontColor;
+	}
+
+	public String getLockColor() {
+		return lockColor;
+	}
+
+	public void setLockColor(String lockColor) {
+		this.lockColor = lockColor;
+	}
+
 	public String getLockSection() {
 		return lockSection;
 	}
@@ -116,11 +127,12 @@ public class LockResponseDTO {
 		this.lockType = lockType;
 	}
 
-	public String getFontColor() {
-		return fontColor;
+	public Long getPanelId() {
+		return panelId;
 	}
 
-	public void setFontColor(String fontColor) {
-		this.fontColor = fontColor;
+	public void setPanelId(Long panelId) {
+		this.panelId = panelId;
 	}
+
 }

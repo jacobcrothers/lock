@@ -4,6 +4,8 @@ package binar.box.dto;
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
 public class LockDTO {
+	
+	private Long id;
 
 	private String message;
 
@@ -12,6 +14,8 @@ public class LockDTO {
 	private String fontStyle;
 
 	private String fontColor;
+
+	private String lockColor;
 
 	private Long lockSection;
 
@@ -96,6 +100,22 @@ public class LockDTO {
 
 	public void setPanelId(Long panelId) {
 		this.panelId = panelId;
+	}
+
+	public String getLockColor() {
+		return lockColor;
+	}
+
+	public void setLockColor(String lockColor) {
+		this.lockColor = lockColor;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

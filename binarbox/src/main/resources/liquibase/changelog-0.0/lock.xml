@@ -43,6 +43,7 @@
 			<column name="font_style" type="nvarchar(100)" />
 			<column name="font_color" type="nvarchar(100)" />
 			<column name="paid" type="boolean" />
+			<column name="lock_color" type="nvarchar(100)" />
 			<column name="lock_section_id" type="bigint">
 				<constraints nullable="true"
 					referencedTableName="lock_section" referencedColumnNames="id"
@@ -136,7 +137,7 @@
 
 		<addColumn tableName="lock_entity">
 			<column name="panel_id" type="bigint">
-				<constraints nullable="false"
+				<constraints nullable="true"
 					foreignKeyName="FK_LOCK_ENTITY_PANEL"
 					referencedTableName="panel_entity" referencedColumnNames="id" />
 			</column>

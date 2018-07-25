@@ -89,57 +89,56 @@ public class LockService {
 		return lockSectionRepository.findAll();
 	}
 
-	public void addOrUpdateUserLock(LockDTO lockDTO, Long lockId) {
+	public void addOrUpdateUserLock(LockDTO lockDTO) {
 		executorService.submit(() -> panelService.maintainPanels());
 		var user = userService.getAuthenticatedUser();
-		var tempLock = lockRepository.findById(lockId);
 		Lock lock = null;
-		if (tempLock.isPresent()) {
-			lock = tempLock.get();
-			updateLock(lockDTO, lock, user);
+		if (lockDTO.getId() == null) {
+			lock = new Lock();
+			lock.setCreatedDate(new Date());
 		} else {
-			addLock(lockDTO, lock, user);
+			lock = getLockById(lockDTO.getId());
 		}
-
+		lock = addOrUpdateUserLock(lockDTO, lock, user);
 		lockRepository.save(lock);
 	}
 
-	private void addLock(LockDTO lockDTO, Lock lock, User user) {
-		lock = new Lock();
-		var lockSection = getLockSection(lockDTO.getLockSection());
-		var lockType = getLockType(lockDTO.getLockType());
-		var panel = panelService.getPanel(lockDTO.getPanelId());
-		setLockFields(lockDTO, user, lockSection, lockType, lock, panel);
+	private Lock getLockById(Long lockId) {
+		return lockRepository.findById(lockId).orElseThrow(() -> new LockBridgesException(Constants.LOCK_NOT_FOUND));
 	}
 
-	private void updateLock(LockDTO lockDTO, Lock lock, User user) {
+	private Lock addOrUpdateUserLock(LockDTO lockDTO, Lock lock, User user) {
 		LockSection lockSection = null;
 		if (lockDTO.getLockSection() != null) {
 			lockSection = getLockSection(lockDTO.getLockSection());
 		}
-		LockType lockType = null;
-		if (lockDTO.getLockType() != null) {
-			lockType = getLockType(lockDTO.getLockType());
-		}
+		var lockType = getLockType(lockDTO.getLockType());
 		Panel panel = null;
 		if (lockDTO.getPanelId() != null) {
 			panel = panelService.getPanel(lockDTO.getPanelId());
 		}
 		setLockFields(lockDTO, user, lockSection, lockType, lock, panel);
+		return lock;
 	}
 
 	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType, Lock lock,
 			Panel panel) {
-		lock.setLongitude(lockDTO.getLongitude());
-		lock.setLatitude(lockDTO.getLatitude());
+		if (lockDTO.getLongitude() != null) {
+			lock.setLongitude(lockDTO.getLongitude());
+		}
+		if (lockDTO.getLatitude() != null) {
+			lock.setLatitude(lockDTO.getLatitude());
+		}
 		lock.setUser(user);
 		lock.setLockType(lockType);
 		lock.setLockSection(lockSection);
 		lock.setMessage(lockDTO.getMessage());
-		lock.setFontSize(lockDTO.getFontSize());
+		if (lockDTO.getFontSize() != null) {
+			lock.setFontSize(lockDTO.getFontSize());
+		}
 		lock.setFontStyle(lockDTO.getFontStyle());
 		lock.setFontColor(lockDTO.getFontColor());
-		lock.setCreatedDate(new Date());
+		lock.setLockColor(lockDTO.getLockColor());
 		lock.setLastModifiedDate(new Date());
 		lock.setPanel(panel);
 	}

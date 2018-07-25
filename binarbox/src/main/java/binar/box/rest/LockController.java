@@ -85,14 +85,14 @@ public class LockController {
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
 	private void addLock(@RequestBody LockDTO lockDTO) {
-		lockService.addOrUpdateUserLock(lockDTO, null);
+		lockService.addOrUpdateUserLock(lockDTO);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PutMapping(value = Constants.LOCK_ENDPOINT)
-	private void updateLock(@RequestBody LockDTO lockDTO, @RequestParam("lockId") long lockId) {
-		lockService.addOrUpdateUserLock(lockDTO, lockId);
+	private void updateLock(@RequestBody LockDTO lockDTO) {
+		lockService.addOrUpdateUserLock(lockDTO);
 	}
 
 	@ApiImplicitParams({
