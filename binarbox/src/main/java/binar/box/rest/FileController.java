@@ -31,7 +31,7 @@ public class FileController {
 	private FileService fileService;
 
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.DOWNLOAD, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	private ResponseEntity<InputStreamResource> downloadFile(@RequestParam("id") long fileId) {
 		binar.box.domain.File fileEntity = fileService.getFile(fileId);

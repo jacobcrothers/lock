@@ -54,7 +54,7 @@ public class AuthenticationController {
 	}
 
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PostMapping(value = Constants.RENEW_TOKEN_ENDPOINT)
 	private TokenDTO renewToken() {
 		return userService.renewUserToken();

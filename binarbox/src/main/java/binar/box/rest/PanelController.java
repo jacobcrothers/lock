@@ -25,14 +25,14 @@ public class PanelController {
 	private PanelService panelService;
 
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.PANEL_ENDPOINT + Constants.RANDOM_PANEL)
 	private List<PanelDTO> getPanels() {
 		return panelService.getRandomPanels();
 	}
 
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.PANEL_ENDPOINT)
 	private PanelDTO getPanel(@RequestParam("id") long id) {
 		return panelService.getPanelDTO(id);
