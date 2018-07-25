@@ -75,4 +75,5 @@ public class Constants {
 	public static final String LOCK_DELETE_USING_TOKEN = "/token";
 	public static final String LOCK_NOT_FOUND = "Lock not found!";
 	public static final String USER = "/user";
+	public static final String RANDOM_PANEL_PARAM = "randomParameters.randomLocksOnUserPanel";
 }

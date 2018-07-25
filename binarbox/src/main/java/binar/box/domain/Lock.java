@@ -23,16 +23,16 @@ public class Lock extends BaseEntity {
 	private Long id;
 
 	@Column(name = "longitude")
-	private double longitude;
+	private Double longitude;
 
 	@Column(name = "latitude")
-	private double latitude;
+	private Double latitude;
 
 	@Column(name = "message")
 	private String message;
 
 	@Column(name = "font_size")
-	private int fontSize;
+	private Integer fontSize;
 
 	@Column(name = "font_style")
 	private String fontStyle;
@@ -71,22 +71,6 @@ public class Lock extends BaseEntity {
 	public Lock() {
 	}
 
-	public String getDeleteToken() {
-		return deleteToken;
-	}
-
-	public void setDeleteToken(String deleteToken) {
-		this.deleteToken = deleteToken;
-	}
-
-	public Panel getPanel() {
-		return panel;
-	}
-
-	public void setPanel(Panel panel) {
-		this.panel = panel;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -95,19 +79,19 @@ public class Lock extends BaseEntity {
 		this.id = id;
 	}
 
-	public double getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
-	public double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
@@ -119,11 +103,11 @@ public class Lock extends BaseEntity {
 		this.message = message;
 	}
 
-	public int getFontSize() {
+	public Integer getFontSize() {
 		return fontSize;
 	}
 
-	public void setFontSize(int fontSize) {
+	public void setFontSize(Integer fontSize) {
 		this.fontSize = fontSize;
 	}
 
@@ -133,6 +117,14 @@ public class Lock extends BaseEntity {
 
 	public void setFontStyle(String fontStyle) {
 		this.fontStyle = fontStyle;
+	}
+
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	public void setFontColor(String fontColor) {
+		this.fontColor = fontColor;
 	}
 
 	public LockSection getLockSection() {
@@ -159,12 +151,20 @@ public class Lock extends BaseEntity {
 		this.lockType = lockType;
 	}
 
-	public String getFontColor() {
-		return fontColor;
+	public Panel getPanel() {
+		return panel;
 	}
 
-	public void setFontColor(String fontColor) {
-		this.fontColor = fontColor;
+	public void setPanel(Panel panel) {
+		this.panel = panel;
+	}
+
+	public String getDeleteToken() {
+		return deleteToken;
+	}
+
+	public void setDeleteToken(String deleteToken) {
+		this.deleteToken = deleteToken;
 	}
 
 	public boolean isPaid() {
@@ -190,4 +190,5 @@ public class Lock extends BaseEntity {
 	public void setPrivateLock(boolean privateLock) {
 		this.privateLock = privateLock;
 	}
+
 }

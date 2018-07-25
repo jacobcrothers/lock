@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import binar.box.domain.Lock;
@@ -30,6 +31,8 @@ public class PanelService {
 	private LockService lockService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private Environment environment;
 
 	public List<PanelDTO> getRandomPanels() {
 		return panelRepository.findRandomPanels().parallelStream().map(this::toPanelDto).collect(Collectors.toList());
@@ -68,9 +71,24 @@ public class PanelService {
 	}
 
 	public List<PanelDTO> getUserLocksAndPanels() {
+		var numberOfRandomLocksOnUserPanel = Integer.valueOf(environment.getProperty(Constants.RANDOM_PANEL_PARAM));
 		var user = userService.getAuthenticatedUser();
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
+		panelsOfUser = insertRandomLocks(numberOfRandomLocksOnUserPanel, panelsOfUser);
 		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+	}
+
+	private List<Panel> insertRandomLocks(int numberOfRandomLocksOnUserPanel, List<Panel> panelsOfUser) {
+		for (Panel panel : panelsOfUser) {
+			var locks = panel.getLocks();
+			for (var times = 0; times < numberOfRandomLocksOnUserPanel; times++) {
+				var lock = new Lock();
+				lock.setId(Long.valueOf(times + 1000));
+				locks.add(lock);
+			}
+			panel.setLocks(locks);
+		}
+		return panelsOfUser;
 	}
 
 	private List<Panel> getPanelsWhereUserHasLocks(User user) {
