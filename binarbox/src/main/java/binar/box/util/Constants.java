@@ -74,4 +74,5 @@ public class Constants {
 	public static final String EMAIL_NOT_CONFIRMED = "Email not confirmed.";
 	public static final String LOCK_DELETE_USING_TOKEN = "/token";
 	public static final String LOCK_NOT_FOUND = "Lock not found!";
+	public static final String USER = "/user";
 }

@@ -37,4 +37,12 @@ public class PanelController {
 	private PanelDTO getPanel(@RequestParam("id") long id) {
 		return panelService.getPanelDTO(id);
 	}
+
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@GetMapping(value = Constants.PANEL_ENDPOINT + Constants.USER)
+	private List<PanelDTO> getUserAndUserFriendLocksAndPanels() {
+		return panelService.getUserLocksAndPanels();
+	}
+
 }

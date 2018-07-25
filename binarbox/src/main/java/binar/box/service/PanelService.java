@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import binar.box.domain.Lock;
 import binar.box.domain.Panel;
+import binar.box.domain.User;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.PanelDTO;
 import binar.box.repository.PanelRepository;
@@ -27,6 +28,8 @@ public class PanelService {
 	private PanelRepository panelRepository;
 	@Autowired
 	private LockService lockService;
+	@Autowired
+	private UserService userService;
 
 	public List<PanelDTO> getRandomPanels() {
 		return panelRepository.findRandomPanels().parallelStream().map(this::toPanelDto).collect(Collectors.toList());
@@ -62,5 +65,15 @@ public class PanelService {
 		} else if (numberOfPanelsAvailable.intValue() <= 2) {
 			panelRepository.addPanels(1);
 		}
+	}
+
+	public List<PanelDTO> getUserLocksAndPanels() {
+		var user = userService.getAuthenticatedUser();
+		var panelsOfUser = getPanelsWhereUserHasLocks(user);
+		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+	}
+
+	private List<Panel> getPanelsWhereUserHasLocks(User user) {
+		return panelRepository.findByUser(user.getId());
 	}
 }
