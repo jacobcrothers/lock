@@ -1,48 +1,41 @@
----
 spring:
-    profiles: dev
-    jpa:
-        hibernate:
-          ddlAuto: none
-          namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
-        show-sql: true
-    liquibase:
-        change-log: classpath:/liquibase/master.xml
-    servlet:
-        multipart:
-          maxFileSize: 10MB
-          maxRequestSize: 100MB
-
-
+  profiles: dev
+  jpa:
+    hibernate:
+      ddlAuto: none
+      namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
+    show-sql: true
+  liquibase:
+    change-log: classpath:/liquibase/master.xml
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 100MB
 server:
-    port: 6060
-    ssl:
-        key-store: classpath:keystore.p12
-        key-store-password: helloearth6
-        key-password: helloearth6
-
-
+  port: 6060
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: helloearth6
+    key-password: helloearth6
 database:
-    driverClassName: org.mariadb.jdbc.Driver
-    jdbcUrl: jdbc:mariadb://localhost:3306/lb
-    username: root
-    password: root
-    poolSize: 60
-    autoCommit: false
-
+  driverClassName: org.mariadb.jdbc.Driver
+  jdbcUrl: jdbc:mariadb://localhost:3306/lb
+  username: root
+  password: root
+  poolSize: 60
+  autoCommit: false
 mail:
-    starttls: true
-    host: smtp.mail.yahoo.com
-    port: 587
-    username: alex.timis95@yahoo.com
-    password: fordevelopment6
-    from: alex.timis95@yahoo.com
-
+  starttls: true
+  host: smtp.mail.yahoo.com
+  port: 587
+  username: alex.timis95@yahoo.com
+  password: fordevelopment6
+  from: alex.timis95@yahoo.com
 filesPath:
-    windows: D:\temp\lb
-    linux:  /var/tmp/lb
-
-
+  windows: D:\temp\lb
+  linux: /var/tmp/lb
 facebook:
-    clientId: 415210252282694
-    clientSecret: 853305ee2b39a204f05400358ae92e21
+  clientId: 415210252282694
+  clientSecret: 853305ee2b39a204f05400358ae92e21
+randomParameters:
+  randomLocksOnUserPanel: 20
