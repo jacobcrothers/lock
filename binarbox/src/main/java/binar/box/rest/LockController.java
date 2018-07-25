@@ -29,6 +29,8 @@ import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -71,16 +73,22 @@ public class LockController {
 		return lockService.getLockSections();
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
 	private void addLock(@RequestBody LockDTO lockDTO) {
-		lockService.addUserLock(lockDTO);
+		lockService.addOrUpdateUserLock(lockDTO, null);
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PutMapping(value = Constants.LOCK_ENDPOINT)
 	private void updateLock(@RequestBody LockDTO lockDTO, @RequestParam("lockId") long lockId) {
-		lockService.updateUserLock(lockDTO, lockId);
+		lockService.addOrUpdateUserLock(lockDTO, lockId);
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@GetMapping(value = Constants.LOCK_ENDPOINT)
 	private List<LockResponseDTO> getLocks() {
 		return lockService.getLocks();

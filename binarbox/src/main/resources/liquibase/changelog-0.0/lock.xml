@@ -117,6 +117,7 @@
 		<insert tableName="authority">
 			<column name="name" value="ADMIN" type="nvarchar(100)" />
 		</insert>
+		<sqlFile path="classpath:/liquibase/lockTypes.sql" />
 	</changeSet>
 
 	<changeSet id="panel-0" author="tnalex">

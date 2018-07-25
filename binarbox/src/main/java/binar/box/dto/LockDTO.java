@@ -10,7 +10,7 @@ public class LockDTO {
 	private Integer fontSize;
 
 	private String fontStyle;
-	
+
 	private String fontColor;
 
 	private Long lockSection;
@@ -24,30 +24,6 @@ public class LockDTO {
 	private Long panelId;
 
 	public LockDTO() {
-	}
-
-	public long getPanelId() {
-		return panelId;
-	}
-
-	public void setPanelId(long panelId) {
-		this.panelId = panelId;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
 	}
 
 	public String getMessage() {
@@ -74,6 +50,14 @@ public class LockDTO {
 		this.fontStyle = fontStyle;
 	}
 
+	public String getFontColor() {
+		return fontColor;
+	}
+
+	public void setFontColor(String fontColor) {
+		this.fontColor = fontColor;
+	}
+
 	public Long getLockSection() {
 		return lockSection;
 	}
@@ -90,23 +74,28 @@ public class LockDTO {
 		this.lockType = lockType;
 	}
 
-	public String getFontColor() {
-		return fontColor;
-	}
-
-	public void setFontColor(String fontColor) {
-		this.fontColor = fontColor;
+	public Double getLongitude() {
+		return longitude;
 	}
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
+	public Double getLatitude() {
+		return latitude;
+	}
+
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
+	}
+
+	public Long getPanelId() {
+		return panelId;
 	}
 
 	public void setPanelId(Long panelId) {
 		this.panelId = panelId;
 	}
+
 }

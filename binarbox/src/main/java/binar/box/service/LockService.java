@@ -17,6 +17,7 @@ import binar.box.domain.File;
 import binar.box.domain.Lock;
 import binar.box.domain.LockSection;
 import binar.box.domain.LockType;
+import binar.box.domain.Panel;
 import binar.box.domain.User;
 import binar.box.dto.FileDTO;
 import binar.box.dto.LockDTO;
@@ -88,17 +89,47 @@ public class LockService {
 		return lockSectionRepository.findAll();
 	}
 
-	public void addUserLock(LockDTO lockDTO) {
+	public void addOrUpdateUserLock(LockDTO lockDTO, Long lockId) {
 		executorService.submit(() -> panelService.maintainPanels());
 		var user = userService.getAuthenticatedUser();
-		var lockSection = getLockSection(lockDTO.getLockSection());
-		var lockType = getLockType(lockDTO.getLockType());
-		var lock = new Lock();
-		setLockFields(lockDTO, user, lockSection, lockType, lock);
+		var tempLock = lockRepository.findById(lockId);
+		Lock lock = null;
+		if (tempLock.isPresent()) {
+			lock = tempLock.get();
+			updateLock(lockDTO, lock, user);
+		} else {
+			addLock(lockDTO, lock, user);
+		}
+
 		lockRepository.save(lock);
 	}
 
-	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType, Lock lock) {
+	private void addLock(LockDTO lockDTO, Lock lock, User user) {
+		lock = new Lock();
+		var lockSection = getLockSection(lockDTO.getLockSection());
+		var lockType = getLockType(lockDTO.getLockType());
+		var panel = panelService.getPanel(lockDTO.getPanelId());
+		setLockFields(lockDTO, user, lockSection, lockType, lock, panel);
+	}
+
+	private void updateLock(LockDTO lockDTO, Lock lock, User user) {
+		LockSection lockSection = null;
+		if (lockDTO.getLockSection() != null) {
+			lockSection = getLockSection(lockDTO.getLockSection());
+		}
+		LockType lockType = null;
+		if (lockDTO.getLockType() != null) {
+			lockType = getLockType(lockDTO.getLockType());
+		}
+		Panel panel = null;
+		if (lockDTO.getPanelId() != null) {
+			panel = panelService.getPanel(lockDTO.getPanelId());
+		}
+		setLockFields(lockDTO, user, lockSection, lockType, lock, panel);
+	}
+
+	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType, Lock lock,
+			Panel panel) {
 		lock.setLongitude(lockDTO.getLongitude());
 		lock.setLatitude(lockDTO.getLatitude());
 		lock.setUser(user);
@@ -110,7 +141,6 @@ public class LockService {
 		lock.setFontColor(lockDTO.getFontColor());
 		lock.setCreatedDate(new Date());
 		lock.setLastModifiedDate(new Date());
-		var panel = panelService.getPanel(lockDTO.getPanelId());
 		lock.setPanel(panel);
 	}
 
@@ -163,17 +193,4 @@ public class LockService {
 
 	}
 
-	private Lock getLockById(long lockId) {
-		return lockRepository.findById(lockId).orElseThrow(() -> new LockBridgesException(Constants.LOCK_NOT_FOUND));
-	}
-
-	public void updateUserLock(LockDTO lockDTO, long lockId) {
-		var user = userService.getAuthenticatedUser();
-		var lockSection = getLockSection(lockDTO.getLockSection());
-		var lockType = getLockType(lockDTO.getLockType());
-		var lock = getLockById(lockId);
-		setLockFields(lockDTO, user, lockSection, lockType, lock);
-		lockRepository.save(lock);
-
-	}
 }
