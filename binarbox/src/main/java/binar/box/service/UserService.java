@@ -1,12 +1,16 @@
 package binar.box.service;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
@@ -216,5 +220,32 @@ public class UserService {
 			throw new LockBridgesException(Constants.OLD_PASSWORD_DOES_NOT_MATCH);
 		}
 		user.setPassword(BCrypt.hashpw(changePasswordDTO.getPassword(), BCrypt.gensalt(12)));
+	}
+
+	public LinkedList<String> getUserFriends(User user) {
+		LinkedList<String> idsList = new LinkedList<>();
+		var facebook = new FacebookTemplate(user.getFacebookAccessToken());
+		var facebookUserFields = new String[] { Constants.FACEBOOK_FRIENDS };
+		var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME,
+				org.springframework.social.facebook.api.User.class, facebookUserFields);
+		var friendsIds = facebookUser.getExtraData().get(Constants.FACEBOOK_FRIENDS).toString();
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(friendsIds);
+			JSONArray array = jsonObject.getJSONArray(Constants.DATA);
+			if (array.length() > 0) {
+				JSONObject jo = array.getJSONObject(0);
+				JSONArray jsonFriendsIds = jo.getJSONArray(Constants.ID);
+				if (jsonFriendsIds.length() > 0) {
+					for (var index = 0; index < jsonFriendsIds.length(); index++) {
+						idsList.add(jsonFriendsIds.get(index).toString());
+					}
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			throw new LockBridgesException(Constants.FAILED_TO_GET_FRIENDS_LIST);
+		}
+		return idsList;
 	}
 }

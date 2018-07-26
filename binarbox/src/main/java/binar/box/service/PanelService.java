@@ -74,8 +74,14 @@ public class PanelService {
 		var numberOfRandomLocksOnUserPanel = Integer.valueOf(environment.getProperty(Constants.RANDOM_PANEL_PARAM));
 		var user = userService.getAuthenticatedUser();
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
+		panelsOfUser = getFriendLocks(panelsOfUser, user);
 		panelsOfUser = insertRandomLocks(numberOfRandomLocksOnUserPanel, panelsOfUser);
 		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+	}
+
+	private List<Panel> getFriendLocks(List<Panel> panelsOfUser, User user) {
+		var friendIds = userService.getUserFriends(user);
+		return null;
 	}
 
 	private List<Panel> insertRandomLocks(int numberOfRandomLocksOnUserPanel, List<Panel> panelsOfUser) {

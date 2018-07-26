@@ -1,80 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <databaseChangeLog
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="base-0" author="tnalex">
-        <createTable tableName="user">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER"/>
-            </column>
-            <column name="last_name" type="nvarchar(100)"/>
-            <column name="first_name" type="nvarchar(100)"/>
-            <column name="email" type="nvarchar(100)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_EMAIL"/>
-            </column>
-            <column name="phone" type="nvarchar(100)"/>
-            <column name="password" type="nvarchar(100)"/>
-            <column name="reset_password_token" type="nvarchar(100)"/>
-            <column name="city" type="nvarchar(100)"/>
-            <column name="address" type="nvarchar(100)"/>
-            <column name="country" type="nvarchar(100)"/>
-            <column name="confirm_email_token" type="nvarchar(100)"/>
-            <column name="email_confirmed" type="boolean" defaultValueBoolean="false"/>
-            <column name="linked_with_facebook" type="boolean" defaultValueBoolean="false"/>
-            <column name="created_date" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_modified_date" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
+	<changeSet id="base-0" author="tnalex">
+		<createTable tableName="user">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_USER" />
+			</column>
+			<column name="last_name" type="nvarchar(100)" />
+			<column name="first_name" type="nvarchar(100)" />
+			<column name="email" type="nvarchar(100)">
+				<constraints nullable="false" unique="true"
+					uniqueConstraintName="UNIQUE_EMAIL" />
+			</column>
+			<column name="phone" type="nvarchar(100)" />
+			<column name="password" type="nvarchar(100)" />
+			<column name="reset_password_token" type="nvarchar(100)" />
+			<column name="city" type="nvarchar(100)" />
+			<column name="address" type="nvarchar(100)" />
+			<column name="country" type="nvarchar(100)" />
+			<column name="confirm_email_token" type="nvarchar(100)" />
+			<column name="email_confirmed" type="boolean"
+				defaultValueBoolean="false" />
+			<column name="linked_with_facebook" type="boolean"
+				defaultValueBoolean="false" />
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
 
-        <createTable tableName="token">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TOKEN"/>
-            </column>
-            <column name="token" type="nvarchar(150)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="false" referencedTableName="user" referencedColumnNames="id"
-                             foreignKeyName="FK_USER"/>
-            </column>
-            <column name="expiration_time" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_date" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_modified_date" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
+		<createTable tableName="token">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_TOKEN" />
+			</column>
+			<column name="token" type="nvarchar(150)">
+				<constraints nullable="false" />
+			</column>
+			<column name="user_id" type="bigint">
+				<constraints nullable="false" referencedTableName="user"
+					referencedColumnNames="id" foreignKeyName="FK_USER" />
+			</column>
+			<column name="expiration_time" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
 
-        <createTable tableName="authority">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER"/>
-            </column>
-            <column name="name" type="nvarchar(100)"/>
-        </createTable>
+		<createTable tableName="authority">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_USER" />
+			</column>
+			<column name="name" type="nvarchar(100)" />
+		</createTable>
 
-        <createTable tableName="user_authority">
-            <column name="user_id" type="bigint">
-                <constraints nullable="false" referencedTableName="user" referencedColumnNames="id"
-                             foreignKeyName="FK_USER_ROLE"/>
-            </column>
-            <column name="authority_id" type="bigint">
-                <constraints nullable="false" referencedTableName="authority" referencedColumnNames="id"
-                             foreignKeyName="FK_ROLE_USER"/>
-            </column>
-        </createTable>
-        <insert tableName="authority">
-            <column name="name" value="USER" type="nvarchar(100)"/>
-        </insert>
-    </changeSet>
+		<createTable tableName="user_authority">
+			<column name="user_id" type="bigint">
+				<constraints nullable="false" referencedTableName="user"
+					referencedColumnNames="id" foreignKeyName="FK_USER_ROLE" />
+			</column>
+			<column name="authority_id" type="bigint">
+				<constraints nullable="false"
+					referencedTableName="authority" referencedColumnNames="id"
+					foreignKeyName="FK_ROLE_USER" />
+			</column>
+		</createTable>
+		<insert tableName="authority">
+			<column name="name" value="USER" type="nvarchar(100)" />
+		</insert>
+	</changeSet>
 
 </databaseChangeLog>

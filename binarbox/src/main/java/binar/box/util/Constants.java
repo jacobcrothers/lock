@@ -76,5 +76,8 @@ public class Constants {
 	public static final String LOCK_NOT_FOUND = "Lock not found!";
 	public static final String USER = "/user";
 	public static final String RANDOM_PANEL_PARAM = "randomParameters.randomLocksOnUserPanel";
-	public static final String FRIENDS = "friends";
+	public static final String FACEBOOK_FRIENDS = "friends";
+	public static final String FAILED_TO_GET_FRIENDS_LIST = "Failed to get friends list";
+	public static final String ID = "id";
+	public static final String DATA = "data";
 }
