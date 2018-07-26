@@ -63,7 +63,7 @@ public class Constants {
 	public static final String FACEBOOK_FIRST_NAME = "first_name";
 	public static final String FACEBOOK_LAST_NAME = "last_name";
 	public static final String FACEBOOK_HOMETOWN = "hometown";
-	public static final String FACEBOOK_LOCALE = "locale";
+	public static final String LOCATION = "location";
 	public static final String CHANGE_PASSWORD = "/change/password";
 	public static final String OLD_PASSWORD_DOES_NOT_MATCH = "Old password doesn't match!";
 	public static final String PANEL_ENDPOINT = "panel";
@@ -76,4 +76,5 @@ public class Constants {
 	public static final String LOCK_NOT_FOUND = "Lock not found!";
 	public static final String USER = "/user";
 	public static final String RANDOM_PANEL_PARAM = "randomParameters.randomLocksOnUserPanel";
+	public static final String FRIENDS = "friends";
 }

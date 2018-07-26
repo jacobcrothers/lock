@@ -142,8 +142,7 @@ public class UserService {
 		var accessToken = facebookTokenDTO.getToken();
 		var facebook = new FacebookTemplate(accessToken);
 		var facebookUserFields = new String[] { Constants.FACEBOOK_ID, Constants.FACEBOOK_EMAIL,
-				Constants.FACEBOOK_FIRST_NAME, Constants.FACEBOOK_LAST_NAME, Constants.FACEBOOK_HOMETOWN,
-				Constants.FACEBOOK_LOCALE };
+				Constants.FACEBOOK_FIRST_NAME, Constants.FACEBOOK_LAST_NAME, Constants.LOCATION };
 		var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME,
 				org.springframework.social.facebook.api.User.class, facebookUserFields);
 		var user = userRepository.findByFacebookIdOrEmail(facebookUser.getId(), facebookUser.getEmail());
@@ -187,7 +186,7 @@ public class UserService {
 		toRegisterUser.setLastName(facebookUser.getLastName());
 		toRegisterUser.setFirstName(facebookUser.getFirstName());
 		toRegisterUser.setCountry(facebookUser.getLocale() == null ? null : facebookUser.getLocale().getCountry());
-		toRegisterUser.setCity(facebookUser.getHometown() == null ? null : facebookUser.getHometown().getName());
+		toRegisterUser.setCity(facebookUser.getLocation() == null ? null : facebookUser.getLocation().getName());
 		toRegisterUser.setFacebookId(facebookUser.getId());
 		toRegisterUser.setFacebookAccessToken(accessToken);
 		toRegisterUser.setCreatedDate(new Date());
