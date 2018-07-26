@@ -1,6 +1,7 @@
 package binar.box.service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import binar.box.domain.Panel;
 import binar.box.domain.User;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.PanelDTO;
+import binar.box.repository.LockRepository;
 import binar.box.repository.PanelRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -23,8 +25,11 @@ import binar.box.util.LockBridgesException;
  */
 @Service
 public class PanelService {
+
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired
+	private LockRepository lockRepository;
 	@Autowired
 	private PanelRepository panelRepository;
 	@Autowired
@@ -71,23 +76,54 @@ public class PanelService {
 	}
 
 	public List<PanelDTO> getUserLocksAndPanels() {
-		var numberOfRandomLocksOnUserPanel = Integer.valueOf(environment.getProperty(Constants.RANDOM_PANEL_PARAM));
 		var user = userService.getAuthenticatedUser();
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
+		panelsOfUser = addUserLocks(user, panelsOfUser);
 		panelsOfUser = getFriendLocks(panelsOfUser, user);
-		panelsOfUser = insertRandomLocks(numberOfRandomLocksOnUserPanel, panelsOfUser);
+		panelsOfUser = insertRandomLocks(panelsOfUser);
 		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
 	}
 
-	private List<Panel> getFriendLocks(List<Panel> panelsOfUser, User user) {
-		var friendIds = userService.getUserFriends(user);
-		return null;
+	private List<Panel> addUserLocks(User user, List<Panel> panelsOfUser) {
+		for (Panel panel : panelsOfUser) {
+			panel.setLocks(lockRepository.findByUser(user));
+		}
+		return panelsOfUser;
 	}
 
-	private List<Panel> insertRandomLocks(int numberOfRandomLocksOnUserPanel, List<Panel> panelsOfUser) {
+	private List<Panel> getFriendLocks(List<Panel> panelsOfUser, User user) {
+		var friendsLocks = userService.getUserFriendsLocks(user);
+		panelsOfUser = insertFriendsLocks(panelsOfUser, friendsLocks);
+		return panelsOfUser;
+	}
+
+	private List<Panel> insertFriendsLocks(List<Panel> panelsOfUser, List<Lock> friendsLocks) {
+		var panelMaxSize = Integer.valueOf(environment.getProperty(Constants.PANEL_MAX_SIZE));
+		var random = new Random();
+		if (friendsLocks.size() > 0) {
+			var randomInt = random.nextInt(friendsLocks.size()) + 0;
+			for (Panel panel : panelsOfUser) {
+				for (var index = 0; index < panelMaxSize; index++) {
+					if (panel.getLocks().size() >= 30) {
+						break;
+					}
+					panel.getLocks().add(friendsLocks.get(randomInt));
+					friendsLocks.remove(randomInt);
+				}
+			}
+		}
+		return panelsOfUser;
+	}
+
+	private List<Panel> insertRandomLocks(List<Panel> panelsOfUser) {
+		var panelMaxSize = Integer.valueOf(environment.getProperty(Constants.PANEL_MAX_SIZE));
+		var numberOfRandomLocksOnUserPanel = Integer.valueOf(environment.getProperty(Constants.RANDOM_PANEL_PARAM));
 		for (Panel panel : panelsOfUser) {
 			var locks = panel.getLocks();
 			for (var times = 0; times < numberOfRandomLocksOnUserPanel; times++) {
+				if (locks.size() >= panelMaxSize) {
+					break;
+				}
 				var lock = new Lock();
 				lock.setId(Long.valueOf(times + 1000));
 				locks.add(lock);

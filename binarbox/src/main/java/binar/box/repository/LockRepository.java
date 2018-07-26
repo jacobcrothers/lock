@@ -20,4 +20,6 @@ public interface LockRepository extends JpaRepository<Lock, Long> {
 
 	Optional<Lock> findByUserAndId(User user, long id);
 
+	List<Lock> findByUserAndPrivateLockFalse(List<User> applicationFriends);
+
 }

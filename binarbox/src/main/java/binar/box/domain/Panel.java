@@ -4,12 +4,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by Timis Nicu Alexandru on 11-Jun-18.
@@ -23,8 +22,7 @@ public class Panel extends BaseEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "panel")
-	@Column(name = "panel_lock_entity")
+	@Transient
 	private List<Lock> locks;
 
 	public Panel() {

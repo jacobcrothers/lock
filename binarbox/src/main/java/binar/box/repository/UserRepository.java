@@ -1,5 +1,7 @@
 package binar.box.repository;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByConfirmEmailToken(String token);
 
 	Optional<User> findByFacebookIdOrEmail(String facebookId, String email);
+
+	List<User> findAllByFacebookId(LinkedList<String> idsList);
 }

@@ -2,6 +2,7 @@ package binar.box.service;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,6 +22,7 @@ import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.stereotype.Service;
 
+import binar.box.domain.Lock;
 import binar.box.domain.User;
 import binar.box.dto.ChangePasswordDTO;
 import binar.box.dto.FacebookTokenDTO;
@@ -30,6 +32,7 @@ import binar.box.dto.UserDTO;
 import binar.box.dto.UserLoginDTO;
 import binar.box.dto.UserProfileDTO;
 import binar.box.repository.AuthorityRepository;
+import binar.box.repository.LockRepository;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -40,6 +43,9 @@ import binar.box.util.LockBridgesException;
 @Service
 @Transactional
 public class UserService {
+
+	@Autowired
+	private LockRepository lockRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -222,7 +228,7 @@ public class UserService {
 		user.setPassword(BCrypt.hashpw(changePasswordDTO.getPassword(), BCrypt.gensalt(12)));
 	}
 
-	public LinkedList<String> getUserFriends(User user) {
+	public List<Lock> getUserFriendsLocks(User user) {
 		LinkedList<String> idsList = new LinkedList<>();
 		var facebook = new FacebookTemplate(user.getFacebookAccessToken());
 		var facebookUserFields = new String[] { Constants.FACEBOOK_FRIENDS };
@@ -246,6 +252,16 @@ public class UserService {
 			e.printStackTrace();
 			throw new LockBridgesException(Constants.FAILED_TO_GET_FRIENDS_LIST);
 		}
-		return idsList;
+		var applicationFriends = getFriendsFromDatabase(idsList);
+		var friendsLocks = getFriendsLocks(applicationFriends);
+		return friendsLocks;
+	}
+
+	private List<Lock> getFriendsLocks(List<User> applicationFriends) {
+		return lockRepository.findByUserAndPrivateLockFalse(applicationFriends);
+	}
+
+	private List<User> getFriendsFromDatabase(LinkedList<String> idsList) {
+		return userRepository.findAllByFacebookId(idsList);
 	}
 }
