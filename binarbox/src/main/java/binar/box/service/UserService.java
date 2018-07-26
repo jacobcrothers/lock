@@ -230,6 +230,13 @@ public class UserService {
 
 	public List<Lock> getUserFriendsLocks(User user) {
 		LinkedList<String> idsList = new LinkedList<>();
+		getUserFriendFromFacebook(user, idsList);
+		var applicationFriends = getFriendsFromDatabase(idsList);
+		var friendsLocks = getFriendsLocks(applicationFriends);
+		return friendsLocks;
+	}
+
+	private void getUserFriendFromFacebook(User user, LinkedList<String> idsList) {
 		var facebook = new FacebookTemplate(user.getFacebookAccessToken());
 		var facebookUserFields = new String[] { Constants.FACEBOOK_FRIENDS };
 		var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME,
@@ -252,16 +259,19 @@ public class UserService {
 			e.printStackTrace();
 			throw new LockBridgesException(Constants.FAILED_TO_GET_FRIENDS_LIST);
 		}
-		var applicationFriends = getFriendsFromDatabase(idsList);
-		var friendsLocks = getFriendsLocks(applicationFriends);
-		return friendsLocks;
 	}
 
 	private List<Lock> getFriendsLocks(List<User> applicationFriends) {
-		return lockRepository.findByUserAndPrivateLockFalse(applicationFriends);
+		return lockRepository.findByUserInAndPrivateLockFalse(applicationFriends);
 	}
 
 	private List<User> getFriendsFromDatabase(LinkedList<String> idsList) {
-		return userRepository.findAllByFacebookId(idsList);
+		return userRepository.findByFacebookIdIn(idsList);
+	}
+
+	public List<String> getUserFacebookFriends(User user) {
+		LinkedList<String> idsList = new LinkedList<>();
+		getUserFriendFromFacebook(user, idsList);
+		return idsList;
 	}
 }

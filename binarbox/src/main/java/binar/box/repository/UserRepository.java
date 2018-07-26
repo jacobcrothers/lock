@@ -22,5 +22,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Optional<User> findByFacebookIdOrEmail(String facebookId, String email);
 
-	List<User> findAllByFacebookId(LinkedList<String> idsList);
+	List<User> findByFacebookIdIn(LinkedList<String> idsList);
 }

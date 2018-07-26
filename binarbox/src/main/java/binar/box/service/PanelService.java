@@ -78,10 +78,35 @@ public class PanelService {
 	public List<PanelDTO> getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
-		panelsOfUser = addUserLocks(user, panelsOfUser);
-		panelsOfUser = getFriendLocks(panelsOfUser, user);
+		if (user.isLinkedWithFacebbok()) {
+			var facebookUserFriends = userService.getUserFacebookFriends(user);
+			panelsOfUser = insertPanelLocks(user, panelsOfUser, facebookUserFriends);
+
+		} else {
+			panelsOfUser = insertPanelLocks(panelsOfUser);
+		}
 		panelsOfUser = insertRandomLocks(panelsOfUser);
 		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+	}
+
+	private List<Panel> insertPanelLocks(List<Panel> panelsOfUser) {
+		return panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel)).collect(Collectors.toList());
+	}
+
+	private Panel addPanelLocks(Panel panel) {
+		panel.setLocks(lockRepository.findByPanelId(panel.getId()));
+		return panel;
+	}
+
+	private List<Panel> insertPanelLocks(User user, List<Panel> panelsOfUser, List<String> facebookUserFriends) {
+		return panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel, user, facebookUserFriends))
+				.collect(Collectors.toList());
+	}
+
+	private Panel addPanelLocks(Panel panel, User user, List<String> facebookUserFriends) {
+		panel.setLocks(lockRepository.findUserPanelLocksAndHidePrivateFriendsLocks(user.getId(), panel.getId(),
+				facebookUserFriends));
+		return panel;
 	}
 
 	private List<Panel> addUserLocks(User user, List<Panel> panelsOfUser) {
@@ -101,12 +126,15 @@ public class PanelService {
 		var panelMaxSize = Integer.valueOf(environment.getProperty(Constants.PANEL_MAX_SIZE));
 		var random = new Random();
 		if (friendsLocks.size() > 0) {
-			var randomInt = random.nextInt(friendsLocks.size()) + 0;
 			for (Panel panel : panelsOfUser) {
 				for (var index = 0; index < panelMaxSize; index++) {
 					if (panel.getLocks().size() >= 30) {
 						break;
 					}
+					if (friendsLocks.size() <= 0) {
+						return panelsOfUser;
+					}
+					var randomInt = random.nextInt(friendsLocks.size()) + 0;
 					panel.getLocks().add(friendsLocks.get(randomInt));
 					friendsLocks.remove(randomInt);
 				}
