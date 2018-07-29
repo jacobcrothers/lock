@@ -1,13 +1,11 @@
 package binar.box.service;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import binar.box.domain.Lock;
@@ -15,6 +13,7 @@ import binar.box.domain.Panel;
 import binar.box.domain.User;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.PanelDTO;
+import binar.box.repository.ConfigurationRepository;
 import binar.box.repository.LockRepository;
 import binar.box.repository.PanelRepository;
 import binar.box.util.Constants;
@@ -37,10 +36,12 @@ public class PanelService {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private Environment environment;
+	private ConfigurationRepository configurationRepository;
 
-	public List<PanelDTO> getRandomPanels() {
-		return panelRepository.findRandomPanels().parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+	public List<PanelDTO> getAllPanels() {
+		var user = userService.getAuthenticatedUser();
+		return panelRepository.findAllPanelsBasedOnLocation(user.getCountry()).parallelStream().map(this::toPanelDto)
+				.collect(Collectors.toList());
 	}
 
 	private PanelDTO toPanelDto(Panel panel) {
@@ -109,43 +110,10 @@ public class PanelService {
 		return panel;
 	}
 
-	private List<Panel> addUserLocks(User user, List<Panel> panelsOfUser) {
-		for (Panel panel : panelsOfUser) {
-			panel.setLocks(lockRepository.findByUser(user));
-		}
-		return panelsOfUser;
-	}
-
-	private List<Panel> getFriendLocks(List<Panel> panelsOfUser, User user) {
-		var friendsLocks = userService.getUserFriendsLocks(user);
-		panelsOfUser = insertFriendsLocks(panelsOfUser, friendsLocks);
-		return panelsOfUser;
-	}
-
-	private List<Panel> insertFriendsLocks(List<Panel> panelsOfUser, List<Lock> friendsLocks) {
-		var panelMaxSize = Integer.valueOf(environment.getProperty(Constants.PANEL_MAX_SIZE));
-		var random = new Random();
-		if (friendsLocks.size() > 0) {
-			for (Panel panel : panelsOfUser) {
-				for (var index = 0; index < panelMaxSize; index++) {
-					if (panel.getLocks().size() >= 30) {
-						break;
-					}
-					if (friendsLocks.size() <= 0) {
-						return panelsOfUser;
-					}
-					var randomInt = random.nextInt(friendsLocks.size()) + 0;
-					panel.getLocks().add(friendsLocks.get(randomInt));
-					friendsLocks.remove(randomInt);
-				}
-			}
-		}
-		return panelsOfUser;
-	}
-
 	private List<Panel> insertRandomLocks(List<Panel> panelsOfUser) {
-		var panelMaxSize = Integer.valueOf(environment.getProperty(Constants.PANEL_MAX_SIZE));
-		var numberOfRandomLocksOnUserPanel = Integer.valueOf(environment.getProperty(Constants.RANDOM_PANEL_PARAM));
+		var panelMaxSize = configurationRepository.findById(Long.valueOf(1)).get().getPanelMaxSize();
+		var numberOfRandomLocksOnUserPanel = configurationRepository.findById(Long.valueOf(1)).get()
+				.getRandomLocksOnUserPanel();
 		for (Panel panel : panelsOfUser) {
 			var locks = panel.getLocks();
 			for (var times = 0; times < numberOfRandomLocksOnUserPanel; times++) {

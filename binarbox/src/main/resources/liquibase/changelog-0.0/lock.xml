@@ -128,6 +128,7 @@
 				<constraints nullable="false" primaryKey="true"
 					primaryKeyName="PK_PANEL_ENTITY" />
 			</column>
+			<column name="location" type="nvarchar(100)" />
 			<column name="created_date" type="date">
 				<constraints nullable="false" />
 			</column>
@@ -143,9 +144,6 @@
 					referencedTableName="panel_entity" referencedColumnNames="id" />
 			</column>
 		</addColumn>
-		<sqlFile endDelimiter="#"
-			path="classpath:/liquibase/panelProcedure.sql" />
-		<sql>CALL insertRandomPanelsEntity(30);</sql>
 	</changeSet>
 
 </databaseChangeLog>

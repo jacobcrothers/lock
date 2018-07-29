@@ -37,7 +37,3 @@ filesPath:
 facebook:
   clientId: 415210252282694
   clientSecret: 853305ee2b39a204f05400358ae92e21
-randomParameters:
-  randomLocksOnUserPanel: 35
-panel:
-  maxSize: 30

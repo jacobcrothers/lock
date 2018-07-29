@@ -84,4 +84,20 @@
 		</insert>
 	</changeSet>
 
+	<changeSet id="base-1" author="tnalex">
+		<createTable tableName="configuration_entity">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_CONFIGURATION_ENTITY" />
+			</column>
+			<column name="panel_max_size" type="integer"></column>
+			<column name="random_locks_on_user_panel" type="integer"></column>
+		</createTable>
+		<sql>
+			INSERT INTO configuration_entity
+			(configuration_entity.panel_max_size,configuration_entity.random_locks_on_user_panel)
+			VALUES(30,30)
+		</sql>
+	</changeSet>
+
 </databaseChangeLog>
