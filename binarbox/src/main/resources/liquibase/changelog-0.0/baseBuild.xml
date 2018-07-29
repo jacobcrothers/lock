@@ -92,11 +92,10 @@
 			</column>
 			<column name="panel_max_size" type="integer"></column>
 			<column name="random_locks_on_user_panel" type="integer"></column>
+			<column name="glittering_lights" type="integer"></column>
 		</createTable>
 		<sql>
-			INSERT INTO configuration_entity
-			(configuration_entity.panel_max_size,configuration_entity.random_locks_on_user_panel)
-			VALUES(30,30)
+			INSERT INTO configuration_entity (configuration_entity.panel_max_size,configuration_entity.random_locks_on_user_panel,configuration_entity.glittering_lights) VALUES(30,30,30)
 		</sql>
 	</changeSet>
 

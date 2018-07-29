@@ -31,6 +31,8 @@ public class LockResponseDTO {
 
 	private boolean privateLock;
 
+	private boolean glitteringLight;
+
 	public LockResponseDTO(Lock lock) {
 		this.id = lock.getId();
 		this.longitude = lock.getLongitude();
@@ -44,6 +46,7 @@ public class LockResponseDTO {
 		this.lockType = lock.getLockType() == null ? null : lock.getLockType().getType();
 		this.panelId = lock.getPanel() == null ? null : lock.getPanel().getId();
 		this.privateLock = lock.isPrivateLock();
+		this.glitteringLight = lock.isGlitteringLight();
 
 	}
 
@@ -144,6 +147,14 @@ public class LockResponseDTO {
 
 	public void setPrivateLock(boolean privateLock) {
 		this.privateLock = privateLock;
+	}
+
+	public boolean isGlitteringLight() {
+		return glitteringLight;
+	}
+
+	public void setGlitteringLight(boolean glitteringLight) {
+		this.glitteringLight = glitteringLight;
 	}
 
 }

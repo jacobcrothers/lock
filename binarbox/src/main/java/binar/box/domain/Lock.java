@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by Timis Nicu Alexandru on 16-Apr-18.
@@ -67,6 +68,9 @@ public class Lock extends BaseEntity {
 
 	@Column(name = "private_lock")
 	private boolean privateLock;
+
+	@Transient
+	private boolean glitteringLight;
 
 	public Lock() {
 	}
@@ -189,6 +193,14 @@ public class Lock extends BaseEntity {
 
 	public void setPrivateLock(boolean privateLock) {
 		this.privateLock = privateLock;
+	}
+
+	public boolean isGlitteringLight() {
+		return glitteringLight;
+	}
+
+	public void setGlitteringLight(boolean glitteringLight) {
+		this.glitteringLight = glitteringLight;
 	}
 
 }

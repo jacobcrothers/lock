@@ -1,5 +1,6 @@
 package binar.box.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,8 +41,33 @@ public class PanelService {
 
 	public List<PanelDTO> getAllPanels() {
 		var user = userService.getAuthenticatedUser();
-		return panelRepository.findAllPanelsBasedOnLocation(user.getCountry()).parallelStream().map(this::toPanelDto)
-				.collect(Collectors.toList());
+		var panels = panelRepository.findAllPanelsBasedOnLocation(user.getCountry());
+		panels = panels.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
+		panels = panels.parallelStream().map(this::addPanelLocks).collect(Collectors.toList());
+		var maxLights = configurationRepository.findById(Long.valueOf(1)).get().getGlitteringLights();
+		var maxPanels = panels.size();
+		addLockLights(panels, maxLights, maxPanels);
+		return panels.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+	}
+
+	private void addLockLights(List<Panel> panels, int maxLights, int maxPanels) {
+		for (Panel panel : panels) {
+			var lightsPerPanel = maxLights / maxPanels;
+			var locks = panel.getLocks();
+			setLockLight(lightsPerPanel, locks);
+		}
+	}
+
+	private void setLockLight(int lightsPerPanel, List<Lock> locks) {
+		var lockIndex = 0;
+		for (var index = 1; index <= lightsPerPanel; index++) {
+			while (lockIndex < locks.size()) {
+				var lock = locks.get(lockIndex);
+				lock.setGlitteringLight(true);
+				lockIndex++;
+				break;
+			}
+		}
 	}
 
 	private PanelDTO toPanelDto(Panel panel) {
@@ -81,27 +107,23 @@ public class PanelService {
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
 		if (user.isLinkedWithFacebbok()) {
 			var facebookUserFriends = userService.getUserFacebookFriends(user);
-			panelsOfUser = insertPanelLocks(user, panelsOfUser, facebookUserFriends);
+			panelsOfUser = panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel, user, facebookUserFriends))
+					.collect(Collectors.toList());
 
 		} else {
-			panelsOfUser = insertPanelLocks(panelsOfUser);
+			panelsOfUser = panelsOfUser.parallelStream().map(this::addPanelLocks).collect(Collectors.toList());
 		}
-		panelsOfUser = insertRandomLocks(panelsOfUser);
+		panelsOfUser = panelsOfUser.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
 		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
 	}
 
-	private List<Panel> insertPanelLocks(List<Panel> panelsOfUser) {
-		return panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel)).collect(Collectors.toList());
-	}
-
 	private Panel addPanelLocks(Panel panel) {
-		panel.setLocks(lockRepository.findByPanelId(panel.getId()));
+		if (panel.getLocks() == null) {
+			panel.setLocks(lockRepository.findByPanelId(panel.getId()));
+		} else {
+			panel.getLocks().addAll(lockRepository.findByPanelId(panel.getId()));
+		}
 		return panel;
-	}
-
-	private List<Panel> insertPanelLocks(User user, List<Panel> panelsOfUser, List<String> facebookUserFriends) {
-		return panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel, user, facebookUserFriends))
-				.collect(Collectors.toList());
 	}
 
 	private Panel addPanelLocks(Panel panel, User user, List<String> facebookUserFriends) {
@@ -110,23 +132,21 @@ public class PanelService {
 		return panel;
 	}
 
-	private List<Panel> insertRandomLocks(List<Panel> panelsOfUser) {
+	private Panel insertRandomLocks(Panel panel) {
 		var panelMaxSize = configurationRepository.findById(Long.valueOf(1)).get().getPanelMaxSize();
 		var numberOfRandomLocksOnUserPanel = configurationRepository.findById(Long.valueOf(1)).get()
 				.getRandomLocksOnUserPanel();
-		for (Panel panel : panelsOfUser) {
-			var locks = panel.getLocks();
-			for (var times = 0; times < numberOfRandomLocksOnUserPanel; times++) {
-				if (locks.size() >= panelMaxSize) {
-					break;
-				}
-				var lock = new Lock();
-				lock.setId(Long.valueOf(times + 1000));
-				locks.add(lock);
+		List<Lock> locks = panel.getLocks() == null ? new ArrayList<>() : panel.getLocks();
+		for (var times = 0; times < numberOfRandomLocksOnUserPanel; times++) {
+			if (locks.size() >= panelMaxSize) {
+				break;
 			}
+			var lock = new Lock();
+			lock.setId(Long.valueOf(times + 1000));
+			locks.add(lock);
 			panel.setLocks(locks);
 		}
-		return panelsOfUser;
+		return panel;
 	}
 
 	private List<Panel> getPanelsWhereUserHasLocks(User user) {
