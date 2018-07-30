@@ -42,10 +42,11 @@ public class PanelService {
 
 	public List<PanelDTO> getAllPanels() {
 		var user = userService.getAuthenticatedUser();
-		var panels = panelRepository.findAllPanelsBasedOnLocation(user.getCountry());
+		var panels = panelRepository.findAllPanelsBasedOnLocation(user.getCountry(),
+				configurationRepository.findById(Long.valueOf(1)).get().getMaxPanelsView());
 		panels = panels.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
 		panels = panels.parallelStream().map(this::addPanelLocks).collect(Collectors.toList());
-		var maxLights = configurationRepository.findById(Long.valueOf(1)).get().getGlitteringLights();
+		var maxLights = configurationRepository.findById(Long.valueOf(1)).get().getGlitteringLightsOnLocks();
 		var maxPanels = panels.size();
 		addLockLights(panels, maxLights, maxPanels);
 		return panels.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
@@ -62,6 +63,8 @@ public class PanelService {
 
 	private void addLockLights(List<Panel> panels, int maxLights, int maxPanels) {
 		var ligtsOnLocks = 0;
+		var initialMaxValue = maxLights;
+		var totalLigthsOnLocks = 0;
 		for (Panel panel : panels) {
 			int lightsPerPanel = randomIntegerUsingMath(0, maxLights);
 			var locks = panel.getLocks();
@@ -72,9 +75,13 @@ public class PanelService {
 			}
 			ligtsOnLocks = setLockLight(lightsPerPanel, locks);
 			maxLights -= ligtsOnLocks;
+			if (maxLights == 0) {
+				return;
+			}
+			totalLigthsOnLocks += ligtsOnLocks;
 		}
-		if (ligtsOnLocks < maxLights) {
-			addLockLights(panels, maxLights - ligtsOnLocks, maxPanels);
+		if (totalLigthsOnLocks < initialMaxValue) {
+			addLockLights(panels, initialMaxValue - totalLigthsOnLocks, maxPanels);
 		}
 	}
 
@@ -156,7 +163,7 @@ public class PanelService {
 	}
 
 	private Panel insertRandomLocks(Panel panel) {
-		var panelMaxSize = configurationRepository.findById(Long.valueOf(1)).get().getPanelMaxSize();
+		var panelMaxSize = configurationRepository.findById(Long.valueOf(1)).get().getPanelMaxSizeOfLocks();
 		var numberOfRandomLocksOnUserPanel = configurationRepository.findById(Long.valueOf(1)).get()
 				.getRandomLocksOnUserPanel();
 		List<Lock> locks = panel.getLocks() == null ? new ArrayList<>() : panel.getLocks();

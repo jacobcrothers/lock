@@ -17,8 +17,9 @@ import binar.box.domain.Panel;
 @Repository
 public interface PanelRepository extends JpaRepository<Panel, Long> {
 
-	@Query(value = "SELECT * FROM panel_entity WHERE panel_entity.location=:location ORDER BY RAND() LIMIT 8;", nativeQuery = true)
-	List<Panel> findAllPanelsBasedOnLocation(@Param("location") String string);
+	@Query(value = "SELECT * FROM panel_entity WHERE panel_entity.location=:location ORDER BY RAND() LIMIT :maxPanelsOnView;", nativeQuery = true)
+	List<Panel> findAllPanelsBasedOnLocation(@Param("location") String string,
+			@Param("maxPanelsOnView") int maxPanelsOnView);
 
 	@Query(value = "SELECT COUNT(*) FROM (\n" + "SELECT panel_entity.id, COUNT(lock_entity.id) AS lock_on_panel\n"
 			+ "FROM\n" + "    panel_entity LEFT JOIN\n" + "    lock_entity ON panel_entity.id = lock_entity.panel_id\n"

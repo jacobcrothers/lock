@@ -90,12 +90,15 @@
 				<constraints nullable="false" primaryKey="true"
 					primaryKeyName="PK_CONFIGURATION_ENTITY" />
 			</column>
-			<column name="panel_max_size" type="integer"></column>
+			<column name="panel_max_size_of_locks" type="integer"></column>
 			<column name="random_locks_on_user_panel" type="integer"></column>
-			<column name="glittering_lights" type="integer"></column>
+			<column name="glittering_lights_on_locks" type="integer"></column>
+			<column name="max_panels_view" type="integer"></column>
 		</createTable>
 		<sql>
-			INSERT INTO configuration_entity (configuration_entity.panel_max_size,configuration_entity.random_locks_on_user_panel,configuration_entity.glittering_lights) VALUES(30,30,30)
+			INSERT INTO configuration_entity
+			(configuration_entity.panel_max_size_of_locks,configuration_entity.random_locks_on_user_panel,configuration_entity.glittering_lights_on_locks,configuration_entity.max_panels_view)
+			VALUES(30,30,30,8)
 		</sql>
 	</changeSet>
 
