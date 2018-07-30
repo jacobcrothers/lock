@@ -2,6 +2,7 @@ package binar.box.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -50,24 +51,46 @@ public class PanelService {
 		return panels.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
 	}
 
+	private int randomIntegerUsingMath(int min, int max) {
+		return (int) (Math.random() * (max - min)) + min;
+	}
+
+	private int randomIntegerUsingRandom(int min, int max) {
+		Random random = new Random();
+		return random.nextInt(max + 1 - min) + min;
+	}
+
 	private void addLockLights(List<Panel> panels, int maxLights, int maxPanels) {
+		var ligtsOnLocks = 0;
 		for (Panel panel : panels) {
-			var lightsPerPanel = maxLights / maxPanels;
+			int lightsPerPanel = randomIntegerUsingMath(0, maxLights);
 			var locks = panel.getLocks();
-			setLockLight(lightsPerPanel, locks);
+			if (lightsPerPanel == 0) {
+				if (maxLights > 0) {
+					lightsPerPanel = randomIntegerUsingRandom(0, maxLights);
+				}
+			}
+			ligtsOnLocks = setLockLight(lightsPerPanel, locks);
+			maxLights -= ligtsOnLocks;
+		}
+		if (ligtsOnLocks < maxLights) {
+			addLockLights(panels, maxLights - ligtsOnLocks, maxPanels);
 		}
 	}
 
-	private void setLockLight(int lightsPerPanel, List<Lock> locks) {
+	private int setLockLight(int lightsPerPanel, List<Lock> locks) {
+		var lightsOnLock = 0;
 		var lockIndex = 0;
 		for (var index = 1; index <= lightsPerPanel; index++) {
 			while (lockIndex < locks.size()) {
 				var lock = locks.get(lockIndex);
 				lock.setGlitteringLight(true);
+				lightsOnLock++;
 				lockIndex++;
 				break;
 			}
 		}
+		return lightsOnLock;
 	}
 
 	private PanelDTO toPanelDto(Panel panel) {
