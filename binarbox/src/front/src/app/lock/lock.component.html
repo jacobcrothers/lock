@@ -23,13 +23,6 @@
                             <span class="price">{{lockCategory.price | currency}}</span>
                         </div>
                     </div>
-                    <!-- <a routerLink="/add-lock/{{lock.type}}">
-                        <div class="lock-image">
-
-                        </div>
-                        <h4>{{lock.type}}</h4>
-                        <span class="price">{{lock.price | currency}}</span>
-                    </a> -->
                 </div>
             </div>
 
@@ -48,10 +41,7 @@
                         </div>
                     </div>
                     <div class="actions-wrapper">
-                        <a routerLink="/add-lock" class="btn btn-secondary">Back</a>
-                        <!-- <a routerLink="/add-lock/{{lockId}}" class="btn btn-secondary" [disabled]="!selectedLock">Continue</a> -->
-                        <!-- <button class="btn btn-secondary" (click)="goBack()">Back</button> -->
-                        <!-- <button class="btn btn-secondary" (click)="selectLock()">Continue</button> -->
+                        <button class="btn btn-secondary" (click)="goBack('lockType')">Back</button>
                     </div>
                 </div>
             </div>
@@ -61,25 +51,8 @@
                 <p>Create your awesome lock.</p>
                 <p>{{selectedLock | json}}</p>
                 <br/>
-                <a routerLink="/add-lock/{{lockType}}" class="btn btn-secondary">Back</a>
-                <!-- <a routerLink="/add-lock/{{lockId}}/{{tempLocation}}" class="btn btn-secondary">Continue</a> -->
+                <button class="btn btn-secondary" (click)="goBack('lockId')">Back</button>
             </div>
-
-            <!-- <div *ngIf="lockType && lockId">
-                Now that you know what lock you want, you need to choose where to place it.
-
-                <br/>
-                <a routerLink="/add-lock" class="btn btn-secondary">Back</a>
-                <a routerLink="/add-lock/{{lockId}}/{{tempLocation}}" class="btn btn-secondary">Continue</a>
-            </div> -->
-
-            <!-- <div *ngIf="lockType && location">
-                Now that you know what lock you want, you need to choose what to write on it -
-                you want to recognize it among hundreds of other locks or convey a message to that special someone.
-
-                <br/>
-                <a routerLink="/add-lock" class="btn btn-secondary">Back</a>
-            </div> -->
         </div>
         <div class="col">
         </div>

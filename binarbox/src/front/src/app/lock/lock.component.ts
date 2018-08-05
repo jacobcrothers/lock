@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddLockService } from '../_services/add-lock.service';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-lock',
@@ -10,10 +12,9 @@ export class LockComponent implements OnInit {
 
     public lockType: string;
     public lockId = 0;
-    public location = 0;
-    public tempLocation = 0; // Used to allow the user to change their mind regarding the location they want to choose.
+    // public location = 0;
+    // public tempLocation = 0; // Used to allow the user to change their mind regarding the location they want to choose.
     public locks: Array<any> = [];
-    // public isLockType = false;
     public selectedLock = {};
     public selectedLockCategory = {};
     public params = {};
@@ -21,7 +22,9 @@ export class LockComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private addLockService: AddLockService,
+        private location: Location
     ) {
     }
 
@@ -35,35 +38,20 @@ export class LockComponent implements OnInit {
     updateParams (parameters) {
         if (parameters['type']) {
             this.lockType = parameters['type'];
-            this.displayLocks()
         }
         if (parameters['id']) {
             this.lockId = parameters['id'];
         }
 
-        if (parameters['location']) {
-            this.location = parameters['location'];
-        }
+        // if (parameters['location']) {
+        //     this.location = parameters['location'];
+        // }
     }
 
     getCategories() {
-        //TO DO get all available categories and display them
-        this.lockCategories = [{
-            id: 1,
-            price: 12,
-            type: 'Regular',
-            key: 'regular'
-        }, {
-            id: 2,
-            price: 6,
-            type: 'VIP',
-            key: 'vip'
-        }, {
-            id: 3,
-            price: 3,
-            type: 'Premium',
-            key: 'premium'
-        }];
+        this.addLockService.getLockTypes().subscribe(data => {
+            this.lockCategories = data;
+        });
     }
 
     displayLocks() {
@@ -86,16 +74,29 @@ export class LockComponent implements OnInit {
 
     chooseCategory(lockCategory) {
         this.selectedLockCategory = lockCategory;
-        // console.log('gggggg--', this.selectedLockCategory, this.lockType, this.lockId);
+        this.lockType = lockCategory.type;
         // TO DO send category id to BE and display all lock templates for the selected category
-        this.router.navigate([`/add-lock/${this.selectedLockCategory['key']}`], { skipLocationChange: false } );
-        // this.displayLocks();
+        this.location.replaceState(`/add-lock/${this.selectedLockCategory['type']}`);
+        // this.router.navigate([`/add-lock/${this.selectedLockCategory['type']}`], { skipLocationChange: false } );
+        this.displayLocks()
     }
     
     chooseLock(lock) {
         this.selectedLock = lock;
+        this.lockId = lock.id;
         console.log('locks----', this.locks, lock);
-        this.router.navigate([`/add-lock/${this.lockType}/${this.selectedLock['id']}`], { skipLocationChange: false } );
+        this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
+        // this.router.navigate([`/add-lock/${this.lockType}/${this.selectedLock['id']}`], { skipLocationChange: false } );
 
+    }
+
+    goBack(path) {
+        if (path === 'lockType') {
+            this.location.replaceState('/add-lock');
+            this.lockType = '';
+        } else if (path === 'lockId') {
+            this.location.replaceState(`/add-lock/${this.lockType}`);
+            this.lockId = 0;
+        }
     }
 }

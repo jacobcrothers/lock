@@ -6,6 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {AuthGuard} from './_guards/auth.guard';
 import {UserService} from './_services/user.service';
+import {AddLockService} from './_services/add-lock.service';
 import {RequestInterceptor} from './_interceptors/requestInterceptor';
 
 import {AppComponent} from './app.component';
@@ -79,6 +80,7 @@ export function getAuthServiceConfigs() {
     },
         AuthGuard,
         UserService,
+        AddLockService,
         MessageService
     ],
     bootstrap: [AppComponent]

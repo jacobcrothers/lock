@@ -36,15 +36,15 @@ const routes = [{
     }, {
         path: 'add-lock',
         component: LockComponent,
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     }, {
         path: 'add-lock/:type',
         component: LockComponent,
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     }, {
         path: 'add-lock/:type/:id',
         component: LockComponent,
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     },{
         path: 'register',
         component: RegisterComponent
