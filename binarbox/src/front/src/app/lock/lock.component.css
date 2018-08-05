@@ -13,8 +13,13 @@
 }
 
 .lock-image {
-    background-color: grey;
+    background-color: red;
     padding: 20px;
     min-height: 200px;
     min-width: 200px;
+    cursor: pointer;
+}
+
+.lock-image:hover {
+    opacity: 0.5;
 }
