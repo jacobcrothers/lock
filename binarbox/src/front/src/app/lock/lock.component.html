@@ -4,7 +4,7 @@
         <div class="col-lg-6 col-md-8 col-sm-10">
             <h2 class="display-3">Add a lock</h2>
 
-            <div *ngIf="!isLockType">
+            <div *ngIf="!lockType">
                 <p>
                     So, you have a special date you want to commemorate?
                     Or maybe you want to show that special someone how special they are?
@@ -15,12 +15,12 @@
                 <h3>Available categories</h3>
                 <div class="lock-container bg-light">
                     <div class="locks-wrapper">
-                        <div class="lock" *ngFor="let lockType of lockTypes">
-                            <div class="lock-image" (click)="chooseCategory(lockType)">
+                        <div class="lock" *ngFor="let lockCategory of lockCategories">
+                            <div class="lock-image" (click)="chooseCategory(lockCategory)">
 
                             </div>
-                            <h4>{{lockType.type}}</h4>
-                            <span class="price">{{lockType.price | currency}}</span>
+                            <h4>{{lockCategory.type}}</h4>
+                            <span class="price">{{lockCategory.price | currency}}</span>
                         </div>
                     </div>
                     <!-- <a routerLink="/add-lock/{{lock.type}}">
@@ -33,10 +33,8 @@
                 </div>
             </div>
 
-            <div *ngIf="lockType && isLockType">
-                <p>
-                    Now, choose your lock
-                </p>
+            <div *ngIf="lockType && !lockId">
+                <p>Now, choose your lock</p>
                 <p>Check out those locks</p>
 
                 <h3>Available locks</h3>
@@ -50,23 +48,32 @@
                         </div>
                     </div>
                     <div class="actions-wrapper">
-                        <!-- <a routerLink="/add-lock" class="btn btn-secondary">Back</a>
-                        <a routerLink="/add-lock/{{lockId}}" class="btn btn-secondary" [disabled]="!selectedLock">Continue</a> -->
-                        <!-- <button class="btn btn-secondary" (click)="goBack()">Back</button>
-                        <button class="btn btn-secondary" (click)="selectLock()">Continue</button> -->
+                        <a routerLink="/add-lock" class="btn btn-secondary">Back</a>
+                        <!-- <a routerLink="/add-lock/{{lockId}}" class="btn btn-secondary" [disabled]="!selectedLock">Continue</a> -->
+                        <!-- <button class="btn btn-secondary" (click)="goBack()">Back</button> -->
+                        <!-- <button class="btn btn-secondary" (click)="selectLock()">Continue</button> -->
                     </div>
                 </div>
             </div>
 
-            <!-- <div *ngIf="lockType && !location">
+            <div *ngIf="lockType && lockId">
+                <p>Now that you know what lock you want, you need to customize it.</p>
+                <p>Create your awesome lock.</p>
+                <p>{{selectedLock | json}}</p>
+                <br/>
+                <a routerLink="/add-lock/{{lockType}}" class="btn btn-secondary">Back</a>
+                <!-- <a routerLink="/add-lock/{{lockId}}/{{tempLocation}}" class="btn btn-secondary">Continue</a> -->
+            </div>
+
+            <!-- <div *ngIf="lockType && lockId">
                 Now that you know what lock you want, you need to choose where to place it.
 
                 <br/>
                 <a routerLink="/add-lock" class="btn btn-secondary">Back</a>
                 <a routerLink="/add-lock/{{lockId}}/{{tempLocation}}" class="btn btn-secondary">Continue</a>
-            </div>
+            </div> -->
 
-            <div *ngIf="lockType && location">
+            <!-- <div *ngIf="lockType && location">
                 Now that you know what lock you want, you need to choose what to write on it -
                 you want to recognize it among hundreds of other locks or convey a message to that special someone.
 
