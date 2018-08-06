@@ -16,6 +16,7 @@ import binar.box.domain.File;
 import binar.box.domain.Lock;
 import binar.box.domain.LockSection;
 import binar.box.domain.LockType;
+import binar.box.domain.LockTypeTemplate;
 import binar.box.domain.Panel;
 import binar.box.domain.User;
 import binar.box.dto.FileDTO;
@@ -23,6 +24,7 @@ import binar.box.dto.LockDTO;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.LockTypeDTO;
 import binar.box.dto.LockTypeDtoResponse;
+import binar.box.dto.LockTypeTemplateDTO;
 import binar.box.repository.LockRepository;
 import binar.box.repository.LockSectionRepository;
 import binar.box.repository.LockTypeRepository;
@@ -58,7 +60,6 @@ public class LockService {
 
 	public LockTypeDtoResponse addLockType(LockTypeDTO lockTypeDTO) {
 		LockType lockType = new LockType();
-		lockType.setPrice(lockTypeDTO.getPrice());
 		lockType.setType(lockTypeDTO.getType());
 		lockTypeRepository.save(lockType);
 		return new LockTypeDtoResponse(lockType);
@@ -72,11 +73,15 @@ public class LockService {
 	private LockTypeDtoResponse toLockTypeDtoResponse(LockType lockType) {
 		var lockTypeDtoResponse = new LockTypeDtoResponse();
 		lockTypeDtoResponse.setId(lockType.getId());
-		lockTypeDtoResponse.setPrice(lockType.getPrice());
 		lockTypeDtoResponse.setType(lockType.getType());
-		lockTypeDtoResponse
-				.setFileDtoList(lockType.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
+		lockTypeDtoResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
+		lockTypeDtoResponse.setLockTypeTemplate(lockType.getLockTypeTemplate().parallelStream()
+				.map(this::toLockTypeTemplateDTO).collect(Collectors.toList()));
 		return lockTypeDtoResponse;
+	}
+
+	private LockTypeTemplateDTO toLockTypeTemplateDTO(LockTypeTemplate lockTypeTemplate) {
+		return new LockTypeTemplateDTO(lockTypeTemplate);
 	}
 
 	private FileDTO toFileDto(File file) {

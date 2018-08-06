@@ -29,8 +29,12 @@ public class File extends BaseEntity {
 	private String pathToFile;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lock_type_id")
+	@JoinColumn(name = "lock_type")
 	private LockType lockType;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lock_type_template")
+	private LockTypeTemplate lockTypeTemplate;
 
 	public File() {
 	}
@@ -65,5 +69,13 @@ public class File extends BaseEntity {
 
 	public void setLockType(LockType lockType) {
 		this.lockType = lockType;
+	}
+
+	public LockTypeTemplate getLockTypeTemplate() {
+		return lockTypeTemplate;
+	}
+
+	public void setLockTypeTemplate(LockTypeTemplate lockTypeTemplate) {
+		this.lockTypeTemplate = lockTypeTemplate;
 	}
 }
