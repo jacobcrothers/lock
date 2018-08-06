@@ -7,9 +7,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import binar.box.domain.User;
 import binar.box.service.TokenService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -33,12 +37,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 		if (token == null) {
 			throw new LockBridgesException(Constants.AUTHENTICATION_TOKEN_NOT_FOUND);
 		}
-		boolean userToken = tokenService.checkFacebookToken(token);
-		if (userToken) {
-
-		} else {
-			SecurityContextHolder.clearContext();
-			throw new LockBridgesException(Constants.INVALID_TOKEN);
-		}
+		User user = tokenService.checkFacebookToken(token);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user.getEmail());
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		securityContext.setAuthentication(authentication);
+		filterChain.doFilter(request, response);
 	}
 }

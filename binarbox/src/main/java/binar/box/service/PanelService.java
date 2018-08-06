@@ -135,14 +135,9 @@ public class PanelService {
 	public List<PanelDTO> getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
-		if (user.isLinkedWithFacebbok()) {
-			var facebookUserFriends = userService.getUserFacebookFriends(user);
-			panelsOfUser = panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel, user, facebookUserFriends))
-					.collect(Collectors.toList());
-
-		} else {
-			panelsOfUser = panelsOfUser.parallelStream().map(this::addPanelLocks).collect(Collectors.toList());
-		}
+		var facebookUserFriends = userService.getUserFacebookFriends(user);
+		panelsOfUser = panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel, user, facebookUserFriends))
+				.collect(Collectors.toList());
 		panelsOfUser = panelsOfUser.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
 		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
 	}

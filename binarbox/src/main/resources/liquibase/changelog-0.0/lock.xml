@@ -55,7 +55,7 @@
 					referencedTableName="lock_type" referencedColumnNames="id"
 					foreignKeyName="FK_LOCK_LOCK_TYPE" />
 			</column>
-			<column name="user_id" type="bigint">
+			<column name="user_id" type="nvarchar(100)">
 				<constraints nullable="false" referencedTableName="user"
 					referencedColumnNames="id" foreignKeyName="FK_LOCK_USER" />
 			</column>
@@ -115,9 +115,6 @@
 		</insert>
 		<insert tableName="lock_section">
 			<column name="section" value="d2" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="authority">
-			<column name="name" value="ADMIN" type="nvarchar(100)" />
 		</insert>
 		<sqlFile path="classpath:/liquibase/lockTypes.sql" />
 	</changeSet>

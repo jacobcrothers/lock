@@ -27,7 +27,7 @@ public interface LockRepository extends JpaRepository<Lock, Long> {
 	@Query(value = "SELECT l.id,l.longitude,l.latitude,l.message,l.font_size,l.font_style,l.font_color,l.paid,l.private_lock,l.lock_color,l.lock_section_id,l.lock_type_id,l.user_id,l.delete_token,l.created_date,l.last_modified_date,l.panel_id FROM lock_entity AS l \r\n"
 			+ "INNER JOIN user AS u ON u.id = l.user_id\r\n"
 			+ "WHERE l.panel_id = :panelId AND l.private_lock=0 OR (l.user_id = :userId AND l.private_lock=1) OR (u.facebook_id NOT IN(:facebookFriendsIds) AND l.private_lock=1)", nativeQuery = true)
-	List<Lock> findUserPanelLocksAndHidePrivateFriendsLocks(@Param("userId") long userId,
+	List<Lock> findUserPanelLocksAndHidePrivateFriendsLocks(@Param("userId") String userId,
 			@Param("panelId") long panelId, @Param("facebookFriendsIds") List<String> facebookFriendsIds);
 
 	List<Lock> findByPanelId(Long id);

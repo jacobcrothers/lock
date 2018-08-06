@@ -2,7 +2,10 @@ package binar.box.service;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import binar.box.domain.User;
 
 /**
  * Created by Timis Nicu Alexandru on 21-Mar-18.
@@ -11,9 +14,11 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class TokenService {
 
-	public boolean checkFacebookToken(String token) {
-		// TODO Auto-generated method stub
-		return true;
+	@Autowired
+	private UserService userService;
+
+	public User checkFacebookToken(String token) {
+		return userService.checkUserIfRegistered(token);
 	}
 
 }
