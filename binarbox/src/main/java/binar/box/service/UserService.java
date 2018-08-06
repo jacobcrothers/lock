@@ -115,6 +115,6 @@ public class UserService {
 	public User checkUserIfRegistered(String token) {
 		var faceBookUser = getFacebookUser(token, new String[] { Constants.FACEBOOK_ID });
 		return getFacebookUserFromDataIfRegistered(faceBookUser)
-				.orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
+				.orElseThrow(() -> new LockBridgesException(Constants.UNAUTHORIZED));
 	}
 }
