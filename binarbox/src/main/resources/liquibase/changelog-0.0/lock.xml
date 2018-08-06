@@ -213,6 +213,7 @@
 		<insert tableName="lock_section">
 			<column name="section" value="d2" type="nvarchar(100)" />
 		</insert>
+		<sqlFile path="classpath:/liquibase/defaults.sql" />
 	</changeSet>
 
 
