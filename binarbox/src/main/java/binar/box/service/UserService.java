@@ -27,11 +27,7 @@ import binar.box.domain.User;
 import binar.box.dto.ChangePasswordDTO;
 import binar.box.dto.FacebookTokenDTO;
 import binar.box.dto.ResetPasswordDTO;
-import binar.box.dto.TokenDTO;
-import binar.box.dto.UserDTO;
-import binar.box.dto.UserLoginDTO;
 import binar.box.dto.UserProfileDTO;
-import binar.box.repository.AuthorityRepository;
 import binar.box.repository.LockRepository;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
@@ -51,57 +47,12 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private TokenService tokenService;
-
-	@Autowired
 	private EmailService emailService;
-
-	@Autowired
-	private AuthorityRepository authorityRepository;
 
 	@Autowired
 	private Environment environment;
 
 	private ExecutorService executors = Executors.newFixedThreadPool(2);
-
-	public void registerUser(UserDTO userDTO) {
-		checkIfUserIsAlreadyRegistered(userDTO.getEmail());
-		User user = new User(userDTO);
-		user.setPassword(BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt(12)));
-		user.setCreatedDate(new Date());
-		user.setLastModifiedDate(new Date());
-		String emailToken = UUID.randomUUID().toString();
-		user.setConfirmEmailToken(emailToken);
-		var userAuthorities = authorityRepository.findByName(Constants.USER_AUTHORITY_STRING);
-		user.setAuthority(userAuthorities);
-		emailService.sendEmail(user.getEmail(), "Welcome",
-				"Welcome to Lock Bridges : please confirm email : " + emailToken);
-		userRepository.save(user);
-	}
-
-	private void checkIfUserIsAlreadyRegistered(String email) {
-		if (userRepository.findByEmail(email).isPresent()) {
-			throw new LockBridgesException(Constants.USER_ALREADY_REGISTERED);
-		}
-	}
-
-	public TokenDTO loginUser(UserLoginDTO userLoginDTO) {
-		User user;
-		try {
-			user = getUserByEmail(userLoginDTO.getEmail());
-		} catch (LockBridgesException e) {
-			throw new LockBridgesException(Constants.BAD_CREDENTIALS);
-		}
-		if (user.getPassword() == null) {
-			throw new LockBridgesException(Constants.BAD_CREDENTIALS);
-		} else if (!BCrypt.checkpw(userLoginDTO.getPassword(), user.getPassword())) {
-			throw new LockBridgesException(Constants.BAD_CREDENTIALS);
-		}
-		if (!user.isEmailConfirmed()) {
-			throw new LockBridgesException(Constants.EMAIL_NOT_CONFIRMED);
-		}
-		return tokenService.createUserToken(user, 7);
-	}
 
 	private User getUserByEmail(String email) {
 		return userRepository.findByEmail(email).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
@@ -127,11 +78,6 @@ public class UserService {
 				.orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
 	}
 
-	public TokenDTO renewUserToken() {
-		User user = getAuthenticatedUser();
-		return tokenService.createUserToken(user, 7);
-	}
-
 	User getAuthenticatedUser() {
 		return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
@@ -148,7 +94,7 @@ public class UserService {
 				.orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
 	}
 
-	public TokenDTO loginUser(FacebookTokenDTO facebookTokenDTO) {
+	public void loginUser(FacebookTokenDTO facebookTokenDTO) {
 		var accessToken = facebookTokenDTO.getToken();
 		var facebook = new FacebookTemplate(accessToken);
 		var facebookUserFields = new String[] { Constants.FACEBOOK_ID, Constants.FACEBOOK_EMAIL,
@@ -162,13 +108,11 @@ public class UserService {
 			registeredUser.setEmailConfirmed(true);
 			registeredUser.setLinkedWithFacebbok(true);
 			userRepository.save(registeredUser);
-			return tokenService.createUserToken(registeredUser, 60);
 		}
 		var toRegisterUser = new User();
 		facebookUserToOurUser(facebookUser, toRegisterUser, accessToken);
 		userRepository.save(toRegisterUser);
 		executors.submit(() -> getLongLiveFacebookToken(toRegisterUser, accessToken));
-		return tokenService.createUserToken(toRegisterUser, 60);
 	}
 
 	private void getLongLiveFacebookToken(User user, String token) {
@@ -190,8 +134,6 @@ public class UserService {
 
 	private void facebookUserToOurUser(org.springframework.social.facebook.api.User facebookUser, User toRegisterUser,
 			String accessToken) {
-		var userAuthorities = authorityRepository.findByName(Constants.USER_AUTHORITY_STRING);
-		toRegisterUser.setAuthority(userAuthorities);
 		toRegisterUser.setEmail(facebookUser.getEmail());
 		toRegisterUser.setLastName(facebookUser.getLastName());
 		toRegisterUser.setFirstName(facebookUser.getFirstName());

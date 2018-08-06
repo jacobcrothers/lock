@@ -8,7 +8,7 @@
 
 	<changeSet id="base-0" author="tnalex">
 		<createTable tableName="user">
-			<column name="id" type="bigint" autoIncrement="true">
+			<column name="id" type="bigint">
 				<constraints nullable="false" primaryKey="true"
 					primaryKeyName="PK_USER" />
 			</column>
@@ -36,52 +36,6 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-
-		<createTable tableName="token">
-			<column name="id" type="bigint" autoIncrement="true">
-				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="PK_TOKEN" />
-			</column>
-			<column name="token" type="nvarchar(150)">
-				<constraints nullable="false" />
-			</column>
-			<column name="user_id" type="bigint">
-				<constraints nullable="false" referencedTableName="user"
-					referencedColumnNames="id" foreignKeyName="FK_USER" />
-			</column>
-			<column name="expiration_time" type="timestamp">
-				<constraints nullable="false" />
-			</column>
-			<column name="created_date" type="date">
-				<constraints nullable="false" />
-			</column>
-			<column name="last_modified_date" type="timestamp">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-
-		<createTable tableName="authority">
-			<column name="id" type="bigint" autoIncrement="true">
-				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="PK_USER" />
-			</column>
-			<column name="name" type="nvarchar(100)" />
-		</createTable>
-
-		<createTable tableName="user_authority">
-			<column name="user_id" type="bigint">
-				<constraints nullable="false" referencedTableName="user"
-					referencedColumnNames="id" foreignKeyName="FK_USER_ROLE" />
-			</column>
-			<column name="authority_id" type="bigint">
-				<constraints nullable="false"
-					referencedTableName="authority" referencedColumnNames="id"
-					foreignKeyName="FK_ROLE_USER" />
-			</column>
-		</createTable>
-		<insert tableName="authority">
-			<column name="name" value="USER" type="nvarchar(100)" />
-		</insert>
 	</changeSet>
 
 	<changeSet id="base-1" author="tnalex">

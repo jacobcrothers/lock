@@ -1,17 +1,10 @@
 package binar.box.domain;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import binar.box.dto.UserDTO;
@@ -64,10 +57,6 @@ public class User extends BaseEntity {
 	@Column(name = "facebook_access_token")
 	private String facebookAccessToken;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"))
-	private List<UserAuthority> authority;
-
 	@Column(name = "address")
 	private String address;
 
@@ -101,14 +90,6 @@ public class User extends BaseEntity {
 
 	public void setFacebookId(String facebookId) {
 		this.facebookId = facebookId;
-	}
-
-	public List<UserAuthority> getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(List<UserAuthority> authority) {
-		this.authority = authority;
 	}
 
 	public String getConfirmEmailToken() {
