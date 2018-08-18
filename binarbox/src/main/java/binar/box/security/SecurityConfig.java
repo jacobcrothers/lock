@@ -51,17 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(Constants.SWAGGER_RESOURCES).antMatchers(Constants.SWAGGER_V2_API_DOCS)
 				.antMatchers(Constants.SWAGGER_UI_HTML).antMatchers(Constants.SWAGGER_WEBJARS)
 				.antMatchers(HttpMethod.POST,
-						Constants.API + Constants.AUTHENTICATION_ENDPOINT + Constants.REGISTER_ENDPOINT)
-				.antMatchers(HttpMethod.POST,
-						Constants.API + Constants.AUTHENTICATION_ENDPOINT + Constants.LOGIN_ENDPOINT)
-				.antMatchers(HttpMethod.POST,
 						Constants.API + Constants.AUTHENTICATION_ENDPOINT + Constants.FACEBOOK_ENDPOINT)
-				.antMatchers(HttpMethod.POST,
-						Constants.API + Constants.USER_ENDPOINT + Constants.REQUEST_RESET_PASSWORD_EDNPOINT)
-				.antMatchers(HttpMethod.POST,
-						Constants.API + Constants.USER_ENDPOINT + Constants.RESET_PASSWORD_ENDPOINT)
-				.antMatchers(HttpMethod.POST,
-						Constants.API + Constants.USER_ENDPOINT + Constants.CONFIRM_EMAIL_ENDPOINT)
 				.and().debug(true);
 	}
 }

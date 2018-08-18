@@ -21,8 +21,6 @@ public class UserProfileDTO {
 
 	private String address;
 
-	private boolean linkedWithFacebbok;
-
 	public UserProfileDTO() {
 	}
 
@@ -34,7 +32,6 @@ public class UserProfileDTO {
 		this.country = user.getCountry();
 		this.email = user.getEmail();
 		this.address = user.getAddress();
-		this.linkedWithFacebbok = user.isLinkedWithFacebbok();
 	}
 
 	public String getLastName() {
@@ -93,11 +90,4 @@ public class UserProfileDTO {
 		this.address = address;
 	}
 
-	public boolean isLinkedWithFacebbok() {
-		return linkedWithFacebbok;
-	}
-
-	public void setLinkedWithFacebbok(boolean linkedWithFacebbok) {
-		this.linkedWithFacebbok = linkedWithFacebbok;
-	}
 }

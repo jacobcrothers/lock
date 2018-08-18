@@ -31,5 +31,5 @@ public interface PanelRepository extends JpaRepository<Panel, Long> {
 
 	@Query(value = "SELECT DISTINCT  lb.panel_entity.id,lb.panel_entity.created_date,lb.panel_entity.last_modified_date FROM lb.panel_entity INNER JOIN \r\n"
 			+ "lb.lock_entity ON lb.lock_entity.panel_id = lb.panel_entity.id WHERE lb.lock_entity.user_id=:userId AND lb.lock_entity.paid=1", nativeQuery = true)
-	List<Panel> findByUser(@Param("userId") long userId);
+	List<Panel> findByUser(@Param("userId") String userId);
 }

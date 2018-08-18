@@ -1,9 +1,6 @@
 package binar.box.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,15 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-import binar.box.domain.Token;
+import binar.box.domain.User;
 import binar.box.service.TokenService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -44,24 +37,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 		if (token == null) {
 			throw new LockBridgesException(Constants.AUTHENTICATION_TOKEN_NOT_FOUND);
 		}
-		Token userToken = tokenService.findOneByToken(token);
-		Date todayDate = new Date();
-		if (userToken.getExpirationTime().before(todayDate)) {
-			throw new LockBridgesException(Constants.TOKEN_EXPIRED);
-		}
-		DecodedJWT decodedJWT = tokenService.decodeJwtToken(userToken);
-		if (decodedJWT.getClaim(Constants.JWT_PAYLOAD_CLAIM_USER).asLong().equals(userToken.getUser().getId())) {
-			List<GrantedAuthority> authorities = new ArrayList<>(1);
-			userToken.getUser().getAuthority().parallelStream()
-					.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
-			Authentication authentication = new UsernamePasswordAuthenticationToken(userToken.getUser().getEmail(),
-					userToken.getUser().getPassword(), authorities);
-			SecurityContext securityContext = SecurityContextHolder.getContext();
-			securityContext.setAuthentication(authentication);
-			filterChain.doFilter(request, response);
-		} else {
-			SecurityContextHolder.clearContext();
-			throw new LockBridgesException(Constants.INVALID_TOKEN);
-		}
+		User user = tokenService.checkFacebookToken(token);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user.getEmail());
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		securityContext.setAuthentication(authentication);
+		filterChain.doFilter(request, response);
 	}
 }

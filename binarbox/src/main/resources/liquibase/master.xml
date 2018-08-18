@@ -10,7 +10,5 @@
 		file="classpath:/liquibase/changelog-0.0/baseBuild.xml" />
 	<include relativeToChangelogFile="false"
 		file="classpath:/liquibase/changelog-0.0/lock.xml" />
-	<include relativeToChangelogFile="false"
-		file="classpath:/liquibase/changelog-0.0/facebook.xml" />
 
 </databaseChangeLog>

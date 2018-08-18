@@ -10,14 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import binar.box.dto.FacebookTokenDTO;
-import binar.box.dto.TokenDTO;
-import binar.box.dto.UserDTO;
-import binar.box.dto.UserLoginDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
@@ -29,34 +24,11 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping(value = Constants.REGISTER_ENDPOINT)
-	private void register(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			throw new LockBridgesException(bindingResult.getAllErrors().toString());
-		}
-		userService.registerUser(userDTO);
-	}
-
-	@PostMapping(value = Constants.LOGIN_ENDPOINT)
-	private TokenDTO login(@RequestBody @Valid UserLoginDTO userLoginDTO, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			throw new LockBridgesException(bindingResult.getAllErrors().toString());
-		}
-		return userService.loginUser(userLoginDTO);
-	}
-
 	@PostMapping(value = Constants.FACEBOOK_ENDPOINT)
-	private TokenDTO facebookLogin(@RequestBody @Valid FacebookTokenDTO facebookTokenDTO, BindingResult bindingResult) {
+	private void facebookLogin(@RequestBody @Valid FacebookTokenDTO facebookTokenDTO, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new LockBridgesException(bindingResult.getAllErrors().toString());
 		}
-		return userService.loginUser(facebookTokenDTO);
-	}
-
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@PostMapping(value = Constants.RENEW_TOKEN_ENDPOINT)
-	private TokenDTO renewToken() {
-		return userService.renewUserToken();
+		userService.loginUser(facebookTokenDTO);
 	}
 }

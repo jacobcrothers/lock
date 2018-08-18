@@ -24,7 +24,6 @@ import binar.box.dto.LockDTO;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.LockTypeDTO;
 import binar.box.dto.LockTypeDtoResponse;
-import binar.box.dto.PasswordDTO;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
@@ -100,18 +99,6 @@ public class LockController {
 	@GetMapping(value = Constants.LOCK_ENDPOINT)
 	private List<LockResponseDTO> getLocks() {
 		return lockService.getLocks();
-	}
-
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@DeleteMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_DELETE_USING_PASSWORD)
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	private void removeALockUsingPassword(@RequestParam("id") long id, @RequestBody @Valid PasswordDTO passwordDTO,
-			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			throw new LockBridgesException(bindingResult.getAllErrors().toString());
-		}
-		lockService.removeUserLock(id, passwordDTO);
 	}
 
 	@ApiImplicitParams({

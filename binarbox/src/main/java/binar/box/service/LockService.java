@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import binar.box.domain.File;
@@ -24,7 +23,6 @@ import binar.box.dto.LockDTO;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.LockTypeDTO;
 import binar.box.dto.LockTypeDtoResponse;
-import binar.box.dto.PasswordDTO;
 import binar.box.repository.LockRepository;
 import binar.box.repository.LockSectionRepository;
 import binar.box.repository.LockTypeRepository;
@@ -162,15 +160,6 @@ public class LockService {
 
 	LockResponseDTO toLockResponseDto(Lock lock) {
 		return new LockResponseDTO(lock);
-	}
-
-	public void removeUserLock(long id, PasswordDTO passwordDTO) {
-		var user = userService.getAuthenticatedUser();
-		if (!BCrypt.checkpw(passwordDTO.getPassword(), user.getPassword())) {
-			throw new LockBridgesException(Constants.BAD_CREDENTIALS);
-
-		}
-		lockRepository.deleteById(id);
 	}
 
 	public void removeUserLock(String token) {

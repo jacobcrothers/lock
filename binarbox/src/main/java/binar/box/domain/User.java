@@ -1,17 +1,8 @@
 package binar.box.domain;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import binar.box.dto.UserDTO;
@@ -24,9 +15,8 @@ import binar.box.dto.UserDTO;
 public class User extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private String id;
 
 	@Column(name = "last_name")
 	private String lastName;
@@ -40,39 +30,14 @@ public class User extends BaseEntity {
 	@Column(name = "phone")
 	private String phone;
 
-	@Column(name = "password")
-	private String password;
-
-	@Column(name = "reset_password_token")
-	private String resetPasswordToken;
-
 	@Column(name = "city")
 	private String city;
 
 	@Column(name = "country")
 	private String country;
 
-	@Column(name = "confirm_email_token")
-	private String confirmEmailToken;
-
-	@Column(name = "email_confirmed")
-	private boolean emailConfirmed;
-
-	@Column(name = "facebook_id")
-	private String facebookId;
-
-	@Column(name = "facebook_access_token")
-	private String facebookAccessToken;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"))
-	private List<UserAuthority> authority;
-
 	@Column(name = "address")
 	private String address;
-
-	@Column(name = "linked_with_facebook")
-	private boolean linkedWithFacebbok;
 
 	public User() {
 	}
@@ -85,54 +50,6 @@ public class User extends BaseEntity {
 		this.city = userDTO.getCity();
 		this.country = userDTO.getCountry();
 		this.address = userDTO.getAddress();
-	}
-
-	public String getFacebookAccessToken() {
-		return facebookAccessToken;
-	}
-
-	public void setFacebookAccessToken(String facebookAccessToken) {
-		this.facebookAccessToken = facebookAccessToken;
-	}
-
-	public String getFacebookId() {
-		return facebookId;
-	}
-
-	public void setFacebookId(String facebookId) {
-		this.facebookId = facebookId;
-	}
-
-	public List<UserAuthority> getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(List<UserAuthority> authority) {
-		this.authority = authority;
-	}
-
-	public String getConfirmEmailToken() {
-		return confirmEmailToken;
-	}
-
-	public void setConfirmEmailToken(String confirmEmailToken) {
-		this.confirmEmailToken = confirmEmailToken;
-	}
-
-	public boolean isEmailConfirmed() {
-		return emailConfirmed;
-	}
-
-	public void setEmailConfirmed(boolean emailConfirmed) {
-		this.emailConfirmed = emailConfirmed;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getLastName() {
@@ -167,22 +84,6 @@ public class User extends BaseEntity {
 		this.phone = phone;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getResetPasswordToken() {
-		return resetPasswordToken;
-	}
-
-	public void setResetPasswordToken(String resetPasswordToken) {
-		this.resetPasswordToken = resetPasswordToken;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -207,11 +108,12 @@ public class User extends BaseEntity {
 		this.address = address;
 	}
 
-	public boolean isLinkedWithFacebbok() {
-		return linkedWithFacebbok;
+	public String getId() {
+		return id;
 	}
 
-	public void setLinkedWithFacebbok(boolean linkedWithFacebbok) {
-		this.linkedWithFacebbok = linkedWithFacebbok;
+	public void setId(String id) {
+		this.id = id;
 	}
+
 }
