@@ -23,3 +23,31 @@
 .lock-image:hover {
     opacity: 0.5;
 }
+
+.predefined-messages-container, .user-messages-container {
+    padding: 10px;
+}
+
+.predefined-messages-container {
+    margin-bottom: 20px;
+}
+
+.user-messages-container textarea {
+    width: 100%;
+}
+
+.actions-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.font-color-container {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.font-color-input {
+    max-width: 20px;
+    margin: 0 auto;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddLockService } from '../_services/add-lock.service';
 import { Location } from '@angular/common';
@@ -18,7 +18,13 @@ export class LockComponent implements OnInit {
     public selectedLock = {};
     public selectedLockCategory = {};
     public params = {};
-    public lockCategories: Array<any> = [];
+    public lockCategories: any;
+    public predefinedMessages: Array<any> = [];
+    public fontColors: Array<any> = [];
+    public isCustomLockSaved = false;
+    public selectedMessage: string;
+
+    @ViewChild('closeModal') closeModal:ElementRef;
 
     constructor(
         private route: ActivatedRoute,
@@ -32,7 +38,9 @@ export class LockComponent implements OnInit {
         this.route.params.subscribe((params) => {
             this.updateParams(params);
         });      
-        this.getCategories(); 
+        this.getCategories();
+        // move this in chooseLock function
+        this.displayOptionsToCustomize()
     }
 
     updateParams (parameters) {
@@ -84,10 +92,68 @@ export class LockComponent implements OnInit {
     chooseLock(lock) {
         this.selectedLock = lock;
         this.lockId = lock.id;
-        console.log('locks----', this.locks, lock);
         this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
         // this.router.navigate([`/add-lock/${this.lockType}/${this.selectedLock['id']}`], { skipLocationChange: false } );
+        // this.displayOptionsToCustomize()
+    }
 
+    displayOptionsToCustomize() {
+        // TO DO get what is needed here from BE - predefined messages, text colors, lock colors
+        this.predefinedMessages = [
+            {
+                id: 1,
+                value: "Awesome message"
+            },
+            {
+                id: 2,
+                value: "Nice message"
+            },
+            {
+                id: 3,
+                value: "A simple message"
+            }
+        ];
+
+        this.fontColors = [
+            {
+                id: 1,
+                value: "red"
+            },
+            {
+                id: 2,
+                value: "black" 
+            },
+            {
+                id: 3,
+                value: "brown" 
+            }
+        ]
+    }
+
+    displayPanels(formValue) {
+        console.log(":form value--", formValue);
+
+        let customLock = {
+            "fontColor": formValue['fontColor'],
+            "id": this.lockId,
+            "lockColor": "string",
+            "lockType": this.lockType,
+            "message": formValue['insertMessage'],
+        };
+        // TODO: send the created lock to BE and, when success -> display the panels
+        //to display the panels create a new component and navigate to it whith the created lock
+
+    }
+
+    saveMessage(formValue) {
+        this.predefinedMessages.forEach(msg => {
+            if (msg.id.toString() === formValue['messageSelect']) {
+                this.selectedMessage = msg.value;
+                this.closeModal.nativeElement.click();
+            } else {
+                this.selectedMessage = '';
+            }
+        });
     }
 
     goBack(path) {

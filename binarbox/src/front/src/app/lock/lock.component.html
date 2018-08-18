@@ -48,10 +48,69 @@
 
             <div *ngIf="lockType && lockId">
                 <p>Now that you know what lock you want, you need to customize it.</p>
-                <p>Create your awesome lock.</p>
-                <p>{{selectedLock | json}}</p>
-                <br/>
-                <button class="btn btn-secondary" (click)="goBack('lockId')">Back</button>
+
+                <form #lockForm="ngForm" (ngSubmit)="displayPanels(lockForm.value)">
+                    <div class="form-group">
+                        <p>You can add your own message.</p>
+                        <label for="customMessageInput">Add a message</label>
+                            <textarea 
+                                name="insertMessage"
+                                type="textarea"
+                                class="form-control"
+                                id="customMessageInput"
+                                [value]="selectedMessage"
+                                [ngModel]="selectedMessage">{{selectedMessage}}</textarea>
+                            <div>
+                                <p>Or, choose from our list of messages.</p>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#chooseMessageModal">Choose message</button>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                            <p>In the end, try out the following colors for your message:</p>
+                            <div *ngFor="let color of fontColors" class="font-color-container">
+                                <label for="customMessageInput"  [ngStyle]="{ color: color.value }">{{color.value}}</label>
+                                <input 
+                                    name="fontColor"
+                                    type="radio"
+                                    class="form-control font-color-input"
+                                    id="color.id"
+                                    [value]="color.value"
+                                    [ngModel]>
+                            </div>
+                        </div>
+                    <br/>
+                    <div class="actions-wrapper">
+                        <button class="btn btn-secondary" (click)="goBack('lockId')">Back</button>
+                        <button class="btn btn-secondary" type="submit">Continue</button>
+                    </div>
+                </form>
+
+                <div class="modal fade" id="chooseMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Choose amessage</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form #modalForm="ngForm" (ngSubmit)="saveMessage(modalForm.value)">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <p>Choose a message</p>
+                                        <select class="form-control" name="messageSelect" id="predefinedMessageInput" [ngModel]>
+                                            <option *ngFor="let message of predefinedMessages" [value]="message.id">{{message.value}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeModal>Close</button>
+                                    <button type="submit" class="btn btn-primary">Save message</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col">

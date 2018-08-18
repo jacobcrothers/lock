@@ -15,6 +15,6 @@ export class AddLockService {
   ) { }
 
   getLockTypes() {
-      return this.http.get(this.lockTypesUrl, []);
+      return this.http.get(this.lockTypesUrl, {});
   }
 }
