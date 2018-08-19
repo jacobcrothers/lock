@@ -10,23 +10,15 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
     constructor(
-        private user: UserService
+        private userService: UserService
     ) {
     }
 
     ngOnInit() {
     }
 
-    public login(formValue) {
-        if (!formValue || !(formValue['email'] && formValue['password'])) {
-            return;
-        }
-
-        this.user.login(formValue);
-    }
-
     public socialLogin(provider) {
-        this.user.loginSocial(provider);
+        this.userService.loginSocial(provider);
     }
 
 }

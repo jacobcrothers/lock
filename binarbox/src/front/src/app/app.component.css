@@ -16,3 +16,12 @@
 li a[routerLink].activeLink {
     color: #FFCC00;
 }
+
+.login-btn {
+    background: transparent;
+    border: 0;
+}
+
+.login-btn:focus {
+    outline: 0px;
+}

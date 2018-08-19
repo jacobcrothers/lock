@@ -13,9 +13,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/add-lock" [routerLinkActive]="['activeLink']">
-                    Add a lock
-                </a>
+                <a class="nav-link" routerLink="/add-lock" [routerLinkActive]="['activeLink']" *ngIf="loggedIn">Add a lock</a>
+                <button type="button" class="nav-link login-btn" data-toggle="modal" data-target="#loginModal" *ngIf="!loggedIn">Add a lock</button>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -26,11 +25,28 @@
                 <a class="nav-link" routerLink="/logout">Logout</a>
             </li>
             <li class="nav-item" *ngIf="!loggedIn">
-                <a class="nav-link" routerLink="/login" [routerLinkActive]="['activeLink']">Login</a>
+                <button type="button" class="nav-link login-btn" data-toggle="modal" data-target="#loginModal">Login</button>
             </li>
         </ul>
     </div>
+
 </nav>
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-login></app-login>
+        </div>
+        </div>
+    </div>
+</div>
 
 <div class="wrapper">
     <router-outlet></router-outlet>

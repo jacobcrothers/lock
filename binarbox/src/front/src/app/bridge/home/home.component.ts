@@ -9,8 +9,8 @@ export class HomeComponent implements OnInit {
 
     public collapseMenu = false;
 
-    constructor() {
-    }
+    constructor(
+    ) {}
 
     ngOnInit() {
     }

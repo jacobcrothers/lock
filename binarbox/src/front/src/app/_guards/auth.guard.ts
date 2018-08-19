@@ -5,12 +5,12 @@ import {UserService} from '../_services/user.service';
 @Injectable()
 export class AuthGuard implements CanActivate, OnInit {
 
-    private isLoggedIn: any = this.user.isUserLoggedIn$;
+    private isLoggedIn: any = this.userService.isUserLoggedIn$;
 
     constructor(
         private router: Router,
-        private user: UserService) {
-        this.user.isUserLoggedIn$.subscribe((loggedIn) => {
+        private userService: UserService) {
+        this.userService.isUserLoggedIn$.subscribe((loggedIn) => {
             this.isLoggedIn = loggedIn;
         });
     }

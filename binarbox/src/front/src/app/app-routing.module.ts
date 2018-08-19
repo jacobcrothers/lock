@@ -14,6 +14,7 @@ import {SocialComponent} from './user/dashboard/social/social.component';
 import {ForgotPasswordComponent} from './user/forgot-password/forgot-password.component';
 import {ConfirmEmailComponent} from './user/confirm-email/confirm-email.component';
 import {LockComponent} from './lock/lock.component';
+import {PanelsComponent} from './bridge/panels/panels.component';
 
 const routes = [{
         path: '',
@@ -40,11 +41,14 @@ const routes = [{
     }, {
         path: 'add-lock/:type',
         component: LockComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
     }, {
         path: 'add-lock/:type/:id',
         component: LockComponent,
         canActivate: [AuthGuard]
+    },{
+        path: 'panels',
+        component: PanelsComponent
     },{
         path: 'register',
         component: RegisterComponent

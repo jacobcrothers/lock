@@ -31,6 +31,7 @@ import { MessageComponent } from './message/message.component';
 import {MessageService} from './_services/message.service';
 import { LockComponent } from './lock/lock.component';
 import { LockDetailsComponent } from './user/dashboard/locks/lock-details/lock-details.component';
+import { PanelsComponent } from './bridge/panels/panels.component';
 
 
 // Configs
@@ -60,7 +61,8 @@ export function getAuthServiceConfigs() {
         ConfirmEmailComponent,
         MessageComponent,
         LockComponent,
-        LockDetailsComponent
+        LockDetailsComponent,
+        PanelsComponent
     ],
     imports: [
         BrowserModule,

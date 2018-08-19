@@ -11,12 +11,12 @@ export class AppComponent implements OnInit {
     public loggedIn: any = false;
 
     constructor(
-        private user: UserService
+        private userService: UserService
     ) {
     }
 
     ngOnInit() {
-        this.user.isUserLoggedIn$.subscribe((loggedIn) => {
+        this.userService.isUserLoggedIn$.subscribe((loggedIn) => {
             this.loggedIn = loggedIn;
         });
     }
