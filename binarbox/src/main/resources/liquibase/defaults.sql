@@ -1,0 +1,12 @@
+INSERT INTO `lb`.`lock_template_price` (`type`, `price_from`, `price_to`, `created_date`, `last_modified_date`) VALUES ('TEMPLATEPRICE', '0', '100', '2018-08-06', '2018-08-06 19:31:58');
+INSERT INTO `lb`.`lock_type_price` (`price_from`, `price_to`, `created_date`, `last_modified_date`) VALUES ('0', '100', '2018-08-06', '2018-08-06 19:32:20');
+INSERT INTO `lb`.`lock_type` (`lock_type`, `total_rating`, `lock_type_price`, `created_date`, `last_modified_date`) VALUES ('BESTLOCKTYPE', '100', '1', '2018-08-05', '2018-08-06 19:32:59');
+INSERT INTO `lb`.`lock_type_template` (`font_size`, `font_style`, `font_color`, `lock_type`, `lock_template_price`, `lock_type_price`, `created_date`, `last_modified_date`) VALUES ('20', 'ROBOTO', 'DARK', '1', '1', '1', '2018-08-06', '2018-08-06 19:33:23');
+INSERT INTO `lb`.`lock_template_price` (`type`, `price_from`, `price_to`, `created_date`, `last_modified_date`) VALUES ('TEMPLATEPRICE', '0', '100', '2018-08-06', '2018-08-06 19:31:58');
+INSERT INTO `lb`.`lock_type_price` (`price_from`, `price_to`, `created_date`, `last_modified_date`) VALUES ('0', '100', '2018-08-06', '2018-08-06 19:32:20');
+INSERT INTO `lb`.`lock_type` (`lock_type`, `total_rating`, `lock_type_price`, `created_date`, `last_modified_date`) VALUES ('BESTLOCKTYPE', '100', '1', '2018-08-05', '2018-08-06 19:32:59');
+INSERT INTO `lb`.`lock_type_template` (`font_size`, `font_style`, `font_color`, `lock_type`, `lock_template_price`, `lock_type_price`, `created_date`, `last_modified_date`) VALUES ('20', 'ROBOTO', 'DARK', '1', '1', '1', '2018-08-06', '2018-08-06 19:33:23');
+INSERT INTO `lb`.`lock_template_price` (`type`, `price_from`, `price_to`, `created_date`, `last_modified_date`) VALUES ('TEMPLATEPRICE', '0', '100', '2018-08-06', '2018-08-06 19:31:58');
+INSERT INTO `lb`.`lock_type_price` (`price_from`, `price_to`, `created_date`, `last_modified_date`) VALUES ('0', '100', '2018-08-06', '2018-08-06 19:32:20');
+INSERT INTO `lb`.`lock_type` (`lock_type`, `total_rating`, `lock_type_price`, `created_date`, `last_modified_date`) VALUES ('BESTLOCKTYPE', '100', '1', '2018-08-05', '2018-08-06 19:32:59');
+INSERT INTO `lb`.`lock_type_template` (`font_size`, `font_style`, `font_color`, `lock_type`, `lock_template_price`, `lock_type_price`, `created_date`, `last_modified_date`) VALUES ('20', 'ROBOTO', 'DARK', '1', '1', '1', '2018-08-06', '2018-08-06 19:33:23');

@@ -1,6 +1,5 @@
 package binar.box.domain;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "lock_type")
-public class LockType {
+public class LockType extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +28,18 @@ public class LockType {
 	@Column(name = "lock_type")
 	private String type;
 
-	@Column(name = "price")
-	private BigDecimal price;
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockType")
 	private List<File> files;
 
 	@Column(name = "total_rating")
 	private Float totalRating;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockType")
+	private List<LockTypeTemplate> lockTypeTemplate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lock_type_price")
+	private LockTypePrice price;
 
 	public LockType() {
 	}
@@ -55,14 +60,6 @@ public class LockType {
 		this.type = type;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
 	public List<File> getFiles() {
 		return files;
 	}
@@ -71,11 +68,28 @@ public class LockType {
 		this.files = files;
 	}
 
-	public float getTotalRating() {
+	public Float getTotalRating() {
 		return totalRating;
 	}
 
-	public void setTotalRating(float totalRating) {
+	public void setTotalRating(Float totalRating) {
 		this.totalRating = totalRating;
 	}
+
+	public LockTypePrice getPrice() {
+		return price;
+	}
+
+	public void setPrice(LockTypePrice price) {
+		this.price = price;
+	}
+
+	public List<LockTypeTemplate> getLockTypeTemplate() {
+		return lockTypeTemplate;
+	}
+
+	public void setLockTypeTemplate(List<LockTypeTemplate> lockTypeTemplate) {
+		this.lockTypeTemplate = lockTypeTemplate;
+	}
+
 }

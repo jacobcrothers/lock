@@ -6,7 +6,54 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+
+	<changeSet id="panel-0" author="tnalex">
+		<createTable tableName="panel_entity">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_PANEL_ENTITY" />
+			</column>
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
 	<changeSet id="lock-0" author="tnalex">
+		<createTable tableName="lock_template_price">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_LOCK_TEMPLATE_PRICE" />
+			</column>
+			<column name="type" type="nvarchar(100)" />
+			<column name="price_from" type="decimal" />
+			<column name="price_to" type="decimal" />
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="lock_type_price">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_LOCK_TYPE_PRICE" />
+			</column>
+			<column name="price_from" type="decimal" />
+			<column name="price_to" type="decimal" />
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
 		<createTable tableName="lock_type">
 			<column name="id" type="bigint" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true"
@@ -15,16 +62,56 @@
 			<column name="lock_type" type="nvarchar(100)">
 				<constraints nullable="false" />
 			</column>
-			<column name="price" type="decimal">
+			<column name="total_rating" type="float" />
+			<column name="lock_type_price" type="bigint">
+				<constraints nullable="false"
+					referencedTableName="lock_type_price" referencedColumnNames="id"
+					foreignKeyName="FK_LOCK_LOCK_TYPE_PRICE" />
+			</column>
+			<column name="created_date" type="date">
 				<constraints nullable="false" />
 			</column>
-			<column name="total_rating" type="float" />
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="lock_type_template">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="PK_LOCK_TYPE_TEMPLATE" />
+			</column>
+			<column name="font_size" type="int" />
+			<column name="font_style" type="nvarchar(100)" />
+			<column name="font_color" type="nvarchar(100)" />
+			<column name="lock_type" type="bigint">
+				<constraints nullable="false"
+					referencedTableName="lock_type" referencedColumnNames="id"
+					foreignKeyName="FK_LOCK_TYPE_TEMPLATE_LOCK_TYPE" />
+			</column>
+			<column name="lock_template_price" type="bigint">
+				<constraints nullable="false"
+					referencedTableName="lock_template_price"
+					referencedColumnNames="id"
+					foreignKeyName="FK_LOCK_TYPE_TEMPLATE_LOCK_TEMPLATE_PRICE" />
+			</column>
+			<column name="lock_type_price" type="bigint">
+				<constraints nullable="false"
+					referencedTableName="lock_type_price" referencedColumnNames="id"
+					foreignKeyName="FK_LOCK_TYPE_TEMPLATE_LOCK_TYPE_PRICE" />
+			</column>
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
 		</createTable>
 
 		<createTable tableName="lock_section">
 			<column name="id" type="bigint" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="PK_LOCK_TYPE" />
+					primaryKeyName="PK_LOCK_SECTION" />
 			</column>
 			<column name="section" type="nvarchar(100)">
 				<constraints nullable="false" />
@@ -60,6 +147,11 @@
 					referencedColumnNames="id" foreignKeyName="FK_LOCK_USER" />
 			</column>
 			<column name="delete_token" type="nvarchar(50)"></column>
+			<column name="panel_id" type="bigint">
+				<constraints nullable="true"
+					foreignKeyName="FK_LOCK_ENTITY_PANEL"
+					referencedTableName="panel_entity" referencedColumnNames="id" />
+			</column>
 			<column name="created_date" type="date">
 				<constraints nullable="false" />
 			</column>
@@ -79,10 +171,15 @@
 			<column name="path_to_file" type="nvarchar(100)">
 				<constraints nullable="false" />
 			</column>
-			<column name="lock_type_id" type="bigint">
-				<constraints nullable="false"
+			<column name="lock_type" type="bigint">
+				<constraints nullable="true"
 					referencedTableName="lock_type" referencedColumnNames="id"
 					foreignKeyName="FK_FILE_LOCK_TYPE" />
+			</column>
+			<column name="lock_type_template" type="bigint">
+				<constraints nullable="true"
+					referencedTableName="lock_type_template" referencedColumnNames="id"
+					foreignKeyName="FK_FILE_LOCK_TYPE_TEMPLATE" />
 			</column>
 			<column name="created_date" type="date">
 				<constraints nullable="false" />
@@ -116,31 +213,9 @@
 		<insert tableName="lock_section">
 			<column name="section" value="d2" type="nvarchar(100)" />
 		</insert>
-		<sqlFile path="classpath:/liquibase/lockTypes.sql" />
+		<sqlFile path="classpath:/liquibase/defaults.sql" />
 	</changeSet>
 
-	<changeSet id="panel-0" author="tnalex">
-		<createTable tableName="panel_entity">
-			<column name="id" type="bigint" autoIncrement="true">
-				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="PK_PANEL_ENTITY" />
-			</column>
-			<column name="location" type="nvarchar(100)" />
-			<column name="created_date" type="date">
-				<constraints nullable="false" />
-			</column>
-			<column name="last_modified_date" type="timestamp">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
 
-		<addColumn tableName="lock_entity">
-			<column name="panel_id" type="bigint">
-				<constraints nullable="true"
-					foreignKeyName="FK_LOCK_ENTITY_PANEL"
-					referencedTableName="panel_entity" referencedColumnNames="id" />
-			</column>
-		</addColumn>
-	</changeSet>
 
 </databaseChangeLog>
