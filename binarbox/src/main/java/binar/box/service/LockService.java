@@ -74,6 +74,7 @@ public class LockService {
 		var lockTypeDtoResponse = new LockTypeDtoResponse();
 		lockTypeDtoResponse.setId(lockType.getId());
 		lockTypeDtoResponse.setType(lockType.getType());
+		lockTypeDtoResponse.setPrice(lockType.getPrice().getPrice());
 		lockTypeDtoResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
 		lockTypeDtoResponse.setLockTypeTemplate(lockType.getLockTypeTemplate().parallelStream()
 				.map(this::toLockTypeTemplateDTO).collect(Collectors.toList()));

@@ -23,29 +23,13 @@
 	</changeSet>
 
 	<changeSet id="lock-0" author="tnalex">
-		<createTable tableName="lock_template_price">
-			<column name="id" type="bigint" autoIncrement="true">
-				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="PK_LOCK_TEMPLATE_PRICE" />
-			</column>
-			<column name="type" type="nvarchar(100)" />
-			<column name="price_from" type="decimal" />
-			<column name="price_to" type="decimal" />
-			<column name="created_date" type="date">
-				<constraints nullable="false" />
-			</column>
-			<column name="last_modified_date" type="timestamp">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
 
-		<createTable tableName="lock_type_price">
+		<createTable tableName="price">
 			<column name="id" type="bigint" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="PK_LOCK_TYPE_PRICE" />
+					primaryKeyName="PK_PRICE" />
 			</column>
-			<column name="price_from" type="decimal" />
-			<column name="price_to" type="decimal" />
+			<column name="price" type="decimal" />
 			<column name="created_date" type="date">
 				<constraints nullable="false" />
 			</column>
@@ -63,10 +47,10 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="total_rating" type="float" />
-			<column name="lock_type_price" type="bigint">
+			<column name="price" type="bigint">
 				<constraints nullable="false"
-					referencedTableName="lock_type_price" referencedColumnNames="id"
-					foreignKeyName="FK_LOCK_LOCK_TYPE_PRICE" />
+					referencedTableName="price" referencedColumnNames="id"
+					foreignKeyName="FK_LOCK_TYPE_PRICE" />
 			</column>
 			<column name="created_date" type="date">
 				<constraints nullable="false" />
@@ -89,16 +73,10 @@
 					referencedTableName="lock_type" referencedColumnNames="id"
 					foreignKeyName="FK_LOCK_TYPE_TEMPLATE_LOCK_TYPE" />
 			</column>
-			<column name="lock_template_price" type="bigint">
+			<column name="price" type="bigint">
 				<constraints nullable="false"
-					referencedTableName="lock_template_price"
-					referencedColumnNames="id"
-					foreignKeyName="FK_LOCK_TYPE_TEMPLATE_LOCK_TEMPLATE_PRICE" />
-			</column>
-			<column name="lock_type_price" type="bigint">
-				<constraints nullable="false"
-					referencedTableName="lock_type_price" referencedColumnNames="id"
-					foreignKeyName="FK_LOCK_TYPE_TEMPLATE_LOCK_TYPE_PRICE" />
+					referencedTableName="price" referencedColumnNames="id"
+					foreignKeyName="FK_LOCK_TYPE_TEMPLATE_PRICE" />
 			</column>
 			<column name="created_date" type="date">
 				<constraints nullable="false" />

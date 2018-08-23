@@ -13,21 +13,18 @@ import javax.persistence.Table;
  * Created by Timis Nicu Alexandru on 06-Aug-18.
  */
 @Entity
-@Table(name = "lock_type_price")
-public class LockTypePrice extends BaseEntity {
+@Table(name = "price")
+public class Price extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "price_from")
-	private BigDecimal priceFrom;
+	@Column(name = "price")
+	private BigDecimal price;
 
-	@Column(name = "price_to")
-	private BigDecimal priceTo;
-
-	public LockTypePrice() {
+	public Price() {
 	}
 
 	public Long getId() {
@@ -38,20 +35,12 @@ public class LockTypePrice extends BaseEntity {
 		this.id = id;
 	}
 
-	public BigDecimal getPriceFrom() {
-		return priceFrom;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setPriceFrom(BigDecimal priceFrom) {
-		this.priceFrom = priceFrom;
-	}
-
-	public BigDecimal getPriceTo() {
-		return priceTo;
-	}
-
-	public void setPriceTo(BigDecimal priceTo) {
-		this.priceTo = priceTo;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 }
