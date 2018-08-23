@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
  * Created by Timis Nicu Alexandru on 16-Apr-18.
  */
@@ -28,7 +31,8 @@ public class LockType extends BaseEntity {
 	@Column(name = "lock_type")
 	private String type;
 
-	@OneToMany(mappedBy = "lockType")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "lockType")
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<File> files;
 
 	@Column(name = "total_rating")

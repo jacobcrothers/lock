@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
  * Created by Timis Nicu Alexandru on 06-Aug-18.
  */
@@ -34,7 +37,8 @@ public class LockTypeTemplate extends BaseEntity {
 	@Column(name = "font_color")
 	private String fontColor;
 
-	@OneToMany(mappedBy = "lockTypeTemplate")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "lockTypeTemplate")
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<File> files;
 
 	@ManyToOne(fetch = FetchType.EAGER)
