@@ -38,8 +38,8 @@ public class LockType extends BaseEntity {
 	private List<LockTypeTemplate> lockTypeTemplate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lock_type_price")
-	private LockTypePrice price;
+	@JoinColumn(name = "price")
+	private Price price;
 
 	public LockType() {
 	}
@@ -76,20 +76,20 @@ public class LockType extends BaseEntity {
 		this.totalRating = totalRating;
 	}
 
-	public LockTypePrice getPrice() {
-		return price;
-	}
-
-	public void setPrice(LockTypePrice price) {
-		this.price = price;
-	}
-
 	public List<LockTypeTemplate> getLockTypeTemplate() {
 		return lockTypeTemplate;
 	}
 
 	public void setLockTypeTemplate(List<LockTypeTemplate> lockTypeTemplate) {
 		this.lockTypeTemplate = lockTypeTemplate;
+	}
+
+	public Price getPrice() {
+		return price;
+	}
+
+	public void setPrice(Price price) {
+		this.price = price;
 	}
 
 }

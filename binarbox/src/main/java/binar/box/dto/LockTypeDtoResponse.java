@@ -1,5 +1,6 @@
 package binar.box.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import binar.box.domain.LockType;
@@ -13,6 +14,8 @@ public class LockTypeDtoResponse {
 
 	private String type;
 
+	private BigDecimal price;
+
 	private List<FileDTO> filesDTO;
 
 	private List<LockTypeTemplateDTO> lockTypeTemplate;
@@ -23,6 +26,7 @@ public class LockTypeDtoResponse {
 	public LockTypeDtoResponse(LockType lockType) {
 		this.id = lockType.getId();
 		this.type = lockType.getType();
+		this.setPrice(lockType.getPrice().getPrice());
 	}
 
 	public long getId() {
@@ -55,5 +59,13 @@ public class LockTypeDtoResponse {
 
 	public void setLockTypeTemplate(List<LockTypeTemplateDTO> lockTypeTemplate) {
 		this.lockTypeTemplate = lockTypeTemplate;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 }
