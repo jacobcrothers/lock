@@ -139,12 +139,6 @@ public class LockService {
 
 	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType,
 			LockTypeTemplate lockTypeTemplate, Lock lock, Panel panel) {
-		if (lockDTO.getLongitude() != null) {
-			lock.setLongitude(lockDTO.getLongitude());
-		}
-		if (lockDTO.getLatitude() != null) {
-			lock.setLatitude(lockDTO.getLatitude());
-		}
 		lock.setUser(user);
 		lock.setLockType(lockType);
 		lock.setLockTypeTemplate(lockTypeTemplate);

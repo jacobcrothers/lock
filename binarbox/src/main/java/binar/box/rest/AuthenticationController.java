@@ -13,6 +13,7 @@ import binar.box.dto.FacebookTokenDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
@@ -24,6 +25,9 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 
+	@ApiOperation(value = "Authenticate using the Facebook token", notes = "This endpoint uses the Facebook token to register the user in the database. "
+			+ "If the user already exists nothing happens. "
+			+ "After this step, the Facebook token can be set on the token header to authorize user requests.")
 	@PostMapping(value = Constants.FACEBOOK_ENDPOINT)
 	private void facebookLogin(@RequestBody @Valid FacebookTokenDTO facebookTokenDTO, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {

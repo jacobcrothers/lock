@@ -76,6 +76,7 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get lock sections", notes = "This endpoint response reveal available sections of panels.")
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_SECTION_ENDPOINT)
 	private List<LockSection> lockSections() {
 		return lockService.getLockSections();
@@ -83,7 +84,7 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTypeTemplate,lockType. EX: {\r\n"
+	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTypeTemplate,lockType." + "\n EX: {\r\n"
 			+ "  \"fontColor\": \"BLUE\",\r\n" + "  \"fontSize\": 60,\r\n" + "  \"fontStyle\": \"ROBOTO\",\r\n"
 			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockType\":3,\r\n" + "  \"lockTypeTemplate\":7\r\n"
 			+ "} " + "\n This is the second user step to add a lock.")
@@ -95,12 +96,18 @@ public class LockController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PutMapping(value = Constants.LOCK_ENDPOINT)
+	@ApiOperation(value = "Update user lock", notes = "Mandatory fields: lockTypeTemplate,lockType." + "\n {\r\n"
+			+ "  \"id\":1,\r\n" + "  \"fontColor\": \"string\",\r\n" + "  \"fontStyle\":\"ROBOTO\",\r\n"
+			+ "  \"lockTypeTemplate\":6,\r\n" + "  \"lockType\": 3,\r\n" + "  \"longitude\": 0,\r\n"
+			+ "  \"message\": \"string\",\r\n" + "  \"lockColor\":\"YELLOW\",\r\n" + "  \"lockSection\":1\r\n" + "\r\n"
+			+ "}" + "\n This is the third user step to add a lock")
 	private void updateLock(@RequestBody LockDTO lockDTO) {
 		lockService.addOrUpdateUserLock(lockDTO);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get unpaid/in progress user locks", notes = "This is one optional step to complete \"add user lock\".")
 	@GetMapping(value = Constants.LOCK_ENDPOINT)
 	private List<LockResponseDTO> getLocks() {
 		return lockService.getLocks();
@@ -108,6 +115,7 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Claim to remove user lock", notes = "Requesting this endpoint will send a token on user email which can be used to remove a lock.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_DELETE_USING_TOKEN)
 	private void claimToRemoveLock(@RequestParam("id") long id) {
 		lockService.claimToRemoveUserLock(id);
@@ -115,6 +123,7 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Delete user lock", notes = "Requesting this endpoint will delete user lock using the token for more security.", hidden = true)
 	@DeleteMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_DELETE_USING_TOKEN)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	private void removeALockUsingToken(@RequestParam("token") String token) {

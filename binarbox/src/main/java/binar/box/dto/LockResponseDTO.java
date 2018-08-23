@@ -11,10 +11,6 @@ public class LockResponseDTO {
 
 	private long id;
 
-	private Double longitude;
-
-	private Double latitude;
-
 	private String message;
 
 	private Integer fontSize;
@@ -25,7 +21,7 @@ public class LockResponseDTO {
 
 	private String lockColor;
 
-	private String lockSection;
+	private LockSectionDTO lockSection;
 
 	private LockTypeDtoResponse lockTypeDtoResponse;
 
@@ -43,15 +39,13 @@ public class LockResponseDTO {
 
 	public LockResponseDTO(Lock lock) {
 		this.id = lock.getId();
-		this.longitude = lock.getLongitude();
-		this.latitude = lock.getLatitude();
 		this.message = lock.getMessage();
 		this.fontSize = lock.getFontSize();
 		this.fontStyle = lock.getFontStyle();
 		this.fontColor = lock.getFontColor();
 		this.lockColor = lock.getLockColor();
-		this.lockSection = lock.getLockSection() == null ? null : lock.getLockSection().getSection();
 		this.panelId = lock.getPanel() == null ? null : lock.getPanel().getId();
+		this.lockSection = lock.getLockSection() == null ? null : new LockSectionDTO(lock.getLockSection());
 		this.privateLock = lock.isPrivateLock();
 		this.glitteringLight = lock.isGlitteringLight();
 	}
@@ -62,22 +56,6 @@ public class LockResponseDTO {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-
-	public Double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
 	}
 
 	public String getMessage() {
@@ -120,14 +98,6 @@ public class LockResponseDTO {
 		this.lockColor = lockColor;
 	}
 
-	public String getLockSection() {
-		return lockSection;
-	}
-
-	public void setLockSection(String lockSection) {
-		this.lockSection = lockSection;
-	}
-
 	public LockTypeDtoResponse getLockTypeDtoResponse() {
 		return lockTypeDtoResponse;
 	}
@@ -166,6 +136,14 @@ public class LockResponseDTO {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public LockSectionDTO getLockSection() {
+		return lockSection;
+	}
+
+	public void setLockSection(LockSectionDTO lockSection) {
+		this.lockSection = lockSection;
 	}
 
 }

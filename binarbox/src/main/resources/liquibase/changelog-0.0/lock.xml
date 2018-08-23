@@ -101,8 +101,6 @@
 				<constraints nullable="false" primaryKey="true"
 					primaryKeyName="PK_LOCK" />
 			</column>
-			<column name="longitude" type="double" />
-			<column name="latitude" type="double" />
 			<column name="message" type="nvarchar(100)" />
 			<column name="font_size" type="int" />
 			<column name="font_style" type="nvarchar(100)" />

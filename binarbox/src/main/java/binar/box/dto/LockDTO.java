@@ -23,10 +23,6 @@ public class LockDTO {
 
 	private Long lockTypeTemplate;
 
-	private Double longitude;
-
-	private Double latitude;
-
 	private Long panelId;
 
 	private Boolean privateLock;
@@ -104,22 +100,6 @@ public class LockDTO {
 
 	public void setLockTypeTemplate(Long lockTypeTemplate) {
 		this.lockTypeTemplate = lockTypeTemplate;
-	}
-
-	public Double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-
-	public Double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
 	}
 
 	public Long getPanelId() {
