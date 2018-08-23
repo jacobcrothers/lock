@@ -22,7 +22,7 @@ import binar.box.dto.FileDTO;
 import binar.box.dto.LockDTO;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.LockTypeDTO;
-import binar.box.dto.LockTypeDtoResponse;
+import binar.box.dto.LockTypeDTOResponse;
 import binar.box.dto.LockTypeTemplateDTO;
 import binar.box.repository.LockRepository;
 import binar.box.repository.LockSectionRepository;
@@ -59,36 +59,36 @@ public class LockService {
 	@Autowired
 	private LockTypeTemplateRepository lockTypeTemplateRepository;
 
-	public LockTypeDtoResponse addLockType(LockTypeDTO lockTypeDTO) {
+	public LockTypeDTOResponse addLockType(LockTypeDTO lockTypeDTO) {
 		LockType lockType = new LockType();
 		lockType.setType(lockTypeDTO.getType());
 		lockTypeRepository.save(lockType);
-		return new LockTypeDtoResponse(lockType);
+		return new LockTypeDTOResponse(lockType);
 	}
 
-	public List<LockTypeDtoResponse> getLockTypes() {
+	public List<LockTypeDTOResponse> getLockTypes() {
 		List<LockType> lockTypes = lockTypeRepository.findAll();
-		return lockTypes.stream().map(this::toLockTypeDtoResponse).collect(Collectors.toList());
+		return lockTypes.stream().map(this::toLockTypeDTOResponse).collect(Collectors.toList());
 	}
 
-	private LockTypeDtoResponse toLockTypeDtoResponse(LockType lockType) {
-		var lockTypeDtoResponse = new LockTypeDtoResponse();
-		lockTypeDtoResponse.setId(lockType.getId());
-		lockTypeDtoResponse.setType(lockType.getType());
-		lockTypeDtoResponse.setPrice(lockType.getPrice().getPrice());
-		lockTypeDtoResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
-		lockTypeDtoResponse.setLockTypeTemplate(lockType.getLockTypeTemplate().parallelStream()
+	private LockTypeDTOResponse toLockTypeDTOResponse(LockType lockType) {
+		var lockTypeDTOResponse = new LockTypeDTOResponse();
+		lockTypeDTOResponse.setId(lockType.getId());
+		lockTypeDTOResponse.setType(lockType.getType());
+		lockTypeDTOResponse.setPrice(lockType.getPrice().getPrice());
+		lockTypeDTOResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDTO).collect(Collectors.toList()));
+		lockTypeDTOResponse.setLockTypeTemplate(lockType.getLockTypeTemplate().parallelStream()
 				.map(this::toLockTypeTemplateDTO).collect(Collectors.toList()));
-		return lockTypeDtoResponse;
+		return lockTypeDTOResponse;
 	}
 
 	private LockTypeTemplateDTO toLockTypeTemplateDTO(LockTypeTemplate lockTypeTemplate) {
 		var lockType = new LockTypeTemplateDTO(lockTypeTemplate);
-		lockType.setFilesDTO(lockTypeTemplate.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
+		lockType.setFilesDTO(lockTypeTemplate.getFiles().stream().map(this::toFileDTO).collect(Collectors.toList()));
 		return lockType;
 	}
 
-	private FileDTO toFileDto(File file) {
+	private FileDTO toFileDTO(File file) {
 		return new FileDTO(file);
 	}
 
@@ -168,25 +168,25 @@ public class LockService {
 	public List<LockResponseDTO> getLocks() {
 		var user = userService.getAuthenticatedUser();
 		var lockList = lockRepository.findByUser(user);
-		return lockList.stream().map(this::toLockResponseDto).collect(Collectors.toList());
+		return lockList.stream().map(this::toLockResponseDTO).collect(Collectors.toList());
 	}
 
-	LockResponseDTO toLockResponseDto(Lock lock) {
+	LockResponseDTO toLockResponseDTO(Lock lock) {
 		var lockResponse = new LockResponseDTO(lock);
 		lockResponse.setPrice(
 				lock.getLockType().getPrice().getPrice().add(lock.getLockTypeTemplate().getPrice().getPrice()));
-		lockResponse.setLockTypeDtoResponse(toLockTypeDtoResponse(lock.getLockType(), lock.getLockTypeTemplate()));
+		lockResponse.setLockTypeDTOResponse(toLockTypeDTOResponse(lock.getLockType(), lock.getLockTypeTemplate()));
 		return lockResponse;
 	}
 
-	private LockTypeDtoResponse toLockTypeDtoResponse(LockType lockType, LockTypeTemplate lockTypeTemplate) {
-		var lockTypeDtoResponse = new LockTypeDtoResponse();
-		lockTypeDtoResponse.setId(lockType.getId());
-		lockTypeDtoResponse.setType(lockType.getType());
-		lockTypeDtoResponse.setPrice(lockType.getPrice().getPrice());
-		lockTypeDtoResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
-		lockTypeDtoResponse.setLockTypeTemplate(Collections.singletonList(toLockTypeTemplateDTO(lockTypeTemplate)));
-		return lockTypeDtoResponse;
+	private LockTypeDTOResponse toLockTypeDTOResponse(LockType lockType, LockTypeTemplate lockTypeTemplate) {
+		var lockTypeDTOResponse = new LockTypeDTOResponse();
+		lockTypeDTOResponse.setId(lockType.getId());
+		lockTypeDTOResponse.setType(lockType.getType());
+		lockTypeDTOResponse.setPrice(lockType.getPrice().getPrice());
+		lockTypeDTOResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDTO).collect(Collectors.toList()));
+		lockTypeDTOResponse.setLockTypeTemplate(Collections.singletonList(toLockTypeTemplateDTO(lockTypeTemplate)));
+		return lockTypeDTOResponse;
 	}
 
 	public void removeUserLock(String token) {

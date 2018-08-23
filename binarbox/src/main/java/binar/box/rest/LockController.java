@@ -23,7 +23,7 @@ import binar.box.domain.LockSection;
 import binar.box.dto.LockDTO;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.LockTypeDTO;
-import binar.box.dto.LockTypeDtoResponse;
+import binar.box.dto.LockTypeDTOResponse;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
@@ -50,7 +50,7 @@ public class LockController {
 	@ApiOperation(value = "ADMIN: Add lock type", notes = "This endpoint is for admin, admin add lock types into database.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TYPE_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	private LockTypeDtoResponse addLockType(@RequestBody @Valid LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
+	private LockTypeDTOResponse addLockType(@RequestBody @Valid LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new LockBridgesException(bindingResult.getAllErrors().toString());
 		}
@@ -70,7 +70,7 @@ public class LockController {
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get lock type with lock type templates", notes = "User first step is to choose one lock type then one lock template type")
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_ENDPOINT)
-	private List<LockTypeDtoResponse> getLockTypes() {
+	private List<LockTypeDTOResponse> getLockTypes() {
 		return lockService.getLockTypes();
 	}
 

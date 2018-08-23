@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import binar.box.util.LockBridgesException;
  * Created by Timis Nicu Alexandru on 11-Jun-18.
  */
 @Service
+@Transactional
 public class PanelService {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -41,15 +44,18 @@ public class PanelService {
 	private ConfigurationRepository configurationRepository;
 
 	public List<PanelDTO> getAllPanels() {
-		var user = userService.getAuthenticatedUser();
-		var panels = panelRepository.findAllPanelsBasedOnLocation(user.getCountry(),
-				configurationRepository.findById(Long.valueOf(1)).get().getMaxPanelsView());
-		panels = panels.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
+//		var user = userService.getAuthenticatedUser();
+//		
+		var panels = panelRepository.findAll();
+//		var panels = panelRepository.findAllPanelsBasedOnLocation(user.getCountry(),
+//				configurationRepository.findById(Long.valueOf(1)).get().getMaxPanelsView());
+//		
+//		panels = panels.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
 		panels = panels.parallelStream().map(this::addPanelLocks).collect(Collectors.toList());
-		var maxLights = configurationRepository.findById(Long.valueOf(1)).get().getGlitteringLightsOnLocks();
-		var maxPanels = panels.size();
-		addLockLights(panels, maxLights, maxPanels);
-		return panels.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+//		var maxLights = configurationRepository.findById(Long.valueOf(1)).get().getGlitteringLightsOnLocks();
+//		var maxPanels = panels.size();
+//		addLockLights(panels, maxLights, maxPanels);
+		return panels.parallelStream().map(this::toPanelDTO).collect(Collectors.toList());
 	}
 
 	private int randomIntegerUsingMath(int min, int max) {
@@ -100,7 +106,7 @@ public class PanelService {
 		return lightsOnLock;
 	}
 
-	private PanelDTO toPanelDto(Panel panel) {
+	private PanelDTO toPanelDTO(Panel panel) {
 		var panelDTO = new PanelDTO();
 		panelDTO.setId(panel.getId());
 		var lockResponseDTOList = panel.getLocks().parallelStream().map(this::toLockResponse)
@@ -110,7 +116,7 @@ public class PanelService {
 	}
 
 	private LockResponseDTO toLockResponse(Lock lock) {
-		return lockService.toLockResponseDto(lock);
+		return lockService.toLockResponseDTO(lock);
 	}
 
 	Panel getPanel(long panelId) {
@@ -118,9 +124,8 @@ public class PanelService {
 	}
 
 	public PanelDTO getPanelDTO(long id) {
-		return toPanelDto(getPanel(id));
+		return toPanelDTO(getPanel(id));
 	}
-
 
 	public List<PanelDTO> getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
@@ -129,7 +134,7 @@ public class PanelService {
 		panelsOfUser = panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel, user, facebookUserFriends))
 				.collect(Collectors.toList());
 		panelsOfUser = panelsOfUser.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
-		return panelsOfUser.parallelStream().map(this::toPanelDto).collect(Collectors.toList());
+		return panelsOfUser.parallelStream().map(this::toPanelDTO).collect(Collectors.toList());
 	}
 
 	private Panel addPanelLocks(Panel panel) {

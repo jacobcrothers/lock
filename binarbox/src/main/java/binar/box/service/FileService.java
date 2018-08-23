@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import binar.box.util.LockBridgesException;
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
 @Service
+@Transactional
 public class FileService {
 
 	@Autowired

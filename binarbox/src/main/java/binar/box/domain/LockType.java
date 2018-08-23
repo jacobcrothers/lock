@@ -28,16 +28,16 @@ public class LockType extends BaseEntity {
 	@Column(name = "lock_type")
 	private String type;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockType")
+	@OneToMany(mappedBy = "lockType")
 	private List<File> files;
 
 	@Column(name = "total_rating")
 	private Float totalRating;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockType")
+	@OneToMany(mappedBy = "lockType")
 	private List<LockTypeTemplate> lockTypeTemplate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "price")
 	private Price price;
 

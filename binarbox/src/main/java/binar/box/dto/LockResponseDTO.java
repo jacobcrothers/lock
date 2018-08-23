@@ -23,7 +23,7 @@ public class LockResponseDTO {
 
 	private LockSectionDTO lockSection;
 
-	private LockTypeDtoResponse lockTypeDtoResponse;
+	private LockTypeDTOResponse lockTypeDTOResponse;
 
 	private Long panelId;
 
@@ -98,12 +98,12 @@ public class LockResponseDTO {
 		this.lockColor = lockColor;
 	}
 
-	public LockTypeDtoResponse getLockTypeDtoResponse() {
-		return lockTypeDtoResponse;
+	public LockTypeDTOResponse getLockTypeDTOResponse() {
+		return lockTypeDTOResponse;
 	}
 
-	public void setLockTypeDtoResponse(LockTypeDtoResponse lockTypeDtoResponse) {
-		this.lockTypeDtoResponse = lockTypeDtoResponse;
+	public void setLockTypeDTOResponse(LockTypeDTOResponse lockTypeDTOResponse) {
+		this.lockTypeDTOResponse = lockTypeDTOResponse;
 	}
 
 	public Long getPanelId() {

@@ -28,11 +28,11 @@ public class File extends BaseEntity {
 	@Column(name = "path_to_file")
 	private String pathToFile;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "lock_type")
 	private LockType lockType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "lock_type_template")
 	private LockTypeTemplate lockTypeTemplate;
 

@@ -8,7 +8,7 @@ import binar.box.domain.LockType;
 /**
  * Created by Timis Nicu Alexandru on 18-Apr-18.
  */
-public class LockTypeDtoResponse {
+public class LockTypeDTOResponse {
 
 	private long id;
 
@@ -20,10 +20,10 @@ public class LockTypeDtoResponse {
 
 	private List<LockTypeTemplateDTO> lockTypeTemplate;
 
-	public LockTypeDtoResponse() {
+	public LockTypeDTOResponse() {
 	}
 
-	public LockTypeDtoResponse(LockType lockType) {
+	public LockTypeDTOResponse(LockType lockType) {
 		this.id = lockType.getId();
 		this.type = lockType.getType();
 		this.setPrice(lockType.getPrice().getPrice());
