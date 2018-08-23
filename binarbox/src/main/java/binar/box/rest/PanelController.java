@@ -26,7 +26,7 @@ public class PanelController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Get panel", notes = "Get panels")
+	@ApiOperation(value = "Get panel", notes = "This endpoint is used for \"see all locks\" feature, here are displayed public panels with public locks.")
 	@GetMapping(value = Constants.PANEL_ENDPOINT)
 	private List<PanelDTO> getPanels() {
 		return panelService.getAllPanels();
