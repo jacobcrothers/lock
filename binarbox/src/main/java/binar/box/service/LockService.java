@@ -1,10 +1,9 @@
 package binar.box.service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -28,6 +27,7 @@ import binar.box.dto.LockTypeTemplateDTO;
 import binar.box.repository.LockRepository;
 import binar.box.repository.LockSectionRepository;
 import binar.box.repository.LockTypeRepository;
+import binar.box.repository.LockTypeTemplateRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 
@@ -56,7 +56,8 @@ public class LockService {
 	@Autowired
 	private PanelService panelService;
 
-	private ExecutorService executorService = Executors.newFixedThreadPool(10);
+	@Autowired
+	private LockTypeTemplateRepository lockTypeTemplateRepository;
 
 	public LockTypeDtoResponse addLockType(LockTypeDTO lockTypeDTO) {
 		LockType lockType = new LockType();
@@ -95,8 +96,7 @@ public class LockService {
 		return lockSectionRepository.findAll();
 	}
 
-	public void addOrUpdateUserLock(LockDTO lockDTO) {
-		executorService.submit(() -> panelService.maintainPanels());
+	public LockResponseDTO addOrUpdateUserLock(LockDTO lockDTO) {
 		var user = userService.getAuthenticatedUser();
 		Lock lock = null;
 		if (lockDTO.getId() == null) {
@@ -107,6 +107,7 @@ public class LockService {
 		}
 		lock = addOrUpdateUserLock(lockDTO, lock, user);
 		lockRepository.save(lock);
+		return null;
 	}
 
 	private Lock getLockById(Long lockId) {
@@ -123,12 +124,21 @@ public class LockService {
 		if (lockDTO.getPanelId() != null) {
 			panel = panelService.getPanel(lockDTO.getPanelId());
 		}
-		setLockFields(lockDTO, user, lockSection, lockType, lock, panel);
+		LockTypeTemplate lockTypeTemplate = null;
+		if (lockDTO.getLockTypeTemplate() != null) {
+			lockTypeTemplate = getLockTypeTemplate(lockDTO.getLockTypeTemplate());
+		}
+		setLockFields(lockDTO, user, lockSection, lockType, lockTypeTemplate, lock, panel);
 		return lock;
 	}
 
-	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType, Lock lock,
-			Panel panel) {
+	private LockTypeTemplate getLockTypeTemplate(Long lockTypeTemplate) {
+		return lockTypeTemplateRepository.findById(lockTypeTemplate)
+				.orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
+	}
+
+	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType,
+			LockTypeTemplate lockTypeTemplate, Lock lock, Panel panel) {
 		if (lockDTO.getLongitude() != null) {
 			lock.setLongitude(lockDTO.getLongitude());
 		}
@@ -137,6 +147,7 @@ public class LockService {
 		}
 		lock.setUser(user);
 		lock.setLockType(lockType);
+		lock.setLockTypeTemplate(lockTypeTemplate);
 		lock.setLockSection(lockSection);
 		lock.setMessage(lockDTO.getMessage());
 		if (lockDTO.getFontSize() != null) {
@@ -167,7 +178,21 @@ public class LockService {
 	}
 
 	LockResponseDTO toLockResponseDto(Lock lock) {
-		return new LockResponseDTO(lock);
+		var lockResponse = new LockResponseDTO(lock);
+		lockResponse.setPrice(
+				lock.getLockType().getPrice().getPrice().add(lock.getLockTypeTemplate().getPrice().getPrice()));
+		lockResponse.setLockTypeDtoResponse(toLockTypeDtoResponse(lock.getLockType(), lock.getLockTypeTemplate()));
+		return lockResponse;
+	}
+
+	private LockTypeDtoResponse toLockTypeDtoResponse(LockType lockType, LockTypeTemplate lockTypeTemplate) {
+		var lockTypeDtoResponse = new LockTypeDtoResponse();
+		lockTypeDtoResponse.setId(lockType.getId());
+		lockTypeDtoResponse.setType(lockType.getType());
+		lockTypeDtoResponse.setPrice(lockType.getPrice().getPrice());
+		lockTypeDtoResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
+		lockTypeDtoResponse.setLockTypeTemplate(Collections.singletonList(toLockTypeTemplateDTO(lockTypeTemplate)));
+		return lockTypeDtoResponse;
 	}
 
 	public void removeUserLock(String token) {

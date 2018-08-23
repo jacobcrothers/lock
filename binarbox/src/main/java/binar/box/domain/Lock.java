@@ -54,6 +54,10 @@ public class Lock extends BaseEntity {
 	private LockType lockType;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lock_type_template_id")
+	private LockTypeTemplate lockTypeTemplate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "panel_id")
 	private Panel panel;
 
@@ -201,6 +205,14 @@ public class Lock extends BaseEntity {
 
 	public void setGlitteringLight(boolean glitteringLight) {
 		this.glitteringLight = glitteringLight;
+	}
+
+	public LockTypeTemplate getLockTypeTemplate() {
+		return lockTypeTemplate;
+	}
+
+	public void setLockTypeTemplate(LockTypeTemplate lockTypeTemplate) {
+		this.lockTypeTemplate = lockTypeTemplate;
 	}
 
 }

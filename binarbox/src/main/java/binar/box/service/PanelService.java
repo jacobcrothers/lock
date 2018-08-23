@@ -121,16 +121,6 @@ public class PanelService {
 		return toPanelDto(getPanel(id));
 	}
 
-	void maintainPanels() {
-		log.info(Constants.MAINTAINING_PANELS);
-		var numberOfPanelsAvailable = panelRepository.countPanels()
-				.orElseThrow(() -> new LockBridgesException(Constants.SOMETHING_WENT_WRONG_WITH_PANELS_COUNTING));
-		if (numberOfPanelsAvailable.intValue() < 2) {
-			panelRepository.addPanels(2);
-		} else if (numberOfPanelsAvailable.intValue() <= 2) {
-			panelRepository.addPanels(1);
-		}
-	}
 
 	public List<PanelDTO> getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();

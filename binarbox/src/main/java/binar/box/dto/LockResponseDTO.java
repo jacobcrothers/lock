@@ -1,5 +1,7 @@
 package binar.box.dto;
 
+import java.math.BigDecimal;
+
 import binar.box.domain.Lock;
 
 /**
@@ -25,13 +27,19 @@ public class LockResponseDTO {
 
 	private String lockSection;
 
-	private String lockType;
+	private LockTypeDtoResponse lockTypeDtoResponse;
 
 	private Long panelId;
 
-	private boolean privateLock;
+	private Boolean privateLock;
 
-	private boolean glitteringLight;
+	private Boolean glitteringLight;
+
+	private BigDecimal price;
+
+	public LockResponseDTO() {
+
+	}
 
 	public LockResponseDTO(Lock lock) {
 		this.id = lock.getId();
@@ -41,16 +49,11 @@ public class LockResponseDTO {
 		this.fontSize = lock.getFontSize();
 		this.fontStyle = lock.getFontStyle();
 		this.fontColor = lock.getFontColor();
-		this.fontColor = lock.getLockColor();
+		this.lockColor = lock.getLockColor();
 		this.lockSection = lock.getLockSection() == null ? null : lock.getLockSection().getSection();
-		this.lockType = lock.getLockType() == null ? null : lock.getLockType().getType();
 		this.panelId = lock.getPanel() == null ? null : lock.getPanel().getId();
 		this.privateLock = lock.isPrivateLock();
 		this.glitteringLight = lock.isGlitteringLight();
-
-	}
-
-	public LockResponseDTO() {
 	}
 
 	public long getId() {
@@ -125,12 +128,12 @@ public class LockResponseDTO {
 		this.lockSection = lockSection;
 	}
 
-	public String getLockType() {
-		return lockType;
+	public LockTypeDtoResponse getLockTypeDtoResponse() {
+		return lockTypeDtoResponse;
 	}
 
-	public void setLockType(String lockType) {
-		this.lockType = lockType;
+	public void setLockTypeDtoResponse(LockTypeDtoResponse lockTypeDtoResponse) {
+		this.lockTypeDtoResponse = lockTypeDtoResponse;
 	}
 
 	public Long getPanelId() {
@@ -141,20 +144,28 @@ public class LockResponseDTO {
 		this.panelId = panelId;
 	}
 
-	public boolean isPrivateLock() {
+	public Boolean getPrivateLock() {
 		return privateLock;
 	}
 
-	public void setPrivateLock(boolean privateLock) {
+	public void setPrivateLock(Boolean privateLock) {
 		this.privateLock = privateLock;
 	}
 
-	public boolean isGlitteringLight() {
+	public Boolean getGlitteringLight() {
 		return glitteringLight;
 	}
 
-	public void setGlitteringLight(boolean glitteringLight) {
+	public void setGlitteringLight(Boolean glitteringLight) {
 		this.glitteringLight = glitteringLight;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 }

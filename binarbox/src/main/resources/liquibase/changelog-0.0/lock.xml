@@ -120,6 +120,11 @@
 					referencedTableName="lock_type" referencedColumnNames="id"
 					foreignKeyName="FK_LOCK_LOCK_TYPE" />
 			</column>
+			<column name="lock_type_template_id" type="bigint">
+				<constraints nullable="false"
+					referencedTableName="lock_type_template" referencedColumnNames="id"
+					foreignKeyName="FK_LOCK_LOCK_TYPE_TEMPLATE" />
+			</column>
 			<column name="user_id" type="nvarchar(100)">
 				<constraints nullable="false" referencedTableName="user"
 					referencedColumnNames="id" foreignKeyName="FK_LOCK_USER" />

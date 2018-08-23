@@ -83,9 +83,13 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTypeTemplate,lockType. EX: {\r\n"
+			+ "  \"fontColor\": \"BLUE\",\r\n" + "  \"fontSize\": 60,\r\n" + "  \"fontStyle\": \"ROBOTO\",\r\n"
+			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockType\":3,\r\n" + "  \"lockTypeTemplate\":7\r\n"
+			+ "} " + "\n This is the second user step to add a lock.")
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
-	private void addLock(@RequestBody LockDTO lockDTO) {
-		lockService.addOrUpdateUserLock(lockDTO);
+	private LockResponseDTO addLock(@RequestBody LockDTO lockDTO) {
+		return lockService.addOrUpdateUserLock(lockDTO);
 	}
 
 	@ApiImplicitParams({

@@ -21,6 +21,8 @@ public class LockDTO {
 
 	private Long lockType;
 
+	private Long lockTypeTemplate;
+
 	private Double longitude;
 
 	private Double latitude;
@@ -94,6 +96,14 @@ public class LockDTO {
 
 	public void setLockType(Long lockType) {
 		this.lockType = lockType;
+	}
+
+	public Long getLockTypeTemplate() {
+		return lockTypeTemplate;
+	}
+
+	public void setLockTypeTemplate(Long lockTypeTemplate) {
+		this.lockTypeTemplate = lockTypeTemplate;
 	}
 
 	public Double getLongitude() {
