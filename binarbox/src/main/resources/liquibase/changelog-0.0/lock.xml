@@ -20,6 +20,7 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
+		<sqlFile path="classpath:/liquibase/panel.sql" />
 	</changeSet>
 
 	<changeSet id="lock-0" author="tnalex">
@@ -194,7 +195,8 @@
 		<insert tableName="lock_section">
 			<column name="section" value="d2" type="nvarchar(100)" />
 		</insert>
-		<sqlFile path="classpath:/liquibase/defaults.sql" />
+		<sqlFile
+			path="classpath:/liquibase/lockType.lockTypeTemplate.Price.sql" />
 	</changeSet>
 
 
