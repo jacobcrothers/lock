@@ -82,7 +82,9 @@ public class LockService {
 	}
 
 	private LockTypeTemplateDTO toLockTypeTemplateDTO(LockTypeTemplate lockTypeTemplate) {
-		return new LockTypeTemplateDTO(lockTypeTemplate);
+		var lockType = new LockTypeTemplateDTO(lockTypeTemplate);
+		lockType.setFilesDTO(lockTypeTemplate.getFiles().stream().map(this::toFileDto).collect(Collectors.toList()));
+		return lockType;
 	}
 
 	private FileDTO toFileDto(File file) {
