@@ -12,6 +12,7 @@ import binar.box.service.PanelService;
 import binar.box.util.Constants;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * Created by Timis Nicu Alexandru on 11-Jun-18.
@@ -25,6 +26,7 @@ public class PanelController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get panel", notes = "Get panels", hidden = true)
 	@GetMapping(value = Constants.PANEL_ENDPOINT)
 	private List<PanelDTO> getPanels() {
 		return panelService.getAllPanels();
@@ -32,6 +34,7 @@ public class PanelController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get panel", notes = "Get panels", hidden = true)
 	@GetMapping(value = Constants.PANEL_ENDPOINT + Constants.USER)
 	private List<PanelDTO> getUserAndUserFriendLocksAndPanels() {
 		return panelService.getUserLocksAndPanels();

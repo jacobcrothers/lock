@@ -10,6 +10,7 @@ import binar.box.service.UserService;
 import binar.box.util.Constants;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * Created by Timis Nicu Alexandru on 27-Mar-18.
@@ -23,6 +24,7 @@ public class UserController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get user info", notes = "Endpoint to get user last name,first name and other user-related information")
 	@GetMapping(value = Constants.USER_ENDPOINT)
 	private UserProfileDTO getUser() {
 		return userService.getUser();
