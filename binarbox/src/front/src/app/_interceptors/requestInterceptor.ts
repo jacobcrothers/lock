@@ -10,8 +10,9 @@ const BASE_URL = 'https://localhost:6060/api/v0';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-    constructor(private message: MessageService) {
-    }
+    constructor(
+        private message: MessageService
+    ) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

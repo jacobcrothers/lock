@@ -32,6 +32,7 @@ import {MessageService} from './_services/message.service';
 import { LockComponent } from './lock/lock.component';
 import { LockDetailsComponent } from './user/dashboard/locks/lock-details/lock-details.component';
 import { PanelsComponent } from './bridge/panels/panels.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 // Configs
@@ -70,7 +71,8 @@ export function getAuthServiceConfigs() {
         HttpClientModule,
         AppRoutingModule,
         IconsModule,
-        SocialLoginModule
+        SocialLoginModule,
+        NgbModule
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

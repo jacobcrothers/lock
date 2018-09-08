@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import {UserService} from './_services/user.service';
 
 @Component({
@@ -9,6 +9,7 @@ import {UserService} from './_services/user.service';
 export class AppComponent implements OnInit {
     public collapseMenu = false;
     public loggedIn: any = false;
+    @ViewChild('loginModal') loginModal: ElementRef;
 
     constructor(
         private userService: UserService
@@ -17,7 +18,15 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.userService.isUserLoggedIn$.subscribe((loggedIn) => {
-            this.loggedIn = loggedIn;
+            this.loggedIn = loggedIn;    
+            console.log('user logged in', this.loggedIn);
         });
     }
+
+    // ngAfterViewInit() {
+    //     console.log('modal', this.loginModal);
+    //     if(this.loggedIn) {
+    //         this.loginModal.dismiss();
+    //     }
+    // }
 }
