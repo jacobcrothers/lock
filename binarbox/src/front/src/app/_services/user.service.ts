@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Router} from '@angular/router';
 import {
     AuthService,
-    FacebookLoginProvider,
-    GoogleLoginProvider
+    FacebookLoginProvider
 } from 'angular5-social-login';
 
 @Injectable()
@@ -51,34 +50,9 @@ export class UserService {
         return token ? token : '';
     }
 
-    setLoginData(responseData) {
-        if (responseData) {
-            if (responseData['token']) {
-                if (UserService.setUserToken(responseData['token'])) {
-                    this.isUserLoggedIn$.next(true);
-                    setTimeout(() => {
-                        this.router.navigate(['/']);
-                    }, 50);
-                }
-            }
-        }
-    }
-
     logout() {
         UserService.setUserToken();
         this.isUserLoggedIn$.next(false);
-    }
-
-    login(data) {
-        const $request = this.http.post(this.authenticateUrl, data, {
-            responseType: 'json'
-        });
-
-        $request.subscribe(
-            requestData => this.setLoginData.call(this, requestData)
-        );
-
-        return $request;
     }
 
     loginSocial(provider) {
@@ -86,30 +60,26 @@ export class UserService {
 
         if (provider === 'facebook') {
             socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-        } else if (provider === 'google') {
-            socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
         }
 
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
                 if (userData['token']) {
-                    const $request = this.http.post(this.socialLoginUrl, userData, {
-                        responseType: 'json'
+                    let loginBody = {
+                        token: userData['token']
+                    }
+                    this.http.post(this.socialLoginUrl, loginBody).subscribe(() => {
+                        if (UserService.setUserToken(userData['token'])) {
+                            this.isUserLoggedIn$.next(true);
+                            setTimeout(() => {
+                                this.router.navigate(['/']);
+                            }, 50);
+                        }
+                    }, (error) => {
+                        console.log('login request failed', error);
                     });
-
-                    $request.subscribe(requestData => this.setLoginData.call(this, requestData));
                 }
             });
-    }
-
-    register(data) {
-        const $request = this.http.post(this.registrationUrl, data, {
-            responseType: 'json'
-        });
-
-        $request.subscribe(requestData => this.setLoginData.call(this, requestData));
-
-        return $request;
     }
 
     forgotPassword(data) {
