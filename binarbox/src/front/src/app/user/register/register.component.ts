@@ -16,6 +16,6 @@ export class RegisterComponent implements OnInit {
     }
 
     public register(formValue) {
-        this.user.register(formValue);
+        // this.user.register(formValue);
     }
 }
