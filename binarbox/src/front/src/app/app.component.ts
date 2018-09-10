@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, DoCheck } from '@angular/core';
 import {UserService} from './_services/user.service';
 
 @Component({
@@ -6,10 +6,11 @@ import {UserService} from './_services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
     public collapseMenu = false;
     public loggedIn: any = false;
-    @ViewChild('loginModal') loginModal: ElementRef;
+
+    @ViewChild('closeModal') closeModal:ElementRef;
 
     constructor(
         private userService: UserService
@@ -18,15 +19,14 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.userService.isUserLoggedIn$.subscribe((loggedIn) => {
-            this.loggedIn = loggedIn;    
-            console.log('user logged in', this.loggedIn);
+            this.loggedIn = loggedIn;  
         });
     }
 
-    // ngAfterViewInit() {
-    //     console.log('modal', this.loginModal);
-    //     if(this.loggedIn) {
-    //         this.loginModal.dismiss();
-    //     }
-    // }
+    ngDoCheck() {
+        if(this.loggedIn) {
+            this.closeModal.nativeElement.click();
+        }
+    }
+
 }

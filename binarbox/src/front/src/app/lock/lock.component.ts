@@ -23,6 +23,7 @@ export class LockComponent implements OnInit {
     public fontColors: Array<any> = [];
     public isCustomLockSaved = false;
     public selectedMessage: string;
+    public pageParams: any;
 
     @ViewChild('closeModal') closeModal:ElementRef;
 
@@ -35,15 +36,19 @@ export class LockComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params) => {
-            this.updateParams(params);
-        });      
         this.getCategories();
+        this.route.params.subscribe((params) => {
+            console.log('params', params);
+            if(params) {
+                this.pageParams = params;
+                this.updateParams(params);
+            }
+        });   
         // move this in chooseLock function
         this.displayOptionsToCustomize()
     }
 
-    updateParams (parameters) {
+    updateParams(parameters) {
         if (parameters['type']) {
             this.lockType = parameters['type'];
         }
@@ -59,25 +64,30 @@ export class LockComponent implements OnInit {
     getCategories() {
         this.addLockService.getLockTypes().subscribe(data => {
             this.lockCategories = data;
+            if(this.pageParams) {
+                this.lockCategories.forEach(category => {
+                    if(this.pageParams['type'] && category['type'] === this.pageParams['type']) {
+                        this.selectedLockCategory = category;
+                        if(this.pageParams['id']) {
+                            this.setLockFromParams(this.selectedLockCategory, this.pageParams['id']);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    setLockFromParams(category, lockId) {
+        category['lockTypeTemplate'].forEach(template => {
+            if(template['id'].toString() === lockId) {
+                this.selectedLock = template;
+            }
         });
     }
 
     displayLocks() {
-        //TO DO get all available locks for selected category and display them
-        this.locks = [
-            {
-                id: 1,
-                name: 'lock1'
-            },
-            {
-                id: 2,
-                name: 'lock2'
-            },
-            {
-                id: 3,
-                name: 'lock3'
-            },
-        ]
+        this.locks = this.selectedLockCategory['lockTypeTemplate'];
+
     }
 
     chooseCategory(lockCategory) {
@@ -94,7 +104,6 @@ export class LockComponent implements OnInit {
         this.lockId = lock.id;
         this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
         // this.router.navigate([`/add-lock/${this.lockType}/${this.selectedLock['id']}`], { skipLocationChange: false } );
-        // this.displayOptionsToCustomize()
     }
 
     displayOptionsToCustomize() {
@@ -106,53 +115,39 @@ export class LockComponent implements OnInit {
             },
             {
                 id: 2,
-                value: "Nice message"
+                value: "A simple message"
             },
             {
                 id: 3,
-                value: "A simple message"
+                value: "Nice message"
             }
         ];
-
-        this.fontColors = [
-            {
-                id: 1,
-                value: "red"
-            },
-            {
-                id: 2,
-                value: "black" 
-            },
-            {
-                id: 3,
-                value: "brown" 
-            }
-        ]
     }
 
-    displayPanels(formValue) {
-        console.log(":form value--", formValue);
-
-        let customLock = {
-            "fontColor": formValue['fontColor'],
-            "id": this.lockId,
-            "lockColor": "string",
-            "lockType": this.lockType,
+    saveLock(formValue) {
+        let createdLock = {
+            "fontColor": this.selectedLock['fontColor'],
+            "fontSize": this.selectedLock['fontSize'],
+            "fontStyle": this.selectedLock['fontStyle'],
             "message": formValue['insertMessage'],
+            // "lockType": this.selectedLock['lockType'],
+            "lockType": 2, //remove this
+            "lockTypeTemplate": this.selectedLock['id']
         };
         // TODO: send the created lock to BE and, when success -> display the panels
-        //to display the panels create a new component and navigate to it whith the created lock
+        //to display the panels create a new component and navigate to it with the created lock
+        this.addLockService.saveLock(createdLock).subscribe(data => {
+            console.log('lock data after save lock--', data);
+        })
 
     }
 
     saveMessage(formValue) {
         this.predefinedMessages.forEach(msg => {
-            if (msg.id.toString() === formValue['messageSelect']) {
+            if (formValue['messageSelect'] == msg.id) {
                 this.selectedMessage = msg.value;
                 this.closeModal.nativeElement.click();
-            } else {
-                this.selectedMessage = '';
-            }
+            } 
         });
     }
 

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 export class AddLockService {
 
   private lockTypesUrl     = 'lock/type';
+  private saveLockUrl      = 'lock';
 
   constructor(
     private http: HttpClient,
@@ -16,5 +17,9 @@ export class AddLockService {
 
   getLockTypes() {
       return this.http.get(this.lockTypesUrl, {});
+  }
+
+  saveLock(lock) {
+    return this.http.post(this.saveLockUrl, lock);
   }
 }

@@ -37,7 +37,7 @@
                             <div class="lock-image" (click)="chooseLock(lock)">
 
                             </div>
-                            <span>{{lock.name}}</span>
+                            <span>{{lock.id}}</span>
                         </div>
                     </div>
                     <div class="actions-wrapper">
@@ -49,7 +49,7 @@
             <div *ngIf="lockType && lockId">
                 <p>Now that you know what lock you want, you need to customize it.</p>
 
-                <form #lockForm="ngForm" (ngSubmit)="displayPanels(lockForm.value)">
+                <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">
                     <div class="form-group">
                         <p>You can add your own message.</p>
                         <label for="customMessageInput">Add a message</label>
@@ -62,26 +62,13 @@
                                 [ngModel]="selectedMessage">{{selectedMessage}}</textarea>
                             <div>
                                 <p>Or, choose from our list of messages.</p>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#chooseMessageModal">Choose message</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chooseMessageModal">Choose message</button>
                             </div>
                     </div>
-                    <div class="form-group">
-                            <p>In the end, try out the following colors for your message:</p>
-                            <div *ngFor="let color of fontColors" class="font-color-container">
-                                <label for="customMessageInput"  [ngStyle]="{ color: color.value }">{{color.value}}</label>
-                                <input 
-                                    name="fontColor"
-                                    type="radio"
-                                    class="form-control font-color-input"
-                                    id="color.id"
-                                    [value]="color.value"
-                                    [ngModel]>
-                            </div>
-                        </div>
                     <br/>
                     <div class="actions-wrapper">
                         <button class="btn btn-secondary" (click)="goBack('lockId')">Back</button>
-                        <button class="btn btn-secondary" type="submit">Continue</button>
+                        <button class="btn btn-secondary" type="submit">Add lock</button>
                     </div>
                 </form>
 
