@@ -11,6 +11,8 @@ public class LockSectionDTO {
 
 	private String section;
 
+	private LockResponseDTO lockResponseDTO;
+
 	public LockSectionDTO(LockSection lockSection) {
 		this.id = lockSection.getId();
 		this.section = lockSection.getSection();
@@ -30,6 +32,14 @@ public class LockSectionDTO {
 
 	public void setSection(String section) {
 		this.section = section;
+	}
+
+	public LockResponseDTO getLockResponseDTO() {
+		return lockResponseDTO;
+	}
+
+	public void setLockResponseDTO(LockResponseDTO lockResponseDTO) {
+		this.lockResponseDTO = lockResponseDTO;
 	}
 
 }

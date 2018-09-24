@@ -1,8 +1,6 @@
 package binar.box.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -13,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import binar.box.domain.Lock;
+import binar.box.domain.LockSection;
 import binar.box.domain.Panel;
 import binar.box.domain.User;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.PanelDTO;
 import binar.box.repository.ConfigurationRepository;
 import binar.box.repository.LockRepository;
+import binar.box.repository.LockSectionRepository;
 import binar.box.repository.PanelRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
@@ -42,76 +42,22 @@ public class PanelService {
 	private UserService userService;
 	@Autowired
 	private ConfigurationRepository configurationRepository;
+	@Autowired
+	private LockSectionRepository lockSectionRepository;
 
 	public List<PanelDTO> getAllPanels() {
-//		var user = userService.getAuthenticatedUser();
-//		
 		var panels = panelRepository.findAll();
-//		var panels = panelRepository.findAllPanelsBasedOnLocation(user.getCountry(),
-//				configurationRepository.findById(Long.valueOf(1)).get().getMaxPanelsView());
-//		
-//		panels = panels.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
 		panels = panels.parallelStream().map(this::addPanelLocks).collect(Collectors.toList());
-//		var maxLights = configurationRepository.findById(Long.valueOf(1)).get().getGlitteringLightsOnLocks();
-//		var maxPanels = panels.size();
-//		addLockLights(panels, maxLights, maxPanels);
 		return panels.parallelStream().map(this::toPanelDTO).collect(Collectors.toList());
-	}
-
-	private int randomIntegerUsingMath(int min, int max) {
-		return (int) (Math.random() * (max - min)) + min;
-	}
-
-	private int randomIntegerUsingRandom(int min, int max) {
-		Random random = new Random();
-		return random.nextInt(max + 1 - min) + min;
-	}
-
-	private void addLockLights(List<Panel> panels, int maxLights, int maxPanels) {
-		var ligtsOnLocks = 0;
-		var initialMaxValue = maxLights;
-		var totalLigthsOnLocks = 0;
-		for (Panel panel : panels) {
-			int lightsPerPanel = randomIntegerUsingMath(0, maxLights);
-			var locks = panel.getLocks();
-			if (lightsPerPanel == 0) {
-				if (maxLights > 0) {
-					lightsPerPanel = randomIntegerUsingRandom(0, maxLights);
-				}
-			}
-			ligtsOnLocks = setLockLight(lightsPerPanel, locks);
-			maxLights -= ligtsOnLocks;
-			if (maxLights == 0) {
-				return;
-			}
-			totalLigthsOnLocks += ligtsOnLocks;
-		}
-		if (totalLigthsOnLocks < initialMaxValue) {
-			addLockLights(panels, initialMaxValue - totalLigthsOnLocks, maxPanels);
-		}
-	}
-
-	private int setLockLight(int lightsPerPanel, List<Lock> locks) {
-		var lightsOnLock = 0;
-		var lockIndex = 0;
-		for (var index = 1; index <= lightsPerPanel; index++) {
-			while (lockIndex < locks.size()) {
-				var lock = locks.get(lockIndex);
-				lock.setGlitteringLight(true);
-				lightsOnLock++;
-				lockIndex++;
-				break;
-			}
-		}
-		return lightsOnLock;
 	}
 
 	private PanelDTO toPanelDTO(Panel panel) {
 		var panelDTO = new PanelDTO();
-		panelDTO.setId(panel.getId());
-		var lockResponseDTOList = panel.getLocks().parallelStream().map(this::toLockResponse)
-				.collect(Collectors.toList());
-		panelDTO.setLockResponseDTO(lockResponseDTOList);
+		// TODO FINISH IMPLEMENTATION
+//		panelDTO.setId(panel.getId());
+//		var lockResponseDTOList = panel.getLocks().parallelStream().map(this::toLockResponse)
+//				.collect(Collectors.toList());
+//		panelDTO.setLockResponseDTO(lockResponseDTOList);
 		return panelDTO;
 	}
 
@@ -129,47 +75,46 @@ public class PanelService {
 
 	public List<PanelDTO> getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
+		var maxPanelSize = configurationRepository.findAll().get(0).getPanelMaxSizeOfLocks();
+
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
+		var userLocks = lockRepository.findByUser(user);
+
 		var facebookUserFriends = userService.getUserFacebookFriends(user);
-		panelsOfUser = panelsOfUser.parallelStream().map(panel -> addPanelLocks(panel, user, facebookUserFriends))
-				.collect(Collectors.toList());
-		panelsOfUser = panelsOfUser.parallelStream().map(this::insertRandomLocks).collect(Collectors.toList());
+		var facebookUserFriendsLocks = lockRepository.findAllByUserIdAndPrivateLockFalse(facebookUserFriends);
+
+		panelsOfUser.parallelStream().forEach(panel -> addUserLocks(panel, userLocks));
+		panelsOfUser.parallelStream().forEach(panel -> addFacebookUserFriendsLocks(panel, facebookUserFriendsLocks));
+
 		return panelsOfUser.parallelStream().map(this::toPanelDTO).collect(Collectors.toList());
 	}
 
-	private Panel addPanelLocks(Panel panel) {
-		if (panel.getLocks() == null) {
-			panel.setLocks(lockRepository.findByPanelId(panel.getId()));
-		} else {
-			panel.getLocks().addAll(lockRepository.findByPanelId(panel.getId()));
-		}
-		return panel;
+	private void addFacebookUserFriendsLocks(Panel panel, List<Lock> facebookUserFriendsLocks) {
+
 	}
 
-	private Panel addPanelLocks(Panel panel, User user, List<String> facebookUserFriends) {
-		panel.setLocks(lockRepository.findUserPanelLocksAndHidePrivateFriendsLocks(user.getId(), panel.getId(),
-				facebookUserFriends));
-		return panel;
-	}
-
-	private Panel insertRandomLocks(Panel panel) {
-		var panelMaxSize = configurationRepository.findById(Long.valueOf(1)).get().getPanelMaxSizeOfLocks();
-		var numberOfRandomLocksOnUserPanel = configurationRepository.findById(Long.valueOf(1)).get()
-				.getRandomLocksOnUserPanel();
-		List<Lock> locks = panel.getLocks() == null ? new ArrayList<>() : panel.getLocks();
-		for (var times = 0; times < numberOfRandomLocksOnUserPanel; times++) {
-			if (locks.size() >= panelMaxSize) {
-				break;
+	private void addUserLocks(Panel panel, List<Lock> userLocks) {
+		panel.setLockSection(lockSectionRepository.findAll());
+		for (Lock lock : userLocks) {
+			for (LockSection lockSection : panel.getLockSection()) {
+				if (lockSection.getId().equals(lock.getLockSection().getId())) {
+					lockSection.setLock(lock);
+				}
 			}
-			var lock = new Lock();
-			lock.setId(Long.valueOf(times + 1000));
-			locks.add(lock);
-			panel.setLocks(locks);
 		}
-		return panel;
 	}
 
 	private List<Panel> getPanelsWhereUserHasLocks(User user) {
 		return panelRepository.findByUser(user.getId());
+	}
+
+	private Panel addPanelLocks(Panel panel) {
+		// TODO FINISH IMPLEMENTATION
+//		if (panel.getLocks() == null) {
+//			panel.setLocks(lockRepository.findByPanelIdAndPaidTrue(panel.getId()));
+//		} else {
+//			panel.getLocks().addAll(lockRepository.findByPanelIdAndPaidTrue(panel.getId()));
+//		}
+		return panel;
 	}
 }

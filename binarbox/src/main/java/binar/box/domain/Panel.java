@@ -23,7 +23,7 @@ public class Panel extends BaseEntity {
 	private Long id;
 
 	@Transient
-	private List<Lock> locks;
+	private List<LockSection> lockSection;
 
 	public Panel() {
 	}
@@ -36,11 +36,12 @@ public class Panel extends BaseEntity {
 		this.id = id;
 	}
 
-	public List<Lock> getLocks() {
-		return locks;
+	public List<LockSection> getLockSection() {
+		return lockSection;
 	}
 
-	public void setLocks(List<Lock> locks) {
-		this.locks = locks;
+	public void setLockSection(List<LockSection> lockSection) {
+		this.lockSection = lockSection;
 	}
+
 }

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by Timis Nicu Alexandru on 16-Apr-18.
@@ -21,6 +22,9 @@ public class LockSection {
 
 	@Column(name = "section")
 	private String section;
+
+	@Transient
+	private Lock lock;
 
 	public LockSection() {
 	}
@@ -39,5 +43,13 @@ public class LockSection {
 
 	public void setSection(String section) {
 		this.section = section;
+	}
+
+	public Lock getLock() {
+		return lock;
+	}
+
+	public void setLock(Lock lock) {
+		this.lock = lock;
 	}
 }

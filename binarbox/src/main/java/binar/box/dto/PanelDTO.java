@@ -9,24 +9,17 @@ public class PanelDTO {
 
 	private long id;
 
-	private List<LockResponseDTO> lockResponseDTO;
+	private List<LockSectionDTO> lockSectionDTO;
 
 	public PanelDTO() {
 	}
 
-	public long getId() {
-		return id;
+	public List<LockSectionDTO> getLockSectionDTO() {
+		return lockSectionDTO;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setLockSectionDTO(List<LockSectionDTO> lockSectionDTO) {
+		this.lockSectionDTO = lockSectionDTO;
 	}
 
-	public List<LockResponseDTO> getLockResponseDTO() {
-		return lockResponseDTO;
-	}
-
-	public void setLockResponseDTO(List<LockResponseDTO> lockResponseDTO) {
-		this.lockResponseDTO = lockResponseDTO;
-	}
 }

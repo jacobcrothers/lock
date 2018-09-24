@@ -170,33 +170,9 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-
-		<insert tableName="lock_section">
-			<column name="section" value="a1" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="lock_section">
-			<column name="section" value="a2" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="lock_section">
-			<column name="section" value="b1" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="lock_section">
-			<column name="section" value="b2" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="lock_section">
-			<column name="section" value="c1" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="lock_section">
-			<column name="section" value="c2" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="lock_section">
-			<column name="section" value="d1" type="nvarchar(100)" />
-		</insert>
-		<insert tableName="lock_section">
-			<column name="section" value="d2" type="nvarchar(100)" />
-		</insert>
 		<sqlFile
 			path="classpath:/liquibase/lockType.lockTypeTemplate.Price.sql" />
+		<sqlFile path="classpath:/liquibase/sections.sql" />
 	</changeSet>
 
 

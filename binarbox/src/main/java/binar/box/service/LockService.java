@@ -167,7 +167,7 @@ public class LockService {
 
 	public List<LockResponseDTO> getLocks() {
 		var user = userService.getAuthenticatedUser();
-		var lockList = lockRepository.findByUser(user);
+		var lockList = lockRepository.findByUserAndPaidFalse(user);
 		return lockList.stream().map(this::toLockResponseDTO).collect(Collectors.toList());
 	}
 

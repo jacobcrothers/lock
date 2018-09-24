@@ -16,7 +16,7 @@ import binar.box.domain.User;
  */
 public interface LockRepository extends JpaRepository<Lock, Long> {
 
-	List<Lock> findByUser(User user);
+	List<Lock> findByUserAndPaidFalse(User user);
 
 	void deleteByUserAndDeleteToken(User user, String token);
 
@@ -30,6 +30,10 @@ public interface LockRepository extends JpaRepository<Lock, Long> {
 	List<Lock> findUserPanelLocksAndHidePrivateFriendsLocks(@Param("userId") String userId,
 			@Param("panelId") long panelId, @Param("facebookFriendsIds") List<String> facebookFriendsIds);
 
-	List<Lock> findByPanelId(Long id);
+	List<Lock> findByPanelIdAndPaidTrue(Long id);
+
+	List<Lock> findAllByUserIdAndPrivateLockFalse(List<String> facebookUserFriends);
+
+	List<Lock> findByUser(User user);
 
 }

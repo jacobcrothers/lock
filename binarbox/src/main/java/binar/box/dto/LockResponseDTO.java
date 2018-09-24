@@ -33,6 +33,8 @@ public class LockResponseDTO {
 
 	private BigDecimal price;
 
+	private boolean paid;
+
 	public LockResponseDTO() {
 
 	}
@@ -48,6 +50,7 @@ public class LockResponseDTO {
 		this.lockSection = lock.getLockSection() == null ? null : new LockSectionDTO(lock.getLockSection());
 		this.privateLock = lock.isPrivateLock();
 		this.glitteringLight = lock.isGlitteringLight();
+		this.paid = lock.isPaid();
 	}
 
 	public long getId() {
@@ -144,6 +147,14 @@ public class LockResponseDTO {
 
 	public void setLockSection(LockSectionDTO lockSection) {
 		this.lockSection = lockSection;
+	}
+
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
 	}
 
 }
