@@ -101,8 +101,8 @@ public class LockController {
 			+ "  \"lockTypeTemplate\":6,\r\n" + "  \"lockType\": 3,\r\n" + "  \"longitude\": 0,\r\n"
 			+ "  \"message\": \"string\",\r\n" + "  \"lockColor\":\"YELLOW\",\r\n" + "  \"lockSection\":1\r\n" + "\r\n"
 			+ "}" + "\n This is the third user step to add a lock")
-	private void updateLock(@RequestBody LockDTO lockDTO) {
-		lockService.addOrUpdateUserLock(lockDTO);
+	private LockResponseDTO updateLock(@RequestBody LockDTO lockDTO) {
+		return lockService.addOrUpdateUserLock(lockDTO);
 	}
 
 	@ApiImplicitParams({

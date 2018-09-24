@@ -107,7 +107,7 @@ public class LockService {
 		}
 		lock = addOrUpdateUserLock(lockDTO, lock, user);
 		lockRepository.save(lock);
-		return null;
+		return toLockResponseDTO(lock);
 	}
 
 	private Lock getLockById(Long lockId) {
