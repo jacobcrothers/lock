@@ -84,21 +84,31 @@ public class PanelService {
 	public List<PanelDTO> getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
 		var maxPanelSize = configurationRepository.findAll().get(0).getPanelMaxSizeOfLocks();
-
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
 		var userLocks = lockRepository.findByUser(user);
-
 		var facebookUserFriends = userService.getUserFacebookFriends();
 		var facebookUserFriendsLocks = lockRepository.findAllByUserIdAndPrivateLockFalse(facebookUserFriends);
-
 		panelsOfUser.parallelStream().forEach(panel -> addUserLocks(panel, userLocks));
 		panelsOfUser.parallelStream().forEach(panel -> addFacebookUserFriendsLocks(panel, facebookUserFriendsLocks));
-
+		panelsOfUser.parallelStream().forEach(panel -> addRandomLocksFromSameCountryToPanel(panel,
+				maxPanelSize - (userLocks.size() + facebookUserFriendsLocks.size()), user));
 		return panelsOfUser.parallelStream().map(this::toPanelDTO).collect(Collectors.toList());
 	}
 
-	private void addFacebookUserFriendsLocks(Panel panel, List<Lock> facebookUserFriendsLocks) {
+	private void addRandomLocksFromSameCountryToPanel(Panel panel, int remainedSlots, User user) {
+		var randomLocks = lockRepository.findLocksRandomByCountry(remainedSlots, user.getId(), user.getCountry());
+		for (Lock lock : randomLocks) {
+			IN: for (LockSection section : panel.getLockSection()) {
+				if (section.getLock() == null) {
+					section.setLock(lock);
+					break IN;
+				}
+			}
+		}
+	}
 
+	private void addFacebookUserFriendsLocks(Panel panel, List<Lock> facebookUserFriendsLocks) {
+		// TODO FINISH IMPLEMENTATION
 	}
 
 	private void addUserLocks(Panel panel, List<Lock> userLocks) {
