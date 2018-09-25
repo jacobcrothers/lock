@@ -12,6 +12,15 @@ public class PanelDTO {
 	private List<LockSectionDTO> lockSectionDTO;
 
 	public PanelDTO() {
+
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public List<LockSectionDTO> getLockSectionDTO() {

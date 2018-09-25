@@ -38,7 +38,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 			throw new LockBridgesException(Constants.AUTHENTICATION_TOKEN_NOT_FOUND);
 		}
 		User user = tokenService.checkFacebookToken(token);
-		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user.getEmail());
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), token);
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		securityContext.setAuthentication(authentication);
 		filterChain.doFilter(request, response);

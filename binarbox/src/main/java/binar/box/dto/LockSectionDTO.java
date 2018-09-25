@@ -13,6 +13,10 @@ public class LockSectionDTO {
 
 	private LockResponseDTO lockResponseDTO;
 
+	public LockSectionDTO() {
+
+	}
+
 	public LockSectionDTO(LockSection lockSection) {
 		this.id = lockSection.getId();
 		this.section = lockSection.getSection();

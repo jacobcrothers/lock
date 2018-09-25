@@ -15,6 +15,7 @@ import binar.box.domain.LockSection;
 import binar.box.domain.Panel;
 import binar.box.domain.User;
 import binar.box.dto.LockResponseDTO;
+import binar.box.dto.LockSectionDTO;
 import binar.box.dto.PanelDTO;
 import binar.box.repository.ConfigurationRepository;
 import binar.box.repository.LockRepository;
@@ -53,12 +54,19 @@ public class PanelService {
 
 	private PanelDTO toPanelDTO(Panel panel) {
 		var panelDTO = new PanelDTO();
-		// TODO FINISH IMPLEMENTATION
-//		panelDTO.setId(panel.getId());
-//		var lockResponseDTOList = panel.getLocks().parallelStream().map(this::toLockResponse)
-//				.collect(Collectors.toList());
-//		panelDTO.setLockResponseDTO(lockResponseDTOList);
+		panelDTO.setId(panel.getId());
+		panelDTO.setLockSectionDTO(
+				panel.getLockSection().parallelStream().filter(lockSection -> lockSection.getLock() != null)
+						.map(this::toLockSectionDTO).collect(Collectors.toList()));
 		return panelDTO;
+	}
+
+	private LockSectionDTO toLockSectionDTO(LockSection lockSection) {
+		var lockSectionDTO = new LockSectionDTO();
+		lockSectionDTO.setId(lockSection.getId());
+		lockSectionDTO.setSection(lockSection.getSection());
+		lockSectionDTO.setLockResponseDTO(toLockResponse(lockSection.getLock()));
+		return lockSectionDTO;
 	}
 
 	private LockResponseDTO toLockResponse(Lock lock) {
@@ -80,7 +88,7 @@ public class PanelService {
 		var panelsOfUser = getPanelsWhereUserHasLocks(user);
 		var userLocks = lockRepository.findByUser(user);
 
-		var facebookUserFriends = userService.getUserFacebookFriends(user);
+		var facebookUserFriends = userService.getUserFacebookFriends();
 		var facebookUserFriendsLocks = lockRepository.findAllByUserIdAndPrivateLockFalse(facebookUserFriends);
 
 		panelsOfUser.parallelStream().forEach(panel -> addUserLocks(panel, userLocks));

@@ -1,7 +1,7 @@
 package binar.box.service;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,8 +81,9 @@ public class UserService {
 		return new UserProfileDTO(getAuthenticatedUser());
 	}
 
-	private void getUserFriendFromFacebook(User user, LinkedList<String> idsList) {
-		var facebook = new FacebookTemplate(user.getId().toString());
+	private List<String> getUserFriendFromFacebook() {
+		List<String> idsList = new ArrayList<>();
+		var facebook = new FacebookTemplate(getAuthenticatedUserToken());
 		var facebookUserFields = new String[] { Constants.FACEBOOK_FRIENDS };
 		var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME,
 				org.springframework.social.facebook.api.User.class, facebookUserFields);
@@ -104,12 +105,15 @@ public class UserService {
 			e.printStackTrace();
 			throw new LockBridgesException(Constants.FAILED_TO_GET_FRIENDS_LIST);
 		}
+		return idsList;
 	}
 
-	public List<String> getUserFacebookFriends(User user) {
-		LinkedList<String> idsList = new LinkedList<>();
-		getUserFriendFromFacebook(user, idsList);
-		return idsList;
+	private String getAuthenticatedUserToken() {
+		return (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+	}
+
+	public List<String> getUserFacebookFriends() {
+		return getUserFriendFromFacebook();
 	}
 
 	public User checkUserIfRegistered(String token) {
