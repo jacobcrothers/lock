@@ -1,6 +1,7 @@
 package binar.box.service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import binar.box.domain.Lock;
 import binar.box.domain.LockSection;
 import binar.box.domain.Panel;
-import binar.box.domain.User;
 import binar.box.dto.LockResponseDTO;
 import binar.box.dto.LockSectionDTO;
 import binar.box.dto.PanelDTO;
@@ -81,22 +81,27 @@ public class PanelService {
 		return toPanelDTO(getPanel(id));
 	}
 
-	public List<PanelDTO> getUserLocksAndPanels() {
+	public PanelDTO getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
 		var maxPanelSize = configurationRepository.findAll().get(0).getPanelMaxSizeOfLocks();
-		var panelsOfUser = getPanelsWhereUserHasLocks(user);
+		var userPanel = panelRepository.findById(1L).get();
 		var userLocks = lockRepository.findByUser(user);
 		var facebookUserFriends = userService.getUserFacebookFriends();
 		var facebookUserFriendsLocks = lockRepository.findAllByUserIdAndPrivateLockFalse(facebookUserFriends);
-		panelsOfUser.parallelStream().forEach(panel -> addUserLocks(panel, userLocks));
-		panelsOfUser.parallelStream().forEach(panel -> addFacebookUserFriendsLocks(panel, facebookUserFriendsLocks));
-		panelsOfUser.parallelStream().forEach(panel -> addRandomLocksFromSameCountryToPanel(panel,
-				maxPanelSize - (userLocks.size() + facebookUserFriendsLocks.size()), user));
-		return panelsOfUser.parallelStream().map(this::toPanelDTO).collect(Collectors.toList());
+		addUserLocks(userPanel, userLocks);
+		addFacebookUserFriendsLocks(userPanel, facebookUserFriendsLocks);
+		var freePanelLockSection = maxPanelSize - (userLocks.size() + facebookUserFriendsLocks.size());
+		if (freePanelLockSection > 0) {
+			facebookUserFriends.add(user.getId());
+			addRandomLocksFromSameCountryToPanel(userPanel, freePanelLockSection, facebookUserFriends,
+					user.getCountry());
+		}
+		return toPanelDTO(userPanel);
 	}
 
-	private void addRandomLocksFromSameCountryToPanel(Panel panel, int remainedSlots, User user) {
-		var randomLocks = lockRepository.findLocksRandomByCountry(remainedSlots, user.getId(), user.getCountry());
+	private void addRandomLocksFromSameCountryToPanel(Panel panel, int remainedSlots, List<String> userIds,
+			String country) {
+		var randomLocks = lockRepository.findLocksRandomByCountry(remainedSlots, userIds, country);
 		for (Lock lock : randomLocks) {
 			IN: for (LockSection section : panel.getLockSection()) {
 				if (section.getLock() == null) {
@@ -108,22 +113,59 @@ public class PanelService {
 	}
 
 	private void addFacebookUserFriendsLocks(Panel panel, List<Lock> facebookUserFriendsLocks) {
-		// TODO FINISH IMPLEMENTATION
-	}
-
-	private void addUserLocks(Panel panel, List<Lock> userLocks) {
-		panel.setLockSection(lockSectionRepository.findAll());
-		for (Lock lock : userLocks) {
-			for (LockSection lockSection : panel.getLockSection()) {
-				if (lockSection.getId().equals(lock.getLockSection().getId())) {
-					lockSection.setLock(lock);
+		var lockSections = panel.getLockSection();
+		for (Lock lock : facebookUserFriendsLocks) {
+			for (var sectionIndex = 0; sectionIndex < lockSections.size(); sectionIndex++) {
+				if (lockSections.get(sectionIndex).getLock() != null) {
+					var foundSlot = putLockAhead(lockSections, sectionIndex, lock);
+					if (!foundSlot) {
+						putLockBehind(lockSections, sectionIndex, lock);
+					}
+					break;
 				}
+
 			}
 		}
 	}
 
-	private List<Panel> getPanelsWhereUserHasLocks(User user) {
-		return panelRepository.findByUser(user.getId());
+	private void putLockBehind(List<LockSection> lockSections, int sectionIndex, Lock lock) {
+		for (var index = sectionIndex; index >= 0; index--) {
+			var lockSection = lockSections.get(index);
+			if (lockSection.getLock() == null) {
+				lockSection.setLock(lock);
+				return;
+			}
+		}
+	}
+
+	private boolean putLockAhead(List<LockSection> lockSections, int sectionIndex, Lock lock) {
+		for (var index = sectionIndex; index < lockSections.size(); index++) {
+			var lockSection = lockSections.get(index);
+			if (lockSection.getLock() == null) {
+				lockSection.setLock(lock);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void addUserLocks(Panel panel, List<Lock> userLocks) {
+		panel.setLockSection(lockSectionRepository.findAll());
+		Random random = new Random();
+		for (Lock lock : userLocks) {
+			var lockSectionIndex = random.nextInt(panel.getLockSection().size());
+			var lockSection = panel.getLockSection().get(lockSectionIndex);
+			if (lockSection.getLock() == null) {
+				lockSection.setLock(lock);
+			} else {
+				for (var lockIndex = 0; lockSectionIndex < panel.getLockSection().size(); lockSectionIndex++) {
+					var localLockSection = panel.getLockSection().get(lockIndex);
+					if (localLockSection.getLock() == null) {
+						localLockSection.setLock(lock);
+					}
+				}
+			}
+		}
 	}
 
 	private Panel addPanelLocks(Panel panel) {

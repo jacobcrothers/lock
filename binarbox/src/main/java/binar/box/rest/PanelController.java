@@ -36,7 +36,7 @@ public class PanelController {
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get panel", notes = "Get panels", hidden = true)
 	@GetMapping(value = Constants.PANEL_ENDPOINT + Constants.USER)
-	private List<PanelDTO> getUserAndUserFriendLocksAndPanels() {
+	private PanelDTO getUserAndUserFriendLocksAndPanels() {
 		return panelService.getUserLocksAndPanels();
 	}
 

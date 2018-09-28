@@ -37,9 +37,11 @@ public interface LockRepository extends JpaRepository<Lock, Long> {
 	List<Lock> findByUser(User user);
 
 	@Query(value = "SELECT lock_entity.id,message,font_size,font_style,font_color,paid,private_lock,lock_color,lock_section_id\r\n"
-			+ ",lock_type_id,lock_type_template_id,user_id,delete_token,panel_id,lock_entity.created_date,lock_entity.last_modified_date FROM lock_entity \r\n"
-			+ "INNER JOIN user ON user.id=lock_entity.user_id  WHERE user.country=:country  AND  RAND()  AND user.id!=:userId LIMIT :limit", nativeQuery = true)
-	List<Lock> findLocksRandomByCountry(@Param("limit") int limit, @Param("userId") String userId,
+			+ "			,lock_type_id,lock_type_template_id,user_id,delete_token,panel_id,lock_entity.created_date,lock_entity.last_modified_date FROM lock_entity\r\n"
+			+ "			INNER JOIN user ON user.id=lock_entity.user_id  WHERE user.country=:country AND  RAND()  AND user.id NOT IN(:userIds)  AND lock_entity.private_lock=0  LIMIT :limit", nativeQuery = true)
+	List<Lock> findLocksRandomByCountry(@Param("limit") int limit, @Param("userIds") List<String> userId,
 			@Param("country") String country);
+
+	List<Lock> findByUserId(String UserId);
 
 }
