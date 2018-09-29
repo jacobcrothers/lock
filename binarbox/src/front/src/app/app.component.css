@@ -13,9 +13,9 @@
     box-sizing: border-box;
 }
 
-li a[routerLink].activeLink {
+/* li a[routerLink].activeLink {
     color: #FFCC00;
-}
+} */
 
 .login-btn {
     background: transparent;
