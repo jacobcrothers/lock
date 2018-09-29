@@ -4,11 +4,12 @@
             <div class="col-12 h-100">
                 <nav class="h-100 navbar navbar-expand-lg">
                         <a class="navbar-brand" href="#">Lock Bridges</a>
-                        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="collapseMenu = !collapseMenu">
+                        <!-- <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="collapseMenu = !collapseMenu">
                             <span class="navbar-toggler-icon"></span>
-                        </button>
+                        </button> -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dorneNav" aria-controls="dorneNav" aria-expanded="false" aria-label="Toggle navigation"><span class="fa fa-bars"></span></button>
                     
-                        <div class="collapse navbar-collapse" [hidden]="!collapseMenu" id="dorneNav">
+                        <div class="collapse navbar-collapse" id="dorneNav">
                             <ul class="navbar-nav mr-auto" id="dorneMenu">
                                 <li class="nav-item active">
                                     <a class="nav-link" routerLink="/" [routerLinkActive]="['activeLink']">
