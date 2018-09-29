@@ -10,3 +10,13 @@ html, body {
 .ng-invalid:not(form):not(.ng-untouched) {
     border: 2px solid red;
 }
+
+
+/* theme styles */
+@import 'theme/bootstrap/bootstrap.min.css';
+@import 'theme/others/animate.css';
+@import 'theme/others/magnific-popup.css';
+@import 'theme/others/owl.carousel.min.css';
+@import 'theme/others/font-awesome.min.css';
+@import 'theme/others/pe-icon-7-stroke.css';
+
