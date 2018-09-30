@@ -7,9 +7,9 @@ import binar.box.domain.LockSection;
  */
 public class LockSectionDTO {
 
-	private Long id;
-
 	private String section;
+
+	private Long point;
 
 	private LockResponseDTO lockResponseDTO;
 
@@ -18,16 +18,8 @@ public class LockSectionDTO {
 	}
 
 	public LockSectionDTO(LockSection lockSection) {
-		this.id = lockSection.getId();
 		this.section = lockSection.getSection();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+		this.point = lockSection.getId();
 	}
 
 	public String getSection() {
@@ -44,6 +36,14 @@ public class LockSectionDTO {
 
 	public void setLockResponseDTO(LockResponseDTO lockResponseDTO) {
 		this.lockResponseDTO = lockResponseDTO;
+	}
+
+	public Long getPoint() {
+		return point;
+	}
+
+	public void setPoint(Long point) {
+		this.point = point;
 	}
 
 }

@@ -63,7 +63,7 @@ public class PanelService {
 
 	private LockSectionDTO toLockSectionDTO(LockSection lockSection) {
 		var lockSectionDTO = new LockSectionDTO();
-		lockSectionDTO.setId(lockSection.getId());
+		lockSectionDTO.setPoint(lockSection.getId());
 		lockSectionDTO.setSection(lockSection.getSection());
 		lockSectionDTO.setLockResponseDTO(toLockResponse(lockSection.getLock()));
 		return lockSectionDTO;
