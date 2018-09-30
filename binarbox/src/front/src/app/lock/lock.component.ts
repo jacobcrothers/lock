@@ -12,8 +12,6 @@ export class LockComponent implements OnInit {
 
     public lockType: string;
     public lockId = 0;
-    // public location = 0;
-    // public tempLocation = 0; // Used to allow the user to change their mind regarding the location they want to choose.
     public locks: Array<any> = [];
     public selectedLock = {};
     public selectedLockCategory = {};
@@ -24,6 +22,7 @@ export class LockComponent implements OnInit {
     public isCustomLockSaved = false;
     public selectedMessage: string;
     public pageParams: any;
+    public formSubmitted: boolean;
 
     @ViewChild('closeModal') closeModal:ElementRef;
 
@@ -51,6 +50,7 @@ export class LockComponent implements OnInit {
     updateParams(parameters) {
         if (parameters['type']) {
             this.lockType = parameters['type'];
+            this.getCategories();
         }
         if (parameters['id']) {
             this.lockId = parameters['id'];
@@ -68,6 +68,7 @@ export class LockComponent implements OnInit {
                 this.lockCategories.forEach(category => {
                     if(this.pageParams['type'] && category['type'] === this.pageParams['type']) {
                         this.selectedLockCategory = category;
+                        this.displayLocks();
                         if(this.pageParams['id']) {
                             this.setLockFromParams(this.selectedLockCategory, this.pageParams['id']);
                         }
@@ -130,14 +131,15 @@ export class LockComponent implements OnInit {
             "fontSize": this.selectedLock['fontSize'],
             "fontStyle": this.selectedLock['fontStyle'],
             "message": formValue['insertMessage'],
-            // "lockType": this.selectedLock['lockType'],
-            "lockType": 2, //remove this
-            "lockTypeTemplate": this.selectedLock['id']
+            "lockType": this.selectedLockCategory['id'],
+            "lockTypeTemplate": this.selectedLock['id'],
+            "lockPrivacy": formValue['privacy'] === "private" ? true : false
         };
         // TODO: send the created lock to BE and, when success -> display the panels
         //to display the panels create a new component and navigate to it with the created lock
         this.addLockService.saveLock(createdLock).subscribe(data => {
             console.log('lock data after save lock--', data);
+            this.router.navigate([`/panels`] );
         })
 
     }
