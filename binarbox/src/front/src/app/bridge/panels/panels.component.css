@@ -1,8 +1,11 @@
-.panels-container .panel-img {
+.panels-container {
     width: 100%;
     height: auto;
 }
 
-.panel-area:hover {
-    opacity: 0.5;
+.ngxImageZoomFull {
+    width: 100%;
+    height: auto;
+    top: 0px;
+    left: 0px;
 }

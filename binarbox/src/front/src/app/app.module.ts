@@ -33,6 +33,7 @@ import { LockComponent } from './lock/lock.component';
 import { LockDetailsComponent } from './user/dashboard/locks/lock-details/lock-details.component';
 import { PanelsComponent } from './bridge/panels/panels.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 
 // Configs
@@ -72,7 +73,8 @@ export function getAuthServiceConfigs() {
         AppRoutingModule,
         IconsModule,
         SocialLoginModule,
-        NgbModule
+        NgbModule,
+        NgxImageZoomModule.forRoot()
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

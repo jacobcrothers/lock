@@ -19,10 +19,8 @@ import {PanelsComponent} from './bridge/panels/panels.component';
 const routes = [{
         path: '',
         component: HomeComponent
-    }, {
-        path: 'login',
-        component: LoginComponent
-    }, {
+    }, 
+    {
         path: 'forgot-password',
         component: ForgotPasswordComponent
     }, {

@@ -10,6 +10,8 @@ export class AddLockService {
   private lockTypesUrl     = 'lock/type';
   private saveLockUrl      = 'lock';
 
+  public createdLock: any;
+
   constructor(
     private http: HttpClient,
     private router: Router
@@ -20,6 +22,7 @@ export class AddLockService {
   }
 
   saveLock(lock) {
+    this.createdLock = lock;
     return this.http.post(this.saveLockUrl, lock);
   }
 }
