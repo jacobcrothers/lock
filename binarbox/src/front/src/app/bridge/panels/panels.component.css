@@ -1,11 +1,25 @@
 .panels-container {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
 }
 
-.ngxImageZoomFull {
+/* img:nth-child(2) {
+    max-height: 4800px !important;
+} */
+
+.bridge-img {
+    height: calc(100% - 120px);
+    width: auto;
+}
+
+/* .stop-scroll {
+    pointer-events: none; 
+} */
+
+/* .ngxImageZoomFull {
     width: 100%;
     height: auto;
     top: 0px;
     left: 0px;
-}
+} */

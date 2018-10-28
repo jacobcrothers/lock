@@ -10,21 +10,6 @@
 
 <section class="dorne-welcome-area bg-img bg-overlay panels-container">
 	<!-- <div class="container h-100"> -->
-		<!-- <img class="panel-img" src="../../../assets/images/pod0000.png" alt=""/> -->
-		<ngx-image-zoom
-			[thumbImage]=smallImage
-			[fullImage]=largeImage
-			[enableScrollZoom]=true
-			[magnification]="0.3"
-			zoomMode="toggle"
-		></ngx-image-zoom>
-		<!-- <div class="row h-100 align-items-center justify-content-center">
-			<section class="dorne-features-destinations-area">
-				<div class="container-fluid">
-					<h4>Choose the panel where you want to place your newly created lock.</h4>
-					<img class="panel-img" src="../../../assets/images/bridge2.JPG" alt="" usemap="#Map" />
-				</div>
-			</section>
-		</div> -->
+		<img class="bridge-img" (onkeydown)="onMousewheel($event)" (wheel)="onMousewheel($event)" [ngClass]="{'stop-scroll': stopScrolling}" data-wheel-zoom src="../../../assets/images/bridge/pod0.png" alt=""/>
 	<!-- </div> -->
 </section>
