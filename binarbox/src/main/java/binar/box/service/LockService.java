@@ -1,39 +1,27 @@
 package binar.box.service;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import binar.box.domain.File;
-import binar.box.domain.Lock;
-import binar.box.domain.LockSection;
-import binar.box.domain.LockType;
-import binar.box.domain.LockTypeTemplate;
-import binar.box.domain.Panel;
-import binar.box.domain.User;
-import binar.box.dto.FileDTO;
-import binar.box.dto.LockDTO;
-import binar.box.dto.LockResponseDTO;
-import binar.box.dto.LockTypeDTO;
-import binar.box.dto.LockTypeDTOResponse;
-import binar.box.dto.LockTypeTemplateDTO;
+import binar.box.converter.LockConvertor;
+import binar.box.converter.LockSectionConvertor;
+import binar.box.converter.LockTypeConverter;
+import binar.box.converter.LockTypeTemplateConverter;
+import binar.box.domain.*;
+import binar.box.dto.*;
 import binar.box.repository.LockRepository;
 import binar.box.repository.LockSectionRepository;
 import binar.box.repository.LockTypeRepository;
 import binar.box.repository.LockTypeTemplateRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-/**
- * Created by Timis Nicu Alexandru on 18-Apr-18.
- */
+import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class LockService {
@@ -57,57 +45,41 @@ public class LockService {
 	private PanelService panelService;
 
 	@Autowired
+	private LockTypeConverter lockTypeConverter;
+
+	@Autowired
+	private LockConvertor lockConvertor;
+
+	@Autowired
 	private LockTypeTemplateRepository lockTypeTemplateRepository;
+
+	@Autowired
+	private LockSectionConvertor lockSectionConvertor;
 
 	public LockTypeDTOResponse addLockType(LockTypeDTO lockTypeDTO) {
 		LockType lockType = new LockType();
 		lockType.setType(lockTypeDTO.getType());
-		lockTypeRepository.save(lockType);
-		return new LockTypeDTOResponse(lockType);
+		return lockTypeConverter.lockToLockTypeResponse(lockTypeRepository.save(lockType));
 	}
 
 	public List<LockTypeDTOResponse> getLockTypes() {
-		List<LockType> lockTypes = lockTypeRepository.findAll();
-		return lockTypes.stream().map(this::toLockTypeDTOResponse).collect(Collectors.toList());
+		return lockTypeConverter.toDTOList(lockTypeRepository.findAll());
 	}
 
-	private LockTypeDTOResponse toLockTypeDTOResponse(LockType lockType) {
-		var lockTypeDTOResponse = new LockTypeDTOResponse();
-		lockTypeDTOResponse.setId(lockType.getId());
-		lockTypeDTOResponse.setType(lockType.getType());
-		lockTypeDTOResponse.setPrice(lockType.getPrice().getPrice());
-		lockTypeDTOResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDTO).collect(Collectors.toList()));
-		lockTypeDTOResponse.setLockTypeTemplate(lockType.getLockTypeTemplate().parallelStream()
-				.map(this::toLockTypeTemplateDTO).collect(Collectors.toList()));
-		return lockTypeDTOResponse;
-	}
-
-	private LockTypeTemplateDTO toLockTypeTemplateDTO(LockTypeTemplate lockTypeTemplate) {
-		var lockType = new LockTypeTemplateDTO(lockTypeTemplate);
-		lockType.setFilesDTO(lockTypeTemplate.getFiles().stream().map(this::toFileDTO).collect(Collectors.toList()));
-		return lockType;
-	}
-
-	private FileDTO toFileDTO(File file) {
-		return new FileDTO(file);
-	}
-
-	public List<LockSection> getLockSections() {
-		return lockSectionRepository.findAll();
+	public List<LockSectionDTO> getLockSections() {
+		return lockSectionConvertor.toDTOList(lockSectionRepository.findAll());
 	}
 
 	public LockResponseDTO addOrUpdateUserLock(LockDTO lockDTO) {
-		var user = userService.getAuthenticatedUser();
-		Lock lock = null;
+		Lock lock;
 		if (lockDTO.getId() == null) {
 			lock = new Lock();
 			lock.setCreatedDate(new Date());
 		} else {
 			lock = getLockById(lockDTO.getId());
 		}
-		lock = addOrUpdateUserLock(lockDTO, lock, user);
-		lockRepository.save(lock);
-		return toLockResponseDTO(lock);
+		lock = addOrUpdateUserLock(lockDTO, lock, userService.getAuthenticatedUser());
+		return lockConvertor.toResponseDTO(lockRepository.save(lock));
 	}
 
 	private Lock getLockById(Long lockId) {
@@ -166,27 +138,9 @@ public class LockService {
 	}
 
 	public List<LockResponseDTO> getLocks() {
-		var user = userService.getAuthenticatedUser();
-		var lockList = lockRepository.findByUserAndPaidFalse(user);
-		return lockList.stream().map(this::toLockResponseDTO).collect(Collectors.toList());
-	}
-
-	LockResponseDTO toLockResponseDTO(Lock lock) {
-		var lockResponse = new LockResponseDTO(lock);
-		lockResponse.setPrice(
-				lock.getLockType().getPrice().getPrice().add(lock.getLockTypeTemplate().getPrice().getPrice()));
-		lockResponse.setLockTypeDTOResponse(toLockTypeDTOResponse(lock.getLockType(), lock.getLockTypeTemplate()));
-		return lockResponse;
-	}
-
-	private LockTypeDTOResponse toLockTypeDTOResponse(LockType lockType, LockTypeTemplate lockTypeTemplate) {
-		var lockTypeDTOResponse = new LockTypeDTOResponse();
-		lockTypeDTOResponse.setId(lockType.getId());
-		lockTypeDTOResponse.setType(lockType.getType());
-		lockTypeDTOResponse.setPrice(lockType.getPrice().getPrice());
-		lockTypeDTOResponse.setFilesDTO(lockType.getFiles().stream().map(this::toFileDTO).collect(Collectors.toList()));
-		lockTypeDTOResponse.setLockTypeTemplate(Collections.singletonList(toLockTypeTemplateDTO(lockTypeTemplate)));
-		return lockTypeDTOResponse;
+		return lockConvertor.toDTOList(lockRepository.
+						findByUserAndPaidFalse(userService.
+								getAuthenticatedUser()));
 	}
 
 	public void removeUserLock(String token) {
@@ -196,7 +150,7 @@ public class LockService {
 
 	public void claimToRemoveUserLock(long id) {
 		var user = userService.getAuthenticatedUser();
-		var lock = lockRepository.findByUserAndId(user, id);
+		Optional<Lock> lock = lockRepository.findByUserAndId(user, id);
 		if (!lock.isPresent()) {
 			throw new LockBridgesException(Constants.LOCK_NOT_FOUND);
 		}

@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-/**
- * Created by Timis Nicu Alexandru on 25-Mar-18.
- */
 @Component
 public class CorsFilter implements Filter {
 

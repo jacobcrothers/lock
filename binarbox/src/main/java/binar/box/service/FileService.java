@@ -20,9 +20,6 @@ import binar.box.repository.LockTypeRepository;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 
-/**
- * Created by Timis Nicu Alexandru on 18-Apr-18.
- */
 @Service
 @Transactional
 public class FileService {

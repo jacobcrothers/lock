@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import binar.box.domain.User;
 
-/**
- * Created by Timis Nicu Alexandru on 21-Mar-18.
- */
 @Service
 @Transactional
 public class TokenService {

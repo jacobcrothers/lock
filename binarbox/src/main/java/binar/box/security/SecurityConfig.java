@@ -15,9 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import binar.box.service.TokenService;
 import binar.box.util.Constants;
 
-/**
- * Created by Timis Nicu Alexandru on 23-Mar-18.
- */
 @Configuration
 @EnableAutoConfiguration
 @EnableWebSecurity

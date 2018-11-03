@@ -1,19 +1,14 @@
 package binar.box.repository;
 
-import java.util.List;
-
+import binar.box.domain.Lock;
+import binar.box.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.google.common.base.Optional;
+import java.util.List;
+import java.util.Optional;
 
-import binar.box.domain.Lock;
-import binar.box.domain.User;
-
-/**
- * Created by Timis Nicu Alexandru on 18-Apr-18.
- */
 public interface LockRepository extends JpaRepository<Lock, Long> {
 
 	List<Lock> findByUserAndPaidFalse(User user);

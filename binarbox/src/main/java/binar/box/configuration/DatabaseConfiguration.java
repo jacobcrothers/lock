@@ -11,9 +11,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import binar.box.util.Constants;
 
-/**
- * Created by Timis Nicu Alexandru on 20-Mar-18.
- */
 @Configuration
 public class DatabaseConfiguration {
 

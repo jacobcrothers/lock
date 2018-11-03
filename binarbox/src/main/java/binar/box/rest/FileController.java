@@ -21,9 +21,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
-/**
- * Created by Timis Nicu Alexandru on 18-Apr-18.
- */
 @RestController
 @RequestMapping(Constants.API + Constants.FILE_ENDPOINT)
 public class FileController {

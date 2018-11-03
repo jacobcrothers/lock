@@ -11,9 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import binar.box.domain.Panel;
 
-/**
- * Created by Timis Nicu Alexandru on 11-Jun-18.
- */
 @Repository
 public interface PanelRepository extends JpaRepository<Panel, Long> {
 

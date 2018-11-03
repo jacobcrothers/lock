@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import binar.box.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,10 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import binar.box.domain.LockSection;
-import binar.box.dto.LockDTO;
-import binar.box.dto.LockResponseDTO;
-import binar.box.dto.LockTypeDTO;
-import binar.box.dto.LockTypeDTOResponse;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
@@ -78,7 +75,7 @@ public class LockController {
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get lock sections", notes = "This endpoint response reveal available sections of panels.")
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_SECTION_ENDPOINT)
-	private List<LockSection> lockSections() {
+	private List<LockSectionDTO> lockSections() {
 		return lockService.getLockSections();
 	}
 

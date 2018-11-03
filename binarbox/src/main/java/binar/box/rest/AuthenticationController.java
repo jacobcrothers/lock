@@ -15,9 +15,6 @@ import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 import io.swagger.annotations.ApiOperation;
 
-/**
- * Created by Timis Nicu Alexandru on 20-Mar-18.
- */
 @RestController
 @RequestMapping(value = Constants.API + Constants.AUTHENTICATION_ENDPOINT)
 public class AuthenticationController {

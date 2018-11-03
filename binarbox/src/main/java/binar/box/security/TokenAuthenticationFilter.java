@@ -18,9 +18,6 @@ import binar.box.service.TokenService;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 
-/**
- * Created by Timis Nicu Alexandru on 23-Mar-18.
- */
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 	private TokenService tokenService;

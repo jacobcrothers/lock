@@ -14,9 +14,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
-/**
- * Created by Timis Nicu Alexandru on 11-Jun-18.
- */
 @RestController
 @RequestMapping(value = Constants.API)
 public class PanelController {

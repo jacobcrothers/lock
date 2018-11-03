@@ -1,32 +1,22 @@
 package binar.box.domain;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-/**
- * Created by Timis Nicu Alexandru on 06-Aug-18.
- */
+import javax.persistence.*;
+import java.util.List;
+
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper=true)
+@ToString
 @Entity
 @Table(name = "lock_type_template")
 public class LockTypeTemplate extends BaseEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
 
 	@Column(name = "font_size")
 	private Integer fontSize;
@@ -48,64 +38,4 @@ public class LockTypeTemplate extends BaseEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "price")
 	private Price price;
-
-	public LockTypeTemplate() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getFontSize() {
-		return fontSize;
-	}
-
-	public void setFontSize(Integer fontSize) {
-		this.fontSize = fontSize;
-	}
-
-	public String getFontStyle() {
-		return fontStyle;
-	}
-
-	public void setFontStyle(String fontStyle) {
-		this.fontStyle = fontStyle;
-	}
-
-	public String getFontColor() {
-		return fontColor;
-	}
-
-	public void setFontColor(String fontColor) {
-		this.fontColor = fontColor;
-	}
-
-	public List<File> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<File> files) {
-		this.files = files;
-	}
-
-	public LockType getLockType() {
-		return lockType;
-	}
-
-	public void setLockType(LockType lockType) {
-		this.lockType = lockType;
-	}
-
-	public Price getPrice() {
-		return price;
-	}
-
-	public void setPrice(Price price) {
-		this.price = price;
-	}
-
 }

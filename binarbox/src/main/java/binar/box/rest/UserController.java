@@ -12,9 +12,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
-/**
- * Created by Timis Nicu Alexandru on 27-Mar-18.
- */
 @RestController
 @RequestMapping(value = Constants.API)
 public class UserController {
