@@ -1,8 +1,10 @@
 package binar.box.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import binar.box.dto.UserProfileDTO;
@@ -23,6 +25,7 @@ public class UserController {
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get user info", notes = "Endpoint to get user last name,first name and other user-related information")
 	@GetMapping(value = Constants.USER_ENDPOINT)
+	@ResponseStatus(HttpStatus.OK)
 	private UserProfileDTO getUser() {
 		return userService.getUser();
 	}

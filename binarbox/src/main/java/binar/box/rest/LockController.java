@@ -8,6 +8,7 @@ import binar.box.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,11 +48,11 @@ public class LockController {
 	@ApiOperation(value = "ADMIN: Add lock type", notes = "This endpoint is for admin, admin add lock types into database.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TYPE_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	private LockTypeDTOResponse addLockType(@RequestBody @Valid LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
+	private ResponseEntity<LockTypeDTOResponse> addLockType(@RequestBody @Valid LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new LockBridgesException(bindingResult.getAllErrors().toString());
 		}
-		return lockService.addLockType(lockTypeDTO);
+		return new ResponseEntity<>(lockService.addLockType(lockTypeDTO), HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
@@ -59,24 +60,25 @@ public class LockController {
 	@ApiOperation(value = "ADMIN: Add lock images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TYPE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private void addLockTypeFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("id") long lockTypeId) {
+	private ResponseEntity addLockTypeFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("id") long lockTypeId) {
 		fileService.saveFilesToLockType(files, lockTypeId);
+		return new ResponseEntity(HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get lock type with lock type templates", notes = "User first step is to choose one lock type then one lock template type")
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_ENDPOINT)
-	private List<LockTypeDTOResponse> getLockTypes() {
-		return lockService.getLockTypes();
+	private ResponseEntity<List<LockTypeDTOResponse>> getLockTypes() {
+		return new ResponseEntity<>(lockService.getLockTypes(), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get lock sections", notes = "This endpoint response reveal available sections of panels.")
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_SECTION_ENDPOINT)
-	private List<LockSectionDTO> lockSections() {
-		return lockService.getLockSections();
+	private ResponseEntity<List<LockSectionDTO>> lockSections() {
+		return new ResponseEntity<>(lockService.getLockSections(), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({
@@ -86,8 +88,8 @@ public class LockController {
 			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockType\":3,\r\n" + "  \"lockTypeTemplate\":7\r\n"
 			+ "} " + "\n This is the second user step to add a lock.")
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
-	private LockResponseDTO addLock(@RequestBody LockDTO lockDTO) {
-		return lockService.addOrUpdateUserLock(lockDTO);
+	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) {
+		return new ResponseEntity<>(lockService.addOrUpdateUserLock(lockDTO), HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
@@ -98,24 +100,25 @@ public class LockController {
 			+ "  \"lockTypeTemplate\":6,\r\n" + "  \"lockType\": 3,\r\n" + "  \"longitude\": 0,\r\n"
 			+ "  \"message\": \"string\",\r\n" + "  \"lockColor\":\"YELLOW\",\r\n" + "  \"lockSection\":1\r\n" + "\r\n"
 			+ "}" + "\n This is the third user step to add a lock")
-	private LockResponseDTO updateLock(@RequestBody LockDTO lockDTO) {
-		return lockService.addOrUpdateUserLock(lockDTO);
+	private ResponseEntity<LockResponseDTO> updateLock(@RequestBody LockDTO lockDTO) {
+		return new ResponseEntity<>(lockService.addOrUpdateUserLock(lockDTO), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get unpaid/in progress user locks", notes = "This is one optional step to complete \"add user lock\".")
 	@GetMapping(value = Constants.LOCK_ENDPOINT)
-	private List<LockResponseDTO> getLocks() {
-		return lockService.getLocks();
+	private ResponseEntity<List<LockResponseDTO>> getLocks() {
+		return new ResponseEntity<>(lockService.getLocks(), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Claim to remove user lock", notes = "Requesting this endpoint will send a token on user email which can be used to remove a lock.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_DELETE_USING_TOKEN)
-	private void claimToRemoveLock(@RequestParam("id") long id) {
+	private ResponseEntity claimToRemoveLock(@RequestParam("id") long id) {
 		lockService.claimToRemoveUserLock(id);
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 
 	@ApiImplicitParams({
