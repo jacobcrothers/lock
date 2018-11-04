@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,8 +25,10 @@ public class LockTypeConverter {
                 .id(lockType.getId())
                 .price(lockType.getPrice().getPrice())
                 .type(lockType.getType())
-                .lockTypeTemplate(lockTypeTemplateConverter.toDTOList(lockType.getLockTypeTemplate()))
-                .filesDTO(fileConverter.toDTOList(lockType.getFiles()))
+                .lockTypeTemplate(Objects.isNull(lockType.getLockTypeTemplate()) ? null :
+                        lockTypeTemplateConverter.toDTOList(lockType.getLockTypeTemplate()))
+                .filesDTO(Objects.isNull((lockType.getFiles())) ? null :
+                        fileConverter.toDTOList(lockType.getFiles()))
                 .build();
     }
 

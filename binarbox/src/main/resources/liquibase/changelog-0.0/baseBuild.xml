@@ -49,4 +49,15 @@
 		</sql>
 	</changeSet>
 
+	<changeSet id="addAuditColumnToConfigurationEntity" author="alazar">
+		<addColumn tableName="configuration_entity">
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>

@@ -31,7 +31,7 @@ public class LockConvertor {
                 .price(lock.getLockType().getPrice().getPrice().add(lock.getLockTypeTemplate().getPrice().getPrice()))
                 .panelId(Objects.isNull(lock.getPanel())? null :lock.getPanel().getId())
                 .lockSection(Objects.isNull(lock.getLockSection()) ? null : lockSectionConvertor.toDTO(lock.getLockSection()))
-                .lockTypeDTOResponse(lockTypeConverter.lockToLockTypeResponse(lock.getLockType()))
+                .lockTypeDTOResponse(Objects.isNull(lock.getLockType()) ? null : lockTypeConverter.lockToLockTypeResponse(lock.getLockType()))
                 .build();
     }
 

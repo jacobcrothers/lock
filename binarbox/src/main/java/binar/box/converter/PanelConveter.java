@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -17,7 +18,8 @@ public class PanelConveter {
     public PanelDTO toDTO(Panel panel){
         return PanelDTO.builder()
                 .id(panel.getId())
-                .lockSectionDTO(lockSectionConvertor.toDTOList(panel.getLockSection()))
+                .lockSectionDTO(Objects.isNull(panel.getLockSection()) ? null
+                        : lockSectionConvertor.toDTOList(panel.getLockSection()))
                 .build();
     }
 

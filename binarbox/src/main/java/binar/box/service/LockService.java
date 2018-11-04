@@ -6,10 +6,7 @@ import binar.box.converter.LockTypeConverter;
 import binar.box.converter.LockTypeTemplateConverter;
 import binar.box.domain.*;
 import binar.box.dto.*;
-import binar.box.repository.LockRepository;
-import binar.box.repository.LockSectionRepository;
-import binar.box.repository.LockTypeRepository;
-import binar.box.repository.LockTypeTemplateRepository;
+import binar.box.repository.*;
 import binar.box.util.Constants;
 import binar.box.util.LockBridgesException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +53,21 @@ public class LockService {
 	@Autowired
 	private LockSectionConvertor lockSectionConvertor;
 
+	@Autowired
+	private PriceRepository priceRepository;
+
 	public LockTypeDTOResponse addLockType(LockTypeDTO lockTypeDTO) {
 		LockType lockType = new LockType();
 		lockType.setType(lockTypeDTO.getType());
+		lockType.setCreatedDate(new Date());
+		lockType.setLastModifiedDate(new Date());
+
+		Price price = new Price();
+		price.setPrice(lockTypeDTO.getPrice());
+		price.setCreatedDate(new Date());
+		price.setLastModifiedDate(new Date());
+		lockType.setPrice(priceRepository.save(price));
+
 		return lockTypeConverter.lockToLockTypeResponse(lockTypeRepository.save(lockType));
 	}
 

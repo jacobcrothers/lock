@@ -174,7 +174,16 @@
 			path="classpath:/liquibase/lockType.lockTypeTemplate.Price.sql" />
 		<sqlFile path="classpath:/liquibase/sections.sql" />
 	</changeSet>
-
-
+	
+	<changeSet id="addAuditColumnToLockSection" author="alazar">
+		<addColumn tableName="lock_section">
+			<column name="created_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_modified_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
 
 </databaseChangeLog>

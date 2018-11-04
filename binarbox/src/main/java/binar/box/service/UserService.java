@@ -71,6 +71,9 @@ public class UserService {
 		var facebookUserFields = new String[] { Constants.FACEBOOK_FRIENDS };
 		var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME,
 				org.springframework.social.facebook.api.User.class, facebookUserFields);
+		if (facebookUser.getExtraData().isEmpty()){
+			return new ArrayList<>();
+		}
 		var friendsIds = facebookUser.getExtraData().get(Constants.FACEBOOK_FRIENDS).toString();
 		JSONObject jsonObject;
 		try {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,7 +17,8 @@ public class LockSectionConvertor {
 
     public LockSectionDTO toDTO(LockSection lockSection){
         return LockSectionDTO.builder()
-                .lockResponseDTO(lockConvertor.toResponseDTO(lockSection.getLock()))
+                .lockResponseDTO(Objects.isNull(lockSection.getLock()) ? null
+                        : lockConvertor.toResponseDTO(lockSection.getLock()))
                 .point(lockSection.getId())
                 .section(lockSection.getSection())
                 .build();
