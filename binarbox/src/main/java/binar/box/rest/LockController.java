@@ -1,6 +1,7 @@
 package binar.box.rest;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -89,7 +90,7 @@ public class LockController {
 			+ "} " + "\n This is the second user step to add a lock.")
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
 	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) {
-		return new ResponseEntity<>(lockService.addOrUpdateUserLock(lockDTO), HttpStatus.CREATED);
+			return new ResponseEntity<>(lockService.createUserLock(lockDTO), HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
@@ -101,7 +102,7 @@ public class LockController {
 			+ "  \"message\": \"string\",\r\n" + "  \"lockColor\":\"YELLOW\",\r\n" + "  \"lockSection\":1\r\n" + "\r\n"
 			+ "}" + "\n This is the third user step to add a lock")
 	private ResponseEntity<LockResponseDTO> updateLock(@RequestBody LockDTO lockDTO) {
-		return new ResponseEntity<>(lockService.addOrUpdateUserLock(lockDTO), HttpStatus.OK);
+		return new ResponseEntity<>(lockService.updateUserLock(lockDTO), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({

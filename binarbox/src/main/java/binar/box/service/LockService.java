@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +36,7 @@ public class LockService {
 	private LockRepository lockRepository;
 
 	@Autowired
-	private PanelService panelService;
+	private PanelRepository panelRepository;
 
 	@Autowired
 	private LockTypeConverter lockTypeConverter;
@@ -79,71 +76,48 @@ public class LockService {
 		return lockSectionConvertor.toDTOList(lockSectionRepository.findAll());
 	}
 
-	public LockResponseDTO addOrUpdateUserLock(LockDTO lockDTO) {
-		Lock lock;
-		if (lockDTO.getId() == null) {
-			lock = new Lock();
-			lock.setCreatedDate(new Date());
-		} else {
-			lock = getLockById(lockDTO.getId());
-		}
-		lock = addOrUpdateUserLock(lockDTO, lock, userService.getAuthenticatedUser());
-		return lockConvertor.toResponseDTO(lockRepository.save(lock));
+    public LockResponseDTO createUserLock(LockDTO lockDTO){
+		Lock lock = populateEntity(lockDTO, new Lock());
+		lock.setCreatedDate(new Date());
+
+        return lockConvertor.toResponseDTO(lockRepository.save(lock));
+    }
+
+	public LockResponseDTO updateUserLock(LockDTO lockDTO){
+		if (Objects.isNull(lockDTO.getId()))
+			throw new LockBridgesException(Constants.LOCK_NOT_FOUND);
+		Lock lock = lockRepository.findById(lockDTO.getId())
+				.orElseThrow(() -> new LockBridgesException(Constants.LOCK_NOT_FOUND));
+		Lock updatedLock = populateEntity(lockDTO, lock);
+		updatedLock.setId(lockDTO.getId());
+
+		return lockConvertor.toResponseDTO(lockRepository.save(updatedLock));
 	}
 
-	private Lock getLockById(Long lockId) {
-		return lockRepository.findById(lockId).orElseThrow(() -> new LockBridgesException(Constants.LOCK_NOT_FOUND));
-	}
+	private Lock populateEntity(LockDTO lockDTO, Lock lock) {
+		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
+				lockSectionRepository.findById(lockDTO.getLockSection())
+						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
 
-	private Lock addOrUpdateUserLock(LockDTO lockDTO, Lock lock, User user) {
-		LockSection lockSection = null;
-		if (lockDTO.getLockSection() != null) {
-			lockSection = getLockSection(lockDTO.getLockSection());
-		}
-		var lockType = getLockType(lockDTO.getLockType());
-		Panel panel = null;
-		if (lockDTO.getPanelId() != null) {
-			panel = panelService.getPanel(lockDTO.getPanelId());
-		}
-		LockTypeTemplate lockTypeTemplate = null;
-		if (lockDTO.getLockTypeTemplate() != null) {
-			lockTypeTemplate = getLockTypeTemplate(lockDTO.getLockTypeTemplate());
-		}
-		setLockFields(lockDTO, user, lockSection, lockType, lockTypeTemplate, lock, panel);
-		return lock;
-	}
+		Panel panel= Objects.isNull(lockDTO.getPanelId()) ? null :
+				panelRepository.findById(lockDTO.getPanelId())
+						.orElseThrow(() -> new LockBridgesException(Constants.PANEL_NOT_FOUND));
 
-	private LockTypeTemplate getLockTypeTemplate(Long lockTypeTemplate) {
-		return lockTypeTemplateRepository.findById(lockTypeTemplate)
-				.orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
-	}
+		LockType lockType=Objects.isNull(lockDTO.getLockType()) ? null :
+				lockTypeRepository.findById(lockDTO.getLockType())
+						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND));
 
-	private void setLockFields(LockDTO lockDTO, User user, LockSection lockSection, LockType lockType,
-			LockTypeTemplate lockTypeTemplate, Lock lock, Panel panel) {
-		lock.setUser(user);
-		lock.setLockType(lockType);
-		lock.setLockTypeTemplate(lockTypeTemplate);
-		lock.setLockSection(lockSection);
-		lock.setMessage(lockDTO.getMessage());
-		if (lockDTO.getFontSize() != null) {
-			lock.setFontSize(lockDTO.getFontSize());
-		}
-		lock.setFontStyle(lockDTO.getFontStyle());
-		lock.setFontColor(lockDTO.getFontColor());
-		lock.setLockColor(lockDTO.getLockColor());
-		lock.setPrivateLock(lockDTO.getPrivateLock() == null ? false : lockDTO.getPrivateLock());
-		lock.setLastModifiedDate(new Date());
-		lock.setPanel(panel);
-	}
+		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockType()) ? null :
+				lockTypeTemplateRepository.findById(lockDTO.getLockTypeTemplate())
+						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_TEMPLATE_NOT_FOUND));
 
-	private LockType getLockType(Long lockTypeId) {
-		return lockTypeRepository.findById(lockTypeId)
-				.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND));
-	}
-
-	private LockSection getLockSection(Long lockSectionId) {
-		return lockSectionRepository.findById(lockSectionId)
-				.orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
+		return lockConvertor.toEntity(lockDTO,
+				                      lock,
+				                      lockSection,
+				                      panel,
+				                      lockType,
+				                      lockTypeTemplate,
+				                      userService.getAuthenticatedUser());
 	}
 
 	public List<LockResponseDTO> getLocks() {

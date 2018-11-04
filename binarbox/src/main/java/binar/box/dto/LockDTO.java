@@ -17,6 +17,10 @@ public class LockDTO {
 
 	private String lockColor;
 
+	private boolean paid;
+
+	private boolean glitteringLight;
+
 	private Long lockSection;
 
 	private Long lockType;
@@ -25,5 +29,5 @@ public class LockDTO {
 
 	private Long panelId;
 
-	private Boolean privateLock;
+	private boolean privateLock;
 }

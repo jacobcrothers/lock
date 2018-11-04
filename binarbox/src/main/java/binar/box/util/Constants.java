@@ -39,6 +39,7 @@ public class Constants {
 	public static final String WIN = "win";
 	public static final String EXCEPTION_SAVING_FILES = "Exception saving files : ";
 	public static final String LOCK_TYPE_NOT_FOUND = "Lock type not found";
+	public static final String LOCK_TYPE_TEMPLATE_NOT_FOUND = "Lock type template not found";
 	public static final String LOCK_TYPE_FILE_ENDPOINT = "/type/file";
 	public static final String ADMIN_AUTHORITY = "ADMIN";
 	public static final String FILE_ENDPOINT = "file";

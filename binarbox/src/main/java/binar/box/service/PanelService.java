@@ -51,10 +51,6 @@ public class PanelService {
 //		panels = panels.parallelStream().map(this::addPanelLocks).collect(Collectors.toList());
 	}
 
-	public Panel getPanel(long panelId) {
-		return panelRepository.findById(panelId).orElseThrow(() -> new LockBridgesException(Constants.PANEL_NOT_FOUND));
-	}
-
 	public PanelDTO getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
 		var maxPanelSize = configurationRepository.findAll().get(0).getPanelMaxSizeOfLocks();

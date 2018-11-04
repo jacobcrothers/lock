@@ -16,22 +16,29 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "lock_type")
+//@NamedEntityGraph(
+//		name = "LockType.templateAndFiles",
+//		attributeNodes = {
+//				@NamedAttributeNode(value = "lockTypeTemplate"),
+//				@NamedAttributeNode(value = "price"),
+//				@NamedAttributeNode(value = "files")
+//		}
+//)
 public class LockType extends BaseEntity {
 
 	@Column(name = "lock_type")
 	private String type;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "lockType")
-	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockType")
 	private List<File> files;
 
 	@Column(name = "total_rating")
 	private Float totalRating;
 
-	@OneToMany(mappedBy = "lockType")
+	@OneToMany(mappedBy = "lockType", fetch = FetchType.LAZY)
 	private List<LockTypeTemplate> lockTypeTemplate;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "price")
 	private Price price;
 }
