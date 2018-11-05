@@ -56,13 +56,9 @@ public class LockService {
 	public LockTypeDTOResponse addLockType(LockTypeDTO lockTypeDTO) {
 		LockType lockType = new LockType();
 		lockType.setType(lockTypeDTO.getType());
-		lockType.setCreatedDate(new Date());
-		lockType.setLastModifiedDate(new Date());
 
 		Price price = new Price();
 		price.setPrice(lockTypeDTO.getPrice());
-		price.setCreatedDate(new Date());
-		price.setLastModifiedDate(new Date());
 		lockType.setPrice(priceRepository.save(price));
 
 		return lockTypeConverter.lockToLockTypeResponse(lockTypeRepository.save(lockType));
@@ -78,7 +74,6 @@ public class LockService {
 
     public LockResponseDTO createUserLock(LockDTO lockDTO){
 		Lock lock = populateEntity(lockDTO, new Lock());
-		lock.setCreatedDate(new Date());
 
         return lockConvertor.toResponseDTO(lockRepository.save(lock));
     }

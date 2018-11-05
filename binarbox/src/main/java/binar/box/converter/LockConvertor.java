@@ -50,7 +50,6 @@ public class LockConvertor {
         lock.setMessage(Objects.isNull(lockDTO.getMessage()) ? lock.getMessage() : lockDTO.getMessage());
         lock.setPrivateLock(Objects.isNull(lockDTO.isPrivateLock()) ? lock.isPrivateLock() : lockDTO.isPrivateLock());
         lock.setPaid(Objects.isNull(lockDTO.isPaid()) ? lock.isPaid() : lockDTO.isPaid());
-        lock.setLastModifiedDate(new Date());
         lock.setLockSection(Objects.isNull(lockSection) ? lock.getLockSection() : lockSection);
         lock.setPanel(Objects.isNull(panel) ? lock.getPanel() : panel);
         lock.setLockType(Objects.isNull(lockType) ? lock.getLockType() : lockType);

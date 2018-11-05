@@ -54,8 +54,6 @@ public class FileService {
 			sqlFile.setFileName(file.getName());
 			sqlFile.setLockType(lockType);
 			sqlFile.setPathToFile(file.getPath());
-			sqlFile.setCreatedDate(new Date());
-			sqlFile.setLastModifiedDate(new Date());
 			fileRepository.save(sqlFile);
 		});
 	}

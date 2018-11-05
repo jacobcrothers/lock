@@ -29,8 +29,6 @@ public class UserConverter {
         toRegisterUser.setFirstName(facebookUser.getFirstName());
         toRegisterUser.setCountry(facebookUser.getLocale() == null ? null : facebookUser.getLocale().getCountry());
         toRegisterUser.setCity(facebookUser.getLocation() == null ? null : facebookUser.getLocation().getName());
-        toRegisterUser.setCreatedDate(new Date());
-        toRegisterUser.setLastModifiedDate(new Date());
         return toRegisterUser;
     }
 }
