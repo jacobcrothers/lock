@@ -99,7 +99,7 @@ public class LockService {
 						.orElseThrow(() -> new LockBridgesException(Constants.PANEL_NOT_FOUND));
 
 		LockType lockType=Objects.isNull(lockDTO.getLockType()) ? null :
-				lockTypeRepository.findById(lockDTO.getLockType())
+				lockTypeRepository.findByIdWithTemplatePriceAndFile(lockDTO.getLockType())
 						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND));
 
 		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockType()) ? null :

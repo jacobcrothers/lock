@@ -1,6 +1,5 @@
 package binar.box.repository;
 
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import binar.box.domain.LockType;
@@ -16,5 +15,5 @@ public interface LockTypeRepository extends JpaRepository<LockType, Long> {
             "INNER JOIN file f ON f.lock_type=lt.id \n" +
             "INNER JOIN price p ON lt.price=p.id \n" +
             "WHERE lt.id=:id", nativeQuery = true)
-    Optional<LockType> findById(@Param("id") Long id);
+    Optional<LockType> findByIdWithTemplatePriceAndFile(@Param("id") Long id);
 }
