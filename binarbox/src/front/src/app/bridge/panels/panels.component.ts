@@ -31,39 +31,39 @@ export class PanelsComponent implements OnInit {
   addZoomFunctionality() {
 
     // first solution
-    // this.zoomEl = mouseWheelZoom({
-    //   element: document.querySelector('[data-wheel-zoom]'),
-    //   zoomStep: .5
-    // });
-
-    // second solution
     this.zoomEl = mouseWheelZoom({
       element: document.querySelector('[data-wheel-zoom]'),
-      zoomStep: 0
+      zoomStep: .5
     });
+
+    // second solution
+    // this.zoomEl = mouseWheelZoom({
+    //   element: document.querySelector('[data-wheel-zoom]'),
+    //   zoomStep: 0
+    // });
   }
 
   onMousewheel(event) {
     // first solution
 
-    // if (event.target.clientHeight > 4800) {
-    //   this.stopScrolling = true;
-    //   this.zoomEl.reset();
-    // }
+    if (event.target.clientHeight > 4800) {
+      this.stopScrolling = true;
+      this.zoomEl.reset();
+    }
 
 
     //second solution
-    let imgSrc = event.target.currentSrc;
-    let srcCount = imgSrc.substring(imgSrc.lastIndexOf('d') + 1, imgSrc.lastIndexOf('.'));
+    // let imgSrc = event.target.currentSrc;
+    // let srcCount = imgSrc.substring(imgSrc.lastIndexOf('d') + 1, imgSrc.lastIndexOf('.'));
 
-    let newSrc;
-    if (event.deltaY < 0) {
-     newSrc = '../../../assets/images/bridge/pod'.concat((parseInt(srcCount) + 1).toString(), '.png');
-    } else {
-      newSrc = '../../../assets/images/bridge/pod'.concat((parseInt(srcCount) - 1).toString(), '.png');
-    }
+    // let newSrc;
+    // if (event.deltaY < 0) {
+    //  newSrc = '../../../assets/images/bridge/pod'.concat((parseInt(srcCount) + 1).toString(), '.png');
+    // } else {
+    //   newSrc = '../../../assets/images/bridge/pod'.concat((parseInt(srcCount) - 1).toString(), '.png');
+    // }
 
-    this.zoomEl.setSrc(newSrc);
+    // this.zoomEl.setSrc(newSrc);
   }
 
   mouseEnter(event) {
