@@ -1,6 +1,6 @@
 package binar.box.dto;
 
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 
 public class LockBridgesExceptionDTO {
 	private String message;

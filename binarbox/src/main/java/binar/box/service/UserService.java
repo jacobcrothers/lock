@@ -6,7 +6,7 @@ import binar.box.dto.FacebookTokenDTO;
 import binar.box.dto.UserProfileDTO;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import binar.box.dto.FacebookTokenDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 import io.swagger.annotations.ApiOperation;
 
 @RestController

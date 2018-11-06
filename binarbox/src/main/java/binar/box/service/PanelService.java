@@ -2,11 +2,9 @@ package binar.box.service;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import binar.box.converter.LockSectionConvertor;
 import binar.box.converter.PanelConveter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +14,13 @@ import org.springframework.stereotype.Service;
 import binar.box.domain.Lock;
 import binar.box.domain.LockSection;
 import binar.box.domain.Panel;
-import binar.box.dto.LockResponseDTO;
-import binar.box.dto.LockSectionDTO;
 import binar.box.dto.PanelDTO;
 import binar.box.repository.ConfigurationRepository;
 import binar.box.repository.LockRepository;
 import binar.box.repository.LockSectionRepository;
 import binar.box.repository.PanelRepository;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 
 @Service
 @Transactional

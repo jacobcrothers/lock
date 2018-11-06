@@ -1,9 +1,9 @@
-package binar.box.rest;
+package binar.box.util.Exceptions.base;
 
+import binar.box.util.Exceptions.LockBridgesException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import binar.box.dto.LockBridgesExceptionDTO;
-import binar.box.util.LockBridgesException;
 
 @ControllerAdvice
 public class ExceptionHandler {

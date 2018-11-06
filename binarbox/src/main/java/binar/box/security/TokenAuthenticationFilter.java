@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import binar.box.domain.User;
 import binar.box.service.TokenService;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 

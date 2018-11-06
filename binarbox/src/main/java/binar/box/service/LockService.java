@@ -3,18 +3,16 @@ package binar.box.service;
 import binar.box.converter.LockConvertor;
 import binar.box.converter.LockSectionConvertor;
 import binar.box.converter.LockTypeConverter;
-import binar.box.converter.LockTypeTemplateConverter;
 import binar.box.domain.*;
 import binar.box.dto.*;
 import binar.box.repository.*;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional

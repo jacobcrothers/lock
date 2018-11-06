@@ -4,7 +4,7 @@ import binar.box.dto.*;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;

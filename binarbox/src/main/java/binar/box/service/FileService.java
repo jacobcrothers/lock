@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ import binar.box.domain.LockType;
 import binar.box.repository.FileRepository;
 import binar.box.repository.LockTypeRepository;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 
 @Service
 @Transactional
