@@ -28,6 +28,7 @@
     "core-js": "^2.4.1",
     "jquery": "^3.3.1",
     "jquery-ui-dist": "^1.12.1",
+    "mouse-wheel-zoom": "^1.1.4",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
     "zone.js": "^0.8.26"
@@ -39,6 +40,7 @@
     "@angular/language-service": "6.1.1",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
+    "@types/jquery": "^3.3.22",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.8.0",

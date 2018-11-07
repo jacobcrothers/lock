@@ -1,5 +1,6 @@
 import {Component, OnInit, ElementRef, ViewChild, DoCheck } from '@angular/core';
 import {UserService} from './_services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit, DoCheck {
     @ViewChild('closeModal') closeModal:ElementRef;
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private router: Router
     ) {
     }
 
@@ -27,6 +29,12 @@ export class AppComponent implements OnInit, DoCheck {
         if(this.loggedIn) {
             this.closeModal.nativeElement.click();
         }
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+        this.router.navigate([`/`]);
+        this.loggedIn = false;
     }
 
 }
