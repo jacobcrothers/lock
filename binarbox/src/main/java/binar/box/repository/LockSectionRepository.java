@@ -1,12 +1,10 @@
 package binar.box.repository;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import binar.box.domain.LockSection;
 
-public interface LockSectionRepository extends JpaRepository<LockSection, Long> {
+import java.util.List;
+
+public interface LockSectionRepository extends BaseJpaRepository<LockSection, Long> {
 
 	List<LockSection> findBySection(char letter);
 }

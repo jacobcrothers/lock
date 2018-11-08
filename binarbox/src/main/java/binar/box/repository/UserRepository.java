@@ -1,14 +1,12 @@
 package binar.box.repository;
 
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import binar.box.domain.User;
 import org.springframework.stereotype.Repository;
 
-import binar.box.domain.User;
+import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends BaseJpaRepository<User, String> {
 
 	Optional<User> findByEmail(String email);
 

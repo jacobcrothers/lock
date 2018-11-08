@@ -4,6 +4,7 @@ import binar.box.dto.*;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
+import binar.box.util.Exceptions.FieldsException;
 import binar.box.util.Exceptions.LockBridgesException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -34,9 +35,9 @@ public class LockController {
 	@ApiOperation(value = "ADMIN: Add lock type", notes = "This endpoint is for admin, admin add lock types into database.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TYPE_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	private ResponseEntity<LockTypeDTOResponse> addLockType(@RequestBody @Valid LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
+	private ResponseEntity<LockTypeDTOResponse> addLockType( @Valid @RequestBody LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new LockBridgesException(bindingResult.getAllErrors().toString());
+			throw new FieldsException("Lock type fields are incorrect", "lock.type.invalid", bindingResult);
 		}
 		return new ResponseEntity<>(lockService.addLockType(lockTypeDTO), HttpStatus.CREATED);
 	}

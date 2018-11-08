@@ -79,8 +79,7 @@ public class LockService {
 	public LockResponseDTO updateUserLock(LockDTO lockDTO){
 		if (Objects.isNull(lockDTO.getId()))
 			throw new LockBridgesException(Constants.LOCK_NOT_FOUND);
-		Lock lock = lockRepository.findById(lockDTO.getId())
-				.orElseThrow(() -> new LockBridgesException(Constants.LOCK_NOT_FOUND));
+		Lock lock = lockRepository.findOne(lockDTO.getId());
 		Lock updatedLock = populateEntity(lockDTO, lock);
 		updatedLock.setId(lockDTO.getId());
 
@@ -89,20 +88,17 @@ public class LockService {
 
 	private Lock populateEntity(LockDTO lockDTO, Lock lock) {
 		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
-				lockSectionRepository.findById(lockDTO.getLockSection())
-						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
+				lockSectionRepository.findOne(lockDTO.getLockSection());
 
 		Panel panel= Objects.isNull(lockDTO.getPanelId()) ? null :
-				panelRepository.findById(lockDTO.getPanelId())
-						.orElseThrow(() -> new LockBridgesException(Constants.PANEL_NOT_FOUND));
+				panelRepository.findOne(lockDTO.getPanelId());
 
 		LockType lockType=Objects.isNull(lockDTO.getLockType()) ? null :
 				lockTypeRepository.findByIdWithTemplatePriceAndFile(lockDTO.getLockType())
 						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND));
 
 		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockType()) ? null :
-				lockTypeTemplateRepository.findById(lockDTO.getLockTypeTemplate())
-						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_TEMPLATE_NOT_FOUND));
+				lockTypeTemplateRepository.findOne(lockDTO.getLockTypeTemplate());
 
 		return lockConvertor.toEntity(lockDTO,
 				                      lock,

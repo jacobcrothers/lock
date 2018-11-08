@@ -12,6 +12,7 @@ import java.util.Optional;
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
+import binar.box.util.Exceptions.EntityNotFoundException;
 import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -38,7 +39,7 @@ public class FileService {
 	private LockTypeRepository lockTypeRepository;
 
 	public void saveFilesToLockType(MultipartFile[] files, long lockTypeId) throws IOException {
-		Optional<LockType> lockType = lockTypeRepository.findById(lockTypeId);
+		LockType lockType = lockTypeRepository.findOne(lockTypeId);
 		String os = System.getProperty(Constants.OS_NAME).toLowerCase();
 		String pathToSaveFiles;
 		if (os.contains(Constants.WIN)) {
@@ -48,8 +49,7 @@ public class FileService {
 		}
 		checkOrCreateDirectory(pathToSaveFiles);
 		List<File> fileList = saveEachFile(pathToSaveFiles, files);
-		createEntityFiles(fileList,
-				lockType.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND)));
+		createEntityFiles(fileList, lockType);
 	}
 
 	private void createEntityFiles(List<File> fileList, LockType lockType) {
@@ -123,6 +123,6 @@ public class FileService {
     }
 
     public binar.box.domain.File getFile(long fileId) {
-		return fileRepository.findById(fileId).orElseThrow(() -> new LockBridgesException(Constants.FILE_NOT_FOUND));
+		return fileRepository.findOne(fileId);
 	}
 }

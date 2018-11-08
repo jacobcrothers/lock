@@ -1,14 +1,12 @@
 package binar.box.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import binar.box.domain.LockType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface LockTypeRepository extends JpaRepository<LockType, Long> {
+public interface LockTypeRepository extends BaseJpaRepository<LockType, Long> {
 
     @Query(value = "SELECT * FROM lock_type lt \n" +
             "INNER JOIN lock_type_template ltt ON ltt.lock_type=lt.id \n" +

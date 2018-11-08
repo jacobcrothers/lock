@@ -2,14 +2,13 @@ package binar.box.repository;
 
 import binar.box.domain.Lock;
 import binar.box.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface LockRepository extends JpaRepository<Lock, Long> {
+public interface LockRepository extends BaseJpaRepository<Lock, Long> {
 
 	List<Lock> findByUserAndPaidFalse(User user);
 

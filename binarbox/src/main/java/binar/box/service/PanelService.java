@@ -50,7 +50,7 @@ public class PanelService {
 	public PanelDTO getUserLocksAndPanels() {
 		var user = userService.getAuthenticatedUser();
 		var maxPanelSize = configurationRepository.findAll().get(0).getPanelMaxSizeOfLocks();
-		var userPanel = panelRepository.findById(1L).orElseThrow(() -> new LockBridgesException(Constants.PANEL_NOT_FOUND));
+		var userPanel = panelRepository.findOne(1L);
 		var userLocks = lockRepository.findByUser(user);
 		var facebookUserFriends = userService.getUserFacebookFriends();
 		var facebookUserFriendsLocks = lockRepository.findAllByUserIdAndPrivateLockFalse(facebookUserFriends);
