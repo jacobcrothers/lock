@@ -1,22 +1,17 @@
 package binar.box.repository;
 
-import java.util.List;
-
+import binar.box.domain.Lock;
+import binar.box.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.google.common.base.Optional;
+import java.util.List;
+import java.util.Optional;
 
-import binar.box.domain.Lock;
-import binar.box.domain.User;
-
-/**
- * Created by Timis Nicu Alexandru on 18-Apr-18.
- */
 public interface LockRepository extends JpaRepository<Lock, Long> {
 
-	List<Lock> findByUser(User user);
+	List<Lock> findByUserAndPaidFalse(User user);
 
 	void deleteByUserAndDeleteToken(User user, String token);
 
@@ -30,6 +25,18 @@ public interface LockRepository extends JpaRepository<Lock, Long> {
 	List<Lock> findUserPanelLocksAndHidePrivateFriendsLocks(@Param("userId") String userId,
 			@Param("panelId") long panelId, @Param("facebookFriendsIds") List<String> facebookFriendsIds);
 
-	List<Lock> findByPanelId(Long id);
+	List<Lock> findByPanelIdAndPaidTrue(Long id);
+
+	List<Lock> findAllByUserIdAndPrivateLockFalse(List<String> facebookUserFriends);
+
+	List<Lock> findByUser(User user);
+
+	@Query(value = "SELECT lock_entity.id,message,font_size,font_style,font_color,paid,private_lock,lock_color,lock_section_id\r\n"
+			+ "			,lock_type_id,lock_type_template_id,user_id,delete_token,panel_id,lock_entity.created_date,lock_entity.last_modified_date FROM lock_entity\r\n"
+			+ "			INNER JOIN user ON user.id=lock_entity.user_id  WHERE user.country=:country AND  RAND()  AND user.id NOT IN(:userIds)  AND lock_entity.private_lock=0  LIMIT :limit", nativeQuery = true)
+	List<Lock> findLocksRandomByCountry(@Param("limit") int limit, @Param("userIds") List<String> userId,
+			@Param("country") String country);
+
+	List<Lock> findByUserId(String UserId);
 
 }

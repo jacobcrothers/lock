@@ -16,14 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import binar.box.service.FileService;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
-/**
- * Created by Timis Nicu Alexandru on 18-Apr-18.
- */
 @RestController
 @RequestMapping(Constants.API + Constants.FILE_ENDPOINT)
 public class FileController {

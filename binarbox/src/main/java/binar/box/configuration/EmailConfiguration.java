@@ -10,9 +10,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import binar.box.util.Constants;
 
-/**
- * Created by Timis Nicu Alexandru on 27-Mar-18.
- */
 @Configuration
 public class EmailConfiguration {
 

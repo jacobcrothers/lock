@@ -1,10 +1,7 @@
 package binar.box.dto;
 
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 
-/**
- * Created by Timis Nicu Alexandru on 20-Mar-18.
- */
 public class LockBridgesExceptionDTO {
 	private String message;
 	private String cause;

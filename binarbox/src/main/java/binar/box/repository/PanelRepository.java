@@ -11,9 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import binar.box.domain.Panel;
 
-/**
- * Created by Timis Nicu Alexandru on 11-Jun-18.
- */
 @Repository
 public interface PanelRepository extends JpaRepository<Panel, Long> {
 
@@ -30,6 +27,6 @@ public interface PanelRepository extends JpaRepository<Panel, Long> {
 	List<Object[]> addPanels(@Param("number") int number);
 
 	@Query(value = "SELECT DISTINCT  lb.panel_entity.id,lb.panel_entity.created_date,lb.panel_entity.last_modified_date FROM lb.panel_entity INNER JOIN \r\n"
-			+ "lb.lock_entity ON lb.lock_entity.panel_id = lb.panel_entity.id WHERE lb.lock_entity.user_id=:userId AND lb.lock_entity.paid=1", nativeQuery = true)
+			+ "lb.lock_entity ON lb.lock_entity.panel_id = lb.panel_entity.id WHERE lb.lock_entity.user_id=:userId", nativeQuery = true)
 	List<Panel> findByUser(@Param("userId") String userId);
 }

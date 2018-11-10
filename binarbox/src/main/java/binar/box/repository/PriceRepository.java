@@ -1,11 +1,10 @@
 package binar.box.repository;
 
+
+import binar.box.domain.Price;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import binar.box.domain.LockTypeTemplate;
-
 @Repository
-public interface LockTypeTemplateRepository extends JpaRepository<LockTypeTemplate, Long> {
-
+public interface PriceRepository extends JpaRepository<Price, Long> {
 }

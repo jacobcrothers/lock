@@ -10,11 +10,10 @@ import org.springframework.core.env.Environment;
 import com.zaxxer.hikari.HikariDataSource;
 
 import binar.box.util.Constants;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-/**
- * Created by Timis Nicu Alexandru on 20-Mar-18.
- */
 @Configuration
+@EnableJpaAuditing
 public class DatabaseConfiguration {
 
 	@Autowired

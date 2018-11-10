@@ -1,12 +1,12 @@
 package binar.box.service;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
+import binar.box.converter.UserConverter;
+import binar.box.domain.User;
+import binar.box.dto.FacebookTokenDTO;
+import binar.box.dto.UserProfileDTO;
+import binar.box.repository.UserRepository;
+import binar.box.util.Constants;
+import binar.box.util.Exceptions.LockBridgesException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,16 +15,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.stereotype.Service;
 
-import binar.box.domain.User;
-import binar.box.dto.FacebookTokenDTO;
-import binar.box.dto.UserProfileDTO;
-import binar.box.repository.UserRepository;
-import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-/**
- * Created by Timis Nicu Alexandru on 21-Mar-18.
- */
 @Service
 @Transactional
 public class UserService {
@@ -32,25 +27,23 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private UserConverter userConverter;
+
 	private User getUserById(String userId) {
 		return userRepository.findById(userId).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
 	}
 
-	User getAuthenticatedUser() {
+	public User getAuthenticatedUser() {
 		return getUserById(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 
-	public User loginUser(FacebookTokenDTO facebookTokenDTO) {
+	public void loginUser(FacebookTokenDTO facebookTokenDTO) {
 		var faceBookUser = getFacebookUser(facebookTokenDTO.getToken(),
 				new String[] { Constants.FACEBOOK_ID, Constants.FACEBOOK_EMAIL, Constants.FACEBOOK_FIRST_NAME,
 						Constants.FACEBOOK_LAST_NAME, Constants.LOCATION });
-		var user = getFacebookUserFromDataIfRegistered(faceBookUser);
-		if (user.isPresent()) {
-			return user.get();
-		}
-		var toRegisterUser = new User();
-		facebookUserToOurUser(faceBookUser, toRegisterUser, facebookTokenDTO.getToken());
-		return userRepository.save(toRegisterUser);
+		getFacebookUserFromDataIfRegistered(faceBookUser).orElseGet(() ->
+				userRepository.save(facebookUserToOurUser(faceBookUser)));
 	}
 
 	private Optional<User> getFacebookUserFromDataIfRegistered(
@@ -60,34 +53,29 @@ public class UserService {
 
 	private org.springframework.social.facebook.api.User getFacebookUser(String token, String[] facebookUserFields) {
 		var facebook = new FacebookTemplate(token);
-		var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME,
+		return facebook.fetchObject(Constants.FACEBOOK_ME,
 				org.springframework.social.facebook.api.User.class, facebookUserFields);
-		return facebookUser;
 	}
 
-	private void facebookUserToOurUser(org.springframework.social.facebook.api.User facebookUser, User toRegisterUser,
-			String accessToken) {
-		toRegisterUser.setId(facebookUser.getId());
-		toRegisterUser.setEmail(facebookUser.getEmail());
-		toRegisterUser.setLastName(facebookUser.getLastName());
-		toRegisterUser.setFirstName(facebookUser.getFirstName());
-		toRegisterUser.setCountry(facebookUser.getLocale() == null ? null : facebookUser.getLocale().getCountry());
-		toRegisterUser.setCity(facebookUser.getLocation() == null ? null : facebookUser.getLocation().getName());
-		toRegisterUser.setCreatedDate(new Date());
-		toRegisterUser.setLastModifiedDate(new Date());
+	private User facebookUserToOurUser(org.springframework.social.facebook.api.User facebookUser) {
+		return userConverter.facebookUserToUser(facebookUser);
 	}
 
 	public UserProfileDTO getUser() {
-		return new UserProfileDTO(getAuthenticatedUser());
+		return userConverter.userToUserProfileDTO(getAuthenticatedUser());
 	}
 
-	private void getUserFriendFromFacebook(User user, LinkedList<String> idsList) {
-		var facebook = new FacebookTemplate(user.getId().toString());
+	private List<String> getUserFriendFromFacebook() {
+		List<String> idsList = new ArrayList<>();
+		var facebook = new FacebookTemplate(getAuthenticatedUserToken());
 		var facebookUserFields = new String[] { Constants.FACEBOOK_FRIENDS };
 		var facebookUser = facebook.fetchObject(Constants.FACEBOOK_ME,
 				org.springframework.social.facebook.api.User.class, facebookUserFields);
+		if (facebookUser.getExtraData().isEmpty()){
+			return new ArrayList<>();
+		}
 		var friendsIds = facebookUser.getExtraData().get(Constants.FACEBOOK_FRIENDS).toString();
-		JSONObject jsonObject = null;
+		JSONObject jsonObject;
 		try {
 			jsonObject = new JSONObject(friendsIds);
 			JSONArray array = jsonObject.getJSONArray(Constants.DATA);
@@ -104,12 +92,15 @@ public class UserService {
 			e.printStackTrace();
 			throw new LockBridgesException(Constants.FAILED_TO_GET_FRIENDS_LIST);
 		}
+		return idsList;
 	}
 
-	public List<String> getUserFacebookFriends(User user) {
-		LinkedList<String> idsList = new LinkedList<>();
-		getUserFriendFromFacebook(user, idsList);
-		return idsList;
+	private String getAuthenticatedUserToken() {
+		return (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+	}
+
+	public List<String> getUserFacebookFriends() {
+		return getUserFriendFromFacebook();
 	}
 
 	public User checkUserIfRegistered(String token) {

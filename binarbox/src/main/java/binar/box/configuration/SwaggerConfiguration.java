@@ -13,9 +13,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * Created by Timis Nicu Alexandru on 23-Mar-18.
- */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
@@ -28,6 +25,6 @@ public class SwaggerConfiguration {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfo("Lock Bridges", "API", "Version : v0", "",
-				new Contact("Timis Nicu Alexandru", "", "alex.timis95@gmail.com"), "", "", Collections.emptyList());
+				new Contact("Lazar Andrei", "", "lazarandreionut@gmail.com"), "", "", Collections.emptyList());
 	}
 }

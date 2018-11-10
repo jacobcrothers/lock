@@ -1,43 +1,26 @@
 package binar.box.domain;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-/**
- * Created by Timis Nicu Alexandru on 16-Apr-18.
- */
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper=true)
+@ToString
 @Entity
 @Table(name = "lock_section")
-public class LockSection {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+public class LockSection extends BaseEntity{
 
 	@Column(name = "section")
 	private String section;
 
-	public LockSection() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getSection() {
-		return section;
-	}
-
-	public void setSection(String section) {
-		this.section = section;
-	}
+	@Transient
+	private Lock lock;
 }

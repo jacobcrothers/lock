@@ -12,9 +12,6 @@ import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 
 import binar.box.util.Constants;
 
-/**
- * Created by Timis Nicu Alexandru on 19-Apr-18.
- */
 @Configuration
 public class FacebookConnectionConfiguration implements SocialConfigurer {
 

@@ -15,9 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import binar.box.service.TokenService;
 import binar.box.util.Constants;
 
-/**
- * Created by Timis Nicu Alexandru on 23-Mar-18.
- */
 @Configuration
 @EnableAutoConfiguration
 @EnableWebSecurity
@@ -35,14 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.anonymous().disable();
 		http.cors().disable();
 		http.addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
-		http.authorizeRequests()
-				.antMatchers(HttpMethod.POST, Constants.API + Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_ENDPOINT)
-				.hasAuthority(Constants.ADMIN_AUTHORITY);
-		http.authorizeRequests()
-				.antMatchers(HttpMethod.POST,
-						Constants.API + Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_FILE_ENDPOINT)
-				.hasAuthority(Constants.ADMIN_AUTHORITY);
-
 	}
 
 	@Override

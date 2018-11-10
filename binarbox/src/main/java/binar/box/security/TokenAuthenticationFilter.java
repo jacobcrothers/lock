@@ -16,11 +16,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import binar.box.domain.User;
 import binar.box.service.TokenService;
 import binar.box.util.Constants;
-import binar.box.util.LockBridgesException;
+import binar.box.util.Exceptions.LockBridgesException;
 
-/**
- * Created by Timis Nicu Alexandru on 23-Mar-18.
- */
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 	private TokenService tokenService;
@@ -38,7 +35,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 			throw new LockBridgesException(Constants.AUTHENTICATION_TOKEN_NOT_FOUND);
 		}
 		User user = tokenService.checkFacebookToken(token);
-		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user.getEmail());
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), token);
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		securityContext.setAuthentication(authentication);
 		filterChain.doFilter(request, response);

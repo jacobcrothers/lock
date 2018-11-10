@@ -1,32 +1,15 @@
 package binar.box.dto;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.List;
 
-/**
- * Created by Timis Nicu Alexandru on 11-Jun-18.
- */
+@Data
+@Builder
 public class PanelDTO {
 
 	private long id;
 
-	private List<LockResponseDTO> lockResponseDTO;
-
-	public PanelDTO() {
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public List<LockResponseDTO> getLockResponseDTO() {
-		return lockResponseDTO;
-	}
-
-	public void setLockResponseDTO(List<LockResponseDTO> lockResponseDTO) {
-		this.lockResponseDTO = lockResponseDTO;
-	}
+	private List<LockSectionDTO> lockSectionDTO;
 }

@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import binar.box.configuration.EmailConfiguration;
 
-/**
- * Created by Timis Nicu Alexandru on 27-Mar-18.
- */
 @Service
 public class EmailService {
 
