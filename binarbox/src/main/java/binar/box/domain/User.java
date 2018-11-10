@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -52,4 +54,7 @@ public class User{
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@Column(name = "last_modified_date")
 	private Date lastModifiedDate;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private List<Lock> locks;
 }

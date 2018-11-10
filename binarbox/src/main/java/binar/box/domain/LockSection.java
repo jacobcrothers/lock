@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,6 +20,10 @@ public class LockSection extends BaseEntity{
 	@Column(name = "section")
 	private String section;
 
-	@Transient
-	private Lock lock;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "panel_id")
+	private Panel panel;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockSection")
+	private List<Lock> locks;
 }

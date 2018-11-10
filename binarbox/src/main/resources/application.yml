@@ -2,11 +2,11 @@ spring:
   profiles: dev
   jpa:
     hibernate:
-      ddlAuto: none
+      ddlAuto: create
       namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
     show-sql: true
-  liquibase:
-    change-log: classpath:/liquibase/master.xml
+#  liquibase:
+#    change-log: classpath:/liquibase/master.xml
   servlet:
     multipart:
       maxFileSize: 10MB

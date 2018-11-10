@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -16,5 +18,5 @@ public class LockSectionDTO {
 	private Long point;
 
 
-	private LockResponseDTO lockResponseDTO;
+	private List<LockResponseDTO> lockResponseDTOs;
 }

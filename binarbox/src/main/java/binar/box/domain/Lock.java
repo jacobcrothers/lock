@@ -12,7 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 @Entity
-@Table(name = "lock_entity")
+@Table(name="locks")
 public class Lock extends BaseEntity {
 
 	@Column(name = "message")
@@ -27,23 +27,23 @@ public class Lock extends BaseEntity {
 	@Column(name = "font_color")
 	private String fontColor;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_section_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lockSection_id")
 	private LockSection lockSection;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_type_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lockType_id")
 	private LockType lockType;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_type_template_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lockTypeTemplate_id")
 	private LockTypeTemplate lockTypeTemplate;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "panel_id")
 	private Panel panel;
 
@@ -59,6 +59,6 @@ public class Lock extends BaseEntity {
 	@Column(name = "private_lock")
 	private boolean privateLock;
 
-	@Transient
+	@Column
 	private boolean glitteringLight;
 }
