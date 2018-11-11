@@ -14,60 +14,84 @@ import { mouseWheelZoom } from 'mouse-wheel-zoom';
 export class PanelsComponent implements OnInit {
 
   private createdLock: any;
-  private stopScrolling: boolean = false;
-  private zoomEl: any;
+  private zoomCount: number = 0;
+  private currentImage = '../../../assets/images/bridge/pod0.png';
 
   constructor(
     private addLockService: AddLockService
   ) { }
 
   ngOnInit() {
-    // TO DO get peENALS FROM be
+    // TO DO get penals from BE
     this.createdLock = this.addLockService.createdLock;
-    console.log('created lock from service--', this.createdLock);
-    this.addZoomFunctionality();
-  }
-
-  addZoomFunctionality() {
-
-    // first solution
-    this.zoomEl = mouseWheelZoom({
-      element: document.querySelector('[data-wheel-zoom]'),
-      zoomStep: .5
-    });
-
-    // second solution
-    // this.zoomEl = mouseWheelZoom({
-    //   element: document.querySelector('[data-wheel-zoom]'),
-    //   zoomStep: 0
-    // });
   }
 
   onMousewheel(event) {
-    // first solution
+    // array from BE
+    let bridgeImgs = [
+      {
+        id: 0,
+        src: '../../../assets/images/bridge/pod0.png'
+      },
+      {
+        id: 1,
+        src: '../../../assets/images/bridge/pod1.png'
+      },
+      {
+        id: 2,
+        src: '../../../assets/images/bridge/pod2.png'
+      },
+      {
+        id: 3,
+        src: '../../../assets/images/bridge/pod3.png'
+      }
+    ]
 
-    if (event.target.clientHeight > 4800) {
-      this.stopScrolling = true;
-      this.zoomEl.reset();
+    if (event.deltaY < 0) {
+      if (this.zoomCount < 3) {
+        this.zoomCount = this.zoomCount + 1;
+      } else {
+        this.zoomCount = 3;
+      }
+    } else {
+      if (this.zoomCount <= 3 && this.zoomCount > 0) {
+        this.zoomCount = this.zoomCount - 1;
+      } else {
+        this.zoomCount = 0;
+      }
     }
+    this.currentImage = this.findBridgeImg(bridgeImgs, this.zoomCount);
 
-
-    //second solution
-    // let imgSrc = event.target.currentSrc;
-    // let srcCount = imgSrc.substring(imgSrc.lastIndexOf('d') + 1, imgSrc.lastIndexOf('.'));
-
-    // let newSrc;
-    // if (event.deltaY < 0) {
-    //  newSrc = '../../../assets/images/bridge/pod'.concat((parseInt(srcCount) + 1).toString(), '.png');
-    // } else {
-    //   newSrc = '../../../assets/images/bridge/pod'.concat((parseInt(srcCount) - 1).toString(), '.png');
-    // }
-
-    // this.zoomEl.setSrc(newSrc);
+    if (this.zoomCount === 3) {
+      console.log('image 3');
+      $("map[name=image-map]").imageMapResize();
+    }
   }
 
-  mouseEnter(event) {
-    console.log("hover on panel area", event);
+  findBridgeImg(images, count) {
+    let newImg = images.find((img) => {
+      return img.id === count;
+    });
+    return newImg.src;
   }
 
+  chooseSection(event) {
+    event.preventDefault();
+  }
+
+  mouseEnter() {
+    $("map[name=image-map]").mapoid( {
+      strokeColor: 'red',
+      strokeWidth: 1,
+      fillColor: 'yellow',
+      fillOpacity: 0.5,
+      fadeTime: 500,
+      selectedArea: false,
+      selectOnClick: true
+    });
+  }
+
+  mouseLeave() {
+    // console.log('mouse leave---');
+  }
 }
