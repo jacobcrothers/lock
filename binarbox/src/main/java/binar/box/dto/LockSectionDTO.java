@@ -1,5 +1,6 @@
 package binar.box.dto;
 
+import binar.box.domain.Point;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,10 +14,6 @@ public class LockSectionDTO {
 
 	@NotNull
 	private String section;
-
-	// TO MAKE ENTITY FOR X AND Y
-	private Long point;
-
 
 	private List<LockResponseDTO> lockResponseDTOs;
 }

@@ -48,6 +48,9 @@ public class LockService {
 	@Autowired
 	private PriceRepository priceRepository;
 
+	@Autowired
+	private PointRepository pointRepository;
+
 	public LockCategoryDTOResponse addLockCategory(LockCategoryDTO lockCategoryDTO) {
 		LockCategory lockCategory = new LockCategory();
 		lockCategory.setCategory(lockCategoryDTO.getCategory());
@@ -84,6 +87,18 @@ public class LockService {
 	}
 
 	private Lock populateEntity(LockDTO lockDTO, Lock lock) {
+		Point point = new Point();
+		if (Objects.isNull(lockDTO.getId())){
+			point.setX(lockDTO.getX());
+			point.setY(lockDTO.getY());
+			pointRepository.save(point);
+		} else {
+			point = lock.getPoint();
+			point.setX(lockDTO.getX());
+			point.setY(lockDTO.getY());
+			pointRepository.save(point);
+		}
+
 		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
 				lockSectionRepository.findOne(lockDTO.getLockSection());
 
@@ -94,6 +109,7 @@ public class LockService {
 				                      lock,
 				                      lockSection,
 				                      lockTypeTemplate,
+				                      point,
 				                      userService.getAuthenticatedUser());
 	}
 

@@ -51,6 +51,10 @@ public class Lock extends BaseEntity {
 	@Column(name = "private_lock")
 	private boolean privateLock;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name= "point_id")
+	private Point point;
+
 	@Column
 	private boolean glitteringLight;
 }

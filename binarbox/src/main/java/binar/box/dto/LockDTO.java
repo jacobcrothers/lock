@@ -32,4 +32,10 @@ public class LockDTO {
 
 	@NotNull
 	private boolean privateLock;
+
+	@NotNull
+	private Double x;
+
+	@NotNull
+	private Double y;
 }

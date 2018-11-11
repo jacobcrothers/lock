@@ -34,4 +34,6 @@ public class LockResponseDTO {
 	private BigDecimal price;
 
 	private boolean paid;
+
+	private PointDTO pointDTO;
 }

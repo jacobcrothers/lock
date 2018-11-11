@@ -61,6 +61,8 @@ INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`
 
 INSERT INTO lb.user VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789');
 
-INSERT INTO lb.locks VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'delete token?', 'BLACK', 60, 'NEW STYLE', 0, 'lock color?', 'MASSAGE',0,0, 3, 3, '2170256639660343');
+INSERT INTO lb.point VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 112, 112);
 
-INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8)
+INSERT INTO lb.locks VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'delete token?', 'BLACK', 60, 'NEW STYLE', 0, 'lock color?', 'MASSAGE',0,0, 3, 3, 1, '2170256639660343');
+
+INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8);

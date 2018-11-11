@@ -19,6 +19,9 @@ public class LockConvertor {
     @Autowired
     private LockTypeConverter lockTypeConverter;
 
+    @Autowired
+    private PointConverter pointConverter;
+
     public LockResponseDTO toResponseDTO(Lock lock){
         return LockResponseDTO.builder()
                 .fontColor(lock.getFontColor())
@@ -32,6 +35,7 @@ public class LockConvertor {
                 .price(lock.getLockTypeTemplate().getLockCategory().getPrice().getPrice().add(lock.getLockTypeTemplate().getPrice().getPrice()))
                 .panelId(Objects.isNull(lock.getLockSection())? null :lock.getLockSection().getPanel().getId())
                 .lockSectionId(Objects.isNull(lock.getLockSection()) ? null : lock.getLockSection().getId())
+                .pointDTO(Objects.isNull(lock.getPoint()) ? null : pointConverter.toDTO(lock.getPoint()))
                 .lockCategoryDTOResponse(Objects.isNull(lock.getLockTypeTemplate()) ? null : lockTypeConverter.lockToLockTypeResponse(lock.getLockTypeTemplate().getLockCategory()))
                 .build();
     }
@@ -40,7 +44,7 @@ public class LockConvertor {
         return locks.stream().map(this::toResponseDTO).collect(Collectors.toList());
     }
 
-    public Lock toEntity(LockDTO lockDTO, Lock lock, LockSection lockSection, LockTypeTemplate lockTypeTemplate, User user){
+    public Lock toEntity(LockDTO lockDTO, Lock lock, LockSection lockSection, LockTypeTemplate lockTypeTemplate,Point point, User user){
         lock.setFontColor(Objects.isNull(lockDTO.getFontColor()) ? lock.getFontColor() : lockDTO.getFontColor());
         lock.setFontSize(Objects.isNull(lockDTO.getFontSize()) ? lock.getFontSize() : lockDTO.getFontSize());
         lock.setFontStyle(Objects.isNull(lockDTO.getFontStyle()) ? lock.getFontStyle() : lockDTO.getFontStyle());
@@ -51,6 +55,7 @@ public class LockConvertor {
         lock.setPaid(Objects.isNull(lockDTO.isPaid()) ? lock.isPaid() : lockDTO.isPaid());
         lock.setLockSection(Objects.isNull(lockSection) ? lock.getLockSection() : lockSection);
         lock.setLockTypeTemplate(Objects.isNull(lockTypeTemplate) ? lock.getLockTypeTemplate() : lockTypeTemplate);
+        lock.setPoint(Objects.isNull(point) ? lock.getPoint() : point);
         lock.setUser(user);
 
         return lock;
