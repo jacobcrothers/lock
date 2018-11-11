@@ -39,3 +39,28 @@ INSERT INTO lb.lock_section VALUES (29, '2018-11-10 23:52:14', '2018-11-10 23:52
 INSERT INTO lb.lock_section VALUES (30, '2018-11-10 23:52:14', '2018-11-10 23:52:14', '8B', 8);
 INSERT INTO lb.lock_section VALUES (31, '2018-11-10 23:52:14', '2018-11-10 23:52:14', '8C', 8);
 INSERT INTO lb.lock_section VALUES (32, '2018-11-10 23:52:14', '2018-11-10 23:52:14', '8D', 8);
+
+
+INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (1, '20', '2018-08-23', '2018-08-23 10:32:23');
+INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (2, '30', '2018-08-23', '2018-08-23 10:32:23');
+INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (3, '50', '2018-08-23', '2018-08-23 10:32:23');
+
+INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`) VALUES (1, 'REGULAR', '10', 1, '2018-08-23', '2018-08-23 10:33:20');
+INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`) VALUES (2, 'VIP', '10', 2, '2018-08-23', '2018-08-23 10:33:20');
+INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`) VALUES (3, 'GOLD', '10', 3, '2018-08-23', '2018-08-23 10:33:20');
+
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (1, '61', 'ROBOTO', 'BLACK', '1', '1', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (2, '62', 'ROBO', 'BLACK', '1', '2', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (3, '63', 'GOGO', 'BLACK', '1', '3', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (4, '64', 'HOHO', 'BLACK', '2', '1', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (5, '65', 'BLOBLO2', 'BLACK', '2', '2', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (6, '66', 'QWEASD', 'BLACK', '2', '3', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (7, '67', 'ASDASD', 'BLACK', '3', '1', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (8, '68', 'ZCZC', 'BLACK', '3', '2', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (9, '69', 'GHSDF', 'BLACK', '3', '3', '2018-08-23', '2018-08-23 10:35:46');
+
+INSERT INTO lb.user VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789');
+
+INSERT INTO lb.locks VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'delete token?', 'BLACK', 60, 'NEW STYLE', 0, 'lock color?', 'MASSAGE',0,0, 3, 3, '2170256639660343');
+
+INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8)

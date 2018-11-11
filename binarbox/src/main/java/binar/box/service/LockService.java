@@ -34,9 +34,6 @@ public class LockService {
 	private LockRepository lockRepository;
 
 	@Autowired
-	private PanelRepository panelRepository;
-
-	@Autowired
 	private LockTypeConverter lockTypeConverter;
 
 	@Autowired
@@ -90,16 +87,12 @@ public class LockService {
 		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
 				lockSectionRepository.findOne(lockDTO.getLockSection());
 
-		Panel panel= Objects.isNull(lockDTO.getPanelId()) ? null :
-				panelRepository.findOne(lockDTO.getPanelId());
-
-		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockCategory()) ? null :
+		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockTypeTemplate()) ? null :
 				lockTypeTemplateRepository.findOne(lockDTO.getLockTypeTemplate());
 
 		return lockConvertor.toEntity(lockDTO,
 				                      lock,
 				                      lockSection,
-				                      panel,
 				                      lockTypeTemplate,
 				                      userService.getAuthenticatedUser());
 	}

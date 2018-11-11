@@ -31,6 +31,6 @@ public class LockCategory extends BaseEntity {
 	private List<LockTypeTemplate> lockTypeTemplate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "price")
+	@JoinColumn(name = "price_id")
 	private Price price;
 }

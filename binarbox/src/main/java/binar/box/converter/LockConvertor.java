@@ -30,8 +30,8 @@ public class LockConvertor {
                 .glitteringLight(lock.isGlitteringLight())
                 .paid(lock.isPaid())
                 .price(lock.getLockTypeTemplate().getLockCategory().getPrice().getPrice().add(lock.getLockTypeTemplate().getPrice().getPrice()))
-                .panelId(Objects.isNull(lock.getPanel())? null :lock.getPanel().getId())
-                .lockSection(Objects.isNull(lock.getLockSection()) ? null : lockSectionConvertor.toDTO(lock.getLockSection()))
+                .panelId(Objects.isNull(lock.getLockSection())? null :lock.getLockSection().getPanel().getId())
+                .lockSectionId(Objects.isNull(lock.getLockSection()) ? null : lock.getLockSection().getId())
                 .lockCategoryDTOResponse(Objects.isNull(lock.getLockTypeTemplate()) ? null : lockTypeConverter.lockToLockTypeResponse(lock.getLockTypeTemplate().getLockCategory()))
                 .build();
     }
@@ -40,7 +40,7 @@ public class LockConvertor {
         return locks.stream().map(this::toResponseDTO).collect(Collectors.toList());
     }
 
-    public Lock toEntity(LockDTO lockDTO, Lock lock, LockSection lockSection, Panel panel, LockTypeTemplate lockTypeTemplate, User user){
+    public Lock toEntity(LockDTO lockDTO, Lock lock, LockSection lockSection, LockTypeTemplate lockTypeTemplate, User user){
         lock.setFontColor(Objects.isNull(lockDTO.getFontColor()) ? lock.getFontColor() : lockDTO.getFontColor());
         lock.setFontSize(Objects.isNull(lockDTO.getFontSize()) ? lock.getFontSize() : lockDTO.getFontSize());
         lock.setFontStyle(Objects.isNull(lockDTO.getFontStyle()) ? lock.getFontStyle() : lockDTO.getFontStyle());
@@ -50,7 +50,6 @@ public class LockConvertor {
         lock.setPrivateLock(Objects.isNull(lockDTO.isPrivateLock()) ? lock.isPrivateLock() : lockDTO.isPrivateLock());
         lock.setPaid(Objects.isNull(lockDTO.isPaid()) ? lock.isPaid() : lockDTO.isPaid());
         lock.setLockSection(Objects.isNull(lockSection) ? lock.getLockSection() : lockSection);
-        lock.setPanel(Objects.isNull(panel) ? lock.getPanel() : panel);
         lock.setLockTypeTemplate(Objects.isNull(lockTypeTemplate) ? lock.getLockTypeTemplate() : lockTypeTemplate);
         lock.setUser(user);
 

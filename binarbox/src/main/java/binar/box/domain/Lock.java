@@ -39,10 +39,6 @@ public class Lock extends BaseEntity {
 	@JoinColumn(name = "lockTypeTemplate_id")
 	private LockTypeTemplate lockTypeTemplate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "panel_id")
-	private Panel panel;
-
 	@Column(name = "delete_token")
 	private String deleteToken;
 

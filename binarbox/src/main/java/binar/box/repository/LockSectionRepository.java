@@ -8,5 +8,4 @@ public interface LockSectionRepository extends BaseJpaRepository<LockSection, Lo
 
 	List<LockSection> findBySection(char letter);
 
-	List<LockSection> findByPanelId(long panelId);
 }

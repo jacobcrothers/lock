@@ -21,7 +21,7 @@ public class LockResponseDTO {
 
 	private String lockColor;
 
-	private LockSectionDTO lockSection;
+	private Long lockSectionId;
 
 	private LockCategoryDTOResponse lockCategoryDTOResponse;
 

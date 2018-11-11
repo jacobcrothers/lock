@@ -28,13 +28,7 @@ public class LockDTO {
 	private Long lockSection;
 
 	@NotNull
-	private Long lockCategory;
-
-	@NotNull
 	private Long lockTypeTemplate;
-
-	@NotNull
-	private Long panelId;
 
 	@NotNull
 	private boolean privateLock;

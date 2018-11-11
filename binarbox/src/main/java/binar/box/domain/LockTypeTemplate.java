@@ -27,18 +27,18 @@ public class LockTypeTemplate extends BaseEntity {
 	@Column(name = "font_color")
 	private String fontColor;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "lockTypeTemplate")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockTypeTemplate")
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<File> files;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_category")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lock_category_id")
 	private LockCategory lockCategory;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockTypeTemplate")
 	private List<Lock> locks;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "price")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "price_id")
 	private Price price;
 }
