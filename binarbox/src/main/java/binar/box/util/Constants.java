@@ -34,13 +34,13 @@ public class Constants {
 	public static final String CONFIRM_EMAIL_ENDPOINT = "/email/confirm";
 	public static final String USER_AUTHORITY_STRING = "USER";
 	public static final String LOCK_ENDPOINT = "lock";
-	public static final String LOCK_TYPE_ENDPOINT = "/type";
+	public static final String LOCK_CATEGORY_ENDPOINT = "/category";
 	public static final String OS_NAME = "os.name";
 	public static final String WIN = "win";
 	public static final String EXCEPTION_SAVING_FILES = "Exception saving files : ";
-	public static final String LOCK_TYPE_NOT_FOUND = "Lock type not found";
-	public static final String LOCK_TYPE_TEMPLATE_NOT_FOUND = "Lock type template not found";
-	public static final String LOCK_TYPE_FILE_ENDPOINT = "/type/file";
+	public static final String LOCK_CATEGORY_NOT_FOUND = "Lock category not found";
+	public static final String LOCK_CATEGORY_TEMPLATE_NOT_FOUND = "Lock type template not found";
+	public static final String LOCK_CATEGORY_FILE_ENDPOINT = "/category/file";
 	public static final String ADMIN_AUTHORITY = "ADMIN";
 	public static final String FILE_ENDPOINT = "file";
 	public static final String FILE_NOT_FOUND = "File not found!";

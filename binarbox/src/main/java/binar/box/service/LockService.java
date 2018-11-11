@@ -51,18 +51,18 @@ public class LockService {
 	@Autowired
 	private PriceRepository priceRepository;
 
-	public LockTypeDTOResponse addLockType(LockTypeDTO lockTypeDTO) {
-		LockType lockType = new LockType();
-		lockType.setType(lockTypeDTO.getType());
+	public LockCategoryDTOResponse addLockCategory(LockCategoryDTO lockCategoryDTO) {
+		LockCategory lockCategory = new LockCategory();
+		lockCategory.setCategory(lockCategoryDTO.getCategory());
 
 		Price price = new Price();
-		price.setPrice(lockTypeDTO.getPrice());
-		lockType.setPrice(priceRepository.save(price));
+		price.setPrice(lockCategoryDTO.getPrice());
+		lockCategory.setPrice(priceRepository.save(price));
 
-		return lockTypeConverter.lockToLockTypeResponse(lockTypeRepository.save(lockType));
+		return lockTypeConverter.lockToLockTypeResponse(lockTypeRepository.save(lockCategory));
 	}
 
-	public List<LockTypeDTOResponse> getLockTypes() {
+	public List<LockCategoryDTOResponse> getLockCategories() {
 		return lockTypeConverter.toDTOList(lockTypeRepository.findAll());
 	}
 
@@ -93,18 +93,13 @@ public class LockService {
 		Panel panel= Objects.isNull(lockDTO.getPanelId()) ? null :
 				panelRepository.findOne(lockDTO.getPanelId());
 
-		LockType lockType=Objects.isNull(lockDTO.getLockType()) ? null :
-				lockTypeRepository.findByIdWithTemplatePriceAndFile(lockDTO.getLockType())
-						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND));
-
-		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockType()) ? null :
+		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockCategory()) ? null :
 				lockTypeTemplateRepository.findOne(lockDTO.getLockTypeTemplate());
 
 		return lockConvertor.toEntity(lockDTO,
 				                      lock,
 				                      lockSection,
 				                      panel,
-				                      lockType,
 				                      lockTypeTemplate,
 				                      userService.getAuthenticatedUser());
 	}

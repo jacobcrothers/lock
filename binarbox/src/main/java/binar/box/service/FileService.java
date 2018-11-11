@@ -7,19 +7,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
-import binar.box.util.Exceptions.EntityNotFoundException;
 import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import binar.box.domain.LockType;
+import binar.box.domain.LockCategory;
 import binar.box.repository.FileRepository;
 import binar.box.repository.LockTypeRepository;
 import binar.box.util.Constants;
@@ -38,8 +36,8 @@ public class FileService {
 	@Autowired
 	private LockTypeRepository lockTypeRepository;
 
-	public void saveFilesToLockType(MultipartFile[] files, long lockTypeId) throws IOException {
-		LockType lockType = lockTypeRepository.findOne(lockTypeId);
+	public void saveFilesToLockCategory(MultipartFile[] files, long lockCategoryId) throws IOException {
+		LockCategory lockCategory = lockTypeRepository.findOne(lockCategoryId);
 		String os = System.getProperty(Constants.OS_NAME).toLowerCase();
 		String pathToSaveFiles;
 		if (os.contains(Constants.WIN)) {
@@ -49,14 +47,14 @@ public class FileService {
 		}
 		checkOrCreateDirectory(pathToSaveFiles);
 		List<File> fileList = saveEachFile(pathToSaveFiles, files);
-		createEntityFiles(fileList, lockType);
+		createEntityFiles(fileList, lockCategory);
 	}
 
-	private void createEntityFiles(List<File> fileList, LockType lockType) {
+	private void createEntityFiles(List<File> fileList, LockCategory lockCategory) {
 		fileList.forEach(file -> {
 			binar.box.domain.File sqlFile = new binar.box.domain.File();
 			sqlFile.setFileName(file.getName());
-			sqlFile.setLockType(lockType);
+			sqlFile.setLockCategory(lockCategory);
 			sqlFile.setPathToFile(file.getPath());
 			fileRepository.save(sqlFile);
 		});

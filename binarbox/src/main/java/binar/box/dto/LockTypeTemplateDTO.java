@@ -20,7 +20,7 @@ public class LockTypeTemplateDTO {
 
 	private List<FileDTO> filesDTO;
 
-	private String lockType;
+	private String lockCategory;
 
 	private BigDecimal price;
 }

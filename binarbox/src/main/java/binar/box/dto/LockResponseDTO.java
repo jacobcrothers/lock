@@ -23,7 +23,7 @@ public class LockResponseDTO {
 
 	private LockSectionDTO lockSection;
 
-	private LockTypeDTOResponse lockTypeDTOResponse;
+	private LockCategoryDTOResponse lockCategoryDTOResponse;
 
 	private Long panelId;
 

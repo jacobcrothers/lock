@@ -28,7 +28,7 @@ public class LockDTO {
 	private Long lockSection;
 
 	@NotNull
-	private Long lockType;
+	private Long lockCategory;
 
 	@NotNull
 	private Long lockTypeTemplate;

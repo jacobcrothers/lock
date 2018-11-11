@@ -22,8 +22,8 @@ public class File extends BaseEntity {
 	private String pathToFile;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_type")
-	private LockType lockType;
+	@JoinColumn(name = "lock_category")
+	private LockCategory lockCategory;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "lock_type_template")

@@ -32,8 +32,11 @@ public class LockTypeTemplate extends BaseEntity {
 	private List<File> files;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_type")
-	private LockType lockType;
+	@JoinColumn(name = "lock_category")
+	private LockCategory lockCategory;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockTypeTemplate")
+	private List<Lock> locks;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "price")

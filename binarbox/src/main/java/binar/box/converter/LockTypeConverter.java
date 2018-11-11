@@ -1,9 +1,7 @@
 package binar.box.converter;
 
-import binar.box.domain.Lock;
-import binar.box.domain.LockType;
-import binar.box.dto.LockTypeDTOResponse;
-import binar.box.dto.LockTypeTemplateDTO;
+import binar.box.domain.LockCategory;
+import binar.box.dto.LockCategoryDTOResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,19 +18,19 @@ public class LockTypeConverter {
     @Autowired
     private LockTypeTemplateConverter lockTypeTemplateConverter;
 
-    public LockTypeDTOResponse lockToLockTypeResponse(LockType lockType){
-        return LockTypeDTOResponse.builder()
-                .id(lockType.getId())
-                .price(lockType.getPrice().getPrice())
-                .type(lockType.getType())
-                .lockTypeTemplate(Objects.isNull(lockType.getLockTypeTemplate()) ? null :
-                        lockTypeTemplateConverter.toDTOList(lockType.getLockTypeTemplate()))
-                .filesDTO(Objects.isNull((lockType.getFiles())) ? null :
-                        fileConverter.toDTOList(lockType.getFiles()))
+    public LockCategoryDTOResponse lockToLockTypeResponse(LockCategory lockCategory){
+        return LockCategoryDTOResponse.builder()
+                .id(lockCategory.getId())
+                .price(lockCategory.getPrice().getPrice())
+                .category(lockCategory.getCategory())
+                .lockTypeTemplate(Objects.isNull(lockCategory.getLockTypeTemplate()) ? null :
+                        lockTypeTemplateConverter.toDTOList(lockCategory.getLockTypeTemplate()))
+                .filesDTO(Objects.isNull((lockCategory.getFiles())) ? null :
+                        fileConverter.toDTOList(lockCategory.getFiles()))
                 .build();
     }
 
-    public List<LockTypeDTOResponse> toDTOList(List<LockType> lockTypes){
-        return lockTypes.stream().map(this::lockToLockTypeResponse).collect(Collectors.toList());
+    public List<LockCategoryDTOResponse> toDTOList(List<LockCategory> lockCategories){
+        return lockCategories.stream().map(this::lockToLockTypeResponse).collect(Collectors.toList());
     }
 }

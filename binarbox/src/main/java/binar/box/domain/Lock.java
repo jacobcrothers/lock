@@ -36,10 +36,6 @@ public class Lock extends BaseEntity {
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lockType_id")
-	private LockType lockType;
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lockTypeTemplate_id")
 	private LockTypeTemplate lockTypeTemplate;
 

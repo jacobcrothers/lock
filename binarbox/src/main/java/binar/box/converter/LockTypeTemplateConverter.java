@@ -21,7 +21,7 @@ public class LockTypeTemplateConverter {
                 .fontSize(lockTypeTemplate.getFontSize())
                 .fontStyle(lockTypeTemplate.getFontStyle())
                 .id(lockTypeTemplate.getId())
-                .lockType(lockTypeTemplate.getLockType().getType())
+                .lockCategory(lockTypeTemplate.getLockCategory().getCategory())
                 .price(lockTypeTemplate.getPrice().getPrice())
                 .build();
     }

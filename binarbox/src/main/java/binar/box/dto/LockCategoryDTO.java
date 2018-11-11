@@ -5,13 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-//CHANGE TYPE TO CATEGORY
 @Data
-public class LockTypeDTO {
+public class LockCategoryDTO {
 
 	@NotEmpty
 	@NotNull
-	private String type;
+	private String category;
 
 	@NotNull
 	private BigDecimal price;
