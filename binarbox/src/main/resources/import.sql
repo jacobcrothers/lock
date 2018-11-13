@@ -79,3 +79,10 @@ INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `pa
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (10, '2018-11-13 19:19:09.353000', '2018-11-13 19:19:09.353000', 'lock5.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock5.jpeg', NULL, 7);
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (11, '2018-11-13 19:19:13.961000', '2018-11-13 19:19:13.961000', 'lock7.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock7.jpeg', NULL, 8);
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (12, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock8.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock8.jpeg', NULL, 9);
+
+-------------- RUN THIS TO SYNC FILE DIRECTORY -----------------
+
+-- REPLACE Z:new\\Bridges\\lock\\binarbox\\images with your environment path and don't forget to escape backslash (\\) --
+--
+-- UPDATE file
+-- SET path_to_file = REPLACE (path_to_file, 'Z:new\\Bridges\\lock\\binarbox\\images', 'YOUR PATH')
