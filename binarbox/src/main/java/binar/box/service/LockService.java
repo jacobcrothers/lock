@@ -87,6 +87,21 @@ public class LockService {
 	}
 
 	private Lock populateEntity(LockDTO lockDTO, Lock lock) {
+		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
+				lockSectionRepository.findOne(lockDTO.getLockSection());
+
+		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockTypeTemplate()) ? null :
+				lockTypeTemplateRepository.findOne(lockDTO.getLockTypeTemplate());
+
+		return lockConvertor.toEntity(lockDTO,
+				                      lock,
+				                      lockSection,
+				                      lockTypeTemplate,
+									  addPoint(lockDTO, lock),
+				                      userService.getAuthenticatedUser());
+	}
+
+	private Point addPoint(LockDTO lockDTO, Lock lock) {
 		Point point = new Point();
 		if (Objects.isNull(lockDTO.getId())){
 			point.setX(lockDTO.getX());
@@ -98,19 +113,7 @@ public class LockService {
 			point.setY(lockDTO.getY());
 			pointRepository.save(point);
 		}
-
-		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
-				lockSectionRepository.findOne(lockDTO.getLockSection());
-
-		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockTypeTemplate()) ? null :
-				lockTypeTemplateRepository.findOne(lockDTO.getLockTypeTemplate());
-
-		return lockConvertor.toEntity(lockDTO,
-				                      lock,
-				                      lockSection,
-				                      lockTypeTemplate,
-				                      point,
-				                      userService.getAuthenticatedUser());
+		return point;
 	}
 
 	public List<LockResponseDTO> getLocks() {

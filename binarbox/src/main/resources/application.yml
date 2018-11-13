@@ -31,9 +31,6 @@ mail:
   username: alex.timis95@yahoo.com
   password: fordevelopment6
   from: alex.timis95@yahoo.com
-filesPath:
-  windows: D:\temp\lb
-  linux: /var/tmp/lb
 facebook:
   clientId: 227796454748370
   clientSecret: 99b7d10633ccea8a8a8c7731fdcaffa7

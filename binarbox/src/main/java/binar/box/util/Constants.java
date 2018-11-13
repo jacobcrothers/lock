@@ -41,6 +41,7 @@ public class Constants {
 	public static final String LOCK_CATEGORY_NOT_FOUND = "Lock category not found";
 	public static final String LOCK_CATEGORY_TEMPLATE_NOT_FOUND = "Lock type template not found";
 	public static final String LOCK_CATEGORY_FILE_ENDPOINT = "/category/file";
+	public static final String LOCK_TEMPLATE_FILE_ENDPOINT = "/template/file";
 	public static final String ADMIN_AUTHORITY = "ADMIN";
 	public static final String FILE_ENDPOINT = "file";
 	public static final String FILE_NOT_FOUND = "File not found!";

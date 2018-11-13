@@ -11,6 +11,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
+import binar.box.domain.LockTypeTemplate;
+import binar.box.repository.LockTypeTemplateRepository;
 import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -36,21 +38,21 @@ public class FileService {
 	@Autowired
 	private LockTypeRepository lockTypeRepository;
 
+	@Autowired
+	private LockTypeTemplateRepository lockTypeTemplateRepository;
+
 	public void saveFilesToLockCategory(MultipartFile[] files, long lockCategoryId) throws IOException {
 		LockCategory lockCategory = lockTypeRepository.findOne(lockCategoryId);
-		String os = System.getProperty(Constants.OS_NAME).toLowerCase();
-		String pathToSaveFiles;
-		if (os.contains(Constants.WIN)) {
-			pathToSaveFiles = environment.getProperty("filesPath.windows");
-		} else {
-			pathToSaveFiles = environment.getProperty("filesPath.linux");
-		}
-		checkOrCreateDirectory(pathToSaveFiles);
-		List<File> fileList = saveEachFile(pathToSaveFiles, files);
-		createEntityFiles(fileList, lockCategory);
+		List<File> fileList = saveFilesOnDisk(files);
+		createCategoryFiles(fileList, lockCategory);
 	}
 
-	private void createEntityFiles(List<File> fileList, LockCategory lockCategory) {
+	private List<File> saveFilesOnDisk(MultipartFile[] files) throws IOException {
+		String pathToSaveFiles = checkOrCreateDirectory();
+		return saveEachFile(pathToSaveFiles, files);
+	}
+
+	private void createCategoryFiles(List<File> fileList, LockCategory lockCategory) {
 		fileList.forEach(file -> {
 			binar.box.domain.File sqlFile = new binar.box.domain.File();
 			sqlFile.setFileName(file.getName());
@@ -60,11 +62,12 @@ public class FileService {
 		});
 	}
 
-	private void checkOrCreateDirectory(String pathToSaveFiles) {
-		File directory = new File(pathToSaveFiles);
+	private String checkOrCreateDirectory() {
+		File directory = new File(new File("").getAbsolutePath() + "\\images");
 		if (!directory.exists()) {
 			directory.mkdirs();
 		}
+		return directory.getAbsolutePath();
 	}
 
 	private List<File> saveEachFile(String pathToSaveFiles, MultipartFile[] files) throws IOException {
@@ -72,7 +75,7 @@ public class FileService {
 		for (MultipartFile multipartFile : files) {
 			File file = new File(pathToSaveFiles + File.separator + multipartFile.getOriginalFilename());
 			try {
-				addTextToImage(multipartFile, pathToSaveFiles);
+//				addTextToImage(multipartFile, pathToSaveFiles);
 				multipartFile.transferTo(file);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -122,5 +125,21 @@ public class FileService {
 
     public binar.box.domain.File getFile(long fileId) {
 		return fileRepository.findOne(fileId);
+	}
+
+	public void saveFilesToLockTemplate(MultipartFile[] files, long lockTemplateId) throws IOException {
+		LockTypeTemplate lockCategory = lockTypeTemplateRepository.findOne(lockTemplateId);
+		List<File> fileList = saveFilesOnDisk(files);
+		createTemplateFiles(fileList, lockCategory);
+	}
+
+	private void createTemplateFiles(List<File> fileList, LockTypeTemplate lockTypeTemplate) {
+		fileList.forEach(file -> {
+			binar.box.domain.File sqlFile = new binar.box.domain.File();
+			sqlFile.setFileName(file.getName());
+			sqlFile.setLockTypeTemplate(lockTypeTemplate);
+			sqlFile.setPathToFile(file.getPath());
+			fileRepository.save(sqlFile);
+		});
 	}
 }
