@@ -21,11 +21,13 @@ public class File extends BaseEntity {
 	@Column(name = "path_to_file")
 	private String pathToFile;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lock_category_id")
-	private LockCategory lockCategory;
+	@Column(name="type")
+	private Type type;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lock_type_template_id")
-	private LockTypeTemplate lockTypeTemplate;
+	public enum Type {
+		CATEGORY,
+		FULL_TEMPLATE,
+		PARTIALY_ERASED_TEMPLATE
+	}
 }
+

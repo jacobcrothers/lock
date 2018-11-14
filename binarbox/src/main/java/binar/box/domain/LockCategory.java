@@ -20,9 +20,9 @@ public class LockCategory extends BaseEntity {
 	@Column(name = "category")
 	private String category;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockCategory")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<File> files;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name= "file_id")
+	private File files;
 
 	@Column(name = "total_rating")
 	private Float totalRating;

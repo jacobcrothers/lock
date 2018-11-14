@@ -43,11 +43,11 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "ADMIN: Add lock category images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
+	@ApiOperation(value = "ADMIN: Add lock category image", notes = "This endpoint is for admin, admin add lock image.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_CATEGORY_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity addLockCategoryFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("id") long lockCategoryId) throws IOException {
-		fileService.saveFilesToLockCategory(files, lockCategoryId);
+	private ResponseEntity addLockCategoryFiles(@RequestParam("file") MultipartFile file, @RequestParam("id") long lockCategoryId) throws IOException {
+		fileService.saveFilesToLockCategory(file, lockCategoryId);
 		return new ResponseEntity(HttpStatus.CREATED);
 	}
 

@@ -40,14 +40,26 @@ INSERT INTO lb.lock_section VALUES (30, '2018-11-10 23:52:14', '2018-11-10 23:52
 INSERT INTO lb.lock_section VALUES (31, '2018-11-10 23:52:14', '2018-11-10 23:52:14', '8C', 8);
 INSERT INTO lb.lock_section VALUES (32, '2018-11-10 23:52:14', '2018-11-10 23:52:14', '8D', 8);
 
-
 INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (1, '20', '2018-08-23', '2018-08-23 10:32:23');
 INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (2, '30', '2018-08-23', '2018-08-23 10:32:23');
 INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (3, '50', '2018-08-23', '2018-08-23 10:32:23');
 
-INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`) VALUES (1, 'REGULAR', '10', 1, '2018-08-23', '2018-08-23 10:33:20');
-INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`) VALUES (2, 'VIP', '10', 2, '2018-08-23', '2018-08-23 10:33:20');
-INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`) VALUES (3, 'GOLD', '10', 3, '2018-08-23', '2018-08-23 10:33:20');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (1, '2018-11-13 19:09:39.198000', '2018-11-13 19:09:39.198000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 0);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (2, '2018-11-13 19:10:04.776000', '2018-11-13 19:10:04.776000', 'lock2.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock2.jpeg', 0);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (3, '2018-11-13 19:10:15.264000', '2018-11-13 19:10:15.264000', 'lock8.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock8.jpeg', 0);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (4, '2018-11-13 19:16:43.243000', '2018-11-13 19:16:43.243000', 'lock6.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock6.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (5, '2018-11-13 19:17:11.750000', '2018-11-13 19:17:11.750000', 'lock7.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock7.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (6, '2018-11-13 19:18:04.286000', '2018-11-13 19:18:04.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (7, '2018-11-13 19:18:22.753000', '2018-11-13 19:18:22.753000', 'lock3.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock3.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (8, '2018-11-13 19:18:29.614000', '2018-11-13 19:18:29.614000', 'lock4.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock4.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (9, '2018-11-13 19:18:37.559000', '2018-11-13 19:18:37.559000', 'lock2.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock2.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (10, '2018-11-13 19:19:09.353000', '2018-11-13 19:19:09.353000', 'lock5.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock5.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (11, '2018-11-13 19:19:13.961000', '2018-11-13 19:19:13.961000', 'lock7.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock7.jpeg', 1);
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (12, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock8.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock8.jpeg', 1);
+
+INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`, `file_id`) VALUES (1, 'REGULAR', '10', 1, '2018-08-23', '2018-08-23 10:33:20', 1);
+INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`, `file_id`) VALUES (2, 'VIP', '10', 2, '2018-08-23', '2018-08-23 10:33:20', 2);
+INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`, `file_id`) VALUES (3, 'GOLD', '10', 3, '2018-08-23', '2018-08-23 10:33:20', 3);
 
 INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (1, '61', 'ROBOTO', 'BLACK', '1', '1', '2018-08-23', '2018-08-23 10:35:46');
 INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (2, '62', 'ROBO', 'BLACK', '1', '2', '2018-08-23', '2018-08-23 10:35:46');
@@ -59,6 +71,16 @@ INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`
 INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (8, '68', 'ZCZC', 'BLACK', '3', '2', '2018-08-23', '2018-08-23 10:35:46');
 INSERT INTO lb.lock_type_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (9, '69', 'GHSDF', 'BLACK', '3', '3', '2018-08-23', '2018-08-23 10:35:46');
 
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (1,4);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (2,5);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (3,6);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (4,7);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (5,8);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (6,9);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (7,10);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (8,11);
+INSERT INTO lb.template_file(`lock_type_template_id`, `file_id`) VALUES (9,12);
+
 INSERT INTO lb.user VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789');
 
 INSERT INTO lb.point VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 112, 112);
@@ -66,19 +88,6 @@ INSERT INTO lb.point VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 11
 INSERT INTO lb.locks VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'delete token?', 'BLACK', 60, 'NEW STYLE', 0, 'lock color?', 'MASSAGE',0,0, 3, 3, 1, '2170256639660343');
 
 INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8);
-
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (1, '2018-11-13 19:09:39.198000', '2018-11-13 19:09:39.198000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 1, NULL);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (2, '2018-11-13 19:10:04.776000', '2018-11-13 19:10:04.776000', 'lock2.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock2.jpeg', 2, NULL);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (3, '2018-11-13 19:10:15.264000', '2018-11-13 19:10:15.264000', 'lock8.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock8.jpeg', 3, NULL);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (4, '2018-11-13 19:16:43.243000', '2018-11-13 19:16:43.243000', 'lock6.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock6.jpeg', NULL, 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (5, '2018-11-13 19:17:11.750000', '2018-11-13 19:17:11.750000', 'lock7.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock7.jpeg', NULL, 2);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (6, '2018-11-13 19:18:04.286000', '2018-11-13 19:18:04.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', NULL, 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (7, '2018-11-13 19:18:22.753000', '2018-11-13 19:18:22.753000', 'lock3.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock3.jpeg', NULL, 4);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (8, '2018-11-13 19:18:29.614000', '2018-11-13 19:18:29.614000', 'lock4.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock4.jpeg', NULL, 5);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (9, '2018-11-13 19:18:37.559000', '2018-11-13 19:18:37.559000', 'lock2.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock2.jpeg', NULL, 6);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (10, '2018-11-13 19:19:09.353000', '2018-11-13 19:19:09.353000', 'lock5.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock5.jpeg', NULL, 7);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (11, '2018-11-13 19:19:13.961000', '2018-11-13 19:19:13.961000', 'lock7.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock7.jpeg', NULL, 8);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `lock_category_id`, `lock_type_template_id`) VALUES (12, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock8.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock8.jpeg', NULL, 9);
 
 -------------- RUN THIS TO SYNC FILE DIRECTORY -----------------
 

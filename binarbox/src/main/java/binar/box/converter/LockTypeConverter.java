@@ -25,8 +25,8 @@ public class LockTypeConverter {
                 .category(lockCategory.getCategory())
                 .lockTypeTemplate(Objects.isNull(lockCategory.getLockTypeTemplate()) ? null :
                         lockTypeTemplateConverter.toDTOList(lockCategory.getLockTypeTemplate()))
-                .filesDTO(Objects.isNull((lockCategory.getFiles())) ? null :
-                        fileConverter.toDTOList(lockCategory.getFiles()))
+                .fileDTO(Objects.isNull((lockCategory.getFiles())) ? null :
+                        fileConverter.toDTO(lockCategory.getFiles()))
                 .build();
     }
 

@@ -16,7 +16,7 @@ public class LockCategoryDTOResponse {
 
 	private BigDecimal price;
 
-	private List<FileDTO> filesDTO;
+	private FileDTO fileDTO;
 
 	private List<LockTypeTemplateDTO> lockTypeTemplate;
 }

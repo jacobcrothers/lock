@@ -41,25 +41,23 @@ public class FileService {
 	@Autowired
 	private LockTypeTemplateRepository lockTypeTemplateRepository;
 
-	public void saveFilesToLockCategory(MultipartFile[] files, long lockCategoryId) throws IOException {
+	public void saveFilesToLockCategory(MultipartFile file, long lockCategoryId) throws IOException {
 		LockCategory lockCategory = lockTypeRepository.findOne(lockCategoryId);
-		List<File> fileList = saveFilesOnDisk(files);
-		createCategoryFiles(fileList, lockCategory);
+		File diskFile = storeFile(checkOrCreateDirectory(), file);
+		createCategoryFile(diskFile, lockCategory);
 	}
 
 	private List<File> saveFilesOnDisk(MultipartFile[] files) throws IOException {
-		String pathToSaveFiles = checkOrCreateDirectory();
-		return saveEachFile(pathToSaveFiles, files);
+		return saveEachFile(checkOrCreateDirectory(), files);
 	}
 
-	private void createCategoryFiles(List<File> fileList, LockCategory lockCategory) {
-		fileList.forEach(file -> {
+	private void createCategoryFile(File file, LockCategory lockCategory) {
 			binar.box.domain.File sqlFile = new binar.box.domain.File();
 			sqlFile.setFileName(file.getName());
-			sqlFile.setLockCategory(lockCategory);
 			sqlFile.setPathToFile(file.getPath());
-			fileRepository.save(sqlFile);
-		});
+			sqlFile.setType(binar.box.domain.File.Type.CATEGORY);
+
+			lockCategory.setFiles(fileRepository.save(sqlFile));
 	}
 
 	private String checkOrCreateDirectory() {
@@ -73,18 +71,23 @@ public class FileService {
 	private List<File> saveEachFile(String pathToSaveFiles, MultipartFile[] files) throws IOException {
 		List<File> fileList = new ArrayList<>(6);
 		for (MultipartFile multipartFile : files) {
-			File file = new File(pathToSaveFiles + File.separator + multipartFile.getOriginalFilename());
-			try {
-//				addTextToImage(multipartFile, pathToSaveFiles);
-				multipartFile.transferTo(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw new LockBridgesException(Constants.EXCEPTION_SAVING_FILES + e.getMessage());
-			}
-			fileList.add(file);
+            File file = storeFile(pathToSaveFiles, multipartFile);
+            fileList.add(file);
 		}
 		return fileList;
 	}
+
+    private File storeFile(String pathToSaveFiles, MultipartFile multipartFile) {
+        File file = new File(pathToSaveFiles + File.separator + multipartFile.getOriginalFilename());
+        try {
+//				addTextToImage(multipartFile, pathToSaveFiles);
+            multipartFile.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new LockBridgesException(Constants.EXCEPTION_SAVING_FILES + e.getMessage());
+        }
+        return file;
+    }
 
     private void addTextToImage(MultipartFile multipartFile, String pathToSaveFiles) throws IOException {
 
@@ -137,9 +140,12 @@ public class FileService {
 		fileList.forEach(file -> {
 			binar.box.domain.File sqlFile = new binar.box.domain.File();
 			sqlFile.setFileName(file.getName());
-			sqlFile.setLockTypeTemplate(lockTypeTemplate);
 			sqlFile.setPathToFile(file.getPath());
-			fileRepository.save(sqlFile);
+			sqlFile.setType(binar.box.domain.File.Type.FULL_TEMPLATE);
+
+			lockTypeTemplate.getFiles().add(fileRepository.save(sqlFile));
 		});
+
+		lockTypeTemplateRepository.save(lockTypeTemplate);
 	}
 }
