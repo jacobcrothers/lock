@@ -1,5 +1,6 @@
 package binar.box.rest;
 
+import binar.box.domain.File;
 import binar.box.dto.*;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
@@ -56,8 +57,10 @@ public class LockController {
 	@ApiOperation(value = "ADMIN: Add lock template images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TEMPLATE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity addLockTemplateFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("id") long lockTemplateId) throws IOException {
-		fileService.saveFilesToLockTemplate(files, lockTemplateId);
+	private ResponseEntity addLockTemplateFiles(@RequestParam("files") MultipartFile[] files,
+												@RequestParam("id") long lockTemplateId,
+												@RequestParam("type") File.Type type) throws IOException {
+		fileService.saveFilesToLockTemplate(files, lockTemplateId, type);
 		return new ResponseEntity(HttpStatus.CREATED);
 	}
 
@@ -84,7 +87,7 @@ public class LockController {
 			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockCategory\":3,\r\n" + "  \"lockTypeTemplate\":7\r\n"
 			+ "} " + "\n This is the second user step to add a lock.")
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
-	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) {
+	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) throws IOException {
 			return new ResponseEntity<>(lockService.createUserLock(lockDTO), HttpStatus.CREATED);
 	}
 

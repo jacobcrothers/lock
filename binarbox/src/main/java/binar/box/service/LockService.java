@@ -8,10 +8,15 @@ import binar.box.dto.*;
 import binar.box.repository.*;
 import binar.box.util.Constants;
 import binar.box.util.Exceptions.LockBridgesException;
+import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -51,6 +56,9 @@ public class LockService {
 	@Autowired
 	private PointRepository pointRepository;
 
+	@Autowired
+	private FileService	fileService;
+
 	public LockCategoryDTOResponse addLockCategory(LockCategoryDTO lockCategoryDTO) {
 		LockCategory lockCategory = new LockCategory();
 		lockCategory.setCategory(lockCategoryDTO.getCategory());
@@ -70,11 +78,27 @@ public class LockService {
 		return lockSectionConvertor.toDTOList(lockSectionRepository.findAll());
 	}
 
-    public LockResponseDTO createUserLock(LockDTO lockDTO){
+    public LockResponseDTO createUserLock(LockDTO lockDTO) throws IOException {
 		Lock lock = populateEntity(lockDTO, new Lock());
+
+		lockRepository.save(lock);
+
+		saveTextOnImage(lock);
 
         return lockConvertor.toResponseDTO(lockRepository.save(lock));
     }
+
+	private void saveTextOnImage(Lock lock) throws IOException {
+		File lockFile =  lock.getLockTypeTemplate().getFiles().stream()
+				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT))
+				.findAny()
+				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found"));
+
+		binar.box.domain.File fileEntity = fileService.getFile(lockFile.getId());
+		java.io.File diskFile = new java.io.File(fileEntity.getPathToFile());
+
+		ImageUtils.addTextToImage(diskFile, ImageUtils.returnPathToImages(), lock.getMessage());
+	}
 
 	public LockResponseDTO updateUserLock(LockDTO lockDTO){
 		if (Objects.isNull(lockDTO.getId()))

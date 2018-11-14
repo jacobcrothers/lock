@@ -61,7 +61,7 @@ public class FileService {
 	}
 
 	private String checkOrCreateDirectory() {
-		File directory = new File(new File("").getAbsolutePath() + "\\images");
+		File directory = new File(ImageUtils.returnPathToImages());
 		if (!directory.exists()) {
 			directory.mkdirs();
 		}
@@ -89,59 +89,22 @@ public class FileService {
         return file;
     }
 
-    private void addTextToImage(MultipartFile multipartFile, String pathToSaveFiles) throws IOException {
-
-        BufferedImage file2buffer = ImageUtils.convertToImage(multipartFile);
-
-        Graphics graphics = file2buffer.getGraphics();
-        graphics.setColor(Color.LIGHT_GRAY);
-        graphics.fillRect(0, 0, 50, 50);
-        graphics.setColor(Color.BLUE);
-        graphics.setFont(new Font("Arial Black", Font.BOLD, 20));
-        graphics.drawString("AWESOME", 10, 25);
-
-		graphics.setFont(graphics.getFont().deriveFont(30f));
-		graphics.drawString("Hello World!", 100, 100);
-		graphics.dispose();
-
-		Graphics2D w = (Graphics2D) file2buffer.getGraphics();
-		w.drawImage(file2buffer, 0, 0, null);
-		AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
-		w.setComposite(alphaChannel);
-		w.setColor(Color.GREEN);
-		w.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 26));
-		FontMetrics fontMetrics = w.getFontMetrics();
-		Rectangle2D rect = fontMetrics.getStringBounds("this is sooo good", w);
-
-		// calculate center of the image
-		int centerX = (file2buffer.getWidth() - (int) rect.getWidth()) / 2;
-		int centerY = file2buffer.getHeight() / 2;
-
-		// add text overlay to the image
-		w.drawString("this is sooo good", centerX, centerY);
-
-		w.dispose();
-
-        ImageIO.write(file2buffer, "png", new File(
-				pathToSaveFiles + File.separator + "New" + multipartFile.getOriginalFilename()));
-    }
-
     public binar.box.domain.File getFile(long fileId) {
 		return fileRepository.findOne(fileId);
 	}
 
-	public void saveFilesToLockTemplate(MultipartFile[] files, long lockTemplateId) throws IOException {
+	public void saveFilesToLockTemplate(MultipartFile[] files, long lockTemplateId, binar.box.domain.File.Type type) throws IOException {
 		LockTypeTemplate lockCategory = lockTypeTemplateRepository.findOne(lockTemplateId);
 		List<File> fileList = saveFilesOnDisk(files);
-		createTemplateFiles(fileList, lockCategory);
+		createTemplateFiles(fileList, lockCategory, type);
 	}
 
-	private void createTemplateFiles(List<File> fileList, LockTypeTemplate lockTypeTemplate) {
+	private void createTemplateFiles(List<File> fileList, LockTypeTemplate lockTypeTemplate, binar.box.domain.File.Type type) {
 		fileList.forEach(file -> {
 			binar.box.domain.File sqlFile = new binar.box.domain.File();
 			sqlFile.setFileName(file.getName());
 			sqlFile.setPathToFile(file.getPath());
-			sqlFile.setType(binar.box.domain.File.Type.FULL_TEMPLATE);
+			sqlFile.setType(type);
 
 			lockTypeTemplate.getFiles().add(fileRepository.save(sqlFile));
 		});
