@@ -1,20 +1,22 @@
-<!-- <div class="panels-container content-wrapper">
-  <h4>Choose the panel where you want to place your newly created lock.</h4>
-  <img class="panel-img" src="../../../assets/images/bridge2.JPG" alt="" usemap="#Map" />
-  <map name="Map" id="Map">
-      <area alt="" title="" id="panel1" class="panel-area" href="#" shape="poly" (mouseenter) ="mouseEnter($event)" coords="853,424,833,709,246,770,220,433" />
-      <area alt="" title="" id="panel2" class="panel-area" href="#" shape="poly" coords="897,423,1323,414,1287,645,888,702" />
-      <area alt="" title="" id="panel3" class="panel-area" href="#" shape="poly" coords="1362,408,1330,646,1595,613,1595,402" />
-  </map>
-</div> -->
 
 <section class="dorne-welcome-area bg-img bg-overlay panels-container">
-	<!-- <div class="container h-100"> -->
-    <!-- <img class="bridge-img" (onkeydown)="onMousewheel($event)" 
-    (wheel)="onMousewheel($event)" [ngClass]="{'stop-scroll': stopScrolling}" 
-    data-wheel-zoom src="../../../assets/images/bridge/pod0.png" alt=""/> -->
-    <img class="bridge-img" (onkeydown)="onMousewheel($event)" 
-    (wheel)="onMousewheel($event)" [ngClass]="{'stop-scroll': stopScrolling}" 
-    data-wheel-zoom src="../../../assets/images/bridge/pod31.png" alt=""/>
-	<!-- </div> -->
+    <!-- <img class="bridge-img" (wheel)="onMousewheel($event)" data-wheel-zoom src="../../../assets/images/bridge/pod0.png" alt="" usemap="#image-map"/> -->
+    <img class="bridge-img" (wheel)="onMousewheel($event)" [src]="currentImage" alt="" usemap="#image-map"/>
+
+    <map name="image-map" *ngIf="zoomCount === 3" (mouseenter) ="mouseEnter()">
+        <area target="" alt="1" title="1" href="" coords="123,281,294,405" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="2" title="2" href="" coords="295,283,465,406" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="3" title="3" href="" coords="126,406,294,522" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="4" title="4" href="" coords="295,409,464,523" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="5" title="5" href="" coords="475,282,641,404" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="6" title="6" href="" coords="642,281,808,404" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="7" title="7" href="" coords="475,404,642,521" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="8" title="8" href="" coords="643,405,808,521" shape="rect" (click)="chooseSection($event)" class="image-area">
+    </map>
 </section>
+
+<!-- <script type="text/javascript">
+    jQuery(function($) {
+        $('map').imageMapResize();
+    });
+</script> -->
