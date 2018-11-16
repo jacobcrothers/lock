@@ -19,7 +19,7 @@ server:
     key-password: helloearth6
 database:
   driverClassName: org.mariadb.jdbc.Driver
-  jdbcUrl: jdbc:mariadb://localhost:3306/lb
+  jdbcUrl: jdbc:mariadb://localhost:3306/lb?useUnicode=true&character_set_server=utf8mb4
   username: root
   password: root
   poolSize: 60
