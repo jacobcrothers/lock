@@ -10,27 +10,27 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class LockTypeConverter {
+public class LockCategoryConverter {
 
     @Autowired
     private FileConverter fileConverter;
 
     @Autowired
-    private LockTypeTemplateConverter lockTypeTemplateConverter;
+    private LockTemplateConverter lockTemplateConverter;
 
-    public LockCategoryDTOResponse lockToLockTypeResponse(LockCategory lockCategory){
+    public LockCategoryDTOResponse lockToLockCategoryResponse(LockCategory lockCategory){
         return LockCategoryDTOResponse.builder()
                 .id(lockCategory.getId())
                 .price(lockCategory.getPrice().getPrice())
                 .category(lockCategory.getCategory())
-                .lockTypeTemplate(Objects.isNull(lockCategory.getLockTypeTemplate()) ? null :
-                        lockTypeTemplateConverter.toDTOList(lockCategory.getLockTypeTemplate()))
-                .fileDTO(Objects.isNull((lockCategory.getFiles())) ? null :
-                        fileConverter.toDTO(lockCategory.getFiles()))
+                .lockTypeTemplate(Objects.isNull(lockCategory.getLockTemplate()) ? null :
+                        lockTemplateConverter.toDTOList(lockCategory.getLockTemplate()))
+                .fileDTO(Objects.isNull((lockCategory.getFile())) ? null :
+                        fileConverter.toDTO(lockCategory.getFile()))
                 .build();
     }
 
     public List<LockCategoryDTOResponse> toDTOList(List<LockCategory> lockCategories){
-        return lockCategories.stream().map(this::lockToLockTypeResponse).collect(Collectors.toList());
+        return lockCategories.stream().map(this::lockToLockCategoryResponse).collect(Collectors.toList());
     }
 }

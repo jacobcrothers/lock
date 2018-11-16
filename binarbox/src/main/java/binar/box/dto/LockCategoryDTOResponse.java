@@ -18,5 +18,5 @@ public class LockCategoryDTOResponse {
 
 	private FileDTO fileDTO;
 
-	private List<LockTypeTemplateDTO> lockTypeTemplate;
+	private List<LockTemplateDTO> lockTypeTemplate;
 }

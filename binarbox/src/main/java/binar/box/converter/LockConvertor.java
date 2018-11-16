@@ -17,7 +17,7 @@ public class LockConvertor {
     private LockSectionConvertor lockSectionConvertor;
 
     @Autowired
-    private LockTypeConverter lockTypeConverter;
+    private LockCategoryConverter lockCategoryConverter;
 
     @Autowired
     private PointConverter pointConverter;
@@ -32,11 +32,11 @@ public class LockConvertor {
                 .privateLock(lock.isPrivateLock())
                 .glitteringLight(lock.isGlitteringLight())
                 .paid(lock.isPaid())
-                .price(lock.getLockTypeTemplate().getLockCategory().getPrice().getPrice().add(lock.getLockTypeTemplate().getPrice().getPrice()))
+                .price(lock.getLockTemplate().getLockCategory().getPrice().getPrice().add(lock.getLockTemplate().getPrice().getPrice()))
                 .panelId(Objects.isNull(lock.getLockSection())? null :lock.getLockSection().getPanel().getId())
                 .lockSectionId(Objects.isNull(lock.getLockSection()) ? null : lock.getLockSection().getId())
                 .pointDTO(Objects.isNull(lock.getPoint()) ? null : pointConverter.toDTO(lock.getPoint()))
-                .lockCategoryDTOResponse(Objects.isNull(lock.getLockTypeTemplate()) ? null : lockTypeConverter.lockToLockTypeResponse(lock.getLockTypeTemplate().getLockCategory()))
+                .lockCategoryDTOResponse(Objects.isNull(lock.getLockTemplate()) ? null : lockCategoryConverter.lockToLockCategoryResponse(lock.getLockTemplate().getLockCategory()))
                 .build();
     }
 
@@ -44,7 +44,7 @@ public class LockConvertor {
         return locks.stream().map(this::toResponseDTO).collect(Collectors.toList());
     }
 
-    public Lock toEntity(LockDTO lockDTO, Lock lock, LockSection lockSection, LockTypeTemplate lockTypeTemplate,Point point, User user){
+    public Lock toEntity(LockDTO lockDTO, Lock lock, LockSection lockSection, LockTemplate lockTemplate, Point point, User user){
         lock.setFontColor(Objects.isNull(lockDTO.getFontColor()) ? lock.getFontColor() : lockDTO.getFontColor());
         lock.setFontSize(Objects.isNull(lockDTO.getFontSize()) ? lock.getFontSize() : lockDTO.getFontSize());
         lock.setFontStyle(Objects.isNull(lockDTO.getFontStyle()) ? lock.getFontStyle() : lockDTO.getFontStyle());
@@ -54,7 +54,7 @@ public class LockConvertor {
         lock.setPrivateLock(Objects.isNull(lockDTO.isPrivateLock()) ? lock.isPrivateLock() : lockDTO.isPrivateLock());
         lock.setPaid(Objects.isNull(lockDTO.isPaid()) ? lock.isPaid() : lockDTO.isPaid());
         lock.setLockSection(Objects.isNull(lockSection) ? lock.getLockSection() : lockSection);
-        lock.setLockTypeTemplate(Objects.isNull(lockTypeTemplate) ? lock.getLockTypeTemplate() : lockTypeTemplate);
+        lock.setLockTemplate(Objects.isNull(lockTemplate) ? lock.getLockTemplate() : lockTemplate);
         lock.setPoint(Objects.isNull(point) ? lock.getPoint() : point);
         lock.setUser(user);
 

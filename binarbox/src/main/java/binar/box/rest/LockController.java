@@ -57,7 +57,7 @@ public class LockController {
 	@ApiOperation(value = "ADMIN: Add lock template images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TEMPLATE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity addLockTemplateFiles(@RequestParam("files") MultipartFile[] files,
+	private ResponseEntity addLockTemplateFiles(@RequestParam("file") MultipartFile[] files,
 												@RequestParam("id") long lockTemplateId,
 												@RequestParam("type") File.Type type) throws IOException {
 		fileService.saveFilesToLockTemplate(files, lockTemplateId, type);
@@ -66,7 +66,7 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Get lock category with lock type templates", notes = "User first step is to choose one lock category then one lock template type")
+	@ApiOperation(value = "Get lock category with lock templates", notes = "User first step is to choose one lock category then one lock template type")
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_CATEGORY_ENDPOINT)
 	private ResponseEntity<List<LockCategoryDTOResponse>> getLockCategories() {
 		return new ResponseEntity<>(lockService.getLockCategories(), HttpStatus.OK);
@@ -82,9 +82,9 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTypeTemplate,lockCategory." + "\n EX: {\r\n"
+	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTemplate,lockCategory." + "\n EX: {\r\n"
 			+ "  \"fontColor\": \"BLUE\",\r\n" + "  \"fontSize\": 60,\r\n" + "  \"fontStyle\": \"ROBOTO\",\r\n"
-			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockCategory\":3,\r\n" + "  \"lockTypeTemplate\":7\r\n"
+			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockCategory\":3,\r\n" + "  \"lockTemplate\":7\r\n"
 			+ "} " + "\n This is the second user step to add a lock.")
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
 	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) throws IOException {
@@ -94,9 +94,9 @@ public class LockController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PutMapping(value = Constants.LOCK_ENDPOINT)
-	@ApiOperation(value = "Update user lock", notes = "Mandatory fields: lockTypeTemplate,lockCategory." + "\n {\r\n"
+	@ApiOperation(value = "Update user lock", notes = "Mandatory fields: lockTemplate,lockCategory." + "\n {\r\n"
 			+ "  \"id\":1,\r\n" + "  \"fontColor\": \"string\",\r\n" + "  \"fontStyle\":\"ROBOTO\",\r\n"
-			+ "  \"lockTypeTemplate\":6,\r\n" + "  \"lockCategory\": 3,\r\n" + "  \"longitude\": 0,\r\n"
+			+ "  \"lockTemplate\":6,\r\n" + "  \"lockCategory\": 3,\r\n" + "  \"longitude\": 0,\r\n"
 			+ "  \"message\": \"string\",\r\n" + "  \"lockColor\":\"YELLOW\",\r\n" + "  \"lockSection\":1\r\n" + "\r\n"
 			+ "}" + "\n This is the third user step to add a lock")
 	private ResponseEntity<LockResponseDTO> updateLock(@RequestBody LockDTO lockDTO) {

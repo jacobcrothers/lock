@@ -5,11 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
+
+// 3 step save
 public class LockDTO {
 
 	private Long id;
 
-	@NotNull
 	private String message;
 
 	private Integer fontSize;
@@ -24,18 +25,13 @@ public class LockDTO {
 
 	private boolean glitteringLight;
 
-	@NotNull
 	private Long lockSection;
 
-	@NotNull
-	private Long lockTypeTemplate;
+	private Long lockTemplate;
 
-	@NotNull
 	private boolean privateLock;
 
-	@NotNull
 	private Double x;
 
-	@NotNull
 	private Double y;
 }

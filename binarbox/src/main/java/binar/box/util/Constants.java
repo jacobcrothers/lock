@@ -37,9 +37,9 @@ public class Constants {
 	public static final String LOCK_CATEGORY_ENDPOINT = "/category";
 	public static final String OS_NAME = "os.name";
 	public static final String WIN = "win";
-	public static final String EXCEPTION_SAVING_FILES = "Exception saving files : ";
+	public static final String EXCEPTION_SAVING_FILES = "Exception saving file : ";
 	public static final String LOCK_CATEGORY_NOT_FOUND = "Lock category not found";
-	public static final String LOCK_CATEGORY_TEMPLATE_NOT_FOUND = "Lock type template not found";
+	public static final String LOCK_CATEGORY_TEMPLATE_NOT_FOUND = "Lock template not found";
 	public static final String LOCK_CATEGORY_FILE_ENDPOINT = "/category/file";
 	public static final String LOCK_TEMPLATE_FILE_ENDPOINT = "/template/file";
 	public static final String ADMIN_AUTHORITY = "ADMIN";

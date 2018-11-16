@@ -4,8 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,13 +21,13 @@ public class LockCategory extends BaseEntity {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name= "file_id")
-	private File files;
+	private File file;
 
 	@Column(name = "total_rating")
 	private Float totalRating;
 
 	@OneToMany(mappedBy = "lockCategory", fetch = FetchType.LAZY)
-	private List<LockTypeTemplate> lockTypeTemplate;
+	private List<LockTemplate> lockTemplate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "price_id")

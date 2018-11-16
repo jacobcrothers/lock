@@ -15,8 +15,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 @Entity
-@Table(name = "lock_type_template")
-public class LockTypeTemplate extends BaseEntity {
+@Table(name = "lock_template")
+public class LockTemplate extends BaseEntity {
 
 	@Column(name = "font_size")
 	private Integer fontSize;
@@ -29,7 +29,7 @@ public class LockTypeTemplate extends BaseEntity {
 
 	@OneToMany
 	@JoinTable(name="TemplateFile",
-			joinColumns = @JoinColumn( name="lock_type_template_id"),
+			joinColumns = @JoinColumn( name="lock_template_id"),
 			inverseJoinColumns = @JoinColumn( name="file_id"))
 	private List<File> files;
 
@@ -37,7 +37,7 @@ public class LockTypeTemplate extends BaseEntity {
 	@JoinColumn(name = "lock_category_id")
 	private LockCategory lockCategory;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockTypeTemplate")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockTemplate")
 	private List<Lock> locks;
 
 	@ManyToOne(fetch = FetchType.LAZY)
