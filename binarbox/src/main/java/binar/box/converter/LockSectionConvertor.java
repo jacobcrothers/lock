@@ -17,9 +17,8 @@ public class LockSectionConvertor {
 
     public LockSectionDTO toDTO(LockSection lockSection){
         return LockSectionDTO.builder()
-                .lockResponseDTO(Objects.isNull(lockSection.getLock()) ? null
-                        : lockConvertor.toResponseDTO(lockSection.getLock()))
-                .point(lockSection.getId())
+                .lockResponseDTOs(Objects.isNull(lockSection) ? null
+                        : lockConvertor.toDTOList(lockSection.getLocks()))
                 .section(lockSection.getSection())
                 .build();
     }

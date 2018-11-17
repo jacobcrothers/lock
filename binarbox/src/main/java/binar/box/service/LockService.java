@@ -2,16 +2,18 @@ package binar.box.service;
 
 import binar.box.converter.LockConvertor;
 import binar.box.converter.LockSectionConvertor;
-import binar.box.converter.LockTypeConverter;
+import binar.box.converter.LockCategoryConverter;
 import binar.box.domain.*;
 import binar.box.dto.*;
 import binar.box.repository.*;
 import binar.box.util.Constants;
 import binar.box.util.Exceptions.LockBridgesException;
+import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -22,7 +24,7 @@ public class LockService {
 	private EmailService emailService;
 
 	@Autowired
-	private LockTypeRepository lockTypeRepository;
+	private LockCategoryRepository lockCategoryRepository;
 
 	@Autowired
 	private LockSectionRepository lockSectionRepository;
@@ -34,16 +36,13 @@ public class LockService {
 	private LockRepository lockRepository;
 
 	@Autowired
-	private PanelRepository panelRepository;
-
-	@Autowired
-	private LockTypeConverter lockTypeConverter;
+	private LockCategoryConverter lockCategoryConverter;
 
 	@Autowired
 	private LockConvertor lockConvertor;
 
 	@Autowired
-	private LockTypeTemplateRepository lockTypeTemplateRepository;
+	private LockTemplateRepository lockTemplateRepository;
 
 	@Autowired
 	private LockSectionConvertor lockSectionConvertor;
@@ -51,36 +50,57 @@ public class LockService {
 	@Autowired
 	private PriceRepository priceRepository;
 
-	public LockTypeDTOResponse addLockType(LockTypeDTO lockTypeDTO) {
-		LockType lockType = new LockType();
-		lockType.setType(lockTypeDTO.getType());
+	@Autowired
+	private PointRepository pointRepository;
+
+	@Autowired
+	private FileService	fileService;
+
+	public LockCategoryDTOResponse addLockCategory(LockCategoryDTO lockCategoryDTO) {
+		LockCategory lockCategory = new LockCategory();
+		lockCategory.setCategory(lockCategoryDTO.getCategory());
 
 		Price price = new Price();
-		price.setPrice(lockTypeDTO.getPrice());
-		lockType.setPrice(priceRepository.save(price));
+		price.setPrice(lockCategoryDTO.getPrice());
+		lockCategory.setPrice(priceRepository.save(price));
 
-		return lockTypeConverter.lockToLockTypeResponse(lockTypeRepository.save(lockType));
+		return lockCategoryConverter.lockToLockCategoryResponse(lockCategoryRepository.save(lockCategory));
 	}
 
-	public List<LockTypeDTOResponse> getLockTypes() {
-		return lockTypeConverter.toDTOList(lockTypeRepository.findAll());
+	public List<LockCategoryDTOResponse> getLockCategories() {
+		return lockCategoryConverter.toDTOList(lockCategoryRepository.findAll());
 	}
 
 	public List<LockSectionDTO> getLockSections() {
 		return lockSectionConvertor.toDTOList(lockSectionRepository.findAll());
 	}
 
-    public LockResponseDTO createUserLock(LockDTO lockDTO){
+    public LockResponseDTO createUserLock(LockDTO lockDTO) throws IOException {
 		Lock lock = populateEntity(lockDTO, new Lock());
+
+		lockRepository.save(lock);
+
+		saveTextOnImage(lock);
 
         return lockConvertor.toResponseDTO(lockRepository.save(lock));
     }
 
+	private void saveTextOnImage(Lock lock) throws IOException {
+		File lockFile =  lock.getLockTemplate().getFiles().stream()
+				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT))
+				.findAny()
+				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found"));
+
+		binar.box.domain.File fileEntity = fileService.getFile(lockFile.getId());
+		java.io.File diskFile = new java.io.File(fileEntity.getPathToFile());
+
+		ImageUtils.addTextToImage(diskFile, ImageUtils.returnPathToImages(), lock.getMessage());
+	}
+
 	public LockResponseDTO updateUserLock(LockDTO lockDTO){
 		if (Objects.isNull(lockDTO.getId()))
 			throw new LockBridgesException(Constants.LOCK_NOT_FOUND);
-		Lock lock = lockRepository.findById(lockDTO.getId())
-				.orElseThrow(() -> new LockBridgesException(Constants.LOCK_NOT_FOUND));
+		Lock lock = lockRepository.findOne(lockDTO.getId());
 		Lock updatedLock = populateEntity(lockDTO, lock);
 		updatedLock.setId(lockDTO.getId());
 
@@ -89,28 +109,32 @@ public class LockService {
 
 	private Lock populateEntity(LockDTO lockDTO, Lock lock) {
 		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
-				lockSectionRepository.findById(lockDTO.getLockSection())
-						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_SECTION_NOT_FOUND));
+				lockSectionRepository.findOne(lockDTO.getLockSection());
 
-		Panel panel= Objects.isNull(lockDTO.getPanelId()) ? null :
-				panelRepository.findById(lockDTO.getPanelId())
-						.orElseThrow(() -> new LockBridgesException(Constants.PANEL_NOT_FOUND));
-
-		LockType lockType=Objects.isNull(lockDTO.getLockType()) ? null :
-				lockTypeRepository.findByIdWithTemplatePriceAndFile(lockDTO.getLockType())
-						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_NOT_FOUND));
-
-		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockType()) ? null :
-				lockTypeTemplateRepository.findById(lockDTO.getLockTypeTemplate())
-						.orElseThrow(() -> new LockBridgesException(Constants.LOCK_TYPE_TEMPLATE_NOT_FOUND));
+		LockTemplate lockTemplate =Objects.isNull(lockDTO.getLockTemplate()) ? null :
+				lockTemplateRepository.findOne(lockDTO.getLockTemplate());
 
 		return lockConvertor.toEntity(lockDTO,
 				                      lock,
 				                      lockSection,
-				                      panel,
-				                      lockType,
-				                      lockTypeTemplate,
+				lockTemplate,
+									  addPoint(lockDTO, lock),
 				                      userService.getAuthenticatedUser());
+	}
+
+	private Point addPoint(LockDTO lockDTO, Lock lock) {
+		Point point = new Point();
+		if (Objects.isNull(lockDTO.getId())){
+			point.setX(lockDTO.getX());
+			point.setY(lockDTO.getY());
+			pointRepository.save(point);
+		} else {
+			point = lock.getPoint();
+			point.setX(lockDTO.getX());
+			point.setY(lockDTO.getY());
+			pointRepository.save(point);
+		}
+		return point;
 	}
 
 	public List<LockResponseDTO> getLocks() {

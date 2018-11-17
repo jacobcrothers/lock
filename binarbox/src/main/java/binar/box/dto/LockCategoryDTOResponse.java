@@ -8,15 +8,15 @@ import java.util.List;
 
 @Data
 @Builder
-public class LockTypeDTOResponse {
+public class LockCategoryDTOResponse {
 
 	private long id;
 
-	private String type;
+	private String category;
 
 	private BigDecimal price;
 
-	private List<FileDTO> filesDTO;
+	private FileDTO fileDTO;
 
-	private List<LockTypeTemplateDTO> lockTypeTemplate;
+	private List<LockTemplateDTO> lockTypeTemplate;
 }

@@ -18,8 +18,8 @@ public class PanelConveter {
     public PanelDTO toDTO(Panel panel){
         return PanelDTO.builder()
                 .id(panel.getId())
-                .lockSectionDTO(Objects.isNull(panel.getLockSection()) ? null
-                        : lockSectionConvertor.toDTOList(panel.getLockSection()))
+                .lockSectionDTO(Objects.isNull(panel.getLockSections()) ? null
+                        : lockSectionConvertor.toDTOList(panel.getLockSections()))
                 .build();
     }
 

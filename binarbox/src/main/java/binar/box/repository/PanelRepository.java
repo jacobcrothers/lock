@@ -1,18 +1,16 @@
 package binar.box.repository;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import binar.box.domain.Panel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import binar.box.domain.Panel;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface PanelRepository extends JpaRepository<Panel, Long> {
+public interface PanelRepository extends BaseJpaRepository<Panel, Long> {
 
 	@Query(value = "SELECT * FROM panel_entity WHERE panel_entity.location=:location ORDER BY RAND() LIMIT :maxPanelsOnView;", nativeQuery = true)
 	List<Panel> findAllPanelsBasedOnLocation(@Param("location") String string,

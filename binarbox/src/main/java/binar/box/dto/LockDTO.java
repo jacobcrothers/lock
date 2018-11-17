@@ -2,7 +2,11 @@ package binar.box.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
+
+// 3 step save
 public class LockDTO {
 
 	private Long id;
@@ -23,11 +27,11 @@ public class LockDTO {
 
 	private Long lockSection;
 
-	private Long lockType;
-
-	private Long lockTypeTemplate;
-
-	private Long panelId;
+	private Long lockTemplate;
 
 	private boolean privateLock;
+
+	private Double x;
+
+	private Double y;
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 @Entity
-@Table(name = "lock_entity")
+@Table(name="locks")
 public class Lock extends BaseEntity {
 
 	@Column(name = "message")
@@ -27,25 +27,21 @@ public class Lock extends BaseEntity {
 	@Column(name = "font_color")
 	private String fontColor;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_section_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lockSection_id")
 	private LockSection lockSection;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_type_id")
-	private LockType lockType;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name= "file_id")
+	private File files;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "lock_type_template_id")
-	private LockTypeTemplate lockTypeTemplate;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "panel_id")
-	private Panel panel;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lockTemplate_id")
+	private LockTemplate lockTemplate;
 
 	@Column(name = "delete_token")
 	private String deleteToken;
@@ -59,6 +55,10 @@ public class Lock extends BaseEntity {
 	@Column(name = "private_lock")
 	private boolean privateLock;
 
-	@Transient
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name= "point_id")
+	private Point point;
+
+	@Column
 	private boolean glitteringLight;
 }

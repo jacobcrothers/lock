@@ -1,10 +1,11 @@
 package binar.box.rest;
 
+import binar.box.domain.File;
 import binar.box.dto.*;
 import binar.box.service.FileService;
 import binar.box.service.LockService;
 import binar.box.util.Constants;
-import binar.box.util.Exceptions.LockBridgesException;
+import binar.box.util.Exceptions.FieldsException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -31,32 +32,44 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "ADMIN: Add lock type", notes = "This endpoint is for admin, admin add lock types into database.", hidden = true)
+	@ApiOperation(value = "ADMIN: Add lock category", notes = "This endpoint is for admin, admin add lock category into database.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
-			+ Constants.LOCK_TYPE_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	private ResponseEntity<LockTypeDTOResponse> addLockType(@RequestBody @Valid LockTypeDTO lockTypeDTO, BindingResult bindingResult) {
+			+ Constants.LOCK_CATEGORY_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	private ResponseEntity<LockCategoryDTOResponse> addLockCategory(@Valid @RequestBody LockCategoryDTO lockCategoryDTO, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			throw new LockBridgesException(bindingResult.getAllErrors().toString());
+			throw new FieldsException("Lock category fields are incorrect", "lock.category.invalid", bindingResult);
 		}
-		return new ResponseEntity<>(lockService.addLockType(lockTypeDTO), HttpStatus.CREATED);
+		return new ResponseEntity<>(lockService.addLockCategory(lockCategoryDTO), HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "ADMIN: Add lock images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
+	@ApiOperation(value = "ADMIN: Add lock category image", notes = "This endpoint is for admin, admin add lock image.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
-			+ Constants.LOCK_TYPE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity addLockTypeFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("id") long lockTypeId) throws IOException {
-		fileService.saveFilesToLockType(files, lockTypeId);
+			+ Constants.LOCK_CATEGORY_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	private ResponseEntity addLockCategoryFiles(@RequestParam("file") MultipartFile file, @RequestParam("id") long lockCategoryId) throws IOException {
+		fileService.saveFilesToLockCategory(file, lockCategoryId);
 		return new ResponseEntity(HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Get lock type with lock type templates", notes = "User first step is to choose one lock type then one lock template type")
-	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_TYPE_ENDPOINT)
-	private ResponseEntity<List<LockTypeDTOResponse>> getLockTypes() {
-		return new ResponseEntity<>(lockService.getLockTypes(), HttpStatus.OK);
+	@ApiOperation(value = "ADMIN: Add lock template images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
+	@PostMapping(value = Constants.LOCK_ENDPOINT
+			+ Constants.LOCK_TEMPLATE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	private ResponseEntity addLockTemplateFiles(@RequestParam("file") MultipartFile[] files,
+												@RequestParam("id") long lockTemplateId,
+												@RequestParam("type") File.Type type) throws IOException {
+		fileService.saveFilesToLockTemplate(files, lockTemplateId, type);
+		return new ResponseEntity(HttpStatus.CREATED);
+	}
+
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get lock category with lock templates", notes = "User first step is to choose one lock category then one lock template type")
+	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_CATEGORY_ENDPOINT)
+	private ResponseEntity<List<LockCategoryDTOResponse>> getLockCategories() {
+		return new ResponseEntity<>(lockService.getLockCategories(), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({
@@ -69,21 +82,21 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTypeTemplate,lockType." + "\n EX: {\r\n"
+	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTemplate,lockCategory." + "\n EX: {\r\n"
 			+ "  \"fontColor\": \"BLUE\",\r\n" + "  \"fontSize\": 60,\r\n" + "  \"fontStyle\": \"ROBOTO\",\r\n"
-			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockType\":3,\r\n" + "  \"lockTypeTemplate\":7\r\n"
+			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockCategory\":3,\r\n" + "  \"lockTemplate\":7\r\n"
 			+ "} " + "\n This is the second user step to add a lock.")
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
-	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) {
+	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) throws IOException {
 			return new ResponseEntity<>(lockService.createUserLock(lockDTO), HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@PutMapping(value = Constants.LOCK_ENDPOINT)
-	@ApiOperation(value = "Update user lock", notes = "Mandatory fields: lockTypeTemplate,lockType." + "\n {\r\n"
+	@ApiOperation(value = "Update user lock", notes = "Mandatory fields: lockTemplate,lockCategory." + "\n {\r\n"
 			+ "  \"id\":1,\r\n" + "  \"fontColor\": \"string\",\r\n" + "  \"fontStyle\":\"ROBOTO\",\r\n"
-			+ "  \"lockTypeTemplate\":6,\r\n" + "  \"lockType\": 3,\r\n" + "  \"longitude\": 0,\r\n"
+			+ "  \"lockTemplate\":6,\r\n" + "  \"lockCategory\": 3,\r\n" + "  \"longitude\": 0,\r\n"
 			+ "  \"message\": \"string\",\r\n" + "  \"lockColor\":\"YELLOW\",\r\n" + "  \"lockSection\":1\r\n" + "\r\n"
 			+ "}" + "\n This is the third user step to add a lock")
 	private ResponseEntity<LockResponseDTO> updateLock(@RequestBody LockDTO lockDTO) {

@@ -6,6 +6,7 @@ import binar.box.dto.FacebookTokenDTO;
 import binar.box.dto.UserProfileDTO;
 import binar.box.repository.UserRepository;
 import binar.box.util.Constants;
+import binar.box.util.Exceptions.EntityNotFoundException;
 import binar.box.util.Exceptions.LockBridgesException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +32,7 @@ public class UserService {
 	private UserConverter userConverter;
 
 	private User getUserById(String userId) {
-		return userRepository.findById(userId).orElseThrow(() -> new LockBridgesException(Constants.USER_NOT_FOUND));
+		return userRepository.findOne(userId);
 	}
 
 	public User getAuthenticatedUser() {
@@ -106,6 +107,6 @@ public class UserService {
 	public User checkUserIfRegistered(String token) {
 		var faceBookUser = getFacebookUser(token, new String[] { Constants.FACEBOOK_ID });
 		return getFacebookUserFromDataIfRegistered(faceBookUser)
-				.orElseThrow(() -> new LockBridgesException(Constants.UNAUTHORIZED));
+				.orElseThrow(() -> new EntityNotFoundException(Constants.UNAUTHORIZED,"user.unauthorized"));
 	}
 }

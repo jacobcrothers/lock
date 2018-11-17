@@ -9,7 +9,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper=true)
 @ToString
 @Entity
-@Table(name = "configuration_entity")
+@Table(name = "configuration")
 public class Configuration extends BaseEntity{
 
 	@Column(name = "panel_max_size_of_locks")

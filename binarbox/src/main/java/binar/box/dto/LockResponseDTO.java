@@ -21,9 +21,9 @@ public class LockResponseDTO {
 
 	private String lockColor;
 
-	private LockSectionDTO lockSection;
+	private Long lockSectionId;
 
-	private LockTypeDTOResponse lockTypeDTOResponse;
+	private LockCategoryDTOResponse lockCategoryDTOResponse;
 
 	private Long panelId;
 
@@ -34,4 +34,6 @@ public class LockResponseDTO {
 	private BigDecimal price;
 
 	private boolean paid;
+
+	private PointDTO pointDTO;
 }
