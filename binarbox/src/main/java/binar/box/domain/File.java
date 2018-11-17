@@ -24,10 +24,6 @@ public class File extends BaseEntity {
 	@Column(name="type")
 	private Type type;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name= "file_id")
-	private File files;
-
 	public enum Type {
 		CATEGORY,
 		FULL_TEMPLATE,

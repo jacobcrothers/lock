@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class LockTypeTemplateDTO {
+public class LockTemplateDTO {
 
 	private Long id;
 

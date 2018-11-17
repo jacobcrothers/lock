@@ -1,18 +1,14 @@
 package binar.box.service;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
-import binar.box.domain.LockTypeTemplate;
-import binar.box.repository.LockTypeTemplateRepository;
+import binar.box.domain.LockTemplate;
+import binar.box.repository.LockTemplateRepository;
 import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -21,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import binar.box.domain.LockCategory;
 import binar.box.repository.FileRepository;
-import binar.box.repository.LockTypeRepository;
+import binar.box.repository.LockCategoryRepository;
 import binar.box.util.Constants;
 import binar.box.util.Exceptions.LockBridgesException;
 
@@ -36,13 +32,13 @@ public class FileService {
 	private FileRepository fileRepository;
 
 	@Autowired
-	private LockTypeRepository lockTypeRepository;
+	private LockCategoryRepository lockCategoryRepository;
 
 	@Autowired
-	private LockTypeTemplateRepository lockTypeTemplateRepository;
+	private LockTemplateRepository lockTemplateRepository;
 
 	public void saveFilesToLockCategory(MultipartFile file, long lockCategoryId) throws IOException {
-		LockCategory lockCategory = lockTypeRepository.findOne(lockCategoryId);
+		LockCategory lockCategory = lockCategoryRepository.findOne(lockCategoryId);
 		File diskFile = storeFile(checkOrCreateDirectory(), file);
 		createCategoryFile(diskFile, lockCategory);
 	}
@@ -57,7 +53,7 @@ public class FileService {
 			sqlFile.setPathToFile(file.getPath());
 			sqlFile.setType(binar.box.domain.File.Type.CATEGORY);
 
-			lockCategory.setFiles(fileRepository.save(sqlFile));
+			lockCategory.setFile(fileRepository.save(sqlFile));
 	}
 
 	private String checkOrCreateDirectory() {
@@ -94,21 +90,21 @@ public class FileService {
 	}
 
 	public void saveFilesToLockTemplate(MultipartFile[] files, long lockTemplateId, binar.box.domain.File.Type type) throws IOException {
-		LockTypeTemplate lockCategory = lockTypeTemplateRepository.findOne(lockTemplateId);
+		LockTemplate lockCategory = lockTemplateRepository.findOne(lockTemplateId);
 		List<File> fileList = saveFilesOnDisk(files);
 		createTemplateFiles(fileList, lockCategory, type);
 	}
 
-	private void createTemplateFiles(List<File> fileList, LockTypeTemplate lockTypeTemplate, binar.box.domain.File.Type type) {
+	private void createTemplateFiles(List<File> fileList, LockTemplate lockTemplate, binar.box.domain.File.Type type) {
 		fileList.forEach(file -> {
 			binar.box.domain.File sqlFile = new binar.box.domain.File();
 			sqlFile.setFileName(file.getName());
 			sqlFile.setPathToFile(file.getPath());
 			sqlFile.setType(type);
 
-			lockTypeTemplate.getFiles().add(fileRepository.save(sqlFile));
+			lockTemplate.getFiles().add(fileRepository.save(sqlFile));
 		});
 
-		lockTypeTemplateRepository.save(lockTypeTemplate);
+		lockTemplateRepository.save(lockTemplate);
 	}
 }

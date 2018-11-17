@@ -2,7 +2,7 @@ package binar.box.service;
 
 import binar.box.converter.LockConvertor;
 import binar.box.converter.LockSectionConvertor;
-import binar.box.converter.LockTypeConverter;
+import binar.box.converter.LockCategoryConverter;
 import binar.box.domain.*;
 import binar.box.dto.*;
 import binar.box.repository.*;
@@ -10,12 +10,9 @@ import binar.box.util.Constants;
 import binar.box.util.Exceptions.LockBridgesException;
 import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -27,7 +24,7 @@ public class LockService {
 	private EmailService emailService;
 
 	@Autowired
-	private LockTypeRepository lockTypeRepository;
+	private LockCategoryRepository lockCategoryRepository;
 
 	@Autowired
 	private LockSectionRepository lockSectionRepository;
@@ -39,13 +36,13 @@ public class LockService {
 	private LockRepository lockRepository;
 
 	@Autowired
-	private LockTypeConverter lockTypeConverter;
+	private LockCategoryConverter lockCategoryConverter;
 
 	@Autowired
 	private LockConvertor lockConvertor;
 
 	@Autowired
-	private LockTypeTemplateRepository lockTypeTemplateRepository;
+	private LockTemplateRepository lockTemplateRepository;
 
 	@Autowired
 	private LockSectionConvertor lockSectionConvertor;
@@ -67,11 +64,11 @@ public class LockService {
 		price.setPrice(lockCategoryDTO.getPrice());
 		lockCategory.setPrice(priceRepository.save(price));
 
-		return lockTypeConverter.lockToLockTypeResponse(lockTypeRepository.save(lockCategory));
+		return lockCategoryConverter.lockToLockCategoryResponse(lockCategoryRepository.save(lockCategory));
 	}
 
 	public List<LockCategoryDTOResponse> getLockCategories() {
-		return lockTypeConverter.toDTOList(lockTypeRepository.findAll());
+		return lockCategoryConverter.toDTOList(lockCategoryRepository.findAll());
 	}
 
 	public List<LockSectionDTO> getLockSections() {
@@ -89,7 +86,7 @@ public class LockService {
     }
 
 	private void saveTextOnImage(Lock lock) throws IOException {
-		File lockFile =  lock.getLockTypeTemplate().getFiles().stream()
+		File lockFile =  lock.getLockTemplate().getFiles().stream()
 				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT))
 				.findAny()
 				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found"));
@@ -114,13 +111,13 @@ public class LockService {
 		LockSection lockSection=Objects.isNull(lockDTO.getLockSection()) ? null :
 				lockSectionRepository.findOne(lockDTO.getLockSection());
 
-		LockTypeTemplate lockTypeTemplate=Objects.isNull(lockDTO.getLockTypeTemplate()) ? null :
-				lockTypeTemplateRepository.findOne(lockDTO.getLockTypeTemplate());
+		LockTemplate lockTemplate =Objects.isNull(lockDTO.getLockTemplate()) ? null :
+				lockTemplateRepository.findOne(lockDTO.getLockTemplate());
 
 		return lockConvertor.toEntity(lockDTO,
 				                      lock,
 				                      lockSection,
-				                      lockTypeTemplate,
+				lockTemplate,
 									  addPoint(lockDTO, lock),
 				                      userService.getAuthenticatedUser());
 	}

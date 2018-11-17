@@ -35,9 +35,13 @@ public class Lock extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name= "file_id")
+	private File files;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lockTypeTemplate_id")
-	private LockTypeTemplate lockTypeTemplate;
+	@JoinColumn(name = "lockTemplate_id")
+	private LockTemplate lockTemplate;
 
 	@Column(name = "delete_token")
 	private String deleteToken;
