@@ -80,15 +80,23 @@ public class LockController {
 		return new ResponseEntity<>(lockService.getLockSections(), HttpStatus.OK);
 	}
 
+//	@ApiImplicitParams({
+//			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+//	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTemplate,lockCategory." + "\n EX: {\r\n"
+//			+ "  \"fontColor\": \"BLUE\",\r\n" + "  \"fontSize\": 60,\r\n" + "  \"fontStyle\": \"ROBOTO\",\r\n"
+//			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockCategory\":3,\r\n" + "  \"lockTemplate\":7\r\n"
+//			+ "} " + "\n This is the second user step to add a lock.")
+//	@PostMapping(value = Constants.LOCK_ENDPOINT)
+//	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) throws IOException {
+//			return new ResponseEntity<>(lockService.createUserLock(lockDTO), HttpStatus.CREATED);
+//	}
+
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Add user lock", notes = "Mandatory fields: lockTemplate,lockCategory." + "\n EX: {\r\n"
-			+ "  \"fontColor\": \"BLUE\",\r\n" + "  \"fontSize\": 60,\r\n" + "  \"fontStyle\": \"ROBOTO\",\r\n"
-			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockCategory\":3,\r\n" + "  \"lockTemplate\":7\r\n"
-			+ "} " + "\n This is the second user step to add a lock.")
+	@ApiOperation(value = "1st step in adding user lock", notes = "Mandatory fields: lockTemplate, message, private")
 	@PostMapping(value = Constants.LOCK_ENDPOINT)
-	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) throws IOException {
-			return new ResponseEntity<>(lockService.createUserLock(lockDTO), HttpStatus.CREATED);
+	private ResponseEntity<LockStepOneDTO> addLock(@RequestBody LockStepOneDTO lockStepOneDTO) throws IOException {
+		return new ResponseEntity<>(lockService.createUserLock(lockStepOneDTO), HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({

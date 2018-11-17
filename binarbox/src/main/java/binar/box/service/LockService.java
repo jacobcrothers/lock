@@ -75,14 +75,18 @@ public class LockService {
 		return lockSectionConvertor.toDTOList(lockSectionRepository.findAll());
 	}
 
-    public LockResponseDTO createUserLock(LockDTO lockDTO) throws IOException {
-		Lock lock = populateEntity(lockDTO, new Lock());
+    public LockStepOneDTO createUserLock(LockStepOneDTO lockStepOneDTO) throws IOException {
+		Lock lock = new Lock();
+
+		lock.setLockTemplate(lockTemplateRepository.findOne(lockStepOneDTO.getLockTemplate()));
+		lock.setMessage(lockStepOneDTO.getMessage());
+		lock.setPrivateLock(lockStepOneDTO.getPrivateLock());
 
 		lockRepository.save(lock);
 
 		saveTextOnImage(lock);
 
-        return lockConvertor.toResponseDTO(lockRepository.save(lock));
+        return lockConvertor.toStepOneDTO(lockRepository.save(lock));
     }
 
 	private void saveTextOnImage(Lock lock) throws IOException {
@@ -117,7 +121,7 @@ public class LockService {
 		return lockConvertor.toEntity(lockDTO,
 				                      lock,
 				                      lockSection,
-				lockTemplate,
+				                      lockTemplate,
 									  addPoint(lockDTO, lock),
 				                      userService.getAuthenticatedUser());
 	}

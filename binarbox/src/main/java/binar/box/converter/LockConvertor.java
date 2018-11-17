@@ -3,6 +3,7 @@ package binar.box.converter;
 import binar.box.domain.*;
 import binar.box.dto.LockDTO;
 import binar.box.dto.LockResponseDTO;
+import binar.box.dto.LockStepOneDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +13,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class LockConvertor {
-
-    @Autowired
-    private LockSectionConvertor lockSectionConvertor;
 
     @Autowired
     private LockCategoryConverter lockCategoryConverter;
@@ -59,5 +57,14 @@ public class LockConvertor {
         lock.setUser(user);
 
         return lock;
+    }
+
+    public LockStepOneDTO toStepOneDTO(Lock lock) {
+        return LockStepOneDTO.builder()
+                .id(lock.getId())
+                .lockTemplate(lock.getLockTemplate().getId())
+                .message(lock.getMessage())
+                .privateLock(lock.isPrivateLock())
+                .build();
     }
 }
