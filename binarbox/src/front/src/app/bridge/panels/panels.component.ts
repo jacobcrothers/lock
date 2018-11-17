@@ -94,4 +94,8 @@ export class PanelsComponent implements OnInit {
   mouseLeave() {
     // console.log('mouse leave---');
   }
+
+  verifyImageSrc() {
+    return this.currentImage.includes('pod3') ? true : false;
+  }
 }

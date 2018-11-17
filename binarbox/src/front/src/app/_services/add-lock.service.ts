@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AddLockService {
 
-  private lockTypesUrl     = 'lock/type';
+  private lockTypesUrl     = 'lock/category';
   private saveLockUrl      = 'lock';
 
   public createdLock: any;

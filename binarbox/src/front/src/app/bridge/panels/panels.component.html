@@ -1,7 +1,9 @@
 
 <section class="dorne-welcome-area bg-img bg-overlay panels-container">
-    <!-- <img class="bridge-img" (wheel)="onMousewheel($event)" data-wheel-zoom src="../../../assets/images/bridge/pod0.png" alt="" usemap="#image-map"/> -->
-    <img class="bridge-img" (wheel)="onMousewheel($event)" [src]="currentImage" alt="" usemap="#image-map"/>
+    <drag-scroll class="drag-scroll-container" scrollbar-hidden="true" drag-scroll-y-disabled="true">
+        <img class="bridge-img" [ngClass]="{'scroll-image' : verifyImageSrc()}" (wheel)="onMousewheel($event)" [src]="currentImage" alt="" usemap="#image-map"/>
+    </drag-scroll>
+    <!-- <img class="bridge-img" (wheel)="onMousewheel($event)" [src]="currentImage" alt="" usemap="#image-map"/> -->
 
     <map name="image-map" *ngIf="zoomCount === 3" (mouseenter) ="mouseEnter()">
         <area target="" alt="1" title="1" href="" coords="123,281,294,405" shape="rect" (click)="chooseSection($event)" class="image-area">
@@ -14,9 +16,3 @@
         <area target="" alt="8" title="8" href="" coords="643,405,808,521" shape="rect" (click)="chooseSection($event)" class="image-area">
     </map>
 </section>
-
-<!-- <script type="text/javascript">
-    jQuery(function($) {
-        $('map').imageMapResize();
-    });
-</script> -->
