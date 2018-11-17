@@ -22,7 +22,6 @@ export class PanelsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // TO DO get penals from BE
     this.createdLock = this.addLockService.createdLock;
   }
 
@@ -63,7 +62,7 @@ export class PanelsComponent implements OnInit {
     this.currentImage = this.findBridgeImg(bridgeImgs, this.zoomCount);
 
     if (this.zoomCount === 3) {
-      console.log('image 3');
+      this.mouseEnter();
       $("map[name=image-map]").imageMapResize();
     }
   }
@@ -77,22 +76,22 @@ export class PanelsComponent implements OnInit {
 
   chooseSection(event) {
     event.preventDefault();
+    // send this to BE
+    console.log('section event--', event.target.id);
   }
 
   mouseEnter() {
-    $("map[name=image-map]").mapoid( {
-      strokeColor: 'red',
-      strokeWidth: 1,
-      fillColor: 'yellow',
-      fillOpacity: 0.5,
-      fadeTime: 500,
-      selectedArea: false,
-      selectOnClick: true
-    });
-  }
-
-  mouseLeave() {
-    // console.log('mouse leave---');
+    setTimeout(() => {
+      $("map[name=image-map]").mapoid( {
+        strokeColor: 'black',
+        strokeWidth: 1,
+        fillColor: 'black',
+        fillOpacity: 0.5,
+        fadeTime: 500,
+        selectedArea: false,
+        selectOnClick: true
+      });
+    }, 200)
   }
 
   verifyImageSrc() {
