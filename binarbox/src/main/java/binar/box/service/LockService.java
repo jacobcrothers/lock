@@ -89,6 +89,14 @@ public class LockService {
         return lockConvertor.toStepOneDTO(lockRepository.save(lock));
     }
 
+    @Deprecated
+	public LockResponseDTO createUserLock(LockDTO lockDTO) throws IOException {
+		Lock lock = populateEntity(lockDTO, new Lock());
+		lockRepository.save(lock);
+		saveTextOnImage(lock);
+		return lockConvertor.toResponseDTO(lockRepository.save(lock));
+	}
+
 	private void saveTextOnImage(Lock lock) throws IOException {
 		File lockFile =  lock.getLockTemplate().getFiles().stream()
 				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT))
@@ -167,4 +175,18 @@ public class LockService {
 
 	}
 
+	public LockResponseDTO updateUserLockSection(long lockId, long sectionId) {
+		Lock lock = lockRepository.findOne(lockId);
+		LockSection lockSection = lockSectionRepository.findOne(sectionId);
+		lock.setLockSection(lockSection);
+
+		return lockConvertor.toResponseDTO(lockRepository.save(lock));
+	}
+
+	public LockResponseDTO updateUserLockPaid(long lockId) {
+		Lock lock = lockRepository.findOne(lockId);
+		lock.setPaid(true);
+
+		return lockConvertor.toResponseDTO(lockRepository.save(lock));
+	}
 }

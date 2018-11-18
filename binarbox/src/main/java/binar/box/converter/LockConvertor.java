@@ -60,11 +60,12 @@ public class LockConvertor {
     }
 
     public LockStepOneDTO toStepOneDTO(Lock lock) {
-        return LockStepOneDTO.builder()
-                .id(lock.getId())
-                .lockTemplate(lock.getLockTemplate().getId())
-                .message(lock.getMessage())
-                .privateLock(lock.isPrivateLock())
-                .build();
+        LockStepOneDTO lockStepOneDTO = new LockStepOneDTO();
+        lockStepOneDTO.setId(lock.getId());
+        lockStepOneDTO.setLockTemplate(lock.getLockTemplate().getId());
+        lockStepOneDTO.setMessage(lock.getMessage());
+        lockStepOneDTO.setPrivateLock(lock.isPrivateLock());
+
+        return lockStepOneDTO;
     }
 }

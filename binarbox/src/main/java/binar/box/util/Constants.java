@@ -34,6 +34,8 @@ public class Constants {
 	public static final String CONFIRM_EMAIL_ENDPOINT = "/email/confirm";
 	public static final String USER_AUTHORITY_STRING = "USER";
 	public static final String LOCK_ENDPOINT = "lock";
+	public static final String UPDATE_LOCK_SECTION_ENDPOINT = "lock/{lockId}/section/{sectionId}";
+	public static final String UPDATE_LOCK_PAID_ENDPOINT = "lock/{lockId}/paid";
 	public static final String LOCK_CATEGORY_ENDPOINT = "/category";
 	public static final String OS_NAME = "os.name";
 	public static final String WIN = "win";
