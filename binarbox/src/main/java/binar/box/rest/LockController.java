@@ -135,10 +135,10 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Get unpaid/in progress user locks", notes = "This is one optional step to complete \"add user lock\".")
-	@GetMapping(value = Constants.UPDATE_LOCK_PAID_ENDPOINT)
-	private ResponseEntity<List<LockResponseDTO>> getLocks() {
-		return new ResponseEntity<>(lockService.getLocks(), HttpStatus.OK);
+	@ApiOperation(value = "Get unpaid/in progress user locks", notes = "For pending locks tab")
+	@GetMapping(value = Constants.LOCK_ENDPOINT)
+	private ResponseEntity<List<LockResponseDTO>> getUnpaidLocks() {
+		return new ResponseEntity<>(lockService.getUnpaidLocks(), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({

@@ -149,7 +149,7 @@ public class LockService {
 		return point;
 	}
 
-	public List<LockResponseDTO> getLocks() {
+	public List<LockResponseDTO> getUnpaidLocks() {
 		return lockConvertor.toDTOList(lockRepository.
 						findByUserAndPaidFalse(userService.
 								getAuthenticatedUser()));
