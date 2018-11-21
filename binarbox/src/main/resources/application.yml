@@ -34,4 +34,8 @@ mail:
 facebook:
   clientId: 227796454748370
   clientSecret: 99b7d10633ccea8a8a8c7731fdcaffa7
+aws:
+  access.key: AKIAJFAJZOWMKCU3CMUA
+  secret.key: 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
+  region: eu-central-1
 
