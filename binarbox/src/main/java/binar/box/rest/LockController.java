@@ -86,9 +86,21 @@ public class LockController {
 			+ "  \"fontColor\": \"BLUE\",\r\n" + "  \"fontSize\": 60,\r\n" + "  \"fontStyle\": \"ROBOTO\",\r\n"
 			+ "  \"message\":\"MEsSAGE BECAUSE I CAN \",\r\n" + "  \"lockCategory\":3,\r\n" + "  \"lockTemplate\":7\r\n"
 			+ "} " + "\n This is the second user step to add a lock.")
-	@PostMapping(value = Constants.LOCK_ENDPOINT)
+	@PostMapping(value = Constants.LOCK_ENDPOINT + "Obsolete")
+	@Deprecated
 	private ResponseEntity<LockResponseDTO> addLock(@RequestBody LockDTO lockDTO) throws IOException {
 			return new ResponseEntity<>(lockService.createUserLock(lockDTO), HttpStatus.CREATED);
+	}
+
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "1st step in adding user lock", notes = "Mandatory fields: lockTemplate, message, private")
+	@PostMapping(value = Constants.LOCK_ENDPOINT)
+	private ResponseEntity<LockStepOneDTO> addLockStepOne(@Valid @RequestBody LockStepOneDTO lockStepOneDTO, BindingResult bindingResult) throws IOException {
+		if (bindingResult.hasErrors()) {
+			throw new FieldsException("Lock step one fields are incorrect", "lock.step.one.invalid", bindingResult);
+		}
+		return new ResponseEntity<>(lockService.createUserLock(lockStepOneDTO), HttpStatus.CREATED);
 	}
 
 	@ApiImplicitParams({
@@ -99,16 +111,34 @@ public class LockController {
 			+ "  \"lockTemplate\":6,\r\n" + "  \"lockCategory\": 3,\r\n" + "  \"longitude\": 0,\r\n"
 			+ "  \"message\": \"string\",\r\n" + "  \"lockColor\":\"YELLOW\",\r\n" + "  \"lockSection\":1\r\n" + "\r\n"
 			+ "}" + "\n This is the third user step to add a lock")
+	@Deprecated
 	private ResponseEntity<LockResponseDTO> updateLock(@RequestBody LockDTO lockDTO) {
 		return new ResponseEntity<>(lockService.updateUserLock(lockDTO), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Get unpaid/in progress user locks", notes = "This is one optional step to complete \"add user lock\".")
-	@GetMapping(value = Constants.LOCK_ENDPOINT)
-	private ResponseEntity<List<LockResponseDTO>> getLocks() {
-		return new ResponseEntity<>(lockService.getLocks(), HttpStatus.OK);
+	@PutMapping(value = Constants.UPDATE_LOCK_SECTION_ENDPOINT)
+	@ApiOperation(value = "Update user lock section", notes = "Mandatory fields: lockId, sectionId")
+	private ResponseEntity<LockResponseDTO> updateLockSection(@PathVariable("lockId") long lockId,
+															  @PathVariable("sectionId") long sectionId) {
+		return new ResponseEntity<>(lockService.updateUserLockSection(lockId, sectionId), HttpStatus.OK);
+	}
+
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@PutMapping(value = Constants.UPDATE_LOCK_PAID_ENDPOINT)
+	@ApiOperation(value = "Update user lock paid flag", notes = "Mandatory fields: lockId")
+	private ResponseEntity<LockResponseDTO> updateLockPaid(@PathVariable("lockId") long lockId) {
+		return new ResponseEntity<>(lockService.updateUserLockPaid(lockId), HttpStatus.OK);
+	}
+
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get unpaid/in progress user locks", notes = "For pending locks tab")
+	@GetMapping(value = Constants.LOCK_UNPAID_ENDPOINT)
+	private ResponseEntity<List<LockResponseDTO>> getUnpaidLocks() {
+		return new ResponseEntity<>(lockService.getUnpaidLocks(), HttpStatus.OK);
 	}
 
 	@ApiImplicitParams({

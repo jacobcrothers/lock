@@ -2,6 +2,7 @@ package binar.box.repository;
 
 import binar.box.domain.Lock;
 import binar.box.domain.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -37,5 +38,4 @@ public interface LockRepository extends BaseJpaRepository<Lock, Long> {
 			@Param("country") String country);
 
 	List<Lock> findByUserId(String UserId);
-
 }

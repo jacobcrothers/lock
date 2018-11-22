@@ -75,15 +75,27 @@ public class LockService {
 		return lockSectionConvertor.toDTOList(lockSectionRepository.findAll());
 	}
 
-    public LockResponseDTO createUserLock(LockDTO lockDTO) throws IOException {
-		Lock lock = populateEntity(lockDTO, new Lock());
+    public LockStepOneDTO createUserLock(LockStepOneDTO lockStepOneDTO) throws IOException {
+		Lock lock = new Lock();
+
+		lock.setLockTemplate(lockTemplateRepository.findOne(lockStepOneDTO.getLockTemplate()));
+		lock.setMessage(lockStepOneDTO.getMessage());
+		lock.setPrivateLock(lockStepOneDTO.getPrivateLock());
 
 		lockRepository.save(lock);
 
 		saveTextOnImage(lock);
 
-        return lockConvertor.toResponseDTO(lockRepository.save(lock));
+        return lockConvertor.toStepOneDTO(lockRepository.save(lock));
     }
+
+    @Deprecated
+	public LockResponseDTO createUserLock(LockDTO lockDTO) throws IOException {
+		Lock lock = populateEntity(lockDTO, new Lock());
+		lockRepository.save(lock);
+		saveTextOnImage(lock);
+		return lockConvertor.toResponseDTO(lockRepository.save(lock));
+	}
 
 	private void saveTextOnImage(Lock lock) throws IOException {
 		File lockFile =  lock.getLockTemplate().getFiles().stream()
@@ -117,7 +129,7 @@ public class LockService {
 		return lockConvertor.toEntity(lockDTO,
 				                      lock,
 				                      lockSection,
-				lockTemplate,
+				                      lockTemplate,
 									  addPoint(lockDTO, lock),
 				                      userService.getAuthenticatedUser());
 	}
@@ -137,7 +149,7 @@ public class LockService {
 		return point;
 	}
 
-	public List<LockResponseDTO> getLocks() {
+	public List<LockResponseDTO> getUnpaidLocks() {
 		return lockConvertor.toDTOList(lockRepository.
 						findByUserAndPaidFalse(userService.
 								getAuthenticatedUser()));
@@ -163,4 +175,18 @@ public class LockService {
 
 	}
 
+	public LockResponseDTO updateUserLockSection(long lockId, long sectionId) {
+		Lock lock = lockRepository.findOne(lockId);
+		LockSection lockSection = lockSectionRepository.findOne(sectionId);
+		lock.setLockSection(lockSection);
+
+		return lockConvertor.toResponseDTO(lockRepository.save(lock));
+	}
+
+	public LockResponseDTO updateUserLockPaid(long lockId) {
+		Lock lock = lockRepository.findOne(lockId);
+		lock.setPaid(true);
+
+		return lockConvertor.toResponseDTO(lockRepository.save(lock));
+	}
 }
