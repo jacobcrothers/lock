@@ -90,8 +90,8 @@ export class LockComponent implements OnInit {
 
     chooseCategory(lockCategory) {
         this.selectedLockCategory = lockCategory;
-        this.lockType = lockCategory.type;
-        this.location.replaceState(`/add-lock/${this.selectedLockCategory['type']}`);
+        this.lockType = lockCategory.category;
+        this.location.replaceState(`/add-lock/${this.selectedLockCategory['category']}`);
         this.displayLocks()
     }
     
@@ -102,14 +102,10 @@ export class LockComponent implements OnInit {
     }
 
     saveLock(formValue) {
-        let createdLock = {
-            "fontColor": this.selectedLock['fontColor'],
-            "fontSize": this.selectedLock['fontSize'],
-            "fontStyle": this.selectedLock['fontStyle'],
+        let createdLock = {    
             "message": formValue['insertMessage'],
-            "lockType": this.selectedLockCategory['id'],
-            "lockTypeTemplate": this.selectedLock['id'],
-            "lockPrivacy": formValue['privacy'] === "private" ? true : false
+            "lockTemplate": this.selectedLock['id'],
+            "privateLock": formValue['privacy'] === "private" ? true : false
         };
         this.addLockService.saveLock(createdLock).subscribe(data => {
             this.router.navigate([`/panels`] );
