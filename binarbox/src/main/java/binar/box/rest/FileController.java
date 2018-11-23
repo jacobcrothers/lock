@@ -20,6 +20,7 @@ import binar.box.util.Exceptions.LockBridgesException;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping(Constants.API + Constants.FILE_ENDPOINT)
@@ -31,6 +32,7 @@ public class FileController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Download file", notes = "File get", hidden = true)
+	@ApiIgnore
 	@GetMapping(value = Constants.DOWNLOAD, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	private ResponseEntity<InputStreamResource> downloadFile(@RequestParam("id") long fileId) {
 		binar.box.domain.File fileEntity = fileService.getFile(fileId);
@@ -46,5 +48,4 @@ public class FileController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileEntity.getFileName())
 				.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length()).body(inputStreamResource);
 	}
-
 }

@@ -38,4 +38,10 @@ aws:
   access.key: AKIAJFAJZOWMKCU3CMUA
   secret.key: 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
   region: eu-central-1
-
+  bucket:
+    category: /category
+    template: /template
+    partiallyErasedTemplate: /partiallyErasedTemplate
+    partiallyErasedTemplateWithText: /partiallyErasedTemplateWithText
+    bridge: /bridge
+    file.domain: http://localhost:8080/zinsure

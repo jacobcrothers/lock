@@ -37,7 +37,7 @@ public class FileService {
 	@Autowired
 	private LockTemplateRepository lockTemplateRepository;
 
-	public void saveFilesToLockCategory(MultipartFile file, long lockCategoryId) throws IOException {
+	public void saveFileToLockCategory(MultipartFile file, long lockCategoryId) throws IOException {
 		LockCategory lockCategory = lockCategoryRepository.findOne(lockCategoryId);
 		File diskFile = storeFile(checkOrCreateDirectory(), file);
 		createCategoryFile(diskFile, lockCategory);

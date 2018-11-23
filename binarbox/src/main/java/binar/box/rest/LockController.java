@@ -47,8 +47,8 @@ public class LockController {
 	@ApiOperation(value = "ADMIN: Add lock category image", notes = "This endpoint is for admin, admin add lock image.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_CATEGORY_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity addLockCategoryFiles(@RequestParam("file") MultipartFile file, @RequestParam("id") long lockCategoryId) throws IOException {
-		fileService.saveFilesToLockCategory(file, lockCategoryId);
+	private ResponseEntity addLockCategoryFile(@RequestParam("file") MultipartFile file, @RequestParam("id") long lockCategoryId) throws IOException {
+		fileService.saveFileToLockCategory(file, lockCategoryId);
 		return new ResponseEntity(HttpStatus.CREATED);
 	}
 
