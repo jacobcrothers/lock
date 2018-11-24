@@ -2,14 +2,14 @@ spring:
   profiles: dev
   jpa:
     hibernate:
-      ddlAuto: create
+      ddlAuto: update
       namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
     show-sql: true
 #  liquibase:
 #    change-log: classpath:/liquibase/master.xml
   servlet:
     multipart:
-      maxFileSize: 10MB
+      maxFileSize: 100MB
       maxRequestSize: 100MB
 server:
   port: 6060
@@ -34,3 +34,8 @@ mail:
 facebook:
   clientId: 227796454748370
   clientSecret: 99b7d10633ccea8a8a8c7731fdcaffa7
+aws:
+  access.key: AKIAJFAJZOWMKCU3CMUA
+  secret.key: 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
+  region: eu-central-1
+
