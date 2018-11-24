@@ -25,6 +25,8 @@ public class LockResponseDTO {
 
 	private LockCategoryDTOResponse lockCategoryDTOResponse;
 
+	private FileDTO fileDTO;
+
 	private Long panelId;
 
 	private Boolean privateLock;
