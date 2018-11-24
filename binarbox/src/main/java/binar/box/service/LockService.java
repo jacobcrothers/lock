@@ -1,5 +1,6 @@
 package binar.box.service;
 
+import binar.box.configuration.storage.FileStorage;
 import binar.box.converter.LockConvertor;
 import binar.box.converter.LockSectionConvertor;
 import binar.box.converter.LockCategoryConverter;
@@ -10,10 +11,12 @@ import binar.box.util.Constants;
 import binar.box.util.Exceptions.LockBridgesException;
 import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 @Service
@@ -55,6 +58,15 @@ public class LockService {
 
 	@Autowired
 	private FileService	fileService;
+
+	@Autowired
+	private FileStorage fileStorage;
+
+	@Autowired
+	private FileRepository fileRepository;
+
+	@Value("${file.domain}")
+	private String domain;
 
 	public LockCategoryDTOResponse addLockCategory(LockCategoryDTO lockCategoryDTO) {
 		LockCategory lockCategory = new LockCategory();
@@ -99,14 +111,34 @@ public class LockService {
 
 	private void saveTextOnImage(Lock lock) throws IOException {
 		File lockFile =  lock.getLockTemplate().getFiles().stream()
-				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT))
+				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE))
 				.findAny()
 				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found"));
 
-		binar.box.domain.File fileEntity = fileService.getFile(lockFile.getId());
-		java.io.File diskFile = new java.io.File(fileEntity.getPathToFile());
+		InputStream storageFile = fileStorage.retrieve(lockFile.getPathToFile(), File.Type.PARTIALY_ERASED_TEMPLATE);
 
-		ImageUtils.addTextToImage(diskFile, ImageUtils.returnPathToImages(), lock.getMessage());
+
+
+		InputStream imageWithText = ImageUtils.addTextToImage(storageFile, lock.getMessage());
+
+		File sqlFile = storeFile(lockFile, imageWithText);
+
+		lock.setFile(fileRepository.save(sqlFile));
+	}
+
+	private File storeFile(File lockFile, InputStream imageWithText) throws IOException {
+		File sqlFile = new File();
+		sqlFile.setFileName(lockFile.getFileName());
+
+		fileRepository.save(sqlFile);
+
+		String path = fileStorage.store(imageWithText,
+				Constants.getFileKey(lockFile.getFileName(), File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT, sqlFile.getId()),
+				File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT);
+		sqlFile.setPathToFile(path);
+		sqlFile.setUrlToFile(Constants.downloadFileUrl(sqlFile.getId(), domain));
+		sqlFile.setType(File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT);
+		return sqlFile;
 	}
 
 	public LockResponseDTO updateUserLock(LockDTO lockDTO){

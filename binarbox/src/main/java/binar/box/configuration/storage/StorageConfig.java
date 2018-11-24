@@ -1,5 +1,6 @@
 package binar.box.configuration.storage;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,21 +10,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class StorageConfig {
 
-    @Value("${spring.tjx.file-service.storage-type}")
+    @Value("${file.storageType}")
     private StorageType storageType;
 
-    private AmazonS3Client amazonS3Client;
+    private AmazonS3 amazonS3;
 
     @Autowired
-    public void setAmazonS3Client(AmazonS3Client amazonS3Client) {
-        this.amazonS3Client = amazonS3Client;
+    public void setAmazonS3Client(AmazonS3 amazonS3) {
+        this.amazonS3 = amazonS3;
     }
 
     @Bean
     public FileStorage defaultFileStorage() {
         switch (storageType) {
             case AWS_S3:
-                return new AWSFileStorage(amazonS3Client, "eppione"); //make bucket configurable
+                return new AWSFileStorage(amazonS3); //make bucket configurable
             default:
                 return new FSFileStorage();
         }

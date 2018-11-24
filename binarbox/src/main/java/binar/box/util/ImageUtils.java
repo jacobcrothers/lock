@@ -75,13 +75,13 @@ public class ImageUtils {
         return file2buffer;
     }
 
-    public static void addTextToImage(File file, String pathToSaveFiles, String message) throws IOException {
+    public static InputStream addTextToImage(InputStream file, String message) throws IOException {
         BufferedImage file2buffer = ImageIO.read(file);
+        BufferedImage resultBuffer = addTextToBufferedImage(file2buffer, message);
 
-        BufferedImage result = addTextToBufferedImage(file2buffer, message);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(resultBuffer, "jpg", os);
 
-        ImageIO.write(result, "png", new File(
-                pathToSaveFiles + File.separator + "New" + file.getName()));
-
+        return new ByteArrayInputStream(os.toByteArray());
     }
 }

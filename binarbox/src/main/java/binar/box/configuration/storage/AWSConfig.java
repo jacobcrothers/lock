@@ -1,4 +1,4 @@
-package binar.box.configuration;
+package binar.box.configuration.storage;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -20,7 +20,7 @@ public class AWSConfig {
     private String region;
 
     @Bean
-    public AmazonS3 createAmazonS3Client() {
+    public AmazonS3 createAmazonS3() {
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
         return AmazonS3ClientBuilder.standard()
                 .withRegion(region)

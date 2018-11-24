@@ -21,6 +21,9 @@ public class File extends BaseEntity {
 	@Column(name = "path_to_file")
 	private String pathToFile;
 
+	@Column(name = "url_to_file")
+	private String urlToFile;
+
 	@Column(name="type")
 	private Type type;
 

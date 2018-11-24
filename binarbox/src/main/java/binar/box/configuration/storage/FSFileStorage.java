@@ -1,9 +1,10 @@
 package binar.box.configuration.storage;
 
 import binar.box.util.Exceptions.FileStorageException;
+import binar.box.util.ImageUtils;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -12,17 +13,9 @@ public class FSFileStorage implements FileStorage {
 
     private final Logger logger = LoggerFactory.getLogger(FSFileStorage.class);
 
-    @Value("${spring.tjx.file-service.path}")
-    private String path;
-
     @Override
-    public String store(MultipartFile file) throws IOException {
-        return store(file, file.getOriginalFilename());
-    }
-
-    @Override
-    public String store(MultipartFile file, String uri) throws IOException {
-        File dest = new File(path + File.separator + uri); //todo should we use relative path? will allow migrating com.servustech.tjx.fs folder
+    public String store(InputStream file, String uri, binar.box.domain.File.Type type) throws IOException {
+        File dest = new File(ImageUtils.returnPathToImages() + File.separator + type); //todo should we use relative path? will allow migrating com.servustech.tjx.fs folder
 
         logger.debug("Destination for file: " + dest.getAbsolutePath());
 
@@ -33,12 +26,12 @@ public class FSFileStorage implements FileStorage {
             parentFolder.mkdirs();
         }
 
-        file.transferTo(dest);
+        FileUtils.copyInputStreamToFile(file, dest);
         return dest.getAbsolutePath();
     }
 
     @Override
-    public InputStream retrieve(String key) throws FileStorageException {
+    public InputStream retrieve(String key, binar.box.domain.File.Type type) throws FileStorageException {
         File file = new File(key);
         if (file.exists()) {
             try {
@@ -52,7 +45,7 @@ public class FSFileStorage implements FileStorage {
     }
 
     @Override
-    public boolean delete(String key) throws FileStorageException {
+    public boolean delete(String key, binar.box.domain.File.Type type) throws FileStorageException {
         File file = new File(key);
         if (file.exists()) {
             return file.delete();

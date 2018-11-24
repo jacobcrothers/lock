@@ -14,6 +14,9 @@ public class FileConverter {
         return FileDTO.builder()
                 .id(file.getId())
                 .name(file.getFileName())
+                .pathToFile(file.getPathToFile())
+                .urlToFile(file.getUrlToFile())
+                .type(file.getType())
                 .build();
     }
 

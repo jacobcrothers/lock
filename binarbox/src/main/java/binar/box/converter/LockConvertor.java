@@ -18,6 +18,9 @@ public class LockConvertor {
     private LockCategoryConverter lockCategoryConverter;
 
     @Autowired
+    private FileConverter fileConverter;
+
+    @Autowired
     private PointConverter pointConverter;
 
     public LockResponseDTO toResponseDTO(Lock lock){
@@ -35,6 +38,7 @@ public class LockConvertor {
                 .lockSectionId(Objects.isNull(lock.getLockSection()) ? null : lock.getLockSection().getId())
                 .pointDTO(Objects.isNull(lock.getPoint()) ? null : pointConverter.toDTO(lock.getPoint()))
                 .lockCategoryDTOResponse(Objects.isNull(lock.getLockTemplate()) ? null : lockCategoryConverter.lockToLockCategoryResponse(lock.getLockTemplate().getLockCategory()))
+                .fileDTO(Objects.isNull(lock.getFile()) ? null : fileConverter.toDTO(lock.getFile()))
                 .build();
     }
 
