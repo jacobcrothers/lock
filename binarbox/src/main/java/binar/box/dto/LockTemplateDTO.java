@@ -20,6 +20,8 @@ public class LockTemplateDTO {
 
 	private List<FileDTO> filesDTO;
 
+	private List<FontDTO> fontsDTO;
+
 	private String lockCategory;
 
 	private BigDecimal price;

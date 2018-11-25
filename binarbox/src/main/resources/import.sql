@@ -82,27 +82,43 @@ INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `pa
 
 -- PARTIALLY ERASED TEMPLATE WITH TEXT FILES
 
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (27, '2018-11-25 08:07:17.663000', '2018-11-25 08:07:17.820000', 'erased_template_6.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\27_erased_template_6.png', 3, 'https://localhost:6060/api/v0/download/file/27');
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (28, '2018-11-25 08:12:16.415000', '2018-11-25 08:12:16.626000', 'erased_template_2.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\28_erased_template_2.png', 3, 'https://localhost:6060/api/v0/download/file/28');
-
-
--- replace this with partially erased locks when available
-
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (27, '2018-11-25 20:07:16.319000', '2018-11-25 20:07:16.844000', 'erased_template_6.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\27_erased_template_6.png', 3, 'https://localhost:6060/api/v0/download/file/27');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (28, '2018-11-25 20:07:42.176000', '2018-11-25 20:07:42.758000', 'erased_template_2.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\28_erased_template_2.png', 3, 'https://localhost:6060/api/v0/download/file/28');
 
 INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (1, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:14.417000', 'REGULAR', 10, 5, 1);
 INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (2, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:25.031000', 'VIP', 10, 6, 2);
 INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (3, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:38.416000', 'GOLD', 10, 7, 3);
 
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (1, '1', '1', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (2, '1', '2', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (3, '1', '3', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (4, '2', '1', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (5, '2', '2', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (6, '2', '3', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (7, '3', '1', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (8, '3', '2', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.lock_template (`id`,`lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (9, '3', '3', '2018-08-23', '2018-08-23 10:35:46');
 
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (1, '61', 'ROBOTO', 'BLACK', '1', '1', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (2, '62', 'ROBO', 'BLACK', '1', '2', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (3, '63', 'GOGO', 'BLACK', '1', '3', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (4, '64', 'HOHO', 'BLACK', '2', '1', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (5, '65', 'BLOBLO2', 'BLACK', '2', '2', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (6, '66', 'QWEASD', 'BLACK', '2', '3', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (7, '67', 'ASDASD', 'BLACK', '3', '1', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (8, '68', 'ZCZC', 'BLACK', '3', '2', '2018-08-23', '2018-08-23 10:35:46');
-INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (9, '69', 'GHSDF', 'BLACK', '3', '3', '2018-08-23', '2018-08-23 10:35:46');
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 1)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (2, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 1)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (3, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 2)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (4, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 2)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (5, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 3)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (6, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe', 3)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (7, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 4)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (8, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 4)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (9, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 5)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (10, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 5)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (11, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 6)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (12, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 6)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (13, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 7)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (14, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 7)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (15, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 8)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (16, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 8)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (17, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 9)
+INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (18, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 9)
+
+
 
 INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (1, 8);
 INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (1, 18);
@@ -129,7 +145,7 @@ INSERT INTO lb.user VALUES ('2170256639660343' , 'address', 'city', 'country', '
 INSERT INTO lb.point VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 112, 112);
 INSERT INTO lb.point VALUES (2, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 114, 114);
 
-INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (1, '2018-11-25 08:07:15.872000', '2018-11-25 08:08:00.893000', NULL, 'BLUE', 15, 'Arial', b'0', 'BLUEISH', 'THE BEST TEXT EVER', b'1', b'0', 27, 8, 1, 1, '2170256639660343');
-INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (2, '2018-11-25 08:12:15.853000', '2018-11-25 08:12:47.503000', NULL, 'RED', 16, 'Sofis', b'0', 'REDISH', 'THE BEST TEXT EVER', b'1', b'0', 28, 7, 2, 2, '2170256639660343');
+INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (1, '2018-11-25 20:07:15.131000', '2018-11-25 20:07:16.841000', NULL, NULL, NULL, NULL, b'0', NULL, 'LOCK TEXT', b'0', b'0', 27, 1, 1, 1, '2170256639660343');
+INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (2, '2018-11-25 20:07:41.224000', '2018-11-25 20:07:42.756000', NULL, NULL, NULL, NULL, b'0', NULL, 'LOCK TEXT', b'0', b'0', 28, 2, 2, 1, '2170256639660343');
 
 INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8);

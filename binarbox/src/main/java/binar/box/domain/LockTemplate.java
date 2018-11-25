@@ -17,16 +17,6 @@ import java.util.List;
 @Entity
 @Table(name = "lock_template")
 public class LockTemplate extends BaseEntity {
-
-	@Column(name = "font_size")
-	private Integer fontSize;
-
-	@Column(name = "font_style")
-	private String fontStyle;
-
-	@Column(name = "font_color")
-	private String fontColor;
-
 	@OneToMany
 	@JoinTable(name="TemplateFile",
 			joinColumns = @JoinColumn( name="lock_template_id"),
@@ -39,6 +29,9 @@ public class LockTemplate extends BaseEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockTemplate")
 	private List<Lock> locks;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lockTemplate")
+	private List<Font> fonts;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "price_id")
