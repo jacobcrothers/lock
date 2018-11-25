@@ -43,23 +43,23 @@ public class ImageUtils {
     }
 
     private static BufferedImage addTextToBufferedImage(BufferedImage file2buffer, String message) {
-        Graphics graphics = file2buffer.getGraphics();
-        graphics.setColor(Color.LIGHT_GRAY);
-        graphics.fillRect(0, 0, 50, 50);
-        graphics.setColor(Color.BLUE);
-        graphics.setFont(new Font("Arial Black", Font.BOLD, 20));
-        graphics.drawString(message, 10, 25);
-
-        graphics.setFont(graphics.getFont().deriveFont(30f));
-        graphics.drawString(message, 100, 100);
-        graphics.dispose();
+//        Graphics graphics = file2buffer.getGraphics();
+//        graphics.setColor(Color.LIGHT_GRAY);
+//        graphics.fillRect(0, 0, 50, 50);
+//        graphics.setColor(Color.BLUE);
+//        graphics.setFont(new Font("Arial Black", Font.BOLD, 20));
+//        graphics.drawString(message, 10, 25);
+//
+//        graphics.setFont(graphics.getFont().deriveFont(30f));
+//        graphics.drawString(message, 100, 100);
+//        graphics.dispose();
 
         Graphics2D w = (Graphics2D) file2buffer.getGraphics();
         w.drawImage(file2buffer, 0, 0, null);
         AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
         w.setComposite(alphaChannel);
-        w.setColor(Color.GREEN);
-        w.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 26));
+        w.setColor(Color.LIGHT_GRAY);
+        w.setFont(new Font("Segoe Script", Font.BOLD, 26));
         FontMetrics fontMetrics = w.getFontMetrics();
         Rectangle2D rect = fontMetrics.getStringBounds(message, w);
 
@@ -68,20 +68,20 @@ public class ImageUtils {
         int centerY = file2buffer.getHeight() / 2;
 
         // add text overlay to the image
-        w.drawString(message, centerX, centerY);
+        w.drawString(message, centerX + 20, centerY);
 
         w.dispose();
 
         return file2buffer;
     }
 
-    public static void addTextToImage(File file, String pathToSaveFiles, String message) throws IOException {
+    public static InputStream addTextToImage(InputStream file, String message) throws IOException {
         BufferedImage file2buffer = ImageIO.read(file);
+        BufferedImage resultBuffer = addTextToBufferedImage(file2buffer, message);
 
-        BufferedImage result = addTextToBufferedImage(file2buffer, message);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(resultBuffer, "png", os);
 
-        ImageIO.write(result, "png", new File(
-                pathToSaveFiles + File.separator + "New" + file.getName()));
-
+        return new ByteArrayInputStream(os.toByteArray());
     }
 }

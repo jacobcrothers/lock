@@ -2,7 +2,7 @@ spring:
   profiles: dev
   jpa:
     hibernate:
-      ddlAuto: update
+      ddlAuto: create
       namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
     show-sql: true
 #  liquibase:
@@ -38,4 +38,12 @@ aws:
   access.key: AKIAJFAJZOWMKCU3CMUA
   secret.key: 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
   region: eu-central-1
-
+  bucket:
+    category: lock-s3-bucket/Category
+    template: lock-s3-bucket/Template
+    partiallyErasedTemplate: lock-s3-bucket/PartiallyErasedTemplate
+    partiallyErasedTemplateWithText: lock-s3-bucket/PartiallyErasedTemplateWithText
+    bridge: lock-s3-bucket/Bridge
+file:
+    domain: https://localhost:6060
+    storageType: AWS_S3

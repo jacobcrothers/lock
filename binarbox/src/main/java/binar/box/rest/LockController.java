@@ -44,28 +44,6 @@ public class LockController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "ADMIN: Add lock category image", notes = "This endpoint is for admin, admin add lock image.", hidden = true)
-	@PostMapping(value = Constants.LOCK_ENDPOINT
-			+ Constants.LOCK_CATEGORY_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity addLockCategoryFiles(@RequestParam("file") MultipartFile file, @RequestParam("id") long lockCategoryId) throws IOException {
-		fileService.saveFilesToLockCategory(file, lockCategoryId);
-		return new ResponseEntity(HttpStatus.CREATED);
-	}
-
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "ADMIN: Add lock template images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
-	@PostMapping(value = Constants.LOCK_ENDPOINT
-			+ Constants.LOCK_TEMPLATE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	private ResponseEntity addLockTemplateFiles(@RequestParam("file") MultipartFile[] files,
-												@RequestParam("id") long lockTemplateId,
-												@RequestParam("type") File.Type type) throws IOException {
-		fileService.saveFilesToLockTemplate(files, lockTemplateId, type);
-		return new ResponseEntity(HttpStatus.CREATED);
-	}
-
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "Get lock category with lock templates", notes = "User first step is to choose one lock category then one lock template type")
 	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.LOCK_CATEGORY_ENDPOINT)
 	private ResponseEntity<List<LockCategoryDTOResponse>> getLockCategories() {

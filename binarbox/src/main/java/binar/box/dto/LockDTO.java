@@ -1,12 +1,14 @@
 package binar.box.dto;
 
 import lombok.Data;
+import org.apache.http.annotation.Obsolete;
 
 import javax.validation.constraints.NotNull;
 
 @Data
 
 // 3 step save
+@Obsolete
 public class LockDTO {
 
 	private Long id;
