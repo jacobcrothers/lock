@@ -44,34 +44,55 @@ INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES
 INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (2, '30', '2018-08-23', '2018-08-23 10:32:23');
 INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (3, '50', '2018-08-23', '2018-08-23 10:32:23');
 
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (1, '2018-11-13 19:09:39.198000', '2018-11-13 19:09:39.198000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 0);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (2, '2018-11-13 19:10:04.776000', '2018-11-13 19:10:04.776000', 'lock2.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock2.jpeg', 0);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (3, '2018-11-13 19:10:15.264000', '2018-11-13 19:10:15.264000', 'lock8.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock8.jpeg', 0);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (4, '2018-11-13 19:16:43.243000', '2018-11-13 19:16:43.243000', 'lock6.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock6.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (5, '2018-11-13 19:17:11.750000', '2018-11-13 19:17:11.750000', 'lock7.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock7.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (6, '2018-11-13 19:18:04.286000', '2018-11-13 19:18:04.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (7, '2018-11-13 19:18:22.753000', '2018-11-13 19:18:22.753000', 'lock3.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock3.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (8, '2018-11-13 19:18:29.614000', '2018-11-13 19:18:29.614000', 'lock4.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock4.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (9, '2018-11-13 19:18:37.559000', '2018-11-13 19:18:37.559000', 'lock2.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock2.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (10, '2018-11-13 19:19:09.353000', '2018-11-13 19:19:09.353000', 'lock5.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock5.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (11, '2018-11-13 19:19:13.961000', '2018-11-13 19:19:13.961000', 'lock7.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock7.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (12, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock8.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock8.jpeg', 1);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (13, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
+-- BRIDGE FILES
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (1, '2018-11-25 07:31:26.249000', '2018-11-25 07:31:27.773000', 'bridge_1.jpg', 'BRIDGE\\1_bridge_1.jpg', 4, 'https://localhost:6060/api/v0/download/file/1');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (2, '2018-11-25 07:31:36.500000', '2018-11-25 07:31:37.132000', 'bridge_2.jpg', 'BRIDGE\\2_bridge_2.jpg', 4, 'https://localhost:6060/api/v0/download/file/2');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (3, '2018-11-25 07:31:43.381000', '2018-11-25 07:31:43.989000', 'bridge_3.jpg', 'BRIDGE\\3_bridge_3.jpg', 4, 'https://localhost:6060/api/v0/download/file/3');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (4, '2018-11-25 07:31:49.568000', '2018-11-25 07:31:50.029000', 'bridge_4.jpg', 'BRIDGE\\4_bridge_4.jpg', 4, 'https://localhost:6060/api/v0/download/file/4');
+
+-- CATEGORY FILES
+
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (5, '2018-11-25 07:44:14.043000', '2018-11-25 07:44:14.419000', 'category_1.jpeg', 'CATEGORY\\5_category_1.jpeg', 0, 'https://localhost:6060/api/v0/download/file/5');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (6, '2018-11-25 07:44:24.725000', '2018-11-25 07:44:25.033000', 'category_2.jpeg', 'CATEGORY\\6_category_2.jpeg', 0, 'https://localhost:6060/api/v0/download/file/6');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (7, '2018-11-25 07:44:38.069000', '2018-11-25 07:44:38.420000', 'category_3.jpeg', 'CATEGORY\\7_category_3.jpeg', 0, 'https://localhost:6060/api/v0/download/file/7');
+
+-- TEMPLATE FILES
+
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (8, '2018-11-25 07:51:11.996000', '2018-11-25 07:51:12.473000', 'template_1.jpeg', 'FULL_TEMPLATE\\8_template_1.jpeg', 1, 'https://localhost:6060/api/v0/download/file/8');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (9, '2018-11-25 07:51:42.835000', '2018-11-25 07:51:43.089000', 'template_6.jpeg', 'FULL_TEMPLATE\\9_template_6.jpeg', 1, 'https://localhost:6060/api/v0/download/file/9');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (10, '2018-11-25 07:51:57.337000', '2018-11-25 07:51:57.681000', 'template_7.jpeg', 'FULL_TEMPLATE\\10_template_7.jpeg', 1, 'https://localhost:6060/api/v0/download/file/10');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (11, '2018-11-25 07:52:17.243000', '2018-11-25 07:52:17.631000', 'template_4.jpeg', 'FULL_TEMPLATE\\11_template_4.jpeg', 1, 'https://localhost:6060/api/v0/download/file/11');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (12, '2018-11-25 07:52:40.446000', '2018-11-25 07:52:40.717000', 'template_3.jpeg', 'FULL_TEMPLATE\\12_template_3.jpeg', 1, 'https://localhost:6060/api/v0/download/file/12');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (13, '2018-11-25 07:52:48.540000', '2018-11-25 07:52:48.822000', 'template_2.jpeg', 'FULL_TEMPLATE\\13_template_2.jpeg', 1, 'https://localhost:6060/api/v0/download/file/13');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (14, '2018-11-25 07:53:03.194000', '2018-11-25 07:53:03.773000', 'template_8.jpeg', 'FULL_TEMPLATE\\14_template_8.jpeg', 1, 'https://localhost:6060/api/v0/download/file/14');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (15, '2018-11-25 07:53:28.604000', '2018-11-25 07:53:29.005000', 'template_7.jpeg', 'FULL_TEMPLATE\\15_template_7.jpeg', 1, 'https://localhost:6060/api/v0/download/file/15');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (16, '2018-11-25 07:53:40.772000', '2018-11-25 07:53:41.143000', 'template_5.jpeg', 'FULL_TEMPLATE\\16_template_5.jpeg', 1, 'https://localhost:6060/api/v0/download/file/16');
+
+-- PARTIALLY ERASED TEMPLATE FILES
+
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (18, '2018-11-25 07:59:30.842000', '2018-11-25 07:59:31.202000', 'erased_template_6.png', 'PARTIALY_ERASED_TEMPLATE\\18_erased_template_6.png', 2, 'https://localhost:6060/api/v0/download/file/18');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (19, '2018-11-25 08:00:04.467000', '2018-11-25 08:00:04.905000', 'erased_template_2.png', 'PARTIALY_ERASED_TEMPLATE\\19_erased_template_2.png', 2, 'https://localhost:6060/api/v0/download/file/19');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (20, '2018-11-25 08:00:19.754000', '2018-11-25 08:00:20.233000', 'erased_template_5.png', 'PARTIALY_ERASED_TEMPLATE\\20_erased_template_5.png', 2, 'https://localhost:6060/api/v0/download/file/20');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (21, '2018-11-25 08:00:47.228000', '2018-11-25 08:00:47.638000', 'erased_template_8.png', 'PARTIALY_ERASED_TEMPLATE\\21_erased_template_8.png', 2, 'https://localhost:6060/api/v0/download/file/21');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (22, '2018-11-25 08:01:11.567000', '2018-11-25 08:01:11.939000', 'erased_template_1.png', 'PARTIALY_ERASED_TEMPLATE\\22_erased_template_1.png', 2, 'https://localhost:6060/api/v0/download/file/22');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (23, '2018-11-25 08:01:24.459000', '2018-11-25 08:01:24.885000', 'erased_template_7.png', 'PARTIALY_ERASED_TEMPLATE\\23_erased_template_7.png', 2, 'https://localhost:6060/api/v0/download/file/23');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (24, '2018-11-25 08:02:45.386000', '2018-11-25 08:02:45.902000', 'erased_template_4.png', 'PARTIALY_ERASED_TEMPLATE\\24_erased_template_4.png', 2, 'https://localhost:6060/api/v0/download/file/24');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (25, '2018-11-25 08:03:09.451000', '2018-11-25 08:03:09.897000', 'erased_template_5.png', 'PARTIALY_ERASED_TEMPLATE\\25_erased_template_5.png', 2, 'https://localhost:6060/api/v0/download/file/25');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (26, '2018-11-25 08:03:42.621000', '2018-11-25 08:03:43.065000', 'erased_template_3.png', 'PARTIALY_ERASED_TEMPLATE\\26_erased_template_3.png', 2, 'https://localhost:6060/api/v0/download/file/26');
+
+-- PARTIALLY ERASED TEMPLATE WITH TEXT FILES
+
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (27, '2018-11-25 08:07:17.663000', '2018-11-25 08:07:17.820000', 'erased_template_6.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\27_erased_template_6.png', 3, 'https://localhost:6060/api/v0/download/file/27');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (28, '2018-11-25 08:12:16.415000', '2018-11-25 08:12:16.626000', 'erased_template_2.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\28_erased_template_2.png', 3, 'https://localhost:6060/api/v0/download/file/28');
+
 
 -- replace this with partially erased locks when available
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (14, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (15, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (16, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (17, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (18, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (19, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (20, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (21, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`) VALUES (22, '2018-11-13 19:19:19.286000', '2018-11-13 19:19:19.286000', 'lock1.jpeg', 'Z:\\Work\\Bridges\\lock\\binarbox\\images\\lock1.jpeg', 3);
 
-INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`, `file_id`) VALUES (1, 'REGULAR', '10', 1, '2018-08-23', '2018-08-23 10:33:20', 1);
-INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`, `file_id`) VALUES (2, 'VIP', '10', 2, '2018-08-23', '2018-08-23 10:33:20', 2);
-INSERT INTO lb.lock_category (`id`, `category`, `total_rating`, `price_id`, `created_date`, `last_modified_date`, `file_id`) VALUES (3, 'GOLD', '10', 3, '2018-08-23', '2018-08-23 10:33:20', 3);
+
+INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (1, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:14.417000', 'REGULAR', 10, 5, 1);
+INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (2, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:25.031000', 'VIP', 10, 6, 2);
+INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (3, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:38.416000', 'GOLD', 10, 7, 3);
+
 
 INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (1, '61', 'ROBOTO', 'BLACK', '1', '1', '2018-08-23', '2018-08-23 10:35:46');
 INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (2, '62', 'ROBO', 'BLACK', '1', '2', '2018-08-23', '2018-08-23 10:35:46');
@@ -83,38 +104,32 @@ INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lo
 INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (8, '68', 'ZCZC', 'BLACK', '3', '2', '2018-08-23', '2018-08-23 10:35:46');
 INSERT INTO lb.lock_template (`id`, `font_size`, `font_style`, `font_color`, `lock_category_id`, `price_id`, `created_date`, `last_modified_date`) VALUES (9, '69', 'GHSDF', 'BLACK', '3', '3', '2018-08-23', '2018-08-23 10:35:46');
 
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (1,4);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (2,5);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (3,6);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (4,7);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (5,8);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (6,9);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (7,10);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (8,11);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (9,12);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (1, 8);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (1, 18);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (2, 9);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (2, 19);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (3, 10);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (3, 20);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (4, 11);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (4, 21);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (5, 12);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (5, 22);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (6, 13);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (6, 23);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (7, 14);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (7, 24);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (8, 15);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (8, 25);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (9, 16);
+INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (9, 26);
 
--- replace this with partially erased locks when available
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (1,14);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (2,15);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (3,16);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (4,17);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (5,18);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (6,19);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (7,20);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (8,21);
-INSERT INTO lb.template_file(`lock_template_id`, `file_id`) VALUES (9,22);
 
 INSERT INTO lb.user VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789');
 
 INSERT INTO lb.point VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 112, 112);
+INSERT INTO lb.point VALUES (2, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 114, 114);
 
-INSERT INTO lb.locks VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'delete token?', 'BLACK', 60, 'NEW STYLE', 0, 'lock color?', 'MASSAGE',0 ,0 ,3 , 3, 3, 1, '2170256639660343');
+INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (1, '2018-11-25 08:07:15.872000', '2018-11-25 08:08:00.893000', NULL, 'BLUE', 15, 'Arial', b'0', 'BLUEISH', 'THE BEST TEXT EVER', b'1', b'0', 27, 8, 1, 1, '2170256639660343');
+INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (2, '2018-11-25 08:12:15.853000', '2018-11-25 08:12:47.503000', NULL, 'RED', 16, 'Sofis', b'0', 'REDISH', 'THE BEST TEXT EVER', b'1', b'0', 28, 7, 2, 2, '2170256639660343');
 
 INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8);
-
--------------- RUN THIS TO SYNC FILE DIRECTORY -----------------
-
--- REPLACE Z:new\\Bridges\\lock\\binarbox\\images with your environment path and don't forget to escape backslash (\\) --
---
--- UPDATE file
--- SET path_to_file = REPLACE (path_to_file, 'Z:new\\Bridges\\lock\\binarbox\\images', 'YOUR PATH')
