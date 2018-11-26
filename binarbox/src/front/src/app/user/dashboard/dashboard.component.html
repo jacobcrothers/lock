@@ -1,36 +1,32 @@
-<div class="container-fluid dashboard content-wrapper">
-    <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 dashboard-menu">
-            <h2>Dashboard</h2>
-            <ul>
-                <li>
-                    <a routerLink="profile">
-                        <i-user class="i-size-16"></i-user>
-                        Change profile data
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="payment">
-                        <i-credit-card class="i-size-16"></i-credit-card>
-                        Change payment details
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="locks">
-                        <i-lock class="i-size-16"></i-lock>
-                        Manage locks
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="social">
-                        <i-facebook class="i-size-16"></i-facebook>
-                        Social media integration
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="col">
-            <router-outlet></router-outlet>
+<section class="dorne-welcome-area bg-img bg-overlay dashboard-container">
+    <div class="container-fluid dashboard">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 dashboard-menu">
+                <ul>
+                    <li>
+                        <a routerLink="payment">
+                            <i-credit-card class="i-size-16"></i-credit-card>
+                            Change payment details
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="locks">
+                            <i-lock class="i-size-16"></i-lock>
+                            Manage locks
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="social">
+                            <i-facebook class="i-size-16"></i-facebook>
+                            Social media integration
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col dashboard-content">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
-</div>
+
+</section>

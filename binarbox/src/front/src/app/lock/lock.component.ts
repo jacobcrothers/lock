@@ -52,10 +52,6 @@ export class LockComponent implements OnInit {
         if (parameters['id']) {
             this.lockId = parameters['id'];
         }
-
-        // if (parameters['location']) {
-        //     this.location = parameters['location'];
-        // }
     }
 
     getCategories() {
@@ -102,7 +98,7 @@ export class LockComponent implements OnInit {
     }
 
     saveLock(formValue) {
-        let createdLock = {    
+        let createdLock = {
             "message": formValue['insertMessage'],
             "lockTemplate": this.selectedLock['id'],
             "privateLock": formValue['privacy'] === "private" ? true : false
