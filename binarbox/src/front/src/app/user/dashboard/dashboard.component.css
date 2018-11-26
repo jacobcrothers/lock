@@ -1,6 +1,22 @@
+
+.dashboard-container {
+    height: 100%;
+    padding-top: 120px;
+}
+
 .dashboard {
     height: 100%;
+    padding: 0 20px;
 }
+
+.dashboard .dashboard-content {
+    background: #fff;
+    padding: 20px;
+}
+
+/* .dashboard-content * {
+    color: #000;
+} */
 
 .dashboard > .row {
     height: 100%;
@@ -26,12 +42,12 @@
 .dashboard-menu li a {
     display: block;
     padding: 10px;
-    color: #FF9900;
+    color: #fff;
     font-weight: bold;
 }
 
 .dashboard-menu li a:hover {
-    background-color: var(--bridge-main-color);
+    background-color: #7643ea;
     text-decoration: none;
     color: white;
 }

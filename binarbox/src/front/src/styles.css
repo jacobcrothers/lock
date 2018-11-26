@@ -17,6 +17,10 @@ html, body {
     height: 100%;
 }
 
+.dashboard-content * {
+    color: #000;
+}
+
 /* You can add global styles to this file, and also import other style files */
 .ng-invalid:not(form):not(.ng-untouched) {
     border: 2px solid red;
@@ -51,10 +55,6 @@ html, body {
 
 
 /* Base CSS -theme css*/
-
-.content-wrapper {
-    margin-top: 120px;
-}
 
 * {
     margin: 0;

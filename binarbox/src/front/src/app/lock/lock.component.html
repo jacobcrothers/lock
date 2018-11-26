@@ -47,6 +47,7 @@
                             <div class="features-slides owl-carousel slides-container">
                                 <!-- Single Features Area -->
                                 <div class="single-features-area slide-container" *ngFor="let lock of locks" (click)="chooseLock(lock)">
+                                    <!-- replace img with the img received from BR for each lock -->
                                     <img src="../../../assets/images/locks/lock2.png" alt="">
                                 </div>  
                             </div>
@@ -68,18 +69,25 @@
                                 
                                 <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">  
                                     <div class="form-group">
-                                        <label for="customMessageInput">You can add your own message.</label>
-                                        <textarea 
-                                            name="insertMessage"
-                                            type="textarea"
-                                            cols="30" 
-                                            rows="3"
-                                            placeholder="Add your message"
-                                            class="form-control"
-                                            id="customMessageInput"
-                                            [value]="selectedMessage"
-                                            [ngModel]="selectedMessage">{{selectedMessage}}
-                                        </textarea>
+                                        <div class="message-container">
+                                            <!-- replace this img with the lock chosen by the user -->
+                                            <p class="user-info">Your lock:</p>
+                                            <img src="../../../assets/images/locks/lock2.png" alt="">
+                                            <label class="user-info" for="customMessageInput">Your message:</label>
+                                            <textarea 
+                                                name="insertMessage"
+                                                type="textarea"
+                                                cols="3" 
+                                                rows="2"
+                                                placeholder="Add your message"
+                                                class="form-control"
+                                                id="customMessageInput"
+                                                [value]="selectedMessage"
+                                                [ngModel]="selectedMessage">{{selectedMessage}}
+                                            </textarea>
+                                            
+                                            
+                                        </div>
 
                                         <!-- button to choose a custom message -->
 
@@ -91,7 +99,7 @@
 
 
                                     <div class="form-group">
-                                        <p>Select your privacy settings.</p>
+                                        <p class="user-info">Your privacy</p>
                                         <div class="col-12 col-xl-6">
                                             <label class="custom-control custom-checkbox mb-3">
                                                 <input type="radio" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy">
@@ -99,13 +107,6 @@
                                                 <span class="custom-control-description">Private</span>
                                             </label>
                                         </div>
-                                        <div class="col-12 col-xl-6">
-                                            <label class="custom-control custom-checkbox mb-3">
-                                                <input type="radio" class="custom-control-input" value="public" name="privacy" [(ngModel)]="lockPrivacy">
-                                                <span class="custom-control-indicator"></span>
-                                                <span class="custom-control-description">Public</span>
-                                            </label>
-                                        </div>   
                                     </div>
                                     <div class="actions-wrapper">
                                         <button class="btn btn-secondary" (click)="goBack('lockId')">Back</button>
@@ -119,8 +120,8 @@
             </section>
 
 
-            <!-- de aici -->
-            <div class="col-lg-12 col-md-8 col-sm-10">
+            <!-- for predefined messages -->
+            <!-- <div class="col-lg-12 col-md-8 col-sm-10">
                 <div *ngIf="lockType && lockId">
                     <div class="modal fade" id="chooseMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -149,7 +150,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

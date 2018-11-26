@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { AddLockService } from '../../_services/add-lock.service';
-import { mouseWheelZoom } from 'mouse-wheel-zoom';
 
 
 @Component({
@@ -15,7 +14,7 @@ export class PanelsComponent implements OnInit {
 
   private createdLock: any;
   private zoomCount: number = 0;
-  private currentImage = '../../../assets/images/bridge/pod0.png';
+  private currentImage = '../../../assets/images/bridge/pod0.jpg';
 
   constructor(
     private addLockService: AddLockService
@@ -30,15 +29,15 @@ export class PanelsComponent implements OnInit {
     let bridgeImgs = [
       {
         id: 0,
-        src: '../../../assets/images/bridge/pod0.png'
+        src: '../../../assets/images/bridge/pod0.jpg'
       },
       {
         id: 1,
-        src: '../../../assets/images/bridge/pod1.png'
+        src: '../../../assets/images/bridge/pod1.jpg'
       },
       {
         id: 2,
-        src: '../../../assets/images/bridge/pod2.png'
+        src: '../../../assets/images/bridge/pod2.jpg'
       },
       {
         id: 3,
@@ -97,4 +96,5 @@ export class PanelsComponent implements OnInit {
   verifyImageSrc() {
     return this.currentImage.includes('pod3') ? true : false;
   }
+  
 }
