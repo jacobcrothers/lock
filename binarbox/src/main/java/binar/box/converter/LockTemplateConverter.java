@@ -14,12 +14,13 @@ public class LockTemplateConverter {
     @Autowired
     private FileConverter fileConverter;
 
+    @Autowired
+    private FontConverter fontConverter;
+
     public LockTemplateDTO toDTO(LockTemplate lockTemplate){
         return LockTemplateDTO.builder()
                 .filesDTO(fileConverter.toDTOList(lockTemplate.getFiles()))
-                .fontColor(lockTemplate.getFontColor())
-                .fontSize(lockTemplate.getFontSize())
-                .fontStyle(lockTemplate.getFontStyle())
+                .fontsDTO(fontConverter.toDTOList(lockTemplate.getFonts()))
                 .id(lockTemplate.getId())
                 .lockCategory(lockTemplate.getLockCategory().getCategory())
                 .price(lockTemplate.getPrice().getPrice())

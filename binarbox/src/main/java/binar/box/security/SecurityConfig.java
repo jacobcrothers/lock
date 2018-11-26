@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(Constants.SWAGGER_UI_HTML).antMatchers(Constants.SWAGGER_WEBJARS)
 				.antMatchers(HttpMethod.POST,
 						Constants.API + Constants.AUTHENTICATION_ENDPOINT + Constants.FACEBOOK_ENDPOINT)
+				.antMatchers(Constants.API + "download/file/**")
 				.and().debug(true);
 	}
 }

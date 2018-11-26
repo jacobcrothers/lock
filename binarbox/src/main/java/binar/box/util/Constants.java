@@ -1,5 +1,9 @@
 package binar.box.util;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
 /**
  * Created by Timis Nicu Alexandru on 20-Mar-18.
  */
@@ -45,6 +49,7 @@ public class Constants {
 	public static final String LOCK_CATEGORY_TEMPLATE_NOT_FOUND = "Lock template not found";
 	public static final String LOCK_CATEGORY_FILE_ENDPOINT = "/category/file";
 	public static final String LOCK_TEMPLATE_FILE_ENDPOINT = "/template/file";
+	public static final String BRIDGE_ENDPOINT = "/bridge/file";
 	public static final String ADMIN_AUTHORITY = "ADMIN";
 	public static final String FILE_ENDPOINT = "file";
 	public static final String FILE_NOT_FOUND = "File not found!";
@@ -87,4 +92,36 @@ public class Constants {
 	public static final String DATA = "data";
 	public static final String PANEL_MAX_SIZE = "panel.maxSize";
 	public static final String UNAUTHORIZED = "UNAUTHORIZED";
+	public static final String FILE_URL_PART = "download/file/";
+
+//	public static String lockCategoryPictureUrl(Long categoryId, String domain) {
+//		return domain + API + "category/" + categoryId + "/pic";
+//	}
+//
+//	public static String lockTemplatePictureUrl(Long templateId, String domain) {
+//		return domain + API + "template/" + templateId + "/pic";
+//	}
+//
+//	public static String lockPartiallyErasedTemplatePictureUrl(Long templateId, String domain) {
+//		return domain + API + "partialTemplate/" + templateId + "/pic";
+//	}
+//
+//	public static String lockPartiallyErasedTemplateWithTextPictureUrl(Long lockId, String domain) {
+//		return domain + API + "partialTemplateWithText/" + lockId + "/pic";
+//	}
+//
+//	public static String lockBridgePictureUrl(String domain,Long fileId) {
+//		return domain + API + "bridge/" + fileId + "/pic";
+//	}
+
+	public static String downloadFileUrl(Long fileId, String domain) {
+		return domain
+				+ API
+				+ FILE_URL_PART
+				+ fileId;
+	}
+
+	public static String getFileKey(String fileName, binar.box.domain.File.Type type, Long fileTypeId) {
+		return type + File.separator + fileTypeId + "_" + fileName;
+	}
 }

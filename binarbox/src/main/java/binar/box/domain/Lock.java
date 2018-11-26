@@ -37,7 +37,7 @@ public class Lock extends BaseEntity {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name= "file_id")
-	private File files;
+	private File file;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lockTemplate_id")
