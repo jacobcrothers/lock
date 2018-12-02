@@ -113,7 +113,7 @@ public class LockService {
 		File lockFile =  lock.getLockTemplate().getFiles().stream()
 				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE))
 				.findAny()
-				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found"));
+				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found","partial.lock.not.found"));
 
 		InputStream storageFile = fileStorage.retrieve(lockFile.getPathToFile(), File.Type.PARTIALY_ERASED_TEMPLATE);
 
@@ -143,7 +143,7 @@ public class LockService {
 
 	public LockResponseDTO updateUserLock(LockDTO lockDTO){
 		if (Objects.isNull(lockDTO.getId()))
-			throw new LockBridgesException(Constants.LOCK_NOT_FOUND);
+			throw new LockBridgesException(Constants.LOCK_NOT_FOUND,"lock.not.found");
 		Lock lock = lockRepository.findOne(lockDTO.getId());
 		Lock updatedLock = populateEntity(lockDTO, lock);
 		updatedLock.setId(lockDTO.getId());
@@ -196,7 +196,7 @@ public class LockService {
 		var user = userService.getAuthenticatedUser();
 		Optional<Lock> lock = lockRepository.findByUserAndId(user, id);
 		if (!lock.isPresent()) {
-			throw new LockBridgesException(Constants.LOCK_NOT_FOUND);
+			throw new LockBridgesException(Constants.LOCK_NOT_FOUND, "lock.not.found");
 		}
 		var lockEntity = lock.get();
 		var token = UUID.randomUUID().toString();

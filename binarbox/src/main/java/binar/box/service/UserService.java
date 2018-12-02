@@ -91,7 +91,7 @@ public class UserService {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-			throw new LockBridgesException(Constants.FAILED_TO_GET_FRIENDS_LIST);
+			throw new LockBridgesException(Constants.FAILED_TO_GET_FRIENDS_LIST, "failed.friends.list");
 		}
 		return idsList;
 	}
