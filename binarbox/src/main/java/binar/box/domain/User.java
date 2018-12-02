@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @Getter
@@ -44,6 +45,9 @@ public class User{
 
 	@Column(name = "address")
 	private String address;
+
+	@Column(name = "locale")
+	private String locale= Locale.getDefault().toLanguageTag();
 
 	@CreatedDate
 	@Temporal(value = TemporalType.TIMESTAMP)

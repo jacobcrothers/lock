@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import binar.box.util.Exceptions.FieldsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import binar.box.dto.FacebookTokenDTO;
 import binar.box.service.UserService;
 import binar.box.util.Constants;
-import binar.box.util.Exceptions.LockBridgesException;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.Locale;
