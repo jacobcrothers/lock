@@ -17,8 +17,6 @@ import binar.box.service.UserService;
 import binar.box.util.Constants;
 import io.swagger.annotations.ApiOperation;
 
-import java.util.Locale;
-
 @RestController
 @RequestMapping(value = Constants.API + Constants.AUTHENTICATION_ENDPOINT)
 public class AuthenticationController {
