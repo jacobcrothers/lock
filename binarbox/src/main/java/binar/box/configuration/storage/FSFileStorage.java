@@ -37,10 +37,10 @@ public class FSFileStorage implements FileStorage {
             try {
                 return new FileInputStream(file);
             } catch (FileNotFoundException e) {
-                throw new FileStorageException("Unable to create FileInputStream for " + key, e);
+                throw new FileStorageException("Unable to create FileInputStream for " + key, "unable.to.create.inputstream", key);
             }
         } else {
-            throw new FileStorageException("Invalid key provided: " + key);
+            throw new FileStorageException("Invalid key provided: " + key,"invalid.key.provided", key);
         }
     }
 
@@ -50,7 +50,7 @@ public class FSFileStorage implements FileStorage {
         if (file.exists()) {
             return file.delete();
         } else {
-            throw new FileStorageException("Invalid key provided: " + key);
+            throw new FileStorageException("Invalid key provided: " + key,"invalid.key.provided", key);
         }
     }
 }

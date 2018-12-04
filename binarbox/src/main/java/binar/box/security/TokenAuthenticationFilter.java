@@ -32,7 +32,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		String token = request.getHeader(Constants.TOKEN_HEADER_REQUEST);
 		if (token == null) {
-			throw new LockBridgesException(Constants.AUTHENTICATION_TOKEN_NOT_FOUND);
+			throw new LockBridgesException(Constants.AUTHENTICATION_TOKEN_NOT_FOUND, "authentication.not.found");
 		}
 		User user = tokenService.checkFacebookToken(token);
 		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), token);

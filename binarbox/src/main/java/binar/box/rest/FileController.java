@@ -35,26 +35,6 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 
-//	@ApiImplicitParams({
-//			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-//	@ApiOperation(value = "Download file", notes = "File get", hidden = true)
-//	@ApiIgnore
-//	@GetMapping(value = Constants.LOCK_ENDPOINT + Constants.DOWNLOAD, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-//	private ResponseEntity<InputStreamResource> downloadFile(@RequestParam("id") long fileId) {
-//		binar.box.domain.File fileEntity = fileService.getFile(fileId);
-//		File file = new File(fileEntity.getPathToFile());
-//		InputStreamResource inputStreamResource;
-//		try {
-//			inputStreamResource = new InputStreamResource(new FileInputStream(file));
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//			throw new LockBridgesException(Constants.EXCEPTION_DOWNLOADING_THE_FILE + e.getMessage());
-//		}
-//		return ResponseEntity.ok()
-//				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileEntity.getFileName())
-//				.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length()).body(inputStreamResource);
-//	}
-
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
 	@ApiOperation(value = "ADMIN: Add lock category image", notes = "This endpoint is for admin, admin add lock image.", hidden = true)
