@@ -21,12 +21,9 @@ public class PaymentService {
     /**
      * Reference to {@link BraintreeGateway}
      */
-    private final BraintreeGateway braintreeGateway;
-
     @Autowired
-    public PaymentService(BraintreeGateway braintreeGateway) {
-        this.braintreeGateway = braintreeGateway;
-    }
+    private BraintreeGateway braintreeGateway;
+
 
     /**
      * Generates and returns a client token that includes configuration and
