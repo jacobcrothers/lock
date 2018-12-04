@@ -47,3 +47,6 @@ aws:
 file:
     domain: https://localhost:6060
     storageType: AWS_S3
+paypal:
+  secret.key: EF8zOtpHPRR8dv4_xxlVBgnuhBzUSWLyP-nHKEceU6EEaEIdKF21OEWdDNnTsQMhtdT-bYFeq1Y0qm3S
+  client.id: AZ4-QKTA2wBefQm8zvWsd5POPBsFgSjoSmcy430Y2R-5vBTkoVfKaUPcsxIYgXTUNXr2BVQ2p2PHTVy8
