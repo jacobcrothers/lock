@@ -24,6 +24,21 @@ public class PaymentService {
     @Autowired
     private BraintreeGateway braintreeGateway;
 
+    public HashMap<String, String> createTransaction(PaymentDTO payPalDTO) {
+        if (StringUtils.isEmpty(payPalDTO.getPaymentMethodNonce()) || payPalDTO.getAmmount() == null) {
+            throw new PaymentException("Amount or payment method nonce empty","amount.or.nonce.empty");
+        }
+        HashMap<String, String> response = new HashMap<>();
+        response.put("id", createTransaction(payPalDTO.getPaymentMethodNonce(), payPalDTO.getAmmount()));
+        return response;
+    }
+
+    public void refundTransaction(PaymentDTO payPalDTO) {
+        if (StringUtils.isEmpty(payPalDTO.getTransactionID())) {
+            throw new PaymentException("Transaction id empty","transaction.id.empty");
+        }
+        refundTransaction(payPalDTO.getTransactionID());
+    }
 
     /**
      * Generates and returns a client token that includes configuration and
@@ -31,8 +46,7 @@ public class PaymentService {
      * requests with the PayPal client SDK.
      */
     public String generatePayPalClientToken() {
-
-        return this.braintreeGateway.clientToken().generate();
+        return braintreeGateway.clientToken().generate();
     }
 
     /**
@@ -42,15 +56,15 @@ public class PaymentService {
      * @param paymentMethodNonce
      *            a reference to the customer payment method details that were
      *            provided for this transaction
-     * @param ammount
+     * @param amount
      *            the amount of the transaction
      * @return the ID of the created transaction
      */
-    public String createTransaction(final String paymentMethodNonce, final BigDecimal ammount) {
-        final TransactionRequest request = new TransactionRequest().amount(ammount)
+    private String createTransaction(final String paymentMethodNonce, final BigDecimal amount) {
+        final TransactionRequest request = new TransactionRequest().amount(amount)
                 .paymentMethodNonce(paymentMethodNonce).options().submitForSettlement(true).done();
 
-        final Result<Transaction> result = this.braintreeGateway.transaction().sale(request);
+        final Result<Transaction> result = braintreeGateway.transaction().sale(request);
 
         if (!result.isSuccess()) {
             // transaction failed
@@ -72,7 +86,7 @@ public class PaymentService {
                             "PayPal transaction error: Code: " + error.getCode() + ", Message: " + error.getMessage());
                 }
             }
-            throw new PaymentException("paypal.create.transaction.error");
+            throw new PaymentException("Paypal transaction error at create","paypal.create.transaction.error");
         }
         // transaction was successful
         LOGGER.info(String.format("PayPal transaction %s was successful", result.getTarget().getId()));
@@ -89,8 +103,8 @@ public class PaymentService {
      * @param transactionID
      *            the ID of the PayPal transaction
      */
-    public void refundTransaction(final String transactionID) {
-        final Transaction transaction = this.braintreeGateway.transaction().find(transactionID);
+    private void refundTransaction(final String transactionID) {
+        final Transaction transaction = braintreeGateway.transaction().find(transactionID);
 
         if (transaction.getStatus() == Transaction.Status.SUBMITTED_FOR_SETTLEMENT) {
             // transactions that have the status SUBMITTED_FOR_SETTLEMENT must
@@ -103,9 +117,11 @@ public class PaymentService {
 
             refund(transactionID);
         } else {
-            throw new RuntimeException(
-                    String.format("The status %s of the Paypal transaction %s is invalid for refund or void operations",
-                            transaction.getStatus(), transactionID));
+            throw new PaymentException(
+                    String.format("The status %s of the Paypal transaction %s is invalid for refund or void operations", transaction.getStatus(), transactionID),
+                    "transaction.status.invalid.refund.void",
+                    transaction.getStatus(),
+                    transactionID);
         }
     }
 
@@ -116,14 +132,14 @@ public class PaymentService {
      *            the ID of the PayPal transaction
      */
     private void voiding(final String transactionID) {
-        final Result<Transaction> result = this.braintreeGateway.transaction().voidTransaction(transactionID);
+        final Result<Transaction> result = braintreeGateway.transaction().voidTransaction(transactionID);
 
         if (!result.isSuccess()) {
             // voiding failed
 
             // trying to refund the transaction if the status changed while
             // trying to void it
-            final Transaction transaction = this.braintreeGateway.transaction().find(transactionID);
+            final Transaction transaction = braintreeGateway.transaction().find(transactionID);
             if (transaction.getStatus() == Transaction.Status.SETTLING || transaction.getStatus() == Transaction.Status.SETTLED) {
                 // if the status of the transaction changed from
                 // SUBMITTED_FOR_SETTLEMENT to SETTLING or SETTLED while trying
@@ -139,10 +155,13 @@ public class PaymentService {
                         transactionID, error.getCode(), error.getMessage()));
             }
 
-            throw new RuntimeException(String.format("PayPal voiding of the transaction %s failed: %s", transactionID,
-                    result.getMessage()));
+            throw new PaymentException(
+                    String.format("PayPal voiding of the transaction %s failed: %s", transactionID, result.getMessage()),
+                    "paypal.voiding.failed",
+                    transactionID,
+                    result.getMessage()
+            );
         }
-
     }
 
     /**
@@ -152,7 +171,7 @@ public class PaymentService {
      *            the ID of the PayPal transaction
      */
     private void refund(final String transactionID) {
-        final Result<Transaction> result = this.braintreeGateway.transaction().refund(transactionID);
+        final Result<Transaction> result = braintreeGateway.transaction().refund(transactionID);
 
         if (!result.isSuccess()) {
             // refunding failed
@@ -163,27 +182,12 @@ public class PaymentService {
                         transactionID, error.getCode(), error.getMessage()));
             }
 
-            throw new RuntimeException(String.format("PayPal refunding of the transaction %s failed: %s", transactionID,
-                    result.getMessage()));
+            throw new PaymentException(
+                    String.format("PayPal refunding of the transaction %s failed: %s", transactionID, result.getMessage()),
+                    "paypal.refund.failed",
+                    transactionID,
+                    result.getMessage()
+            );
         }
-
     }
-
-    public HashMap<String, String> createTransaction(PaymentDTO payPalDTO) {
-        if (StringUtils.isEmpty(payPalDTO.getPaymentMethodNonce()) || payPalDTO.getAmmount() == null) {
-            throw new PaymentException("ammount or payment method nonce empty");
-        }
-        HashMap<String, String> response = new HashMap<>();
-        response.put("id", createTransaction(payPalDTO.getPaymentMethodNonce(), payPalDTO.getAmmount()));
-        return response;
-    }
-
-    public void refundTransaction(PaymentDTO payPalDTO) {
-        if (StringUtils.isEmpty(payPalDTO.getTransactionID())) {
-            throw new PaymentException("transaction id empty");
-        }
-        refundTransaction(payPalDTO.getTransactionID());
-
-    }
-
 }
