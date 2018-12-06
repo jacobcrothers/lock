@@ -57,7 +57,7 @@ const routes = [{
         children: [{
             path: '',
             pathMatch: 'full',
-            redirectTo: 'profile'
+            redirectTo: 'payment'
         }, {
             path: 'profile',
             component: ProfileComponent
