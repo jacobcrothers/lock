@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Api(value = "PayPal API", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-@RequestMapping(value = Constants.API + "/paypal")
+@RequestMapping(value = Constants.API + "paypal")
 public class PaymentController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class PaymentController {
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header") })
-    @ApiOperation(value = "New PayPal payment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, code = 201, response = UserDTO.class, notes = "Response is wrapped as 'item'")
+    @ApiOperation(value = "New PayPal payment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, code = 201)
     @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Map<String, String> createPayPalPayment(@RequestBody PaymentDTO payPalDTO) {
@@ -31,7 +31,7 @@ public class PaymentController {
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header") })
-    @ApiOperation(value = "PayPal refound payment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, code = 201, response = UserDTO.class, notes = "Response is wrapped as 'item'")
+    @ApiOperation(value = "PayPal refund payment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, code = 201, response = UserDTO.class, notes = "Response is wrapped as 'item'")
     @RequestMapping(value = "/refund", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public void refundTransaction(@RequestBody PaymentDTO payPalDTO) {

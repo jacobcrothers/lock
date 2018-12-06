@@ -25,11 +25,11 @@ public class PaymentService {
     private BraintreeGateway braintreeGateway;
 
     public HashMap<String, String> createTransaction(PaymentDTO payPalDTO) {
-        if (StringUtils.isEmpty(payPalDTO.getPaymentMethodNonce()) || payPalDTO.getAmmount() == null) {
+        if (StringUtils.isEmpty(payPalDTO.getPaymentMethodNonce()) || payPalDTO.getAmount() == null) {
             throw new PaymentException("Amount or payment method nonce empty","amount.or.nonce.empty");
         }
         HashMap<String, String> response = new HashMap<>();
-        response.put("id", createTransaction(payPalDTO.getPaymentMethodNonce(), payPalDTO.getAmmount()));
+        response.put("id", createTransaction(payPalDTO.getPaymentMethodNonce(), payPalDTO.getAmount()));
         return response;
     }
 
