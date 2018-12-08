@@ -1,6 +1,6 @@
 package binar.box.service;
 
-import binar.box.dto.PaymentDTO;
+import binar.box.dto.payment.PaymentDTO;
 import binar.box.util.Exceptions.PaymentException;
 import com.braintreegateway.*;
 import org.slf4j.Logger;

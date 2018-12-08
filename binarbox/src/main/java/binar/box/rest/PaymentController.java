@@ -1,6 +1,6 @@
 package binar.box.rest;
 
-import binar.box.dto.PaymentDTO;
+import binar.box.dto.payment.PaymentDTO;
 import binar.box.dto.UserDTO;
 import binar.box.service.PaymentService;
 import binar.box.util.Constants;

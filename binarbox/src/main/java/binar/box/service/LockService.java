@@ -208,4 +208,8 @@ public class LockService {
 				addPoint(lockDTO, lock),
 				userService.getAuthenticatedUser());
 	}
+
+	public Lock get(Long lockId) {
+		return lockRepository.findOne(lockId);
+	}
 }

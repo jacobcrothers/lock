@@ -69,4 +69,6 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     // https://mvnrepository.com/artifact/com.braintreepayments.gateway/braintree-java
     compile group: 'com.braintreepayments.gateway', name: 'braintree-java', version: '2.79.0'
+    // https://mvnrepository.com/artifact/com.stripe/stripe-java
+    compile group: 'com.stripe', name: 'stripe-java', version: '7.10.0'
 }

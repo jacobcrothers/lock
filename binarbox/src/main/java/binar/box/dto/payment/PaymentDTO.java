@@ -1,4 +1,4 @@
-package binar.box.dto;
+package binar.box.dto.payment;
 
 import lombok.Data;
 
