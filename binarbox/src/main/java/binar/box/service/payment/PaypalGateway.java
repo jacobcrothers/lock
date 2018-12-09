@@ -1,44 +1,24 @@
-package binar.box.service;
+package binar.box.service.payment;
 
-import binar.box.dto.payment.PaymentDTO;
 import binar.box.util.Exceptions.PaymentException;
 import com.braintreegateway.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 
-
-@Service
-public class PaymentService {
+@Component
+public class PaypalGateway {
     /** Logger */
-    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaypalService.class);
 
     /**
      * Reference to {@link BraintreeGateway}
      */
     @Autowired
     private BraintreeGateway braintreeGateway;
-
-    public HashMap<String, String> createTransaction(PaymentDTO payPalDTO) {
-        if (StringUtils.isEmpty(payPalDTO.getPaymentMethodNonce()) || payPalDTO.getAmount() == null) {
-            throw new PaymentException("Amount or payment method nonce empty","amount.or.nonce.empty");
-        }
-        HashMap<String, String> response = new HashMap<>();
-        response.put("id", createTransaction(payPalDTO.getPaymentMethodNonce(), payPalDTO.getAmount()));
-        return response;
-    }
-
-    public void refundTransaction(PaymentDTO payPalDTO) {
-        if (StringUtils.isEmpty(payPalDTO.getTransactionID())) {
-            throw new PaymentException("Transaction id empty","transaction.id.empty");
-        }
-        refundTransaction(payPalDTO.getTransactionID());
-    }
 
     /**
      * Generates and returns a client token that includes configuration and
@@ -60,7 +40,7 @@ public class PaymentService {
      *            the amount of the transaction
      * @return the ID of the created transaction
      */
-    private String createTransaction(final String paymentMethodNonce, final BigDecimal amount) {
+    public String createTransaction(final String paymentMethodNonce, final BigDecimal amount) {
         final TransactionRequest request = new TransactionRequest().amount(amount)
                 .paymentMethodNonce(paymentMethodNonce).options().submitForSettlement(true).done();
 
@@ -103,7 +83,7 @@ public class PaymentService {
      * @param transactionID
      *            the ID of the PayPal transaction
      */
-    private void refundTransaction(final String transactionID) {
+    public void refundTransaction(final String transactionID) {
         final Transaction transaction = braintreeGateway.transaction().find(transactionID);
 
         if (transaction.getStatus() == Transaction.Status.SUBMITTED_FOR_SETTLEMENT) {
