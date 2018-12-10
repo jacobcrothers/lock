@@ -44,6 +44,7 @@ aws:
     partiallyErasedTemplate: lock-s3-bucket/PartiallyErasedTemplate
     partiallyErasedTemplateWithText: lock-s3-bucket/PartiallyErasedTemplateWithText
     bridge: lock-s3-bucket/Bridge
+    glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
 file:
     domain: https://localhost:6060
     storageType: AWS_S3

@@ -70,10 +70,6 @@ public class FileService {
 			lockCategory.setFile(fileRepository.save(sqlFile));
 	}
 
-    public binar.box.domain.File getFile(long fileId) {
-		return fileRepository.findOne(fileId);
-	}
-
 	public void saveFilesToLockTemplate(MultipartFile[] files, long lockTemplateId, binar.box.domain.File.Type type) throws IOException {
 		LockTemplate lockCategory = lockTemplateRepository.findOne(lockTemplateId);
 		createTemplateFiles(files, lockCategory, type);

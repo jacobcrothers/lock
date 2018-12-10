@@ -58,7 +58,4 @@ public class Lock extends BaseEntity {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name= "point_id")
 	private Point point;
-
-	@Column
-	private boolean glitteringLight;
 }

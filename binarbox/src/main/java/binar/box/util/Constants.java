@@ -49,6 +49,7 @@ public class Constants {
 	public static final String LOCK_CATEGORY_TEMPLATE_NOT_FOUND = "Lock template not found";
 	public static final String LOCK_CATEGORY_FILE_ENDPOINT = "/category/file";
 	public static final String LOCK_TEMPLATE_FILE_ENDPOINT = "/template/file";
+	public static final String LOCK_GLITTERING_FILE_ENDPOINT = "/glittering/file";
 	public static final String BRIDGE_ENDPOINT = "/bridge/file";
 	public static final String ADMIN_AUTHORITY = "ADMIN";
 	public static final String FILE_ENDPOINT = "file";

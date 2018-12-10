@@ -32,6 +32,9 @@ public class AWSFileStorage implements FileStorage {
     @Value("${aws.bucket.bridge}")
     private String bridgeBucket;
 
+    @Value("${aws.bucket.glitterErasedTemplate}")
+    private String glitterErasedTemplate;
+
     private AmazonS3 amazonS3;
 
     public AWSFileStorage(AmazonS3 amazonS3) {
@@ -45,7 +48,6 @@ public class AWSFileStorage implements FileStorage {
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, key, file, metadata);
         PutObjectResult putObjectResult = amazonS3.putObject(putObjectRequest);
         log.debug("uploaded file to aws " + key + ", size: " + putObjectResult.getMetadata().getContentLength());
-        IOUtils.closeQuietly(file);
         return key;
     }
 
@@ -78,6 +80,9 @@ public class AWSFileStorage implements FileStorage {
                 break;
             case PARTIALY_ERASED_TEMPLATE_WITH_TEXT:
                 bucket = partiallyErasedTemplateWithTextBucket;
+                break;
+            case GLITTER_ERASED_TEMPLATE:
+                bucket = glitterErasedTemplate;
                 break;
             case BRIDGE:
                 bucket = bridgeBucket;
