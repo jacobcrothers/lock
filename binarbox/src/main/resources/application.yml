@@ -56,3 +56,5 @@ paypal:
 stripe:
   public.key: pk_test_9Mmg0Q2xkKB9TR2bDfx71Dnb
   secret.key: sk_test_DdzEdTIMYETHliRVtbKB6aJX
+
+panelMaxLocks: 30
