@@ -46,6 +46,7 @@ public class PanelService {
 
 	public List<PanelDTO> getAllPanels() {
 		return panelConveter.toDTOList(panelRepository.findAll());
+
 	}
 
 	public PanelDTO getUserLocksAndPanel(Long panelId) {
@@ -54,17 +55,20 @@ public class PanelService {
 
 		var userLocks = lockRepository.findAllByUserIdAndPanelId(user.getId(), panelId);
 
-		var facebookUserFriends = userService.getUserFacebookFriends();
-		var facebookUserFriendsLocks = lockRepository.findAllByUserIdAndPrivateLockFalse(facebookUserFriends);
+//		var facebookUserFriends = userService.getUserFacebookFriends();
+//		var facebookUserFriendsLocks = lockRepository.findAllByUserIdAndPrivateLockFalse(facebookUserFriends);
 
 		addUserLocks(panel.getLockSections(), userLocks);
-		addFacebookUserFriendsLocks(panel.getLockSections(), facebookUserFriendsLocks);
-		var freePanelLockSection = panelMaxLocks - (userLocks.size() + facebookUserFriendsLocks.size());
-		if (freePanelLockSection > 0) {
-			facebookUserFriends.add(user.getId());
-			addRandomLocksFromSameCountryToPanel(panel.getLockSections(), freePanelLockSection, facebookUserFriends,
-					user.getCountry());
-		}
+		;
+
+		addFacebookUserFriendsLocks(panel.getLockSections(), lockRepository.findAllByPanelId(panelId));
+//		addFacebookUserFriendsLocks(panel.getLockSections(), facebookUserFriendsLocks);
+//		var freePanelLockSection = panelMaxLocks - (userLocks.size() + facebookUserFriendsLocks.size());
+//		if (freePanelLockSection > 0) {
+//			facebookUserFriends.add(user.getId());
+//			addRandomLocksFromSameCountryToPanel(panel.getLockSections(), freePanelLockSection, facebookUserFriends,
+//					user.getCountry());
+//		}
 		return panelConveter.toDTO(panel);
 	}
 

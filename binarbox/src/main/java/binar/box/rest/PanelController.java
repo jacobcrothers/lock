@@ -37,5 +37,4 @@ public class PanelController {
 	private PanelDTO getUserAndUserFriendLocksAndPanel(@RequestParam("panelId") Long panelId) {
 		return panelService.getUserLocksAndPanel(panelId);
 	}
-
 }
