@@ -64,4 +64,7 @@ public class User{
 
 	@Column(name = "stripe_costumer_id")
 	private String stripeCustomerId;
+
+	@Column(name= "has_agreed_to_terms")
+	private Boolean hasAgreedToTerms = false;
 }

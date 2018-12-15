@@ -20,4 +20,6 @@ public class UserProfileDTO {
 	private String country;
 
 	private String address;
+
+	private Boolean hasAgreedToTerms;
 }

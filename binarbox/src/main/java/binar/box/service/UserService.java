@@ -109,4 +109,10 @@ public class UserService {
 		return getFacebookUserFromDataIfRegistered(faceBookUser)
 				.orElseThrow(() -> new EntityNotFoundException(Constants.UNAUTHORIZED,"user.unauthorized"));
 	}
+
+    public void acceptTermsAndConditions() {
+		User user = getAuthenticatedUser();
+		user.setHasAgreedToTerms(true);
+		userRepository.save(user);
+    }
 }

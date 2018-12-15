@@ -140,7 +140,7 @@ INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (9, 16);
 INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (9, 26);
 
 
-INSERT INTO lb.user(`id`,`address`,`city`,`country`,`created_date`,`email`,`first_name`,`last_modified_date`,`last_name`,`phone`,`locale`) VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789','en');
+INSERT INTO lb.user(`id`,`address`,`city`,`country`,`created_date`,`email`,`first_name`,`last_modified_date`,`last_name`,`phone`,`locale`,`has_agreed_to_terms`) VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789','en', b'0');
 
 INSERT INTO lb.point VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 112, 112);
 INSERT INTO lb.point VALUES (2, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 114, 114);
