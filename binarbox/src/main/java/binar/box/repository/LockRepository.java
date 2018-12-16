@@ -48,6 +48,6 @@ public interface LockRepository extends BaseJpaRepository<Lock, Long> {
 	@Query(value = "SELECT * FROM locks l\n" +
 			"INNER JOIN lock_section ls on (l.lock_section_id=ls.id)\n" +
 			"INNER JOIN panel p on (ls.panel_id=p.id)\n" +
-			"WHERE p.id=:panelId ", nativeQuery = true)
+			"WHERE p.id=:panelId and l.private_lock=0", nativeQuery = true)
 	List<Lock> findAllByPanelId(@Param("panelId") Long panelId);
 }

@@ -15,8 +15,12 @@ import binar.box.util.Constants;
 @Configuration
 public class FacebookConnectionConfiguration implements SocialConfigurer {
 
+	private final Environment environment;
+
 	@Autowired
-	private Environment environment;
+	public FacebookConnectionConfiguration(Environment environment) {
+		this.environment = environment;
+	}
 
 	@Override
 	public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer,

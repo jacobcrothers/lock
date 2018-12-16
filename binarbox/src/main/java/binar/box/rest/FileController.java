@@ -32,8 +32,12 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(Constants.API)
 public class FileController {
 
+	private final FileService fileService;
+
 	@Autowired
-	private FileService fileService;
+	public FileController(FileService fileService) {
+		this.fileService = fileService;
+	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })

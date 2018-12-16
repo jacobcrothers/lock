@@ -11,8 +11,12 @@ import binar.box.domain.User;
 @Transactional
 public class TokenService {
 
+	private final UserService userService;
+
 	@Autowired
-	private UserService userService;
+	public TokenService(UserService userService) {
+		this.userService = userService;
+	}
 
 	public User checkFacebookToken(String token) {
 		return userService.checkUserIfRegistered(token);

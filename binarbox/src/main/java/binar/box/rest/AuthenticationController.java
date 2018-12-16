@@ -21,8 +21,12 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value = Constants.API + Constants.AUTHENTICATION_ENDPOINT)
 public class AuthenticationController {
 
+	private final UserService userService;
+
 	@Autowired
-	private UserService userService;
+	public AuthenticationController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@ApiOperation(value = "Authenticate using the Facebook token", notes = "This endpoint uses the Facebook token to register the user in the database. "
 			+ "If the user already exists nothing happens. "

@@ -12,11 +12,15 @@ import java.util.stream.Collectors;
 @Component
 public class LockCategoryConverter {
 
-    @Autowired
-    private FileConverter fileConverter;
+    private final FileConverter fileConverter;
+
+    private final LockTemplateConverter lockTemplateConverter;
 
     @Autowired
-    private LockTemplateConverter lockTemplateConverter;
+    public LockCategoryConverter(FileConverter fileConverter, LockTemplateConverter lockTemplateConverter) {
+        this.fileConverter = fileConverter;
+        this.lockTemplateConverter = lockTemplateConverter;
+    }
 
     public LockCategoryDTOResponse lockToLockCategoryResponse(LockCategory lockCategory){
         return LockCategoryDTOResponse.builder()

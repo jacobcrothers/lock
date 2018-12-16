@@ -17,8 +17,12 @@ public class PaypalGateway {
     /**
      * Reference to {@link BraintreeGateway}
      */
+    private final BraintreeGateway braintreeGateway;
+
     @Autowired
-    private BraintreeGateway braintreeGateway;
+    public PaypalGateway(BraintreeGateway braintreeGateway) {
+        this.braintreeGateway = braintreeGateway;
+    }
 
     /**
      * Generates and returns a client token that includes configuration and

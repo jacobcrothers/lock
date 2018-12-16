@@ -22,20 +22,24 @@ public class StripeService {
 
     private static final BigDecimal TO_CENT = new BigDecimal(100);
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final StripePaymentConverter stripePaymentConverter;
+
+    private final LockRepository lockRepository;
+
+    private final UserRepository userRepository;
+
+    private final StripeGateway stripeGateway;
 
     @Autowired
-    private StripePaymentConverter stripePaymentConverter;
-
-    @Autowired
-    private LockRepository lockRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private StripeGateway stripeGateway;
+    public StripeService(UserService userService, StripePaymentConverter stripePaymentConverter, LockRepository lockRepository, UserRepository userRepository, StripeGateway stripeGateway) {
+        this.userService = userService;
+        this.stripePaymentConverter = stripePaymentConverter;
+        this.lockRepository = lockRepository;
+        this.userRepository = userRepository;
+        this.stripeGateway = stripeGateway;
+    }
 
     public StripeDTO createCharge(StripeDTO stripeDTO) {
         User user = userService.getAuthenticatedUser();

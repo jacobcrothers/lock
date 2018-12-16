@@ -14,14 +14,18 @@ import java.util.stream.Collectors;
 @Component
 public class LockConvertor {
 
-    @Autowired
-    private LockCategoryConverter lockCategoryConverter;
+    private final LockCategoryConverter lockCategoryConverter;
+
+    private final FileConverter fileConverter;
+
+    private final PointConverter pointConverter;
 
     @Autowired
-    private FileConverter fileConverter;
-
-    @Autowired
-    private PointConverter pointConverter;
+    public LockConvertor(LockCategoryConverter lockCategoryConverter, FileConverter fileConverter, PointConverter pointConverter) {
+        this.lockCategoryConverter = lockCategoryConverter;
+        this.fileConverter = fileConverter;
+        this.pointConverter = pointConverter;
+    }
 
     public LockResponseDTO toResponseDTO(Lock lock){
         return LockResponseDTO.builder()

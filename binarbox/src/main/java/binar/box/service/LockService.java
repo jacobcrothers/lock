@@ -23,47 +23,51 @@ import java.util.*;
 @Transactional
 public class LockService {
 
-	@Autowired
-	private EmailService emailService;
+	private final EmailService emailService;
 
-	@Autowired
-	private LockCategoryRepository lockCategoryRepository;
+	private final LockCategoryRepository lockCategoryRepository;
 
-	@Autowired
-	private LockSectionRepository lockSectionRepository;
+	private final LockSectionRepository lockSectionRepository;
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
 
-	@Autowired
-	private LockRepository lockRepository;
+	private final LockRepository lockRepository;
 
-	@Autowired
-	private LockCategoryConverter lockCategoryConverter;
+	private final LockCategoryConverter lockCategoryConverter;
 
-	@Autowired
-	private LockConvertor lockConvertor;
+	private final LockConvertor lockConvertor;
 
-	@Autowired
-	private LockTemplateRepository lockTemplateRepository;
+	private final LockTemplateRepository lockTemplateRepository;
 
-	@Autowired
-	private LockSectionConvertor lockSectionConvertor;
+	private final LockSectionConvertor lockSectionConvertor;
 
-	@Autowired
-	private PriceRepository priceRepository;
+	private final PriceRepository priceRepository;
 
-	@Autowired
-	private PointRepository pointRepository;
+	private final PointRepository pointRepository;
 
-	@Autowired
-	private FileStorage fileStorage;
+	private final FileStorage fileStorage;
 
-	@Autowired
-	private FileRepository fileRepository;
+	private final FileRepository fileRepository;
 
 	@Value("${file.domain}")
 	private String domain;
+
+	@Autowired
+	public LockService(LockSectionRepository lockSectionRepository, EmailService emailService, LockCategoryRepository lockCategoryRepository, UserService userService, FileStorage fileStorage, LockRepository lockRepository, LockCategoryConverter lockCategoryConverter, LockConvertor lockConvertor, LockTemplateRepository lockTemplateRepository, LockSectionConvertor lockSectionConvertor, FileRepository fileRepository, PriceRepository priceRepository, PointRepository pointRepository) {
+		this.lockSectionRepository = lockSectionRepository;
+		this.emailService = emailService;
+		this.lockCategoryRepository = lockCategoryRepository;
+		this.userService = userService;
+		this.fileStorage = fileStorage;
+		this.lockRepository = lockRepository;
+		this.lockCategoryConverter = lockCategoryConverter;
+		this.lockConvertor = lockConvertor;
+		this.lockTemplateRepository = lockTemplateRepository;
+		this.lockSectionConvertor = lockSectionConvertor;
+		this.fileRepository = fileRepository;
+		this.priceRepository = priceRepository;
+		this.pointRepository = pointRepository;
+	}
 
 	public LockCategoryDTOResponse addLockCategory(LockCategoryDTO lockCategoryDTO) {
 		LockCategory lockCategory = new LockCategory();

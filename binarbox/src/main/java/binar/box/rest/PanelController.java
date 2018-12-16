@@ -17,8 +17,12 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value = Constants.API)
 public class PanelController {
 
+	private final PanelService panelService;
+
 	@Autowired
-	private PanelService panelService;
+	public PanelController(PanelService panelService) {
+		this.panelService = panelService;
+	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })

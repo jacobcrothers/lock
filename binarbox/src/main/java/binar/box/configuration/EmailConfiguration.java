@@ -13,8 +13,12 @@ import binar.box.util.Constants;
 @Configuration
 public class EmailConfiguration {
 
+	private final Environment environment;
+
 	@Autowired
-	private Environment environment;
+	public EmailConfiguration(Environment environment) {
+		this.environment = environment;
+	}
 
 	@Bean
 	public JavaMailSenderImpl javaMailSender() {

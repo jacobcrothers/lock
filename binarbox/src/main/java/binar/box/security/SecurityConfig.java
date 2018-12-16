@@ -21,8 +21,12 @@ import binar.box.util.Constants;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private final TokenService tokenService;
+
 	@Autowired
-	private TokenService tokenService;
+	public SecurityConfig(TokenService tokenService) {
+		this.tokenService = tokenService;
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

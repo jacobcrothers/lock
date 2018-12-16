@@ -32,17 +32,21 @@ public class PanelService {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private LockRepository lockRepository;
-	@Autowired
-	private PanelRepository panelRepository;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private PanelConveter panelConveter;
+	private final LockRepository lockRepository;
+	private final PanelRepository panelRepository;
+	private final UserService userService;
+	private final PanelConveter panelConveter;
 
     @Value("${panelMaxLocks}")
     private Integer panelMaxLocks;
+
+	@Autowired
+	public PanelService(LockRepository lockRepository, PanelRepository panelRepository, UserService userService, PanelConveter panelConveter) {
+		this.lockRepository = lockRepository;
+		this.panelRepository = panelRepository;
+		this.userService = userService;
+		this.panelConveter = panelConveter;
+	}
 
 	public List<PanelDTO> getAllPanels() {
 		return panelConveter.toDTOList(panelRepository.findAll());

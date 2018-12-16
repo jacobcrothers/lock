@@ -24,11 +24,15 @@ import java.util.List;
 @RequestMapping(value = Constants.API)
 public class LockController {
 
-	@Autowired
-	private LockService lockService;
+	private final LockService lockService;
+
+	private final FileService fileService;
 
 	@Autowired
-	private FileService fileService;
+	public LockController(LockService lockService, FileService fileService) {
+		this.lockService = lockService;
+		this.fileService = fileService;
+	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })

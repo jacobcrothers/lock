@@ -31,23 +31,27 @@ import binar.box.util.Exceptions.LockBridgesException;
 @Transactional
 public class FileService {
 
-	@Autowired
-	private FileRepository fileRepository;
+	private final FileRepository fileRepository;
 
-	@Autowired
-	private LockCategoryRepository lockCategoryRepository;
+	private final LockCategoryRepository lockCategoryRepository;
 
-	@Autowired
-	private LockTemplateRepository lockTemplateRepository;
+	private final LockTemplateRepository lockTemplateRepository;
 
-	@Autowired
-	private FileStorage fileStorage;
+	private final FileStorage fileStorage;
 
-	@Autowired
-	private FileConverter fileConverter;
+	private final FileConverter fileConverter;
 
 	@Value("${file.domain}")
 	private String domain;
+
+	@Autowired
+	public FileService(FileRepository fileRepository, LockCategoryRepository lockCategoryRepository, LockTemplateRepository lockTemplateRepository, FileStorage fileStorage, FileConverter fileConverter) {
+		this.fileRepository = fileRepository;
+		this.lockCategoryRepository = lockCategoryRepository;
+		this.lockTemplateRepository = lockTemplateRepository;
+		this.fileStorage = fileStorage;
+		this.fileConverter = fileConverter;
+	}
 
 	public void saveFileToLockCategory(MultipartFile file, long lockCategoryId) throws IOException {
 		LockCategory lockCategory = lockCategoryRepository.findOne(lockCategoryId);

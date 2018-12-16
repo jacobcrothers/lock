@@ -12,8 +12,12 @@ import java.util.stream.Collectors;
 @Component
 public class LockSectionConvertor {
 
+    private final LockConvertor lockConvertor;
+
     @Autowired
-    private LockConvertor lockConvertor;
+    public LockSectionConvertor(LockConvertor lockConvertor) {
+        this.lockConvertor = lockConvertor;
+    }
 
     public LockSectionDTO toDTO(LockSection lockSection){
         return LockSectionDTO.builder()

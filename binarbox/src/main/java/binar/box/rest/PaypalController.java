@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = Constants.API + "paypal")
 public class PaypalController {
 
+    private final PaypalService payPalService;
+
     @Autowired
-    private PaypalService payPalService;
+    public PaypalController(PaypalService payPalService) {
+        this.payPalService = payPalService;
+    }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header") })

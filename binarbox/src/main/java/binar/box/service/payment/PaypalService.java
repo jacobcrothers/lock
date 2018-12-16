@@ -12,11 +12,15 @@ import java.util.Objects;
 @Service
 public class PaypalService {
 
-    @Autowired
-    private PaypalGateway paypalGateway;
+    private final PaypalGateway paypalGateway;
+
+    private final LockRepository lockRepository;
 
     @Autowired
-    private LockRepository lockRepository;
+    public PaypalService(PaypalGateway paypalGateway, LockRepository lockRepository) {
+        this.paypalGateway = paypalGateway;
+        this.lockRepository = lockRepository;
+    }
 
     public PaypalDTO createTransaction(PaypalDTO payPalDTO) {
         Lock lock = lockRepository.getOne(payPalDTO.getLockId());

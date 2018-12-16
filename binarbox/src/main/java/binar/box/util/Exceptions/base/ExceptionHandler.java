@@ -19,8 +19,12 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ExceptionHandler {
 
+	private final ErrorInfoFactory errorInfoFactory;
+
 	@Autowired
-	private ErrorInfoFactory errorInfoFactory;
+	public ExceptionHandler(ErrorInfoFactory errorInfoFactory) {
+		this.errorInfoFactory = errorInfoFactory;
+	}
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(value = {FieldsException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

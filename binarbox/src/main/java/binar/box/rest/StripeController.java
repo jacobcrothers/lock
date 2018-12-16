@@ -21,8 +21,12 @@ import java.util.List;
 @RequestMapping(value = Constants.API + "stripe")
 public class StripeController {
 
+    private final StripeService stripeService;
+
     @Autowired
-    private StripeService stripeService;
+    public StripeController(StripeService stripeService) {
+        this.stripeService = stripeService;
+    }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header") })

@@ -25,11 +25,15 @@ import java.util.Optional;
 @Transactional
 public class UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
+
+	private final UserConverter userConverter;
 
 	@Autowired
-	private UserConverter userConverter;
+	public UserService(UserRepository userRepository, UserConverter userConverter) {
+		this.userRepository = userRepository;
+		this.userConverter = userConverter;
+	}
 
 	private User getUserById(String userId) {
 		return userRepository.findOne(userId);

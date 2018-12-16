@@ -11,11 +11,15 @@ import java.util.stream.Collectors;
 @Component
 public class LockTemplateConverter {
 
-    @Autowired
-    private FileConverter fileConverter;
+    private final FileConverter fileConverter;
+
+    private final FontConverter fontConverter;
 
     @Autowired
-    private FontConverter fontConverter;
+    public LockTemplateConverter(FileConverter fileConverter, FontConverter fontConverter) {
+        this.fileConverter = fileConverter;
+        this.fontConverter = fontConverter;
+    }
 
     public LockTemplateDTO toDTO(LockTemplate lockTemplate){
         return LockTemplateDTO.builder()
