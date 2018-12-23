@@ -182,7 +182,8 @@ public class LockService {
 		InputStream imageWithText = ImageUtils.addTextToImage(storageFile, lock.getMessage());
 		File sqlFile = storeFile(lockFile, imageWithText);
 
-		lock.setFile(fileRepository.save(sqlFile));
+		lock.getFiles().add(fileRepository.save(sqlFile));
+//		TODO: Add glitter file
 	}
 
 	private File storeFile(File lockFile, InputStream imageWithText) throws IOException {
