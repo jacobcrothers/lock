@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -26,12 +25,9 @@ public class LockController {
 
 	private final LockService lockService;
 
-	private final FileService fileService;
-
 	@Autowired
-	public LockController(LockService lockService, FileService fileService) {
+	public LockController(LockService lockService) {
 		this.lockService = lockService;
-		this.fileService = fileService;
 	}
 
 	@ApiImplicitParams({
