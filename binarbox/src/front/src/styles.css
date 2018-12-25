@@ -17,6 +17,11 @@ html, body {
     height: 100%;
 }
 
+.wrp {
+    /* width: 100%; */
+    height: 100% !important;
+}
+
 .dashboard-content * {
     color: #000;
 }
@@ -49,6 +54,17 @@ html, body {
 
 .slides-container .slide-container .feature-content h5 {
     color: #6610f2;
+}
+
+
+/* Buttons */
+.btn-outline-primary {
+    border-color: #fff;
+    color: #fff;
+}
+
+.btn-outline-primary:hover {
+   
 }
 
 
@@ -304,7 +320,6 @@ li {
 .section-heading {
     position: relative;
     z-index: 1;
-    margin-bottom: 100px;
 }
 
 .section-heading span {
@@ -560,7 +575,7 @@ li {
 
 .dorne-welcome-area {
     width: 100%;
-    height: 945px;
+    height: 100%;
     position: relative;
     z-index: 1;
 }
@@ -779,9 +794,9 @@ li {
 
 .dorne-features-destinations-area,
 .dorne-features-restaurant-area {
-    padding: 100px 35px;
     position: relative;
     z-index: 1;
+    /* height: calc(100% - 120px); */
 }
 
 .single-features-area {
@@ -808,7 +823,8 @@ li {
 }
 
 .feature-content {
-    padding: 40px 30px;
+    padding: 20px 30px;
+    border-top: 1px solid #6610f2;
 }
 
 .feature-content .feature-title h5 {

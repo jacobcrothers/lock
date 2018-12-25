@@ -1,9 +1,13 @@
-.lock-container {
+/* .lock-container {
     width: 100%;
     overflow: auto;
     white-space: nowrap;
     padding: 30px;
     box-sizing: border-box;
+} */
+
+.container-fluid .section-info {
+    margin-bottom: 100px;
 }
 
 .lock {
@@ -30,12 +34,38 @@
     justify-content: space-between;
 }
 
-.customize-lock-form .tab-pane {
-    padding: 10px 35px;
+.customize-lock-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.customize-lock-form .lock-container {
+    text-align: center;
+    margin-top: 10%;
+}
+
+.customize-lock-form .lock-container img {
+    width: 80%;
+    height: auto;
 }
 
 .customize-lock-form .user-info {
     font-size: 18px;
 }
+
+.message-container textarea {
+    background-color: transparent;
+    color: #fff;
+}
+
+.custom-control .custom-control-indicator {
+    background-color: transparent;
+    border: 1px solid #fff;
+}
+
+.custom-control-input:checked~.custom-control-indicator {
+    background-color: transparent;
+}
+
 
 

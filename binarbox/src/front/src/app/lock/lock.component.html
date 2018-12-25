@@ -4,7 +4,7 @@
             <section class="dorne-features-destinations-area">
                 <!-- Choose category area -->
                 <div class="container-fluid" *ngIf="!lockType">
-                    <div class="row">
+                    <div class="row section-info">
                         <div class="col-12">
                             <div class="section-heading dark text-center">
                                 <h4>Choose a lock category</h4>
@@ -43,114 +43,76 @@
                         </div>
                     </div>       
                     <div class="row">
-                        <div class="col-12">
-                            <div class="features-slides owl-carousel slides-container">
-                                <!-- Single Features Area -->
-                                <div class="single-features-area slide-container" *ngFor="let lock of locks" (click)="chooseLock(lock)">
-                                    <!-- replace img with the img received from BR for each lock -->
-                                    <img [src]="lock.filesDTO[0].urlToFile" alt="">
-                                </div>  
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item" *ngFor="let lock of locks; let i = index" (click)="chooseLock(lock)" [ngClass]="{'active' : !i}">
+                                    <img class="d-block w-100" [src]="lock.filesDTO[0].urlToFile" alt="First slide">
+                                </div>
                             </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn dorne-btn" (click)="goBack('lockType')">Back</button>
+                            <button class="btn btn-outline-primary" (click)="goBack('lockType')">Back</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Customize lock area -->
-                <div class="container-fluid"  *ngIf="lockType && lockId">
-                    <h6>Now that you know what lock you want, you need to customize it.</h6>
+                <div class=""  *ngIf="lockType && lockId">
                     <div class="customize-lock-form">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="nav-places" role="tabpanel">
-                                
-                                <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">  
-                                    <div class="form-group">
-                                        <div class="message-container">
-                                            <!-- replace this img with the lock chosen by the user -->
-                                            <p class="user-info">Your lock:</p>
-                                            <img src="../../../assets/images/locks/lock2.png" alt="">
-                                            <label class="user-info" for="customMessageInput">Your message:</label>
-                                            <textarea 
-                                                name="insertMessage"
-                                                type="textarea"
-                                                cols="3" 
-                                                rows="2"
-                                                placeholder="Add your message"
-                                                class="form-control"
-                                                id="customMessageInput"
-                                                [value]="selectedMessage"
-                                                [ngModel]="selectedMessage">{{selectedMessage}}
-                                            </textarea>
-                                            
-                                            
-                                        </div>
-
-                                        <!-- button to choose a custom message -->
-
-                                        <!-- <div>
-                                            <p>Or, choose from our list of messages.</p>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chooseMessageModal">Choose message</button>
-                                        </div> -->
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <p class="user-info">Your privacy</p>
-                                        <div class="col-12 col-xl-6">
-                                            <label class="custom-control custom-checkbox mb-3">
-                                                <input type="radio" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy">
-                                                <span class="custom-control-indicator"></span>
-                                                <span class="custom-control-description">Private</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="actions-wrapper">
-                                        <button class="btn btn-secondary" (click)="goBack('lockId')">Back</button>
-                                        <button class="btn btn-secondary" type="submit">Add lock</button>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="lock-container" *ngIf="selectedLock['filesDTO']">
+                            <h6>Now that you know what lock you want, you need to customize it.</h6>
+                            <img [src]="selectedLock.filesDTO[0].urlToFile" alt="">
                         </div>
+                        <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">  
+                            <div class="form-group">
+                                <div class="message-container">
+                                    <label class="user-info" for="customMessageInput">Your message:</label>
+                                    <textarea 
+                                        name="insertMessage"
+                                        type="textarea"
+                                        cols="3" 
+                                        rows="2"
+                                        placeholder="Add your message"
+                                        class="form-control"
+                                        id="customMessageInput"
+                                        [value]="selectedMessage"
+                                        [ngModel]="selectedMessage">{{selectedMessage}}
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p class="user-info">Your privacy</p>
+                                <div class="col-12 col-xl-6">
+                                    <label class="custom-control custom-checkbox mb-3">
+                                        <input type="radio" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">Private</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="actions-wrapper">
+                                <button class="btn btn-outline-primary" (click)="goBack('lockId')">Back</button>
+                                <button class="btn btn-outline-primary" type="submit">Add lock</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>
-
-
-            <!-- for predefined messages -->
-            <!-- <div class="col-lg-12 col-md-8 col-sm-10">
-                <div *ngIf="lockType && lockId">
-                    <div class="modal fade" id="chooseMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Choose amessage</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form #modalForm="ngForm" (ngSubmit)="saveMessage(modalForm.value)">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <p>Choose a message</p>
-                                            <select class="form-control" name="messageSelect" id="predefinedMessageInput" [ngModel]>
-                                                <option *ngFor="let message of predefinedMessages" [value]="message.id">{{message.value}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeModal>Close</button>
-                                        <button type="submit" class="btn btn-primary">Save message</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
