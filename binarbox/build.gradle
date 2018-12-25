@@ -42,7 +42,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
 //    compile('org.liquibase:liquibase-core')
     compile('org.springframework.boot:spring-boot-starter-tomcat')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.1.RELEASE'
     testCompile('org.springframework.security:spring-security-test')
 }
 
@@ -69,4 +70,6 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     // https://mvnrepository.com/artifact/com.braintreepayments.gateway/braintree-java
     compile group: 'com.braintreepayments.gateway', name: 'braintree-java', version: '2.79.0'
+    // https://mvnrepository.com/artifact/com.stripe/stripe-java
+    compile group: 'com.stripe', name: 'stripe-java', version: '7.10.0'
 }

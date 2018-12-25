@@ -20,8 +20,6 @@ public class LockSection extends BaseEntity{
 	@Column(name = "section")
 	private String section;
 
-
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "panel_id")
 	private Panel panel;

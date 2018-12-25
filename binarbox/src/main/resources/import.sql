@@ -140,12 +140,12 @@ INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (9, 16);
 INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (9, 26);
 
 
-INSERT INTO lb.user(`id`,`address`,`city`,`country`,`created_date`,`email`,`first_name`,`last_modified_date`,`last_name`,`phone`,`locale`) VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789','en');
+INSERT INTO lb.user(`id`,`address`,`city`,`country`,`created_date`,`email`,`first_name`,`last_modified_date`,`last_name`,`phone`,`locale`,`has_agreed_to_terms`) VALUES ('2170256639660343' , 'address', 'city', 'country', '2018-08-23 10:35:46', 'email', 'andrei', '2018-08-23 10:35:46' , 'lazar', '0123456789','en', b'0');
 
 INSERT INTO lb.point VALUES (1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 112, 112);
 INSERT INTO lb.point VALUES (2, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 114, 114);
 
-INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (1, '2018-11-25 20:07:15.131000', '2018-11-25 20:07:16.841000', NULL, NULL, NULL, NULL, b'0', NULL, 'LOCK TEXT', b'0', b'0', 27, 1, 1, 1, '2170256639660343');
-INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `glittering_light`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (2, '2018-11-25 20:07:41.224000', '2018-11-25 20:07:42.756000', NULL, NULL, NULL, NULL, b'0', NULL, 'LOCK TEXT', b'0', b'0', 28, 2, 2, 1, '2170256639660343');
+INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (1, '2018-11-25 20:07:15.131000', '2018-11-25 20:07:16.841000', NULL, NULL, NULL, NULL, NULL, 'LOCK TEXT', b'0', b'0', 27, 1, 1, 1, '2170256639660343');
+INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `delete_token`, `font_color`, `font_size`, `font_style`, `lock_color`, `message`, `paid`, `private_lock`, `file_id`, `lock_section_id`, `lock_template_id`, `point_id`, `user_id`) VALUES (2, '2018-11-25 20:07:41.224000', '2018-11-25 20:07:42.756000', NULL, NULL, NULL, NULL, NULL, 'LOCK TEXT', b'0', b'0', 28, 2, 2, 1, '2170256639660343');
 
 INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8);

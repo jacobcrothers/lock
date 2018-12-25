@@ -12,8 +12,12 @@ import java.util.stream.Collectors;
 @Component
 public class PanelConveter {
 
+    private final LockSectionConvertor lockSectionConvertor;
+
     @Autowired
-    private LockSectionConvertor lockSectionConvertor;
+    public PanelConveter(LockSectionConvertor lockSectionConvertor) {
+        this.lockSectionConvertor = lockSectionConvertor;
+    }
 
     public PanelDTO toDTO(Panel panel){
         return PanelDTO.builder()

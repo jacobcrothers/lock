@@ -18,6 +18,7 @@ public class UserConverter {
                 .firstName(user.getAddress())
                 .lastName(user.getLastName())
                 .phone(user.getPhone())
+                .hasAgreedToTerms(user.getHasAgreedToTerms())
                 .build();
     }
 

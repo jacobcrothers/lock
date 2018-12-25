@@ -17,12 +17,16 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value = Constants.API)
 public class PanelController {
 
+	private final PanelService panelService;
+
 	@Autowired
-	private PanelService panelService;
+	public PanelController(PanelService panelService) {
+		this.panelService = panelService;
+	}
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Get panel", notes = "This endpoint is used for \"see all locks\" feature, here are displayed public panels with public locks.")
+	@ApiOperation(value = "Get panels", notes = "This endpoint is used for \"see all locks\" feature, here are displayed public panels with public locks.")
 	@GetMapping(value = Constants.PANEL_ENDPOINT)
 	@ResponseStatus(HttpStatus.OK)
 	private List<PanelDTO> getPanels() {
@@ -37,5 +41,4 @@ public class PanelController {
 	private PanelDTO getUserAndUserFriendLocksAndPanel(@RequestParam("panelId") Long panelId) {
 		return panelService.getUserLocksAndPanel(panelId);
 	}
-
 }

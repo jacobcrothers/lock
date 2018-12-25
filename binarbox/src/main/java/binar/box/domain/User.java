@@ -61,4 +61,10 @@ public class User{
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<Lock> locks;
+
+	@Column(name = "stripe_costumer_id")
+	private String stripeCustomerId;
+
+	@Column(name= "has_agreed_to_terms")
+	private Boolean hasAgreedToTerms = false;
 }

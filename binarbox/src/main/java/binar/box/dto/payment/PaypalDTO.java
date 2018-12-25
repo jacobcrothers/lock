@@ -1,4 +1,4 @@
-package binar.box.dto;
+package binar.box.dto.payment;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,8 +7,9 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-public class PaymentDTO {
+public class PaypalDTO {
     private String paymentMethodNonce;
-    private BigDecimal ammount;
+    private Long lockId;
+    private BigDecimal amount;
     private String transactionID;
 }

@@ -16,8 +16,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class DatabaseConfiguration {
 
+	private final Environment environment;
+
 	@Autowired
-	private Environment environment;
+	public DatabaseConfiguration(Environment environment) {
+		this.environment = environment;
+	}
 
 	@Bean
 	public DataSource dataSource() {

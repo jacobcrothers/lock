@@ -44,6 +44,7 @@ aws:
     partiallyErasedTemplate: lock-s3-bucket/PartiallyErasedTemplate
     partiallyErasedTemplateWithText: lock-s3-bucket/PartiallyErasedTemplateWithText
     bridge: lock-s3-bucket/Bridge
+    glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
 file:
     domain: https://localhost:6060
     storageType: AWS_S3
@@ -51,3 +52,9 @@ paypal:
   public.key: zph4yfbfn5j55796
   private.key: ab7e503584b183d78f198b85eb9fa7fc
   merchant.id: xm25gj6df6n85xqx
+
+stripe:
+  public.key: pk_test_9Mmg0Q2xkKB9TR2bDfx71Dnb
+  secret.key: sk_test_DdzEdTIMYETHliRVtbKB6aJX
+
+panelMaxLocks: 30

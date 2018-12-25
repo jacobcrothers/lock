@@ -10,11 +10,15 @@ import binar.box.configuration.EmailConfiguration;
 @Service
 public class EmailService {
 
-	@Autowired
-	private EmailConfiguration emailConfiguration;
+	private final EmailConfiguration emailConfiguration;
+
+	private final Environment environment;
 
 	@Autowired
-	private Environment environment;
+	public EmailService(EmailConfiguration emailConfiguration, Environment environment) {
+		this.emailConfiguration = emailConfiguration;
+		this.environment = environment;
+	}
 
 	public void sendEmail(String userEmail, String subject, String text) {
 		String from = environment.getProperty("mail.from");

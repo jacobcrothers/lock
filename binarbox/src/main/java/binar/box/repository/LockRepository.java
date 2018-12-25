@@ -38,4 +38,16 @@ public interface LockRepository extends BaseJpaRepository<Lock, Long> {
 			@Param("country") String country);
 
 	List<Lock> findByUserId(String UserId);
+
+	@Query(value = "SELECT * FROM locks l\n" +
+			"INNER JOIN lock_section ls on (l.lock_section_id=ls.id)\n" +
+			"INNER JOIN panel p on (ls.panel_id=p.id)\n" +
+			"WHERE p.id=:panelId and l.user_id=:userId", nativeQuery = true)
+    List<Lock> findAllByUserIdAndPanelId(@Param("userId") String userId,@Param("panelId") Long panelId);
+
+	@Query(value = "SELECT * FROM locks l\n" +
+			"INNER JOIN lock_section ls on (l.lock_section_id=ls.id)\n" +
+			"INNER JOIN panel p on (ls.panel_id=p.id)\n" +
+			"WHERE p.id=:panelId and l.private_lock=0", nativeQuery = true)
+	List<Lock> findAllByPanelId(@Param("panelId") Long panelId);
 }
