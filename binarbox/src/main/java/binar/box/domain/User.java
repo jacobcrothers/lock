@@ -22,7 +22,8 @@ import java.util.Set;
 public class User{
 
 	@Id
-	@Column(name = "id")
+	//known mysql limitation -> utf8mb4 - 4 bytes per character instead of 3
+	@Column(length = 191)
 	private String id;
 
 	@Column(name = "last_name")
