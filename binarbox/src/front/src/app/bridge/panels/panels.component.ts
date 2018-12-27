@@ -14,14 +14,25 @@ export class PanelsComponent implements OnInit {
 
   private createdLock: any;
   private zoomCount: number = 0;
+  private screenHeight: any;
+  private imageWidth: number;
   private currentImage = '../../../assets/images/bridge/pod0.jpg';
 
   constructor(
     private addLockService: AddLockService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.createdLock = this.addLockService.createdLock;
+    this.imageWidth = 6.25 * window.innerHeight;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = event.target.innerHeight;
+    //image ratio times viewport height -> so that the image won't be stretched
+    this.imageWidth = 6.25 * this.screenHeight;
+    console.log('image width---', this.imageWidth);
   }
 
   onMousewheel(event) {
@@ -41,7 +52,7 @@ export class PanelsComponent implements OnInit {
       },
       {
         id: 3,
-        src: '../../../assets/images/bridge/pod3.png'
+        src: '../../../assets/images/bridge/pod3.jpg'
       }
     ]
 

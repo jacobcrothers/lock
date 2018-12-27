@@ -1,7 +1,14 @@
 
 <section class="dorne-welcome-area bg-img bg-overlay panels-container">
     <drag-scroll class="drag-scroll-container" scrollbar-hidden="true" drag-scroll-y-disabled="true">
-        <img class="bridge-img" [ngClass]="{'scroll-image' : verifyImageSrc()}" (touchmove)="onMousewheel($event)" (wheel)="onMousewheel($event)" [src]="currentImage" alt="" usemap="#image-map"/>
+        <img class="bridge-img" 
+             [ngClass]="{'scroll-image' : verifyImageSrc()}" 
+             [style.width.px]="imageWidth"
+             (touchmove)="onMousewheel($event)" 
+             (wheel)="onMousewheel($event)" 
+             [src]="currentImage" 
+             alt="" 
+             usemap="#image-map"/>
     </drag-scroll>
 
     <map name="image-map" *ngIf="zoomCount === 3">
@@ -15,3 +22,6 @@
         <area target="" alt="Section 8" title="Section 8" id="8" href="" coords="1154,400,1448,510" shape="rect" (click)="chooseSection($event)" class="image-area">
     </map>
 </section>
+
+
+<!-- [style.max-width.px]="imageWidth" -->
