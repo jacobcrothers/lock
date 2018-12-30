@@ -11,8 +11,8 @@ spring:
     multipart:
       maxFileSize: 100MB
       maxRequestSize: 100MB
-server:
-  port: 6060
+#server:
+#  port: 6060
 #  ssl:
 #    key-store: classpath:keystore.p12
 #    key-store-password: helloearth6
