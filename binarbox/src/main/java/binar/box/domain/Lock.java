@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,9 +37,11 @@ public class Lock extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name= "file_id")
-	private File file;
+	@OneToMany
+	@JoinTable(name="LockFile",
+			joinColumns = @JoinColumn( name="lock_id"),
+			inverseJoinColumns = @JoinColumn( name="file_id"))
+	private List<File> files = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lockTemplate_id")
