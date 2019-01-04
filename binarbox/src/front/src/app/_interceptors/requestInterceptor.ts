@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import {UserService} from '../_services/user.service';
 import {MessageService} from '../_services/message.service';
 
-const BASE_URL = 'https://wwww.lockbridges.com:6060/api/v0';
+const BASE_URL = 'https://www.lockbridges.com:6060/api/v0';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
