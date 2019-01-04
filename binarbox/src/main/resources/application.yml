@@ -13,10 +13,10 @@ spring:
       maxRequestSize: 100MB
 server:
   port: 6060
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-password: helloearth6
-    key-password: helloearth6
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: helloearth6
+#    key-password: helloearth6
 database:
   driverClassName: org.mariadb.jdbc.Driver
   jdbcUrl: jdbc:mariadb://localhost:3306/lb?useUnicode=true&character_set_server=utf8mb4
@@ -46,7 +46,7 @@ aws:
     bridge: lock-s3-bucket/Bridge
     glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
 file:
-    domain: https://localhost:6060
+    domain: https://52.29.39.6:6060
     storageType: AWS_S3
 paypal:
   public.key: zph4yfbfn5j55796
