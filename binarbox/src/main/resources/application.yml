@@ -51,7 +51,7 @@ aws:
     glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
 file:
 #    domain: https://localhost:6060
-    domain: https://52.29.39.6:6060
+    domain: https://www.lockbridges.com:6060
     storageType: AWS_S3
 paypal:
   public.key: zph4yfbfn5j55796
