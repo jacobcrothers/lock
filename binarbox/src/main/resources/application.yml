@@ -13,10 +13,12 @@ spring:
       maxRequestSize: 100MB
 server:
   port: 6060
-#  ssl:
-#    key-store: classpath:keystore.p12
-#    key-store-password: helloearth6
-#    key-password: helloearth6
+  ssl:
+    key-store: classpath:keystoreNew.p12
+    key-store-password: helloearth6
+    keyStoreType: PKCS12
+    key-password: helloearth6
+    keyAlias: tomcatNew
 database:
   driverClassName: org.mariadb.jdbc.Driver
   jdbcUrl: jdbc:mariadb://localhost:3306/lb?useUnicode=true&character_set_server=utf8mb4
