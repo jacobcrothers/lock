@@ -14,7 +14,9 @@ spring:
 server:
   port: 6060
   ssl:
-    key-store: classpath:keystoreNew.p12
+#    prod
+#    key-store: classpath:keystoreNew.p12
+    key-store: /etc/letsencrypt/live/www.lockbridges.com/keystoreNew.p12
     key-store-password: helloearth6
     keyStoreType: PKCS12
     key-password: helloearth6
@@ -48,6 +50,7 @@ aws:
     bridge: lock-s3-bucket/Bridge
     glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
 file:
+#    domain: https://localhost:6060
     domain: https://52.29.39.6:6060
     storageType: AWS_S3
 paypal:
