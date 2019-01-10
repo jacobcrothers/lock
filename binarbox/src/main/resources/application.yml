@@ -12,15 +12,15 @@ spring:
       maxFileSize: 100MB
       maxRequestSize: 100MB
 server:
-  port: 6060
-  ssl:
-#    prod
-#    key-store: classpath:keystoreNew.p12
-    key-store: /etc/letsencrypt/live/www.lockbridges.com/keystoreNew.p12
-    key-store-password: helloearth6
-    keyStoreType: PKCS12
-    key-password: helloearth6
-    keyAlias: tomcatNew
+#  port: 6060
+#  ssl:
+##    prod
+##    key-store: classpath:keystoreNew.p12
+#    key-store: /etc/letsencrypt/live/www.lockbridges.com/keystoreNew.p12
+#    key-store-password: helloearth6
+#    keyStoreType: PKCS12
+#    key-password: helloearth6
+#    keyAlias: tomcatNew
 database:
   driverClassName: org.mariadb.jdbc.Driver
   jdbcUrl: jdbc:mariadb://localhost:3306/lb?useUnicode=true&character_set_server=utf8mb4
@@ -51,7 +51,7 @@ aws:
     glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
 file:
 #    domain: https://localhost:6060
-    domain: https://www.lockbridges.com:6060
+    domain: https://api.lockbridges.com
     storageType: AWS_S3
 paypal:
   public.key: zph4yfbfn5j55796
