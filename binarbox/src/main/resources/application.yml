@@ -12,15 +12,15 @@ spring:
       maxFileSize: 100MB
       maxRequestSize: 100MB
 server:
-  port: 6060
-  ssl:
+#  port: 6060
+#  ssl:
 ##    prod
 #    key-store: classpath:keystoreNew.p12
-    key-store: /etc/letsencrypt/live/www.lockbridges.com/keystoreNew.p12
-    key-store-password: helloearth6
-    keyStoreType: PKCS12
-    key-password: helloearth6
-    keyAlias: tomcatNew
+#    key-store: /etc/letsencrypt/live/www.lockbridges.com/keystoreNew.p12
+#    key-store-password: helloearth6
+#    keyStoreType: PKCS12
+#    key-password: helloearth6
+#    keyAlias: tomcatNew
 #    enabled-Protocols: [TLSv1.2]
 database:
   driverClassName: org.mariadb.jdbc.Driver
