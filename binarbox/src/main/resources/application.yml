@@ -12,7 +12,7 @@ spring:
       maxFileSize: 100MB
       maxRequestSize: 100MB
 server:
-#  port: 6060
+  port: 6060
   ssl:
 ##    prod
 #    key-store: classpath:keystoreNew.p12
