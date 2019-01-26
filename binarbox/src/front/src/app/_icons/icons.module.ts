@@ -1,5 +1,15 @@
 import {NgModule} from '@angular/core';
-import {IconCreditCard, IconFacebook, IconLock, IconShare, IconTwitter, IconUser} from 'angular-feather';
+import {
+    IconCreditCard, 
+    IconFacebook, 
+    IconLock, 
+    IconShare, 
+    IconTwitter, 
+    IconUser,
+    IconChevronLeft,
+    IconChevronRight,
+    IconAlignJustify
+} from 'angular-feather';
 
 const icons = [
     IconFacebook,
@@ -7,7 +17,10 @@ const icons = [
     IconUser,
     IconCreditCard,
     IconLock,
-    IconShare
+    IconShare,
+    IconChevronLeft,
+    IconChevronRight,
+    IconAlignJustify
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpModule} from '@angular/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthGuard} from './_guards/auth.guard';
 import {UserService} from './_services/user.service';
@@ -28,6 +29,7 @@ import { LockDetailsComponent } from './user/dashboard/locks/lock-details/lock-d
 import { PanelsComponent } from './bridge/panels/panels.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragScrollModule } from 'ngx-drag-scroll'
+import { PaymentService } from './_services/payment.service';
 
 
 // Configs
@@ -59,6 +61,7 @@ export function getAuthServiceConfigs() {
         BrowserModule,
         FormsModule,
         HttpClientModule,
+        HttpModule,
         AppRoutingModule,
         IconsModule,
         SocialLoginModule,
@@ -76,7 +79,8 @@ export function getAuthServiceConfigs() {
         AuthGuard,
         UserService,
         AddLockService,
-        MessageService
+        MessageService,
+        PaymentService
     ],
     bootstrap: [AppComponent]
 })

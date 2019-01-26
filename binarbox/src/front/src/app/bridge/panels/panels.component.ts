@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { AddLockService } from '../../_services/add-lock.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -17,9 +18,12 @@ export class PanelsComponent implements OnInit {
   private screenHeight: any;
   private imageWidth: number;
   private currentImage = '../../../assets/images/bridge/pod0.jpg';
+  private panelSection: number;
 
   constructor(
-    private addLockService: AddLockService
+    private addLockService: AddLockService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,7 +36,6 @@ export class PanelsComponent implements OnInit {
     this.screenHeight = event.target.innerHeight;
     //image ratio times viewport height -> so that the image won't be stretched
     this.imageWidth = 6.25 * this.screenHeight;
-    console.log('image width---', this.imageWidth);
   }
 
   onMousewheel(event) {
@@ -87,7 +90,10 @@ export class PanelsComponent implements OnInit {
   chooseSection(event) {
     event.preventDefault();
     // send this to BE
-    console.log('section event--', event.target.id);
+    this.panelSection = event.target.id;
+    this.addLockService.savePanelSection(this.panelSection).subscribe(data => {;
+      this.router.navigate([`dashboard/payment`]);
+    });
   }
 
   mouseEnter() {

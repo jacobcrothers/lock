@@ -59,7 +59,9 @@
         padding: 30px;
         background-color: #341a79;
         box-shadow: 1px 9px 10px rgba(255, 255, 255, 0.15);
-        border-radius: 0 0 3px 3px
+        border-radius: 0 0 3px 3px;
+        position: absolute;
+        top: 120px;
     }
     .dorne-search-btn > a,
     .dorne-signin-btn > a {
@@ -161,7 +163,9 @@
         padding: 15px;
         background-color: #341a79;
         box-shadow: 1px 9px 10px rgba(255, 255, 255, 0.15);
-        border-radius: 0 0 3px 3px
+        border-radius: 0 0 3px 3px;
+        position: absolute;
+        top: 120px;
     }
     .dorne-search-btn > a,
     .dorne-signin-btn > a {
