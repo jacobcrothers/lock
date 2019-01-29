@@ -100,7 +100,7 @@ public class UserService {
 		return idsList;
 	}
 
-	private String getAuthenticatedUserToken() {
+	public String getAuthenticatedUserToken() {
 		return (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
 	}
 
