@@ -21,6 +21,7 @@ war {
     enabled = true
 }
 
+version = '0.0.1-SNAPSHOT'
 group = 'binar.box'
 sourceCompatibility = 11.0
 
