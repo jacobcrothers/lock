@@ -91,6 +91,7 @@
                                         class="form-control"
                                         id="customMessageInput"
                                         [value]="selectedMessage"
+                                        required
                                         [ngModel]="selectedMessage">{{selectedMessage}}
                                     </textarea>
                                 </div>
@@ -99,7 +100,7 @@
                                 <p class="user-info">Your privacy</p>
                                 <div class="col-12 col-xl-6">
                                     <label class="custom-control custom-checkbox mb-3">
-                                        <input type="radio" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy">
+                                        <input type="radio" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy" required>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Private</span>
                                     </label>
@@ -107,7 +108,7 @@
                             </div>
                             <div class="actions-wrapper">
                                 <button class="btn btn-outline-primary button-outline" (click)="goBack('lockId')">Back</button>
-                                <button class="btn btn-outline-primary button-outline" type="submit">Add lock</button>
+                                <button class="btn btn-outline-primary button-outline" [disabled]="!lockForm.valid" type="submit">Add lock</button>
                             </div>
                         </form>
                     </div>

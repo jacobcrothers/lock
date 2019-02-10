@@ -41,11 +41,11 @@
 
 .customize-lock-form .lock-container {
     text-align: center;
-    margin-top: 10%;
+    /* margin-top: 10%; */
 }
 
 .customize-lock-form .lock-container img {
-    width: 80%;
+    width: 70%;
     height: auto;
 }
 

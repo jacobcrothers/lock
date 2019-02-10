@@ -801,7 +801,8 @@ li {
 .dorne-features-restaurant-area {
     position: relative;
     z-index: 1;
-    /* height: calc(100% - 120px); */
+    height: calc(100% - 120px);
+    top: 120px;
 }
 
 .single-features-area {

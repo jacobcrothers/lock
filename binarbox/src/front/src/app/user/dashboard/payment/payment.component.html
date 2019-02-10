@@ -10,7 +10,19 @@
 </div> -->
 
 <div class="payment-container">
-    <form #paymentForm="ngForm" (ngSubmit)="chargeCreditCard(paymentForm.value)">
+        <!-- <form action="https://localhost:6060/api/v0/stripe/charge" method="POST">
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_9Mmg0Q2xkKB9TR2bDfx71Dnb"
+                data-amount="0"
+                data-name="Stripe.com"
+                data-description="Example charge"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-zip-code="true">
+            </script>
+        </form> -->
+    <!-- <form #paymentForm="ngForm" (ngSubmit)="chargeCreditCard(paymentForm.value)">
         <div class="form-group">
             <div class="message-container">
                 <label class="user-info" for="customMessageInput">Credit Card:</label>
@@ -58,5 +70,5 @@
         <div class="actions-wrapper">
             <button class="btn btn-outline-primary" type="submit">Submit</button>
         </div>
-    </form>
+    </form> -->
 </div>
