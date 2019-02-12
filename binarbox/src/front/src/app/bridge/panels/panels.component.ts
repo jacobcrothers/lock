@@ -20,11 +20,15 @@ export class PanelsComponent implements OnInit {
   public currentImage = '../../../assets/images/bridge/pod0.jpg';
   private panelSection: number;
 
+  public displayFirstImg = true;
+  public displaySecondImg = false;
+  public displayThirdImg = false;
+  public displayFourthImg = false;
   public bridgeImgs = [
     {
       id: 0,
       src: '../../../assets/images/bridge/pod0.jpg',
-      display: false
+      display: true
     },
     {
       id: 1,
@@ -75,8 +79,9 @@ export class PanelsComponent implements OnInit {
         this.zoomCount = 0;
       }
     }
+    console.log('zoom count', this.zoomCount);
     // this.currentImage = this.findBridgeImg(bridgeImgs, this.zoomCount);
-    this.displayCurrentImage(this.zoomCount);
+    // this.displayCurrentImage(this.zoomCount);
 
     if (this.zoomCount === 3) {
       this.mouseEnter();
@@ -84,12 +89,18 @@ export class PanelsComponent implements OnInit {
     }
   }
 
+  public isImageVisible(id) {
+    console.log('id and zoom--', id, this.zoomCount);
+    return id === this.zoomCount ? false : true;
+
+  }
+
   public displayCurrentImage(count) {
     this.bridgeImgs.forEach(img => {
-      img.display = false;
       if (img.id === count) {
         img.display = true;
       }
+      img.display = false;
     });
     console.log('images---', this.bridgeImgs);
   }

@@ -59,12 +59,51 @@
              (touchmove)="onMousewheel($event)" 
              (wheel)="onMousewheel($event)" 
              [src]="bridgeImgs[0].src"
-             *ngIf="bridgeImgs[0].display"
+             [hidden]="isImageVisible(0)"
              alt="" 
              usemap="#image-map"/>
     </drag-scroll>
 
     <div class="image-container" *ngFor="let img of bridgeImgs;">
-        <img [src]="img.src" alt="" *ngIf="img.display">
+        <img [src]="img.src" alt="" [hidden]="isImageVisible(img.id)">
     </div>
+
+    <map name="image-map"  *ngIf="zoomCount === 3">
+        <area target="" alt="Section 1" id="1" title="Section 1" href="" coords="88,1075,491,919" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 2" id="2" title="Section 2" href="" coords="491,919,908,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 3" id="3" title="Section 3" href="" coords="81,1068,498,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 4" id="4" title="Section 4" href="" coords="498,1075,915,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 5" id="5" title="Section 5" href="" coords="908,919,1304,1068" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 6" id="6" title="Section 6" href="" coords="1318,898,1728,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 7" id="7" title="Section 7" href="" coords="929,1068,1311,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 8" id="8" title="Section 8" href="" coords="1325,1068,1742,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 9" id="9" title="Section 9" href="" coords="1742,919,2159,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 10" id="10" title="Section 10" href="" coords="2159,912,2562,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 11" id="11" title="Section 11" href="" coords="1749,1061,2159,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 12" id="12" title="Section 12" href="" coords="2159,1061,2569,1216" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 13" id="13" title="Section 13" href="" coords="2562,912,2979,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 14" id="14" title="Section 14" href="" coords="2965,919,3396,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 15" id="15" title="Section 15" href="" coords="2583,1068,2979,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 16" id="16" title="Section 16" href="" coords="2986,1068,3396,1230" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 17" id="17" title="Section 17" href="" coords="3410,919,3806,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 18" id="18" title="Section 18" href="" coords="3813,912,4223,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 19" id="19" title="Section 19" href="" coords="3410,1075,3806,1238" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 20" id="20" title="Section 20" href="" coords="3813,1082,4216,1216" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 21" id="21" title="Section 21" href="" coords="4244,919,4654,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 22" id="22" title="Section 22" href="" coords="4661,919,5049,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 23" id="23" title="Section 23" href="" coords="4244,1068,4654,1216" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 24" id="24" title="Section 24" href="" coords="4661,1068,5042,1216" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 25" id="25" title="Section 25" href="" coords="5071,912,5502,1082" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 26" id="26" title="Section 26" href="" coords="5502,905,5883,1082" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 27" id="27" title="Section 27" href="" coords="5064,1075,5495,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 28" id="28" title="Section 28" href="" coords="5495,1075,5876,1230" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 29" id="29" title="Section 29" href="" coords="5905,912,6314,1082" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 30" id="30" title="Section 30" href="" coords="6314,919,6724,1082" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 31" id="31" title="Section 31" href="" coords="5898,1089,6307,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 32" id="32" title="Section 32" href="" coords="6307,1082,6710,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 33" id="33" title="Section 33" href="" coords="6731,912,7141,1082" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 34" id="34" title="Section 34" href="" coords="7148,912,7551,1075" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 35" id="35" title="Section 35" href="" coords="6731,1089,7148,1230" shape="rect" (click)="chooseSection($event)" class="image-area">
+        <area target="" alt="Section 36" id="36" title="Section 36" href="" coords="7148,1075,7544,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
+    </map>
 </section>
