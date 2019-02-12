@@ -55,7 +55,11 @@ export class PanelsComponent implements OnInit {
       },
       {
         id: 3,
-        src: '../../../assets/images/bridge/pod3.png'
+        src: '../../../assets/images/bridge/pod3.jpeg'
+      },
+      {
+        id: 3,
+        src: '../../../assets/images/bridge/pod4.jpg'
       }
     ]
 
