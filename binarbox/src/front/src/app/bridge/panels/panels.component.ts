@@ -20,6 +20,29 @@ export class PanelsComponent implements OnInit {
   public currentImage = '../../../assets/images/bridge/pod0.jpg';
   private panelSection: number;
 
+  public bridgeImgs = [
+    {
+      id: 0,
+      src: '../../../assets/images/bridge/pod0.jpg',
+      display: false
+    },
+    {
+      id: 1,
+      src: '../../../assets/images/bridge/pod1.jpg',
+      display: false
+    },
+    {
+      id: 2,
+      src: '../../../assets/images/bridge/pod2.jpg',
+      display: false
+    },
+    {
+      id: 3,
+      src: '../../../assets/images/bridge/pod3.jpg',
+      display: false
+    }
+  ];
+
   constructor(
     private addLockService: AddLockService,
     private route: ActivatedRoute,
@@ -39,26 +62,6 @@ export class PanelsComponent implements OnInit {
   }
 
   onMousewheel(event) {
-    // array from BE
-    let bridgeImgs = [
-      {
-        id: 0,
-        src: '../../../assets/images/bridge/pod0.jpg'
-      },
-      {
-        id: 1,
-        src: '../../../assets/images/bridge/pod1.jpg'
-      },
-      {
-        id: 2,
-        src: '../../../assets/images/bridge/pod2.jpg'
-      },
-      {
-        id: 3,
-        src: '../../../assets/images/bridge/pod3.jpg'
-      }
-    ]
-
     if (event.deltaY < 0) {
       if (this.zoomCount < 3) {
         this.zoomCount = this.zoomCount + 1;
@@ -72,7 +75,8 @@ export class PanelsComponent implements OnInit {
         this.zoomCount = 0;
       }
     }
-    this.currentImage = this.findBridgeImg(bridgeImgs, this.zoomCount);
+    // this.currentImage = this.findBridgeImg(bridgeImgs, this.zoomCount);
+    this.displayCurrentImage(this.zoomCount);
 
     if (this.zoomCount === 3) {
       this.mouseEnter();
@@ -80,12 +84,22 @@ export class PanelsComponent implements OnInit {
     }
   }
 
-  findBridgeImg(images, count) {
-    let newImg = images.find((img) => {
-      return img.id === count;
+  public displayCurrentImage(count) {
+    this.bridgeImgs.forEach(img => {
+      img.display = false;
+      if (img.id === count) {
+        img.display = true;
+      }
     });
-    return newImg.src;
+    console.log('images---', this.bridgeImgs);
   }
+
+  // findBridgeImg(images, count) {
+  //   let newImg = images.find((img) => {
+  //     return img.id === count;
+  //   });
+  //   return newImg.src;
+  // }
 
   chooseSection(event) {
     event.preventDefault();

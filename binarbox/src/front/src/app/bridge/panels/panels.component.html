@@ -1,5 +1,5 @@
 
-<section class="dorne-welcome-area bg-img bg-overlay panels-container">
+<!-- <section class="dorne-welcome-area bg-img bg-overlay panels-container">
     <drag-scroll class="drag-scroll-container" scrollbar-hidden="true" drag-scroll-y-disabled="true">
         <img class="bridge-img" 
              [ngClass]="{'scroll-image' : verifyImageSrc()}" 
@@ -49,4 +49,22 @@
         <area target="" alt="Section 35" id="35" title="Section 35" href="" coords="6731,1089,7148,1230" shape="rect" (click)="chooseSection($event)" class="image-area">
         <area target="" alt="Section 36" id="36" title="Section 36" href="" coords="7148,1075,7544,1223" shape="rect" (click)="chooseSection($event)" class="image-area">
     </map>
+</section> -->
+
+<section class="dorne-welcome-area bg-img bg-overlay panels-container">
+    <drag-scroll class="drag-scroll-container" scrollbar-hidden="true" drag-scroll-y-disabled="true">
+        <img class="bridge-img" 
+             [ngClass]="{'scroll-image' : verifyImageSrc()}" 
+             [style.width.px]="imageWidth"
+             (touchmove)="onMousewheel($event)" 
+             (wheel)="onMousewheel($event)" 
+             [src]="bridgeImgs[0].src"
+             *ngIf="bridgeImgs[0].display"
+             alt="" 
+             usemap="#image-map"/>
+    </drag-scroll>
+
+    <div class="image-container" *ngFor="let img of bridgeImgs;">
+        <img [src]="img.src" alt="" *ngIf="img.display">
+    </div>
 </section>
