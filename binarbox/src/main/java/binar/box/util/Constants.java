@@ -95,6 +95,7 @@ public class Constants {
 	public static final String PANEL_MAX_SIZE = "panel.maxSize";
 	public static final String UNAUTHORIZED = "UNAUTHORIZED";
 	public static final String FILE_URL_PART = "download/file/";
+	public static final String FACEBOOK_LOGOUT_ENDPOINT = "/facebook/logout";
 
 //	public static String lockCategoryPictureUrl(Long categoryId, String domain) {
 //		return domain + API + "category/" + categoryId + "/pic";

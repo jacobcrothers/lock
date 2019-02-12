@@ -119,4 +119,11 @@ public class UserService {
 		user.setHasAgreedToTerms(true);
 		userRepository.save(user);
     }
+
+	public void logoutUser() {
+		var userToken = getAuthenticatedUserToken();
+		var facebook = new FacebookTemplate(userToken);
+
+		facebook.delete(userToken);
+	}
 }
