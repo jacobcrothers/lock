@@ -47,7 +47,6 @@ export class LockComponent implements OnInit {
     updateParams(parameters) {
         if (parameters['type']) {
             this.lockType = parameters['type'];
-            this.getCategories();
         }
         if (parameters['id']) {
             this.lockId = parameters['id'];
@@ -57,16 +56,16 @@ export class LockComponent implements OnInit {
     getCategories() {
         this.addLockService.getLockTypes().subscribe(data => {
             this.lockCategories = data;
-            if(this.pageParams) {
-                this.lockCategories.forEach(category => {
-                    if(this.pageParams['type'] && category['type'] === this.pageParams['type']) {
-                        this.selectedLockCategory = category;
-                        this.displayLocks();
-                        if(this.pageParams['id']) {
-                            this.setLockFromParams(this.selectedLockCategory, this.pageParams['id']);
-                        }
+            if (this.pageParams) {
+                if (this.pageParams['type']) {
+                    this.selectedLockCategory = this.lockCategories.find(category => {
+                        return category.category === this.pageParams['type'];
+                    });
+                    this.chooseCategory(this.selectedLockCategory);
+                    if (this.pageParams['id']) {
+                        this.setLockFromParams(this.selectedLockCategory, this.pageParams['id']);
                     }
-                });
+                }
             }
         });
     }
@@ -75,7 +74,9 @@ export class LockComponent implements OnInit {
         category['lockTypeTemplate'].forEach(template => {
             if(template['id'].toString() === lockId) {
                 this.selectedLock = template;
+                console.log('selected lock from params', this.selectedLock);
             }
+            this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
         });
     }
 
@@ -93,6 +94,7 @@ export class LockComponent implements OnInit {
     
     chooseLock(lock) {
         this.selectedLock = lock;
+        // console.log('selected lock---', this.selectedLock);
         this.lockId = lock.id;
         this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
     }
