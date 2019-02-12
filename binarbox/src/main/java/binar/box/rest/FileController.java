@@ -71,6 +71,15 @@ public class FileController {
 		return new ResponseEntity(HttpStatus.CREATED);
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Send lock bridge video to user timeline", notes = "Facebook video upload", hidden = true)
+	@PostMapping(value = Constants.LOCK_ENDPOINT
+			+ Constants.BRIDGE_VIDEO_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	private ResponseEntity uploadVideo(@RequestParam("file") MultipartFile video) throws IOException {
+		return new ResponseEntity<>(fileService.uploadVideo(video), HttpStatus.CREATED);
+	}
+
 	@RequestMapping(value = "/download/file/{fileId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void downloadFile(@PathVariable(name = "fileId") Long fileId,
 							 HttpServletResponse response) throws IOException {

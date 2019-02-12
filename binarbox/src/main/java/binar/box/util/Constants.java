@@ -51,6 +51,7 @@ public class Constants {
 	public static final String LOCK_TEMPLATE_FILE_ENDPOINT = "/template/file";
 	public static final String LOCK_GLITTERING_FILE_ENDPOINT = "/glittering/file";
 	public static final String BRIDGE_ENDPOINT = "/bridge/file";
+	public static final String BRIDGE_VIDEO_ENDPOINT = "/bridge/video";
 	public static final String ADMIN_AUTHORITY = "ADMIN";
 	public static final String FILE_ENDPOINT = "file";
 	public static final String FILE_NOT_FOUND = "File not found!";

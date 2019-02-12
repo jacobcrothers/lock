@@ -13,11 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class PanelsComponent implements OnInit {
 
-  private createdLock: any;
-  private zoomCount: number = 0;
-  private screenHeight: any;
-  private imageWidth: number;
-  private currentImage = '../../../assets/images/bridge/pod0.jpg';
+  public createdLock: any;
+  public zoomCount: number = 0;
+  public screenHeight: any;
+  public imageWidth: number;
+  public currentImage = '../../../assets/images/bridge/pod0.jpg';
   private panelSection: number;
 
   constructor(
