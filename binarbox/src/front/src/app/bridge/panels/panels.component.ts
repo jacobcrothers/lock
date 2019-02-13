@@ -79,8 +79,8 @@ export class PanelsComponent implements OnInit {
         this.zoomCount = 0;
       }
     }
-    console.log('zoom count', this.zoomCount);
-    // this.currentImage = this.findBridgeImg(bridgeImgs, this.zoomCount);
+    // console.log('zoom count', this.zoomCount);
+    this.currentImage = this.findBridgeImg(this.zoomCount);
     // this.displayCurrentImage(this.zoomCount);
 
     if (this.zoomCount === 3) {
@@ -89,28 +89,28 @@ export class PanelsComponent implements OnInit {
     }
   }
 
-  public isImageVisible(id) {
-    console.log('id and zoom--', id, this.zoomCount);
-    return id === this.zoomCount ? false : true;
+  // public isImageVisible(id) {
+  //   console.log('id and zoom--', id, this.zoomCount);
+  //   return id === this.zoomCount ? false : true;
 
-  }
-
-  public displayCurrentImage(count) {
-    this.bridgeImgs.forEach(img => {
-      if (img.id === count) {
-        img.display = true;
-      }
-      img.display = false;
-    });
-    console.log('images---', this.bridgeImgs);
-  }
-
-  // findBridgeImg(images, count) {
-  //   let newImg = images.find((img) => {
-  //     return img.id === count;
-  //   });
-  //   return newImg.src;
   // }
+
+  // public displayCurrentImage(count) {
+  //   this.bridgeImgs.forEach(img => {
+  //     if (img.id === count) {
+  //       img.display = true;
+  //     }
+  //     img.display = false;
+  //   });
+  //   console.log('images---', this.bridgeImgs);
+  // }
+
+  findBridgeImg(count) {
+    let newImg = this.bridgeImgs.find((img) => {
+      return img.id === count;
+    });
+    return newImg.src;
+  }
 
   chooseSection(event) {
     event.preventDefault();
