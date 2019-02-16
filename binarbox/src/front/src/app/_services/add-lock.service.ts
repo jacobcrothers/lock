@@ -9,6 +9,7 @@ export class AddLockService {
 
   private lockTypesUrl     = 'lock/category';
   private saveLockUrl      = 'lock';
+  private savePanelcSectionUrl = 'lock/{lockId}/section/{sectionId}'
 
   public createdLock: any;
 
@@ -23,6 +24,12 @@ export class AddLockService {
 
   saveLock(lock) {
     this.createdLock = lock;
+    this.savePanelcSectionUrl = this.savePanelcSectionUrl.replace('{lockId}', this.createdLock.lockTemplate);
     return this.http.post(this.saveLockUrl, lock);
+  }
+
+  savePanelSection(sectionId) {
+    this.savePanelcSectionUrl = this.savePanelcSectionUrl.replace('{sectionId}', sectionId);
+    return this.http.put(this.savePanelcSectionUrl, {});
   }
 }

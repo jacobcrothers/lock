@@ -1,4 +1,4 @@
-<h4>Payment options</h4>
+<!-- <h4>Payment options</h4>
 <p>
     Here you can change your payment details. We don't actually save any of your credit card data,
     just send it along to our payment provider who keeps it safe for us so if the security of our site is ever compromised, your payment details remain safe and sound.
@@ -7,4 +7,68 @@
     <div class="col">
         Since no data is stored by us, you need to visit <a href="#"><i-lock class="i-size-16"></i-lock> this page</a> to update your details.
     </div>
+</div> -->
+
+<div class="payment-container">
+        <!-- <form action="https://localhost:6060/api/v0/stripe/charge" method="POST">
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_9Mmg0Q2xkKB9TR2bDfx71Dnb"
+                data-amount="0"
+                data-name="Stripe.com"
+                data-description="Example charge"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-zip-code="true">
+            </script>
+        </form> -->
+    <!-- <form #paymentForm="ngForm" (ngSubmit)="chargeCreditCard(paymentForm.value)">
+        <div class="form-group">
+            <div class="message-container">
+                <label class="user-info" for="customMessageInput">Credit Card:</label>
+                <input 
+                    name="cardNumber"
+                    type="text"
+                    placeholder="Credit Card #"
+                    class="form-control"
+                    [ngModel]="cardNumber">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="message-container">
+                <label class="user-info" for="expMonth">Expiration Month:</label>
+                <input 
+                    name="expMonth"
+                    type="text"
+                    placeholder="Expiration Month"
+                    class="form-control"
+                    [ngModel]="expMonth">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="message-container">
+                <label class="user-info" for="expYear">Expiration Year:</label>
+                <input 
+                    name="expYear"
+                    type="text"
+                    placeholder="Expiration Year"
+                    class="form-control"
+                    [ngModel]="expYear">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="message-container">
+                <label class="user-info" for="cvc">CVC:</label>
+                <input 
+                    name="cvc"
+                    type="text"
+                    placeholder="CVC"
+                    class="form-control"
+                    [ngModel]="cvc">
+            </div>
+        </div>
+        <div class="actions-wrapper">
+            <button class="btn btn-outline-primary" type="submit">Submit</button>
+        </div>
+    </form> -->
 </div>

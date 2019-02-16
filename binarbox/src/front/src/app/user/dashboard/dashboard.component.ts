@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  public isSidemenuActive: boolean;
 
   constructor() { }
 
   ngOnInit() {
+    this.isSidemenuActive = true;
+  }
+
+  openNav() {
+    this.isSidemenuActive = true;
+  }
+
+  closeNav() {
+    this.isSidemenuActive = false;
   }
 
 }
