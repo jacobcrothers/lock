@@ -124,6 +124,8 @@ public class UserService {
 		var userToken = getAuthenticatedUserToken();
 		var facebook = new FacebookTemplate(userToken);
 
-		facebook.delete(userToken);
+		facebook.userOperations().getUserPermissions();
+
+		facebook.delete(getAuthenticatedUser().getId(), "permissions");
 	}
 }

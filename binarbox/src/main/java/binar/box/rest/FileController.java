@@ -77,7 +77,7 @@ public class FileController {
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.BRIDGE_VIDEO_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	private ResponseEntity uploadVideo(@RequestParam("file") MultipartFile video) throws IOException {
-		return new ResponseEntity<>(fileService.uploadVideo(video), HttpStatus.CREATED);
+		return new ResponseEntity<>(fileService.uploadVideoWithFbRest(video), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/download/file/{fileId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
