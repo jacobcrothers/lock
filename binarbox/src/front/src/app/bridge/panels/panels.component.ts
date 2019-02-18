@@ -17,7 +17,6 @@ export class PanelsComponent implements OnInit {
   public zoomCount: number = 0;
   public screenHeight: any;
   public imageWidth: number;
-  public currentImage = '../../../assets/images/bridge/pod0.jpg';
   private panelSection: number;
 
   public displayFirstImg = true;
@@ -79,39 +78,12 @@ export class PanelsComponent implements OnInit {
         this.zoomCount = 0;
       }
     }
-    // console.log('zoom count', this.zoomCount);
-    // this.currentImage = this.findBridgeImg(this.zoomCount);
-    // this.displayCurrentImage(this.zoomCount);
 
     if (this.zoomCount === 3) {
       this.mouseEnter();
       $("map[name=image-map]").imageMapResize();
     }
-    console.log('zoom count---', this.zoomCount);
   }
-
-  public isImageVisible(id) {
-    console.log('id and zoom--', id, this.zoomCount);
-    return id === this.zoomCount ? false : true;
-
-  }
-
-  // public displayCurrentImage(count) {
-  //   this.bridgeImgs.forEach(img => {
-  //     if (img.id === count) {
-  //       img.display = true;
-  //     }
-  //     img.display = false;
-  //   });
-  //   console.log('images---', this.bridgeImgs);
-  // }
-
-  // findBridgeImg(count) {
-  //   let newImg = this.bridgeImgs.find((img) => {
-  //     return img.id === count;
-  //   });
-  //   return newImg.src;
-  // }
 
   chooseSection(event) {
     event.preventDefault();
@@ -134,10 +106,6 @@ export class PanelsComponent implements OnInit {
         selectOnClick: true
       });
     }, 200)
-  }
-
-  verifyImageSrc() {
-    return this.currentImage.includes('pod3') ? true : false;
   }
   
 }

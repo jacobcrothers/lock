@@ -4,8 +4,13 @@
     overflow: hidden;
     /* margin-top: 120px; */
 }
-.drag-scroll-container {
+.drag-scroll-section {
     height: 100%;
+}
+
+.drag-scroll-section .drag-scroll-wrapper {
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .bridge-img {
@@ -13,8 +18,10 @@
     height: 100vh;
 }
 
+
 .bridge-img.scroll-image {
     height: 100%;
     width: 625%;
     max-width: 625%;
 }
+
