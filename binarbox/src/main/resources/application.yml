@@ -50,8 +50,8 @@ aws:
     bridge: lock-s3-bucket/Bridge
     glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
 file:
-#    domain: https://localhost:6060
-    domain: https://api.lockbridges.com
+    domain: https://localhost:6060
+#    domain: https://api.lockbridges.com
     storageType: AWS_S3
 paypal:
   public.key: zph4yfbfn5j55796
