@@ -80,20 +80,21 @@ export class PanelsComponent implements OnInit {
       }
     }
     // console.log('zoom count', this.zoomCount);
-    this.currentImage = this.findBridgeImg(this.zoomCount);
+    // this.currentImage = this.findBridgeImg(this.zoomCount);
     // this.displayCurrentImage(this.zoomCount);
 
     if (this.zoomCount === 3) {
       this.mouseEnter();
       $("map[name=image-map]").imageMapResize();
     }
+    console.log('zoom count---', this.zoomCount);
   }
 
-  // public isImageVisible(id) {
-  //   console.log('id and zoom--', id, this.zoomCount);
-  //   return id === this.zoomCount ? false : true;
+  public isImageVisible(id) {
+    console.log('id and zoom--', id, this.zoomCount);
+    return id === this.zoomCount ? false : true;
 
-  // }
+  }
 
   // public displayCurrentImage(count) {
   //   this.bridgeImgs.forEach(img => {
@@ -105,12 +106,12 @@ export class PanelsComponent implements OnInit {
   //   console.log('images---', this.bridgeImgs);
   // }
 
-  findBridgeImg(count) {
-    let newImg = this.bridgeImgs.find((img) => {
-      return img.id === count;
-    });
-    return newImg.src;
-  }
+  // findBridgeImg(count) {
+  //   let newImg = this.bridgeImgs.find((img) => {
+  //     return img.id === count;
+  //   });
+  //   return newImg.src;
+  // }
 
   chooseSection(event) {
     event.preventDefault();

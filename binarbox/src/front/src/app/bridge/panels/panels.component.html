@@ -58,15 +58,40 @@
              [style.width.px]="imageWidth"
              (touchmove)="onMousewheel($event)" 
              (wheel)="onMousewheel($event)" 
-             [src]="bridgeImgs[0].src"
-             [hidden]="isImageVisible(0)"
+             src="../../../assets/images/bridge/pod0.jpg"
              alt="" 
              usemap="#image-map"/>
-    </drag-scroll>
 
-    <div class="image-container" *ngFor="let img of bridgeImgs;">
-        <img [src]="img.src" alt="" [hidden]="isImageVisible(img.id)">
-    </div>
+        <img class="bridge-img" 
+            [ngClass]="{'scroll-image' : verifyImageSrc()}" 
+            [style.width.px]="imageWidth"
+            (touchmove)="onMousewheel($event)" 
+            (wheel)="onMousewheel($event)" 
+            [src]="../../../assets/images/bridge/pod1.jpg"
+            [hidden]="isImageVisible(1)"
+            alt="" 
+            usemap="#image-map"/>
+
+        <img class="bridge-img" 
+            [ngClass]="{'scroll-image' : verifyImageSrc()}" 
+            [style.width.px]="imageWidth"
+            (touchmove)="onMousewheel($event)" 
+            (wheel)="onMousewheel($event)" 
+            [src]="bridgeImgs[0].src"
+            [hidden]="../../../assets/images/bridge/pod2.jpg"
+            alt="" 
+            usemap="#image-map"/>
+
+        <img class="bridge-img" 
+            [ngClass]="{'scroll-image' : verifyImageSrc()}" 
+            [style.width.px]="imageWidth"
+            (touchmove)="onMousewheel($event)" 
+            (wheel)="onMousewheel($event)" 
+            [src]="../../../assets/images/bridge/pod3.jpg"
+            [hidden]="isImageVisible(3)"
+            alt="" 
+            usemap="#image-map"/>
+    </drag-scroll>
 
     <map name="image-map"  *ngIf="zoomCount === 3">
         <area target="" alt="Section 1" id="1" title="Section 1" href="" coords="88,1075,491,919" shape="rect" (click)="chooseSection($event)" class="image-area">
