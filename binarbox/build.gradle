@@ -18,7 +18,7 @@ apply plugin: 'war'
 
 group = 'binar.box'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 10
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -76,4 +76,6 @@ dependencies {
     compile group: 'com.braintreepayments.gateway', name: 'braintree-java', version: '2.79.0'
     // https://mvnrepository.com/artifact/com.stripe/stripe-java
     compile group: 'com.stripe', name: 'stripe-java', version: '7.10.0'
+    // https://mvnrepository.com/artifact/com.restfb/restfb
+    compile group: 'com.restfb', name: 'restfb', version: '2.17.0'
 }

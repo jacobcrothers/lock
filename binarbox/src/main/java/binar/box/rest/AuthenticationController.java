@@ -39,4 +39,11 @@ public class AuthenticationController {
 		userService.loginUser(facebookTokenDTO);
 		return new ResponseEntity(HttpStatus.OK);
 	}
+
+	@ApiOperation(value = "Log out user using the Facebook token", notes = "This endpoint uses the Facebook token to delete facebook token session")
+	@PostMapping(value = Constants.FACEBOOK_LOGOUT_ENDPOINT)
+	private ResponseEntity facebookLogout() {
+		userService.logoutUser();
+		return new ResponseEntity(HttpStatus.OK);
+	}
 }

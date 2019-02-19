@@ -1,5 +1,7 @@
 package binar.box.service;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -10,8 +12,13 @@ import binar.box.configuration.storage.FileStorage;
 import binar.box.converter.FileConverter;
 import binar.box.domain.File;
 import binar.box.domain.LockTemplate;
+import binar.box.domain.User;
 import binar.box.dto.FileDTO;
 import binar.box.repository.LockTemplateRepository;
+import com.restfb.*;
+import com.restfb.types.GraphResponse;
+import com.restfb.types.ResumableUploadStartResponse;
+import com.restfb.types.ResumableUploadTransferResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -137,7 +144,7 @@ public class FileService {
 	public String uploadVideo(MultipartFile video) throws IOException {
 		var facebook = new FacebookTemplate(userService.getAuthenticatedUserToken());
 
-		var result = facebook.mediaOperations().postVideo(getUploadResource(video.getOriginalFilename(), video), "Lock bridge", "romantic description");
+		String result = facebook.mediaOperations().postVideo(getUploadResource(video.getOriginalFilename(), video), "Lock bridge", "romantic description");
 		return result;
 	}
 
@@ -147,5 +154,63 @@ public class FileService {
 				return filename;
 			}
 		};
+	}
+
+	public String uploadVideoWithFbRest(MultipartFile video) throws IOException {
+		long filesizeInBytes = video.getSize();
+		InputStream in =  new BufferedInputStream(video.getInputStream());
+
+		// We need the file size in bytes to make the start request
+		FacebookClient fbc = new DefaultFacebookClient(userService.getAuthenticatedUserToken(), Version.LATEST);
+		String connection = "/" + userService.getAuthenticatedUser().getId() + "/videos";
+		ResumableUploadStartResponse returnValue = fbc.publish(connection,
+				ResumableUploadStartResponse.class, // The return value
+				Parameter.with("upload_phase", "start"), // The upload phase
+				Parameter.with("file_size", filesizeInBytes)); // The file size
+
+		long startOffset = returnValue.getStartOffset();
+		long endOffset = returnValue.getEndOffset();
+		long length = endOffset - startOffset;
+
+		// The upload session ID is very important, because Facebook needs
+		// this ID to identify all the uploads that belong together
+		String uploadSessionId = returnValue.getUploadSessionId();
+
+		transferPhase(in, fbc, startOffset, length, uploadSessionId);
+
+		GraphResponse finishResponse = fbc.publish("/videos",
+				GraphResponse.class,
+				Parameter.with("upload_phase", "finish"), // Tell Facebook to finish the upload
+				Parameter.with("upload_session_id", uploadSessionId)); // The corresponding session ID
+
+		return "succes";
+	}
+
+	private void transferPhase(InputStream in, FacebookClient fbc, long startOffset, long length, String uploadSessionId) throws IOException {
+		long endOffset;// We have to upload the chunks in a loop
+		while (length > 0) {
+			// First copy bytes in byte array
+			byte[] fileBytes = new byte[Math.toIntExact(length)];
+			in.read(fileBytes);
+
+			// Make the request to Facebook
+			ResumableUploadTransferResponse filePart = fbc.publish("PAGE_ID/videos",
+					// The returned object
+					ResumableUploadTransferResponse.class,
+					// The file chunk that should be uploaded now
+					BinaryAttachment.with("video_file_chunk", fileBytes),
+					// Tell Facebook that we are in the transfer phase now
+					Parameter.with("upload_phase", "transfer"),
+					// The offset the file chunk starts
+					Parameter.with("start_offset", startOffset),
+					// The important session ID of this file transfer
+					Parameter.with("upload_session_id", uploadSessionId));
+
+			// After uploading the chunk we recalculate the offsets according to the
+			// information provided by Facebook
+			startOffset = filePart.getStartOffset();
+			endOffset = filePart.getEndOffset();
+			length = endOffset - startOffset;
+		}
 	}
 }
