@@ -7,7 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
+
+import static java.awt.image.ImageObserver.HEIGHT;
+import static java.awt.image.ImageObserver.WIDTH;
 
 public class FSFileStorage implements FileStorage {
 

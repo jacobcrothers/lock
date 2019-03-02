@@ -1,20 +1,23 @@
 package binar.box.service;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
 import binar.box.configuration.storage.FileStorage;
 import binar.box.converter.FileConverter;
 import binar.box.domain.File;
 import binar.box.domain.LockTemplate;
-import binar.box.domain.User;
 import binar.box.dto.FileDTO;
 import binar.box.repository.LockTemplateRepository;
+import binar.box.util.ImageUtils;
 import com.restfb.*;
 import com.restfb.types.GraphResponse;
 import com.restfb.types.ResumableUploadStartResponse;
@@ -32,11 +35,14 @@ import binar.box.domain.LockCategory;
 import binar.box.repository.FileRepository;
 import binar.box.repository.LockCategoryRepository;
 import binar.box.util.Constants;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class FileService {
 
+	private static final long BRIDGE_ID = 4L;
 	private final FileRepository fileRepository;
 
 	private final LockCategoryRepository lockCategoryRepository;
@@ -207,10 +213,44 @@ public class FileService {
 					Parameter.with("upload_session_id", uploadSessionId));
 
 			// After uploading the chunk we recalculate the offsets according to the
-			// information provided by Facebook
+			// information provided by Facebook@
 			startOffset = filePart.getStartOffset();
 			endOffset = filePart.getEndOffset();
 			length = endOffset - startOffset;
 		}
+	}
+
+	public void downloadBridgeFile() {
+        BufferedImage bridgePicBuffered = getBufferedImageFromAmazon(BRIDGE_ID);
+
+        List<Long> lockWithTextIds = fileRepository.getFilesIdByType(File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT.ordinal())
+				.stream().map(BigInteger::longValue).collect(Collectors.toList());
+
+        List<Image> rescaledLocks = lockWithTextIds.stream().map(this::getRescaledImageFromAmazon).collect(Collectors.toList());
+
+        Graphics2D g = bridgePicBuffered.createGraphics();
+
+        for (int i=0; i< 150; i++) {
+			g.drawImage(rescaledLocks.get(0), 410 + i*30, 780, null);
+		}
+
+		ImageUtils.writeImage(bridgePicBuffered, ImageUtils.returnPathToImages() + java.io.File.separator + "lockBridge.png","PNG");
+	}
+
+    private Image getRescaledImageFromAmazon(Long pictureId) {
+		BufferedImage img = getBufferedImageFromAmazon(pictureId);
+		return img.getScaledInstance(420, 300, Image.SCALE_SMOOTH);
+    }
+
+	private BufferedImage getBufferedImageFromAmazon(long pictureId) {
+		InputStream bridgePicInputStream = downloadFile(pictureId);
+
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(bridgePicInputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
 	}
 }
