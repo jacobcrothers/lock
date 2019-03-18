@@ -11,6 +11,9 @@ import java.io.*;
 import java.util.Objects;
 
 public class ImageUtils {
+
+    public static final String PNG = "png";
+
     public static byte[] convert(MultipartFile file) throws IOException {
         validateFile(file);
         return file.getBytes();
@@ -59,12 +62,12 @@ public class ImageUtils {
         AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
         w.setComposite(alphaChannel);
         w.setColor(Color.LIGHT_GRAY);
-        w.setFont(new Font("Segoe Script", Font.BOLD, 26));
+        w.setFont(new Font("Segoe Script", Font.BOLD, 15));
         FontMetrics fontMetrics = w.getFontMetrics();
         Rectangle2D rect = fontMetrics.getStringBounds(message, w);
 
         // calculate center of the image
-        int centerX = (file2buffer.getWidth() - (int) rect.getWidth()) / 2;
+        int centerX = (file2buffer.getWidth() - (int) rect.getWidth()) / 2 - 10;
         int centerY = file2buffer.getHeight() / 2;
 
         // add text overlay to the image
@@ -79,10 +82,7 @@ public class ImageUtils {
         BufferedImage file2buffer = ImageIO.read(file);
         BufferedImage resultBuffer = addTextToBufferedImage(file2buffer, message);
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(resultBuffer, "png", os);
-
-        return new ByteArrayInputStream(os.toByteArray());
+        return BufferedImageToInputStream(resultBuffer);
     }
 
     public static void main(String[] args)
@@ -162,5 +162,11 @@ public class ImageUtils {
             e.printStackTrace();
         }
         return img;
+    }
+
+    public static InputStream BufferedImageToInputStream(BufferedImage bridgePicBuffered) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(bridgePicBuffered, PNG, os);
+        return new ByteArrayInputStream(os.toByteArray());
     }
 }

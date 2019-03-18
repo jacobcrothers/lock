@@ -84,8 +84,8 @@ INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `pa
 
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (27, '2018-11-25 20:07:16.319000', '2018-11-25 20:07:16.844000', 'erased_template_6.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\27_erased_template_6.png', 3, 'https://localhost:6060/api/v0/download/file/27');
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (28, '2018-11-25 20:07:42.176000', '2018-11-25 20:07:42.758000', 'erased_template_2.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\28_erased_template_2.png', 3, 'https://localhost:6060/api/v0/download/file/28');
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (30, '2019-02-26 19:49:16.490000', '2019-02-26 19:49:17.237000', 'erased_template_5.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\29_erased_template_5.png', 3, 'https://localhost:6060/api/v0/download/file/29');
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (31, '2019-02-26 19:55:16.168000', '2019-02-26 19:55:16.616000', 'erased_template_8.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\31_erased_template_8.png', 3, 'https://localhost:6060/api/v0/download/file/31');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (29, '2019-02-26 19:49:16.490000', '2019-02-26 19:49:17.237000', 'erased_template_5.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\29_erased_template_5.png', 3, 'https://localhost:6060/api/v0/download/file/29');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (30, '2019-02-26 19:55:16.168000', '2019-02-26 19:55:16.616000', 'erased_template_8.png', 'PARTIALY_ERASED_TEMPLATE_WITH_TEXT\\30_erased_template_8.png', 3, 'https://localhost:6060/api/v0/download/file/30');
 
 INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (1, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:14.417000', 'REGULAR', 10, 5, 1);
 INSERT INTO `lock_category` (`id`, `created_date`, `last_modified_date`, `category`, `total_rating`, `file_id`, `price_id`) VALUES (2, '2018-08-23 00:00:00.000000', '2018-11-25 07:44:25.031000', 'VIP', 10, 6, 2);
@@ -153,5 +153,7 @@ INSERT INTO `locks` (`id`, `created_date`, `last_modified_date`, `message`, `pai
 
 INSERT INTO `lock_file` VALUES (1, 27)
 INSERT INTO `lock_file` VALUES (2, 28)
+INSERT INTO `lock_file` VALUES (3, 29)
+INSERT INTO `lock_file` VALUES (4, 30)
 
 INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8);

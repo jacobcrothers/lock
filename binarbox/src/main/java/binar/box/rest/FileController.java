@@ -88,8 +88,13 @@ public class FileController {
 	@ApiOperation(value = "Get bridge with all locks", notes = "This endpoint is used for \"see all locks\" feature, here are displayed public panels with public locks.")
 	@GetMapping(value = Constants.BRIDGE_LOCKS)
 	@ResponseStatus(HttpStatus.OK)
-	private void getBridgePictureWithLocks() throws IOException {
-		fileService.downloadBridgeFile();
+	private void getBridgePictureWithLocks(HttpServletResponse response) throws IOException {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		try (InputStream productPicFIS = fileService.downloadBridgeFile()) {
+			setImageToResponseHeader(response, responseHeaders, productPicFIS, "bridge.png");
+		} catch (Exception e) {
+			responseHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		}
 	}
 
 	@RequestMapping(value = "/download/file/{fileId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -98,13 +103,17 @@ public class FileController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		try (InputStream productPicFIS = fileService.downloadFile(fileId)) {
 			FileDTO fileDTO = fileService.getFile(fileId);
-			String mimeType = URLConnection.guessContentTypeFromName(fileDTO.getName());
-			responseHeaders.setContentType(MediaType.valueOf(mimeType));
-			response.setContentType(mimeType);
-			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "file"));
-			IOUtils.copy(productPicFIS, response.getOutputStream());
+			setImageToResponseHeader(response, responseHeaders, productPicFIS, fileDTO.getName());
 		} catch (Exception e) {
 			responseHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		}
+	}
+
+	private void setImageToResponseHeader(HttpServletResponse response, HttpHeaders responseHeaders, InputStream productPicFIS, String fileName) throws IOException {
+		String mimeType = URLConnection.guessContentTypeFromName(fileName);
+		responseHeaders.setContentType(MediaType.valueOf(mimeType));
+		response.setContentType(mimeType);
+		response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "file"));
+		IOUtils.copy(productPicFIS, response.getOutputStream());
 	}
 }
