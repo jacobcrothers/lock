@@ -13,12 +13,12 @@
                             </div>
                         </div>
                     </div>       
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-12">
                             <div class="features-slides owl-carousel slides-container">
                                 <!-- Single Features Area -->
                                 <div class="single-features-area slide-container" *ngFor="let lockCategory of lockCategories" (click)="chooseCategory(lockCategory)">
-                                    <img [src]="lockCategory.fileDTO.urlToFile" alt="">
+                                    <img [src]="lockCategory.url" alt="">
                                     <div class="feature-content d-flex align-items-center justify-content-between">
                                         <div class="feature-title">
                                             <h5>{{lockCategory.category}}</h5>
@@ -33,7 +33,7 @@
 
                 <!-- Choose lock area -->
                 <div class="container-fluid" *ngIf="lockType && !lockId">
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-12">
                             <div class="section-heading dark text-center">
                                 <h4>Add a lock</h4>
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>       
-                    <div class="row">
+                    <div class="row mb-4">
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -64,7 +64,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-12">
                             <button class="btn btn-outline-primary button-outline" (click)="goBack('lockType')">Back</button>
                         </div>
