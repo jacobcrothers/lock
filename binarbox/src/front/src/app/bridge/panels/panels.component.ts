@@ -23,28 +23,6 @@ export class PanelsComponent implements OnInit {
   public displaySecondImg = false;
   public displayThirdImg = false;
   public displayFourthImg = false;
-  public bridgeImgs = [
-    {
-      id: 0,
-      src: '../../../assets/images/bridge/pod0.jpg',
-      display: true
-    },
-    {
-      id: 1,
-      src: '../../../assets/images/bridge/pod1.jpg',
-      display: false
-    },
-    {
-      id: 2,
-      src: '../../../assets/images/bridge/pod2.jpg',
-      display: false
-    },
-    {
-      id: 3,
-      src: '../../../assets/images/bridge/pod3.jpg',
-      display: false
-    }
-  ];
 
   constructor(
     private addLockService: AddLockService,
