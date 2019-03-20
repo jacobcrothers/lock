@@ -56,6 +56,9 @@ export class LockComponent implements OnInit {
     getCategories() {
         this.addLockService.getLockTypes().subscribe(data => {
             this.lockCategories = data;
+            this.lockCategories[0].url = 'assets/images/lock1.png';
+            this.lockCategories[1].url = 'assets/images/lock2.png';
+            this.lockCategories[2].url = 'assets/images/lock3.png';
             if (this.pageParams) {
                 if (this.pageParams['type']) {
                     this.selectedLockCategory = this.lockCategories.find(category => {
@@ -67,6 +70,7 @@ export class LockComponent implements OnInit {
                     }
                 }
             }
+            console.log(this.lockCategories);
         });
     }
 

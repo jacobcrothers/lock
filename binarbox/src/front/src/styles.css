@@ -49,11 +49,11 @@ html, body {
     margin: 0 10px;
 }
 .slides-container .slide-container .feature-content p {
-    color: #6610f2;
+    color: #dedbdb;
 }
 
 .slides-container .slide-container .feature-content h5 {
-    color: #6610f2;
+    color: #dedbdb;
 }
 
 
@@ -498,6 +498,11 @@ li {
     font-size: 28px;
 }
 
+.carousel .carousel-slide {
+    background-color: #d0d0d04a;
+    border-radius: 20px;
+    border: 2px solid #ccc9c9;
+}
 /* Header & Menu Area CSS */
 
 .header_area {
@@ -808,7 +813,10 @@ li {
 .single-features-area {
     position: relative;
     z-index: 1;
-    background-color: #f4f6f8;
+    border: 2px solid;
+    border-radius: 20px;
+    box-shadow: 5px 15px #5d5d5d93;
+    background-color: #f4f6f81f;
     -webkit-transition-duration: 500ms;
             transition-duration: 500ms;
 }
@@ -830,7 +838,7 @@ li {
 
 .feature-content {
     padding: 20px 30px;
-    border-top: 1px solid #6610f2;
+    border-top: 1px solid #b7b7b7;
 }
 
 .feature-content .feature-title h5 {
@@ -855,8 +863,9 @@ li {
 }
 
 .single-features-area:hover {
-    background-color: #7643ea;
-    box-shadow: 3px 15px 30px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff8a;
+    /* box-shadow: 3px 15px 30px rgba(0, 0, 0, 0.15); */
+    box-shadow: 5px 15px #5d5d5d93;
 }
 
 .single-features-area:hover .feature-content .feature-title h5,

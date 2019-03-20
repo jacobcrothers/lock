@@ -5,9 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
+import java.util.List;
 
 import binar.box.domain.File;
 import binar.box.dto.FileDTO;
+import binar.box.dto.PanelDTO;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -51,7 +53,7 @@ public class FileController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "ADMIN: Add lock template images", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
+	@ApiOperation(value = "ADMIN: Add bridge image", notes = "This endpoint is for admin, admin add lock images.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.BRIDGE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	private ResponseEntity addBridgeFile(@RequestParam("file") MultipartFile file) throws IOException {
@@ -61,7 +63,7 @@ public class FileController {
 
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "ADMIN: Add bridge image", notes = "This endpoint is for admin, admin add bridge images.", hidden = true)
+	@ApiOperation(value = "ADMIN: Add lock template images", notes = "This endpoint is for admin, admin add lock template images.", hidden = true)
 	@PostMapping(value = Constants.LOCK_ENDPOINT
 			+ Constants.LOCK_TEMPLATE_FILE_ENDPOINT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	private ResponseEntity addLockTemplateFiles(@RequestParam("file") MultipartFile[] files,
@@ -80,19 +82,38 @@ public class FileController {
 		return new ResponseEntity<>(fileService.uploadVideoWithFbRest(video), HttpStatus.CREATED);
 	}
 
+
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
+	@ApiOperation(value = "Get bridge with all locks", notes = "This endpoint is used for \"see all locks\" feature, here are displayed public panels with public locks.")
+	@GetMapping(value = Constants.BRIDGE_LOCKS)
+	@ResponseStatus(HttpStatus.OK)
+	private void getBridgePictureWithLocks(HttpServletResponse response) throws IOException {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		try (InputStream productPicFIS = fileService.downloadBridgeFile()) {
+			setImageToResponseHeader(response, responseHeaders, productPicFIS, "bridge.png");
+		} catch (Exception e) {
+			responseHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		}
+	}
+
 	@RequestMapping(value = "/download/file/{fileId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void downloadFile(@PathVariable(name = "fileId") Long fileId,
 							 HttpServletResponse response) throws IOException {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		try (InputStream productPicFIS = fileService.downloadFile(fileId)) {
 			FileDTO fileDTO = fileService.getFile(fileId);
-			String mimeType = URLConnection.guessContentTypeFromName(fileDTO.getName());
-			responseHeaders.setContentType(MediaType.valueOf(mimeType));
-			response.setContentType(mimeType);
-			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "file"));
-			IOUtils.copy(productPicFIS, response.getOutputStream());
+			setImageToResponseHeader(response, responseHeaders, productPicFIS, fileDTO.getName());
 		} catch (Exception e) {
 			responseHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		}
+	}
+
+	private void setImageToResponseHeader(HttpServletResponse response, HttpHeaders responseHeaders, InputStream productPicFIS, String fileName) throws IOException {
+		String mimeType = URLConnection.guessContentTypeFromName(fileName);
+		responseHeaders.setContentType(MediaType.valueOf(mimeType));
+		response.setContentType(mimeType);
+		response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "file"));
+		IOUtils.copy(productPicFIS, response.getOutputStream());
 	}
 }
