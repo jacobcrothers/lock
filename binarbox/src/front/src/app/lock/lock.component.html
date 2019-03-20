@@ -18,7 +18,7 @@
                             <div class="features-slides owl-carousel slides-container">
                                 <!-- Single Features Area -->
                                 <div class="single-features-area slide-container" *ngFor="let lockCategory of lockCategories" (click)="chooseCategory(lockCategory)">
-                                    <img [src]="lockCategory.url" alt="">
+                                    <img [src]="lockCategory.fileDTO.urlToFile" alt="">
                                     <div class="feature-content d-flex align-items-center justify-content-between">
                                         <div class="feature-title">
                                             <h5>{{lockCategory.category}}</h5>
