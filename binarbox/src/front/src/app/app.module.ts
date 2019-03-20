@@ -30,6 +30,7 @@ import { PanelsComponent } from './bridge/panels/panels.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DragScrollModule } from 'ngx-drag-scroll'
 import { PaymentService } from './_services/payment.service';
+import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 
 
 // Configs
@@ -55,7 +56,8 @@ export function getAuthServiceConfigs() {
         MessageComponent,
         LockComponent,
         LockDetailsComponent,
-        PanelsComponent
+        PanelsComponent,
+        SafeHtmlPipe
     ],
     imports: [
         BrowserModule,

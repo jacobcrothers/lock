@@ -5,7 +5,11 @@
     padding: 30px;
     box-sizing: border-box;
 } */
-
+.carousel {
+    background-color: #d0d0d04a;
+    border-radius: 20px;
+    border: 2px solid #ccc9c9;
+}
 .container-fluid .section-info {
     margin-bottom: 100px;
 }
