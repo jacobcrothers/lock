@@ -8,7 +8,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.List;
 
 public class ImageUtils {
 
@@ -35,34 +37,66 @@ public class ImageUtils {
         return new File("").getAbsolutePath() + "\\images";
     }
 
-    public static void addTextToMultiartFileImage(MultipartFile multipartFile, String pathToSaveFiles, String message) throws IOException {
+//    public static void addTextToMultiartFileImage(MultipartFile multipartFile, String pathToSaveFiles, String message) throws IOException {
+//
+//        BufferedImage file2buffer = ImageUtils.convertToImage(multipartFile);
+//
+//        BufferedImage result = addTextToBufferedImage(file2buffer, message);
+//
+//        ImageIO.write(result, "png", new File(
+//                pathToSaveFiles + File.separator + "New" + multipartFile.getOriginalFilename()));
+//    }
 
-        BufferedImage file2buffer = ImageUtils.convertToImage(multipartFile);
+    public static InputStream addTextToImage(InputStream file, String message) throws IOException {
+        BufferedImage file2buffer = ImageIO.read(file);
+        BufferedImage resultBuffer = addTextToBufferedImage(file2buffer,
+                message,
+                new Font("Segoe Script", Font.BOLD, 15),
+                Color.LIGHT_GRAY);
 
-        BufferedImage result = addTextToBufferedImage(file2buffer, message);
-
-        ImageIO.write(result, "png", new File(
-                pathToSaveFiles + File.separator + "New" + multipartFile.getOriginalFilename()));
+        return BufferedImageToInputStream(resultBuffer);
     }
 
-    private static BufferedImage addTextToBufferedImage(BufferedImage file2buffer, String message) {
-//        Graphics graphics = file2buffer.getGraphics();
-//        graphics.setColor(Color.LIGHT_GRAY);
-//        graphics.fillRect(0, 0, 50, 50);
-//        graphics.setColor(Color.BLUE);
-//        graphics.setFont(new Font("Arial Black", Font.BOLD, 20));
-//        graphics.drawString(message, 10, 25);
-//
-//        graphics.setFont(graphics.getFont().deriveFont(30f));
-//        graphics.drawString(message, 100, 100);
-//        graphics.dispose();
+    public static void main(String[] args)
+    {
+        long startTime = System.currentTimeMillis();
 
+        List<BufferedImage> lockz = new ArrayList<>();
+        for (int i=1; i<17; i++)
+        lockz.add(readImage(ImageUtils.returnPathToImages() +
+                File.separator +
+                "fontTest" +
+                File.separator +
+                i +
+                ".png"));
+
+        String message = "I LOVE U";
+        for (int i=0; i<lockz.size(); i++) {
+            BufferedImage resultBuffer = addTextToBufferedImage(lockz.get(i),
+                    message,
+                    new Font("Segoe Script", Font.BOLD, 15),
+                    Color.LIGHT_GRAY);
+            int j = i+1;
+            writeImage(resultBuffer, ImageUtils.returnPathToImages() +
+                    File.separator +
+                    "fontTestResult" +
+                    File.separator + j + ".png",
+                    "PNG");
+        }
+
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println(elapsedTime);
+    }
+
+    private static BufferedImage addTextToBufferedImage(BufferedImage file2buffer, String message, Font font, Color color) {
         Graphics2D w = (Graphics2D) file2buffer.getGraphics();
         w.drawImage(file2buffer, 0, 0, null);
         AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
         w.setComposite(alphaChannel);
-        w.setColor(Color.LIGHT_GRAY);
-        w.setFont(new Font("Segoe Script", Font.BOLD, 15));
+        w.setColor(color);
+        w.setFont(font);
         FontMetrics fontMetrics = w.getFontMetrics();
         Rectangle2D rect = fontMetrics.getStringBounds(message, w);
 
@@ -76,71 +110,6 @@ public class ImageUtils {
         w.dispose();
 
         return file2buffer;
-    }
-
-    public static InputStream addTextToImage(InputStream file, String message) throws IOException {
-        BufferedImage file2buffer = ImageIO.read(file);
-        BufferedImage resultBuffer = addTextToBufferedImage(file2buffer, message);
-
-        return BufferedImageToInputStream(resultBuffer);
-    }
-
-    public static void main(String[] args)
-    {
-        long startTime = System.currentTimeMillis();
-        BufferedImage lock = readImage(ImageUtils.returnPathToImages() + File.separator + "lock.png");
-        BufferedImage bridge = readImage(ImageUtils.returnPathToImages() + File.separator + "bridge.jpg");
-
-        Image lock1= lock.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-
-        BufferedImage l1 = readImage(ImageUtils.returnPathToImages() + File.separator + "l1.png");
-        BufferedImage l2 = readImage(ImageUtils.returnPathToImages() + File.separator + "l2.png");
-        BufferedImage l3 = readImage(ImageUtils.returnPathToImages() + File.separator + "l3.png");
-        BufferedImage l4 = readImage(ImageUtils.returnPathToImages() + File.separator + "l4.png");
-        BufferedImage l5 = readImage(ImageUtils.returnPathToImages() + File.separator + "l5.png");
-
-        Image li1= l1.getScaledInstance(420, 300, Image.SCALE_SMOOTH);
-        Image li2= l2.getScaledInstance(420, 300, Image.SCALE_SMOOTH);
-        Image li3= l3.getScaledInstance(420, 300, Image.SCALE_AREA_AVERAGING);
-        Image li4= l4.getScaledInstance(420, 300, Image.SCALE_AREA_AVERAGING);
-
-//        BufferedImage newImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
-//        Graphics2D g = newImg.createGraphics();
-
-        Graphics2D g = bridge.createGraphics();
-        // Draw the background image
-//        g.setComposite(AlphaComposite.SrcOver);
-//        g.drawImage(bridge, 100, 100, null);
-
-        // Draw the overlay image
-//        float alpha = 0.25f;
-//        g.setComposite(AlphaComposite.SrcOver.derive(alpha));
-
-        g.drawImage(lock1, 410, 780, null);
-
-        g.drawImage(li1, 2200, 816, null);
-        g.drawImage(li2, 2350, 816, null);
-        g.drawImage(li3, 2500, 816, null);
-        g.drawImage(li4, 2650, 816, null);
-
-//        g.drawImage(li1, 2242, 928, null);
-//        g.drawImage(li2, 2238, 922, null);
-//        g.drawImage(li4, 2684, 922, null);
-        g.drawImage(l5, 3160, 915, null);
-
-
-//        for (int i=0; i<400;i++)
-//        {
-//            g.drawImage(lock1, 30*i, 560, null);
-//        }
-
-        g.dispose();
-
-        writeImage(bridge, ImageUtils.returnPathToImages() + File.separator + "lockBridge.png","PNG");
-
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        System.out.println(elapsedTime);
     }
 
     public static void writeImage(BufferedImage img, String fileLocation,
