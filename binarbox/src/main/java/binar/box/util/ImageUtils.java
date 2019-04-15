@@ -47,16 +47,23 @@ public class ImageUtils {
 //                pathToSaveFiles + File.separator + "New" + multipartFile.getOriginalFilename()));
 //    }
 
+
+
     public static InputStream addTextToImage(InputStream file, String message) throws IOException {
         BufferedImage file2buffer = ImageIO.read(file);
         BufferedImage resultBuffer = addTextToBufferedImage(file2buffer,
                 message,
-                new Font("Segoe Script", Font.BOLD, 15),
-                Color.LIGHT_GRAY);
+                new Font("Segoe Script", Font.BOLD, 25),
+                Color.BLACK);
 
         return BufferedImageToInputStream(resultBuffer);
     }
-
+    //Arial ok
+    //Candara
+    //Calibri
+    //Gadugi
+    //Microsoft JHENGHEI
+    //Nirmala UI
     public static void main(String[] args)
     {
         long startTime = System.currentTimeMillis();
@@ -70,12 +77,12 @@ public class ImageUtils {
                 i +
                 ".png"));
 
-        String message = "I LOVE U";
+        String message = "i Love you";
         for (int i=0; i<lockz.size(); i++) {
             BufferedImage resultBuffer = addTextToBufferedImage(lockz.get(i),
                     message,
-                    new Font("Segoe Script", Font.BOLD, 15),
-                    Color.LIGHT_GRAY);
+                    new Font("Candara", Font.BOLD, 25),
+                    Color.BLACK);
             int j = i+1;
             writeImage(resultBuffer, ImageUtils.returnPathToImages() +
                     File.separator +
@@ -102,7 +109,7 @@ public class ImageUtils {
 
         // calculate center of the image
         int centerX = (file2buffer.getWidth() - (int) rect.getWidth()) / 2 - 10;
-        int centerY = file2buffer.getHeight() / 2;
+        int centerY = file2buffer.getHeight() / 2 + 70;
 
         // add text overlay to the image
         w.drawString(message, centerX + 20, centerY);

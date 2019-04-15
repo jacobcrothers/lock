@@ -235,17 +235,21 @@ public class FileService {
 
 
 	public InputStream downloadBridgeFile() throws IOException, ExecutionException, InterruptedException {
-
+		//transform to jpeg
+		//read from disk
+		//investigate why size gets so large
+		//png on png action
 		long start = System.nanoTime();
 
         BufferedImage bridgePicBuffered = getBufferedImageFromAmazon(fileRepository.findOne(BRIDGE_ID));
 
 		long duration = (System.nanoTime() - start) / 1_000_000;
-		System.out.printf("Processed aws download in %d millis\n", duration);
+
 //        List<Long> lockWithTextIds = fileRepository.getFilesIdByType(PARTIALY_ERASED_TEMPLATE_WITH_TEXT.ordinal())
 //				.stream().map(BigInteger::longValue).collect(Collectors.toList());
-
 		List<File> filePaths = fileRepository.getFilesPathByType(PARTIALY_ERASED_TEMPLATE_WITH_TEXT.ordinal());
+
+		System.out.printf("Processed aws download in %d millis\n", duration);
 
 		File test = filePaths.get(0);
 		for (int i=0;i<200;i++) {
@@ -256,17 +260,17 @@ public class FileService {
 		System.out.printf("Processed db in %d millis\n", durationDb);
 
 
-		ForkJoinPool ioPool = new ForkJoinPool(8);
+		ForkJoinPool ioPool = new ForkJoinPool(filePaths.size());
 		ForkJoinTask<List<Image>> tasks = ioPool.submit(
 				() -> filePaths.parallelStream().map(this::getBufferedImageFromAmazon).collect(Collectors.toList()));
 		List<Image> rescaledLocks = tasks.get();
 
 		long durationRescale = (System.nanoTime() - start) / 1_000_000;
-		System.out.printf("Processed rescale in %d millis\n", durationRescale);
+		System.out.printf("Get aws lock pics %d millis\n", durationRescale);
 
         Graphics2D g = bridgePicBuffered.createGraphics();
 
-        for (int i = 1; i< IntersectionUtil.bridgeIntersections.size()- 6; i+=5) {
+        for (int i = 1; i< IntersectionUtil.bridgeIntersections.size()- 6; i+=15) {
         	drawLockOnPanel(rescaledLocks, g, i);
 		}
 

@@ -27,7 +27,7 @@ public class AWSConfig {
                 .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .withClientConfiguration(new ClientConfiguration()
-                        .withMaxConnections(500))
+                        .withMaxConnections(10000))
                 .build();
     }
 
