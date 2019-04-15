@@ -1,5 +1,6 @@
 package binar.box.configuration.storage;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
@@ -25,6 +26,8 @@ public class AWSConfig {
         return AmazonS3ClientBuilder.standard()
                 .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .withClientConfiguration(new ClientConfiguration()
+                        .withMaxConnections(10000))
                 .build();
     }
 

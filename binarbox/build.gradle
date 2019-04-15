@@ -69,7 +69,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
 	compile group: 'org.json', name: 'json', version: '20180130'
     // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
-    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.169'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.524'
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     // https://mvnrepository.com/artifact/com.braintreepayments.gateway/braintree-java
