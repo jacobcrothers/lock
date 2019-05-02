@@ -97,7 +97,7 @@ public class ImageUtils {
         System.out.println(elapsedTime);
     }
 
-    private static BufferedImage addTextToBufferedImage(BufferedImage file2buffer, String message, Font font, Color color) {
+    public static BufferedImage addTextToBufferedImage(BufferedImage file2buffer, String message, Font font, Color color) {
         Graphics2D w = (Graphics2D) file2buffer.getGraphics();
         w.drawImage(file2buffer, 0, 0, null);
         AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
