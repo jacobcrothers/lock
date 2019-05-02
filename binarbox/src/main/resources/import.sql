@@ -45,6 +45,7 @@ INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES
 INSERT INTO lb.price (`id`,`price`, `created_date`, `last_modified_date`) VALUES (3, '50', '2018-08-23', '2018-08-23 10:32:23');
 
 -- BRIDGE FILES
+
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (1, '2018-11-25 07:31:26.249000', '2018-11-25 07:31:27.773000', 'bridge_1.jpg', 'BRIDGE\\1_bridge_1.jpg', 4, 'https://api.lockbridges.com/api/v0/download/file/1');
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (2, '2018-11-25 07:31:36.500000', '2018-11-25 07:31:37.132000', 'bridge_2.jpg', 'BRIDGE\\2_bridge_2.jpg', 4, 'https://api.lockbridges.com/api/v0/download/file/2');
 INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (3, '2018-11-25 07:31:43.381000', '2018-11-25 07:31:43.989000', 'bridge_3.jpg', 'BRIDGE\\3_bridge_3.jpg', 4, 'https://api.lockbridges.com/api/v0/download/file/3');
@@ -146,8 +147,6 @@ INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `f
 INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (16, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 8)
 INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (17, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Calibri', 9)
 INSERT INTO lb.font(`id`, `created_date`, `last_modified_date`, `font_color`, `font_size`, `font_style`, `lock_template_id`) VALUES (18, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 'LIGHT_GRAY', 15, 'Segoe Script', 9)
-
-
 
 INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (1, 8);
 INSERT INTO `template_file` (`lock_template_id`, `file_id`) VALUES (1, 22);
