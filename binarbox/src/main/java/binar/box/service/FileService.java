@@ -251,10 +251,9 @@ public class FileService {
 
 		System.out.printf("Processed aws download in %d millis\n", duration);
 
-		File test = filePaths.get(0);
-		for (int i=0;i<200;i++) {
-			filePaths.add(test);
-		}
+//		for (int i=0;i<200;i++) {
+//			filePaths.add(filePaths.get(i % 14));
+//		}
 
 		long durationDb = (System.nanoTime() - start) / 1_000_000;
 		System.out.printf("Processed db in %d millis\n", durationDb);

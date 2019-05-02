@@ -21,6 +21,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 11
 
 repositories {
+    maven { url 'https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/' }
     mavenCentral()
 }
 
@@ -78,4 +79,6 @@ dependencies {
     compile group: 'com.stripe', name: 'stripe-java', version: '7.10.0'
     // https://mvnrepository.com/artifact/com.restfb/restfb
     compile group: 'com.restfb', name: 'restfb', version: '2.17.0'
+    // https://mvnrepository.com/artifact/xuggle/xuggle-xuggler
+    compile group: 'xuggle', name: 'xuggle-xuggler', version: '5.4'
 }
