@@ -151,7 +151,7 @@ public class FileService {
 	public InputStream downloadFile(Long fileId) throws IOException {
 		File file = fileRepository.findOne(fileId);
 
-		return fileStorage.retrieve(file.getPathToFile(), PARTIALY_ERASED_TEMPLATE_WITH_TEXT);
+		return fileStorage.retrieve(file.getPathToFile(), file.getType());
 	}
 
 	public FileDTO getFile(Long fileId) {

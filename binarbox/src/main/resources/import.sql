@@ -52,9 +52,9 @@ INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `pa
 
 -- CATEGORY FILES
 
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (5, '2018-11-25 07:44:14.043000', '2018-11-25 07:44:14.419000', 'category_1.jpeg', 'CATEGORY\\5_category_1.jpeg', 0, 'https://localhost:6060/api/v0/download/file/5');
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (6, '2018-11-25 07:44:24.725000', '2018-11-25 07:44:25.033000', 'category_2.jpeg', 'CATEGORY\\6_category_2.jpeg', 0, 'https://localhost:6060/api/v0/download/file/6');
-INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (7, '2018-11-25 07:44:38.069000', '2018-11-25 07:44:38.420000', 'category_3.jpeg', 'CATEGORY\\7_category_3.jpeg', 0, 'https://localhost:6060/api/v0/download/file/7');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (5, '2018-11-25 07:44:14.043000', '2018-11-25 07:44:14.419000', 'category_1.jpeg', 'CATEGORY\\5_category_1.png', 0, 'https://localhost:6060/api/v0/download/file/5');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (6, '2018-11-25 07:44:24.725000', '2018-11-25 07:44:25.033000', 'category_2.jpeg', 'CATEGORY\\6_category_2.png', 0, 'https://localhost:6060/api/v0/download/file/6');
+INSERT INTO `file` (`id`, `created_date`, `last_modified_date`, `file_name`, `path_to_file`, `type`, `url_to_file`) VALUES (7, '2018-11-25 07:44:38.069000', '2018-11-25 07:44:38.420000', 'category_3.jpeg', 'CATEGORY\\7_category_3.png', 0, 'https://localhost:6060/api/v0/download/file/7');
 
 -- TEMPLATE FILES
 
