@@ -4,21 +4,21 @@
         <img class="bridge-img"
              (touchmove)="onMousewheel($event)" 
              (wheel)="onMousewheel($event)"
-             src="https://localhost:6060/api/v0/download/file/1"
+             src="https://api.lockbridges.com/api/v0/download/file/1"
              [hidden]="zoomCount != 0"
              alt=""/>
 
         <img class="bridge-img"
             (touchmove)="onMousewheel($event)" 
             (wheel)="onMousewheel($event)"
-            src="https://localhost:6060/api/v0/download/file/2"
+            src="https://api.lockbridges.com/api/v0/download/file/2"
             [hidden]="zoomCount != 1"
             alt=""/>
 
         <img class="bridge-img"
             (touchmove)="onMousewheel($event)" 
             (wheel)="onMousewheel($event)"
-            src="https://localhost:6060/api/v0/download/file/3"
+            src="https://api.lockbridges.com/api/v0/download/file/3"
             [hidden]="zoomCount != 2"
             alt=""/>
 
@@ -26,7 +26,7 @@
             [style.width.px]="imageWidth"
             (touchmove)="onMousewheel($event)" 
             (wheel)="onMousewheel($event)"
-            src="https://localhost:6060/api/v0/download/file/bridgeLocks"
+            src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"
             [hidden]="zoomCount != 3"
             alt="" 
             usemap="#image-map"/>
