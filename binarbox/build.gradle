@@ -71,6 +71,12 @@ dependencies {
 	compile group: 'org.json', name: 'json', version: '20180130'
     // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
     compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.524'
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-aws-context
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-aws-context', version: '2.1.1.RELEASE'
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-elastictranscoder
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-elastictranscoder', version: '1.11.548'
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-ses
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-ses', version: '1.11.548'
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     // https://mvnrepository.com/artifact/com.braintreepayments.gateway/braintree-java
@@ -81,4 +87,6 @@ dependencies {
     compile group: 'com.restfb', name: 'restfb', version: '2.17.0'
     // https://mvnrepository.com/artifact/xuggle/xuggle-xuggler
     compile group: 'xuggle', name: 'xuggle-xuggler', version: '5.4'
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.11.548'
 }

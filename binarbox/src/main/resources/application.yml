@@ -42,6 +42,19 @@ aws:
   access.key: AKIAJFAJZOWMKCU3CMUA
   secret.key: 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
   region: eu-central-1
+  ###AWS STREAMING
+  upload.expiration.seconds: 3600
+  s3.url: http://s3-eu-west-1.amazonaws.com/
+  video.bucket: lock-s3-video
+  hls.bucket: lock-s3-video-hls
+  thumbnail.bucket: lock-s3-thumbnail
+  encoding.pipeline.id: 1559041615636-v1q2s4
+  encoding.segment.duration.seconds: 10
+  encoding.notification.queue.url: https://sqs.eu-west-1.amazonaws.com/634422706002/lock-queue
+  system.preset.hls.400k.id: 1351620000001-200050
+  system.preset.hls.600k.id: 1351620000001-200040
+  system.preset.hls.1m.id: 1351620000001-200030
+  cloudfront.distribution.url: dbdee3ttou8ph.cloudfront.net
   bucket:
     category: lock-s3-bucket/Category
     template: lock-s3-bucket/Template
@@ -63,3 +76,4 @@ stripe:
   secret.key: sk_test_DdzEdTIMYETHliRVtbKB6aJX
 
 panelMaxLocks: 30
+

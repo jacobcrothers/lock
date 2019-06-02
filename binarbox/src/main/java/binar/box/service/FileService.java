@@ -275,7 +275,7 @@ public class FileService {
 
 		long durationDraw = (System.nanoTime() - start) / 1_000_000;
 		System.out.printf("Processed draw in %d millis\n", durationDraw);
-		return ImageUtils.BufferedImageToInputStream(bridgePicBuffered);
+		return ImageUtils.BufferedImageToInputStream(bridgePicBuffered, ImageUtils.JPG);
 
 //		ImageUtils.writeImage(bridgePicBuffered, ImageUtils.returnPathToImages() + java.io.File.separator + "lockBridge.png","PNG");
 //
@@ -284,9 +284,9 @@ public class FileService {
 	}
 
 	private void drawLockOnPanel(List<Image> rescaledLocks, Graphics2D g, int i) {
-		g.drawImage(rescaledLocks.get(0),
-				IntersectionUtil.bridgeIntersections.get(i).getX()-216,
-				IntersectionUtil.bridgeIntersections.get(i).getY()-85,
+		g.drawImage(rescaledLocks.get(i%14),
+				IntersectionUtil.bridgeIntersections.get(i).getX()-208,
+				IntersectionUtil.bridgeIntersections.get(i).getY()-50,
 				null);
 	}
 

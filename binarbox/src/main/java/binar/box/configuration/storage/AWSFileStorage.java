@@ -69,9 +69,6 @@ public class AWSFileStorage implements FileStorage {
     private String getBucketForType(File.Type type) {
         String bucket;
         switch (type) {
-            case CATEGORY:
-                bucket = categoryBucket;
-                break;
             case FULL_TEMPLATE:
                 bucket = templateBucket;
                 break;
