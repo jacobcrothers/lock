@@ -275,7 +275,7 @@ public class FileService {
 
 		long durationDraw = (System.nanoTime() - start) / 1_000_000;
 		System.out.printf("Processed draw in %d millis\n", durationDraw);
-		return ImageUtils.BufferedImageToInputStream(bridgePicBuffered);
+		return ImageUtils.BufferedImageToInputStream(bridgePicBuffered, ImageUtils.JPG);
 
 //		ImageUtils.writeImage(bridgePicBuffered, ImageUtils.returnPathToImages() + java.io.File.separator + "lockBridge.png","PNG");
 //

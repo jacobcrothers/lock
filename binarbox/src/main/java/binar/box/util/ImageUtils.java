@@ -15,6 +15,7 @@ import java.util.List;
 public class ImageUtils {
 
     public static final String PNG = "png";
+    public static final String JPG = "jpg";
 
     public static byte[] convert(MultipartFile file) throws IOException {
         validateFile(file);
@@ -56,7 +57,7 @@ public class ImageUtils {
                 new Font("Segoe Script", Font.BOLD, 25),
                 Color.BLACK);
 
-        return BufferedImageToInputStream(resultBuffer);
+        return BufferedImageToInputStream(resultBuffer,PNG);
     }
     //Arial ok
     //Candara
@@ -140,9 +141,9 @@ public class ImageUtils {
         return img;
     }
 
-    public static InputStream BufferedImageToInputStream(BufferedImage bridgePicBuffered) throws IOException {
+    public static InputStream BufferedImageToInputStream(BufferedImage bridgePicBuffered, String imageExtension) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(bridgePicBuffered, PNG, os);
+        ImageIO.write(bridgePicBuffered, imageExtension, os);
         return new ByteArrayInputStream(os.toByteArray());
     }
 }

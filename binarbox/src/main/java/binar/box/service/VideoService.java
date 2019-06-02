@@ -21,12 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.Date;
-import java.util.Objects;
 
-
-/**
- * Created by Andrei Lazar on 5/18/2017.
- */
 @Service
 @Transactional
 public class VideoService {
@@ -43,15 +38,6 @@ public class VideoService {
     @Autowired
     private AWSVideoService awsService;
 
-    @Autowired
-    private FileStorage fileStorage;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private StreamingHelper streamingHelper;
-
     @Value("${aws.video.bucket}")
     private String awsVideosBucket;
 
@@ -63,9 +49,6 @@ public class VideoService {
 
     @Value("${aws.upload.expiration.seconds}")
     private long awsUploadExpirationSeconds;
-
-    @Value("${spring.carehome.file-service.domain}")
-    private String domain;
 
 
     public VideoUploadDTO getUploadUrl(Long lockId, String videoName) {
