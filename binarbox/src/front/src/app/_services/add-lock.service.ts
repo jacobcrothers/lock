@@ -9,7 +9,13 @@ export class AddLockService {
 
   private lockTypesUrl     = 'lock/category';
   private saveLockUrl      = 'lock';
-  private savePanelcSectionUrl = 'lock/{lockId}/section/{sectionId}'
+  private savePanelcSectionUrl = 'lock/{lockId}/section/{sectionId}';
+
+
+  /**
+   * TODO Update the endpoint, talk with andrei
+   * */
+
 
   public createdLock: any;
 
