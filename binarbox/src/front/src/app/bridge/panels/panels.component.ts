@@ -60,13 +60,13 @@ export class PanelsComponent implements OnInit {
 
         for(let i = 1; i<= 16; i++) {
             sections.push(element.getFlattenObject());
-            element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, 474);
+            element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, width);
         }
 
         element = new BridgeSection(17,x1, y1 + height, x2, y2 + height);
         for(let i = 17; i<= 32; i++) {
               sections.push(element.getFlattenObject());
-              element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, 475);
+              element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, width);
         }
 
         return sections;
