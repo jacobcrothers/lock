@@ -35,23 +35,16 @@ export class PanelsComponent implements OnInit {
     this.createdLock = this.addLockService.createdLock;
     this.imageWidth = 6.25 * window.innerHeight;
 
-    // const options = {
-    //     top: 736,
-    //     left: 110,
-    //     width: 474,
-    //     height: 189,
-    //     offsetRight: 30
-    // };
-
-      const options = {
-          top: 110,
-          left: 736,
-          width: 189,
-          height: 474,
-          offsetRight: 30
-      };
-     this.panelSection = this.generateSections(1,options);
-     console.log(this.panelSection);
+     this.panelSection = this.generateSections(1,{
+         x1: 110,
+         y1: 736,
+         x2: 576,
+         y2: 920,
+         height: 189,
+         width: 474,
+         offsetRight: 28,
+         rows: 2
+     });
 
   }
 
@@ -62,15 +55,19 @@ export class PanelsComponent implements OnInit {
    * */
     generateSections(firstSectionId: number, options: any, idGeneratorRule?: Function): Array<Object> {
         const sections: Array<Object> = new Array<Object>();
+        const { x1, y1, x2, y2, width, height, offsetRight } = options;
+        let element = new BridgeSection(1,x1, y1,x2,y2);
 
-        const { top, left, width, height } = options;
-        let element = new BridgeSection(1,top,left,left + width, top + height);
-
-        for(let i = 1; i<= 8; i++) {
+        for(let i = 1; i<= 16; i++) {
             sections.push(element.getFlattenObject());
-            element = element.getNextSection(i, i % 2 !== 0 ? 30 : 0, 0);
+            element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, 474);
         }
 
+        element = new BridgeSection(17,x1, y1 + height, x2, y2 + height);
+        for(let i = 17; i<= 32; i++) {
+              sections.push(element.getFlattenObject());
+              element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, 475);
+        }
 
         return sections;
 }

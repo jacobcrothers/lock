@@ -1,17 +1,17 @@
 export class BridgeSection {
     private readonly _id: number;
-    private readonly _topPosition: number;
-    private readonly _leftPosition: number;
-    private readonly _rightPosition: number;
-    private readonly _bottomPosition: number;
+    private readonly x1: number;
+    private readonly y1: number;
+    private readonly x2: number;
+    private readonly y2: number;
 
 
-    constructor(id: number, topPosition: number, leftPosition: number, rightPosition: number, bottomPosition: number) {
+    constructor(id: number, x1: number, y1: number, x2: number, y2: number) {
         this._id = id;
-        this._topPosition = topPosition;
-        this._leftPosition = leftPosition;
-        this._rightPosition = rightPosition;
-        this._bottomPosition = bottomPosition;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
     }
 
 
@@ -19,34 +19,18 @@ export class BridgeSection {
         return this._id;
     }
 
-    get topPosition(): number {
-        return this._topPosition;
-    }
-
-    get leftPosition(): number {
-        return this._leftPosition;
-    }
-
-    get rightPosition(): number {
-        return this._rightPosition;
-    }
-
-    get bottomPosition(): number {
-        return this._bottomPosition;
-    }
-
 
     getHtmlAreaCoordonates(): String {
-        return [this._topPosition, this._leftPosition, this._bottomPosition, this._rightPosition].join(",");
+        return [this.x1, this.y1, this.x2, this.y2].join(",");
     }
 
 
-    getCurrentHight(): number {
-        return this._bottomPosition - this._topPosition;
+    getCurrentHeight(): number {
+        return this.y2 - this.y1;
     }
 
     getCurrentWidth(): number {
-        return this._rightPosition - this._leftPosition;
+        return this.x2 - this.x1;
     }
 
     /**
@@ -59,16 +43,16 @@ export class BridgeSection {
      * @returns {BridgeSection}
      * */
     getNextSection(id: number, offsetRight: number, offsetBottom: number, width?: number, height?: number, ) : BridgeSection {
-        const sectionHeight = height || this.getCurrentHight();
+        const sectionHeight = height || this.getCurrentHeight();
         const sectionWidth = width || this.getCurrentWidth();
 
 
-        const left = this.rightPosition + offsetRight;
-        const right = left + sectionWidth;
-        const top = this.topPosition + offsetBottom;
-        const bottom = top + sectionHeight;
+        const next_x1 = this.x2 + offsetRight;
+        const next_y1 =  this.y1 + offsetBottom;
+        const next_x2 =  next_x1 + sectionWidth;
+        const next_y2 = next_y1 + sectionHeight;
 
-        return new BridgeSection(id, top,left,right,bottom);
+        return new BridgeSection(id, next_x1, next_y1, next_x2, next_y2);
     }
 
 
