@@ -1,6 +1,6 @@
 <section class="dorne-welcome-area bg-img bg-overlay" style="background-image: url(../../../assets/images/background-img-big.jpg);">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center justify-content-center">
+    <div class="container">
+        <div class="h-100"><div class="row h-100 align-items-center justify-content-center">
             <section class="dorne-features-destinations-area">
                 <!-- Choose category area -->
                 <div class="container-fluid" *ngIf="!lockType">
@@ -12,7 +12,7 @@
                                 <p>Available categories</p>
                             </div>
                         </div>
-                    </div>       
+                    </div>
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="features-slides owl-carousel slides-container">
@@ -25,7 +25,7 @@
                                             <p>{{lockCategory.price | currency}}</p>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                 <p>Check out those locks</p>
                             </div>
                         </div>
-                    </div>       
+                    </div>
                     <div class="row mb-4">
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -78,14 +78,14 @@
                             <h6>Now that you know what lock you want, you need to customize it.</h6>
                             <img [src]="selectedLock.filesDTO[0].urlToFile" alt="">
                         </div>
-                        <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">  
+                        <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">
                             <div class="form-group">
                                 <div class="message-container">
                                     <label class="user-info" for="customMessageInput">Your message:</label>
-                                    <textarea 
+                                    <textarea
                                         name="insertMessage"
                                         type="textarea"
-                                        cols="3" 
+                                        cols="3"
                                         rows="2"
                                         placeholder="Add your message"
                                         class="form-control"
@@ -93,6 +93,7 @@
                                         [value]="selectedMessage"
                                         required
                                         [ngModel]="selectedMessage">{{selectedMessage}}
+                                        maxlength="25"
                                     </textarea>
                                 </div>
                             </div>
@@ -100,7 +101,7 @@
                                 <p class="user-info">Your privacy</p>
                                 <div class="col-12 col-xl-6">
                                     <label class="custom-control custom-checkbox mb-3">
-                                        <input type="radio" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy">
+                                        <input type="checkbox" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Private</span>
                                     </label>
@@ -114,6 +115,7 @@
                     </div>
                 </div>
             </section>
-        </div>
+        </div></div>
+
     </div>
 </section>
