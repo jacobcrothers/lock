@@ -14,7 +14,7 @@
         <!-- First scroll -->
         <img class="bridge-img"
             (touchmove)="onMousewheel($event)" 
-            (wheel)="onMousewheel($event)" 
+            (wheel)="onMousewheel($event)"
             src="../../../assets/images/bridge/bridge-scroll-1.jpg"
             [hidden]="zoomCount != 1"
             alt=""/>
@@ -22,8 +22,8 @@
         <!-- Second scroll -->
         <img class="bridge-img"
             (touchmove)="onMousewheel($event)" 
-            (wheel)="onMousewheel($event)" 
-            src="../../../assets/images/bridge/bridge-scroll-2.jpg"
+            (wheel)="onMousewheel($event)"
+            src="https://localhost:6060/api/v0/download/file/3"
             [hidden]="zoomCount != 2"
             alt=""/>
 
@@ -39,7 +39,7 @@
     </drag-scroll>
     
     <map name="image-map" *ngIf="zoomCount === 3">
-            <area *ngFor="let section of panelSection"
+            <area *ngFor="let section of panelSections"
                   target="" alt="Section {{section.id}}" title="Section {{section.id}}" href=""
                   id="section-{{section.id}}" [coords]="section.coords" shape="rect" (click)="chooseSection($event)" class="image-area">
     </map>

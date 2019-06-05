@@ -18,7 +18,9 @@ export class PanelsComponent implements OnInit {
   public zoomCount: number = 0;
   public screenHeight: any;
   public imageWidth: number;
-  public panelSection: Array<Object>;
+  public panelSections: Array<Object>;
+  public selectedSection: number;
+
 
   public displayFirstImg = true;
   public displaySecondImg = false;
@@ -35,7 +37,7 @@ export class PanelsComponent implements OnInit {
     this.createdLock = this.addLockService.createdLock;
     this.imageWidth = 6.25 * window.innerHeight;
 
-     this.panelSection = this.generateSections(1,{
+     this.panelSections = this.generateSections(1,{
          x1: 110,
          y1: 736,
          x2: 576,
@@ -58,15 +60,17 @@ export class PanelsComponent implements OnInit {
         const { x1, y1, x2, y2, width, height, offsetRight } = options;
         let element = new BridgeSection(1,x1, y1,x2,y2);
 
-        for(let i = 1; i<= 16; i++) {
-            sections.push(element.getFlattenObject());
+        sections.push(element.getFlattenObject());
+        for(let i = 2; i<= 16; i++) {
             element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, width);
+            sections.push(element.getFlattenObject());
         }
 
         element = new BridgeSection(17,x1, y1 + height, x2, y2 + height);
-        for(let i = 17; i<= 32; i++) {
-              sections.push(element.getFlattenObject());
-              element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, width);
+        sections.push(element.getFlattenObject());
+        for(let i = 18; i<= 32; i++) {
+            element = element.getNextSection(i,  i % 2 !== 0 ? offsetRight : 0, 0, width);
+            sections.push(element.getFlattenObject());
         }
 
         return sections;
@@ -107,9 +111,10 @@ export class PanelsComponent implements OnInit {
 
   chooseSection(event) {
     event.preventDefault();
+    console.log("Event dispatched");
     // send this to BE
-    this.panelSection = event.target.id;
-    this.addLockService.savePanelSection(this.panelSection).subscribe(data => {;
+    this.selectedSection = Number(event.target.id.split("-")[1]);
+    this.addLockService.savePanelSection(this.selectedSection).subscribe(data => {
       this.router.navigate([`dashboard/payment`]);
     });
   }
