@@ -10,6 +10,7 @@
     border-radius: 20px;
     border: 2px solid #ccc9c9;
 }
+
 .container-fluid .section-info {
     margin-bottom: 100px;
 }
@@ -67,7 +68,7 @@
     border: 1px solid #fff;
 }
 
-.custom-control-input:checked~.custom-control-indicator {
+.custom-control-input:checked ~ .custom-control-indicator {
     background-color: transparent;
 }
 

@@ -1,121 +1,138 @@
-<section class="dorne-welcome-area bg-img bg-overlay" style="background-image: url(../../../assets/images/background-img-big.jpg);">
+<section class="dorne-welcome-area bg-img bg-overlay"
+         style="background-image: url(../../../assets/images/background-img-big.jpg);">
     <div class="container">
-        <div class="h-100"><div class="row h-100 align-items-center justify-content-center">
-            <section class="dorne-features-destinations-area">
-                <!-- Choose category area -->
-                <div class="container-fluid" *ngIf="!lockType">
-                    <div class="row section-info">
-                        <div class="col-12">
-                            <div class="section-heading dark text-center">
-                                <h4>Choose a lock category</h4>
-                                <p>So, you have a special date you want to commemorate?Or maybe you want to show that special someone how special they are?We're the same, that's why we created this site, after all. And the locks...</p>
-                                <p>Available categories</p>
+        <div class="h-100">
+            <div class="row h-100 align-items-center justify-content-center">
+                <section class="dorne-features-destinations-area">
+                    <!-- Choose category area -->
+                    <div class="container-fluid" *ngIf="!lockType">
+                        <div class="row section-info">
+                            <div class="col-12">
+                                <div class="section-heading dark text-center">
+                                    <h4>Choose a lock category</h4>
+                                    <p>So, you have a special date you want to commemorate?Or maybe you want to show
+                                        that special someone how special they are?We're the same, that's why we created
+                                        this site, after all. And the locks...</p>
+                                    <p>Available categories</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <div class="features-slides owl-carousel slides-container">
-                                <!-- Single Features Area -->
-                                <div class="single-features-area slide-container" *ngFor="let lockCategory of lockCategories" (click)="chooseCategory(lockCategory)">
-                                    <img [src]="lockCategory.fileDTO.urlToFile" alt="">
-                                    <div class="feature-content d-flex align-items-center justify-content-between">
-                                        <div class="feature-title">
-                                            <h5>{{lockCategory.category}}</h5>
-                                            <p>{{lockCategory.price | currency}}</p>
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="features-slides owl-carousel slides-container">
+                                    <!-- Single Features Area -->
+                                    <div class="single-features-area slide-container"
+                                         *ngFor="let lockCategory of lockCategories"
+                                         (click)="chooseCategory(lockCategory)">
+                                        <img [src]="lockCategory.fileDTO.urlToFile" alt="">
+                                        <div class="feature-content d-flex align-items-center justify-content-between">
+                                            <div class="feature-title">
+                                                <h5>{{lockCategory.category}}</h5>
+                                                <p>{{lockCategory.price | currency}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Choose lock area -->
-                <div class="container-fluid" *ngIf="lockType && !lockId">
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <div class="section-heading dark text-center">
-                                <h4>Add a lock</h4>
-                                <p>Now, choose your lock</p>
-                                <p>Check out those locks</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item" *ngFor="let lock of locks; let i = index" (click)="chooseLock(lock)" [ngClass]="{'active' : !i}">
-                                    <img class="d-block w-100" [src]="lock.filesDTO[0].urlToFile" alt="First slide">
+                    <!-- Choose lock area -->
+                    <div class="container-fluid" *ngIf="lockType && !lockId">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="section-heading dark text-center">
+                                    <h4>Add a lock</h4>
+                                    <p>Now, choose your lock</p>
+                                    <p>Check out those locks</p>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                        </div>
+                        <div class="row mb-4">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item" *ngFor="let lock of locks; let i = index"
+                                         (click)="chooseLock(lock)" [ngClass]="{'active' : !i}">
+                                        <img class="d-block w-100" [src]="lock.filesDTO[0].urlToFile" alt="First slide">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                   data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                   data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <button class="btn btn-outline-primary button-outline" (click)="goBack('lockType')">
+                                    Back
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <button class="btn btn-outline-primary button-outline" (click)="goBack('lockType')">Back</button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Customize lock area -->
-                <div class=""  *ngIf="lockType && lockId">
-                    <div class="customize-lock-form">
-                        <div class="lock-container" *ngIf="selectedLock['filesDTO']">
-                            <h6>Now that you know what lock you want, you need to customize it.</h6>
-                            <img [src]="selectedLock.filesDTO[0].urlToFile" alt="">
-                        </div>
-                        <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">
-                            <div class="form-group">
-                                <div class="message-container">
-                                    <label class="user-info" for="customMessageInput">Your message:</label>
-                                    <textarea
-                                        name="insertMessage"
-                                        type="textarea"
-                                        cols="3"
-                                        rows="2"
-                                        placeholder="Add your message"
-                                        class="form-control"
-                                        id="customMessageInput"
-                                        [value]="selectedMessage"
-                                        required
-                                        [ngModel]="selectedMessage">{{selectedMessage}}
-                                        maxlength="25"
+                    <!-- Customize lock area -->
+                    <div class="" *ngIf="lockType && lockId">
+                        <div class="customize-lock-form">
+                            <div class="lock-container" *ngIf="selectedLock['filesDTO']">
+                                <h6>Now that you know what lock you want, you need to customize it.</h6>
+                                <img [src]="selectedLock.filesDTO[0].urlToFile" alt="">
+                            </div>
+                            <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">
+                                <div class="form-group">
+                                    <div class="message-container">
+                                        <label class="user-info" for="customMessageInput">Your message:</label>
+                                        <textarea
+                                            name="insertMessage"
+                                            type="textarea"
+                                            cols="3"
+                                            rows="2"
+                                            placeholder="Add your message"
+                                            class="form-control"
+                                            id="customMessageInput"
+                                            [value]="selectedMessage"
+                                            required
+                                            [ngModel]="selectedMessage">{{selectedMessage}}
+                                            maxlength="25"
                                     </textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <p class="user-info">Your privacy</p>
-                                <div class="col-12 col-xl-6">
-                                    <label class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" value="private" name="privacy" [(ngModel)]="lockPrivacy">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Private</span>
-                                    </label>
+                                <div class="form-group">
+                                    <p class="user-info">Your privacy</p>
+                                    <div class="col-12 col-xl-6">
+                                        <label class="custom-control custom-checkbox mb-3">
+                                            <input type="checkbox" class="custom-control-input" value="private"
+                                                   name="privacy" [(ngModel)]="lockPrivacy">
+                                            <span class="custom-control-indicator"></span>
+                                            <span class="custom-control-description">Private</span>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="actions-wrapper">
-                                <button class="btn btn-outline-primary button-outline" (click)="goBack('lockId')">Back</button>
-                                <button class="btn btn-outline-primary button-outline" [disabled]="!lockForm.valid" type="submit">Add lock</button>
-                            </div>
-                        </form>
+                                <div class="actions-wrapper">
+                                    <button class="btn btn-outline-primary button-outline" (click)="goBack('lockId')">
+                                        Back
+                                    </button>
+                                    <button class="btn btn-outline-primary button-outline" [disabled]="!lockForm.valid"
+                                            type="submit">Add lock
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </section>
-        </div></div>
+                </section>
+            </div>
+        </div>
 
     </div>
 </section>
