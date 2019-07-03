@@ -22,24 +22,25 @@ import {
     AuthServiceConfig,
     FacebookLoginProvider,
 } from 'angular5-social-login';
-import { MessageComponent } from './message/message.component';
+import {MessageComponent} from './message/message.component';
 import {MessageService} from './_services/message.service';
-import { LockComponent } from './lock/lock.component';
-import { LockDetailsComponent } from './user/dashboard/locks/lock-details/lock-details.component';
-import { PanelsComponent } from './bridge/panels/panels.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DragScrollModule } from 'ngx-drag-scroll'
-import { PaymentService } from './_services/payment.service';
-import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
+import {LockComponent} from './lock/lock.component';
+import {LockDetailsComponent} from './user/dashboard/locks/lock-details/lock-details.component';
+import {PanelsComponent} from './bridge/panels/panels.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DragScrollModule} from 'ngx-drag-scroll'
+import {PaymentService} from './_services/payment.service';
+import {SafeHtmlPipe} from './_pipes/safe-html.pipe';
+import {DeviceDetectorModule} from "ngx-device-detector";
 
 
 // Configs
 export function getAuthServiceConfigs() {
     const config = new AuthServiceConfig(
         [{
-                id: FacebookLoginProvider.PROVIDER_ID,
-                provider: new FacebookLoginProvider('227796454748370')
-            }
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('227796454748370')
+        }
         ]);
     return config;
 }
@@ -68,7 +69,8 @@ export function getAuthServiceConfigs() {
         IconsModule,
         SocialLoginModule,
         NgbModule,
-        DragScrollModule
+        DragScrollModule,
+        DeviceDetectorModule.forRoot()
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
