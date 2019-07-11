@@ -13,7 +13,9 @@ export class LockComponent implements OnInit {
     public lockType: string;
     public lockId = 0;
     public locks: Array<any> = [];
-    public selectedLock = {};
+    public selectedLock = {
+        filesDTO: undefined
+    };
     public selectedLockCategory = {};
     public params = {};
     public lockCategories: any;

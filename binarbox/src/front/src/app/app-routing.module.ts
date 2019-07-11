@@ -9,44 +9,51 @@ import {LocksComponent} from './user/dashboard/locks/locks.component';
 import {SocialComponent} from './user/dashboard/social/social.component';
 import {LockComponent} from './lock/lock.component';
 import {PanelsComponent} from './bridge/panels/panels.component';
+import {VideoPlayerComponent} from "./video-player/video-player.component";
 
 const routes = [{
+    path: '',
+    component: HomeComponent
+}, {
+    path: 'add-lock',
+    component: LockComponent,
+    canActivate: [AuthGuard]
+}, {
+    path: 'add-lock/:type',
+    component: LockComponent,
+    canActivate: [AuthGuard],
+}, {
+    path: 'add-lock/:type/:id',
+    component: LockComponent,
+    canActivate: [AuthGuard]
+}, {
+    path: 'panels',
+    component: PanelsComponent
+}, {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [{
         path: '',
-        component: HomeComponent
+        pathMatch: 'full',
+        redirectTo: 'payment'
     }, {
-        path: 'add-lock',
-        component: LockComponent,
-        canActivate: [AuthGuard]
-    }, {
-        path: 'add-lock/:type',
-        component: LockComponent,
-        canActivate: [AuthGuard],
-    }, {
-        path: 'add-lock/:type/:id',
-        component: LockComponent,
-        canActivate: [AuthGuard]
-    },{
-        path: 'panels',
-        component: PanelsComponent
-    }, {
-        path: 'dashboard',
-        component: DashboardComponent,
-        canActivate: [AuthGuard],
-        children: [{
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'payment'
-        }, {
-            path: 'payment',
-            component: PaymentComponent
-        }, {
-            path: 'locks',
-            component: LocksComponent
-        }, {
+        path: 'payment',
+        component: PaymentComponent
+    },
+        {
+        path: 'locks',
+        component: LocksComponent
+        },
+        {
+            path: 'video',
+            component: VideoPlayerComponent
+        },
+        {
             path: 'social',
             component: SocialComponent
         }]
-    }
+}
 ];
 
 @NgModule({

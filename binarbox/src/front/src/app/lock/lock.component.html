@@ -1,6 +1,6 @@
 <section class="dorne-welcome-area bg-img bg-overlay"
          style="background-image: url(../../../assets/images/background-img-big.jpg);">
-    <div class="container">
+    <div class="container container-fit-screen">
         <div class="h-100">
             <div class="row h-100 align-items-center justify-content-center">
                 <section class="dorne-features-destinations-area">
@@ -10,7 +10,7 @@
                             <div class="col-12">
                                 <div class="section-heading dark text-center">
                                     <h4>Choose a lock category</h4>
-                                    <p>So, you have a special date you want to commemorate?Or maybe you want to show
+                                    <p>So, you have a special date you want to commemorate? Or maybe you want to show
                                         that special someone how special they are?We're the same, that's why we created
                                         this site, after all. And the locks...</p>
                                     <p>Available categories</p>
@@ -86,48 +86,47 @@
                     <div class="" *ngIf="lockType && lockId">
                         <div class="customize-lock-form">
                             <div class="lock-container" *ngIf="selectedLock['filesDTO']">
-                                <h6>Now that you know what lock you want, you need to customize it.</h6>
+                                <h6>Now that you know what lock you want, you need to customize it.
+                                    <br>
+                                    Select your loving message
+                                </h6>
                                 <img [src]="selectedLock.filesDTO[0].urlToFile" alt="">
-                            </div>
-                            <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">
-                                <div class="form-group">
-                                    <div class="message-container">
-                                        <label class="user-info" for="customMessageInput">Your message:</label>
-                                        <textarea
-                                            name="insertMessage"
-                                            type="textarea"
-                                            cols="3"
-                                            rows="2"
-                                            placeholder="Add your message"
-                                            class="form-control"
-                                            id="customMessageInput"
-                                            [value]="selectedMessage"
-                                            required
-                                            [ngModel]="selectedMessage">{{selectedMessage}}
-                                            maxlength="25"
+                                <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">
+                                            <textarea
+                                                name="insertMessage"
+                                                type="textarea"
+                                                cols="3"
+                                                rows="2"
+                                                scroll="disable"
+                                                placeholder="Send your love!"
+                                                class="form-control"
+                                                id="customMessageInput"
+                                                maxlength="30"
+                                                [value]="selectedMessage"
+                                                required
+                                                [ngModel]="selectedMessage">{{selectedMessage}}
                                     </textarea>
+                                    <div class="form-group">
+                                        <p class="user-info">Your privacy</p>
+                                        <div class="col-12">
+                                            <label class="custom-control custom-checkbox mb-3">
+                                                <input type="checkbox" class="custom-control-input" value="private"
+                                                       name="privacy" [(ngModel)]="lockPrivacy">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">Private</span>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <p class="user-info">Your privacy</p>
-                                    <div class="col-12 col-xl-6">
-                                        <label class="custom-control custom-checkbox mb-3">
-                                            <input type="checkbox" class="custom-control-input" value="private"
-                                                   name="privacy" [(ngModel)]="lockPrivacy">
-                                            <span class="custom-control-indicator"></span>
-                                            <span class="custom-control-description">Private</span>
-                                        </label>
+                                    <div class="actions-wrapper">
+                                        <button class="btn btn-outline-primary button-outline" (click)="goBack('lockId')">
+                                            Back
+                                        </button>
+                                        <button class="btn btn-outline-primary button-outline" [disabled]="!lockForm.valid"
+                                                type="submit">Add lock
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="actions-wrapper">
-                                    <button class="btn btn-outline-primary button-outline" (click)="goBack('lockId')">
-                                        Back
-                                    </button>
-                                    <button class="btn btn-outline-primary button-outline" [disabled]="!lockForm.valid"
-                                            type="submit">Add lock
-                                    </button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </section>
