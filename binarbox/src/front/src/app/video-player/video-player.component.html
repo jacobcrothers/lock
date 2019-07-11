@@ -1,0 +1,13 @@
+<div class="video-container">
+    <h1>Video Container</h1>
+    <vg-player>
+        <video #media
+               [vgHls]="this.videoUrl"
+               [vgHlsHeaders]="this.headers"
+               id="my-video"
+               type="video/mp4"
+               crossorigin
+               controls>
+        </video>
+    </vg-player>
+</div>

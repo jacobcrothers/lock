@@ -39,12 +39,12 @@ export class PanelsComponent implements OnInit {
 
      this.panelSections = this.generateSections(1,{
          x1: 110,
-         y1: 736,
-         x2: 576,
-         y2: 920,
+         y1: 540,
+         x2: 578,
+         y2: 724,
          height: 189,
          width: 474,
-         offsetRight: 28,
+         offsetRight: 29,
          rows: 2
      });
 

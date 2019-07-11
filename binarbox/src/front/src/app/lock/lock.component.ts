@@ -13,7 +13,9 @@ export class LockComponent implements OnInit {
     public lockType: string;
     public lockId = 0;
     public locks: Array<any> = [];
-    public selectedLock = {};
+    public selectedLock = {
+        filesDTO: undefined
+    };
     public selectedLockCategory = {};
     public params = {};
     public lockCategories: any;
@@ -23,8 +25,10 @@ export class LockComponent implements OnInit {
     public selectedMessage: string;
     public pageParams: any;
     public formSubmitted: boolean;
+    private lockInfo: Object;
 
     @ViewChild('closeModal') closeModal:ElementRef;
+
 
     constructor(
         private route: ActivatedRoute,
@@ -110,6 +114,8 @@ export class LockComponent implements OnInit {
             "privateLock": formValue['privacy'] === "private" ? true : false
         };
         this.addLockService.saveLock(createdLock).subscribe(data => {
+            this.lockInfo = data;
+            this.addLockService.setLockId(data);
             this.router.navigate([`/panels`] );
         })
 
