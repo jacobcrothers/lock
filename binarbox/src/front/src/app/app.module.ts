@@ -32,6 +32,12 @@ import {DragScrollModule} from 'ngx-drag-scroll'
 import {PaymentService} from './_services/payment.service';
 import {SafeHtmlPipe} from './_pipes/safe-html.pipe';
 import {DeviceDetectorModule} from "ngx-device-detector";
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import {VgBufferingModule} from "videogular2/buffering";
+import {VgControlsModule} from "videogular2/controls";
+import {VgOverlayPlayModule} from "videogular2/overlay-play";
+import {VgCoreModule} from "videogular2/core";
+import {VgStreamingModule} from "videogular2/streaming";
 
 
 // Configs
@@ -58,7 +64,8 @@ export function getAuthServiceConfigs() {
         LockComponent,
         LockDetailsComponent,
         PanelsComponent,
-        SafeHtmlPipe
+        SafeHtmlPipe,
+        VideoPlayerComponent
     ],
     imports: [
         BrowserModule,
@@ -70,6 +77,12 @@ export function getAuthServiceConfigs() {
         SocialLoginModule,
         NgbModule,
         DragScrollModule,
+        BrowserModule,
+        VgCoreModule,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule,
+        VgStreamingModule,
         DeviceDetectorModule.forRoot()
     ],
     providers: [{
