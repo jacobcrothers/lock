@@ -62,7 +62,7 @@ public class ImageUtils {
     //Arial ok
     //Candara
     //Calibri
-    //Gadugi
+    //Gadugi ok
     //Microsoft JHENGHEI
     //Nirmala UI
     public static void main(String[] args)
@@ -70,24 +70,25 @@ public class ImageUtils {
         long startTime = System.currentTimeMillis();
 
         List<BufferedImage> lockz = new ArrayList<>();
-        for (int i=1; i<17; i++)
+        for (int i=1; i<16; i++)
         lockz.add(readImage(ImageUtils.returnPathToImages() +
                 File.separator +
-                "fontTest" +
+                "fontTestZ" +
                 File.separator +
                 i +
                 ".png"));
 
         String message = "i Love you";
+        Font font = new Font("Arial", Font.BOLD, 13);
         for (int i=0; i<lockz.size(); i++) {
             BufferedImage resultBuffer = addTextToBufferedImage(lockz.get(i),
                     message,
-                    new Font("Candara", Font.BOLD, 25),
+                    font,
                     Color.BLACK);
             int j = i+1;
             writeImage(resultBuffer, ImageUtils.returnPathToImages() +
                     File.separator +
-                    "fontTestResult" +
+                    "fontTestResultZ" +
                     File.separator + j + ".png",
                     "PNG");
         }
@@ -101,19 +102,20 @@ public class ImageUtils {
     public static BufferedImage addTextToBufferedImage(BufferedImage file2buffer, String message, Font font, Color color) {
         Graphics2D w = (Graphics2D) file2buffer.getGraphics();
         w.drawImage(file2buffer, 0, 0, null);
-        AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
-        w.setComposite(alphaChannel);
+//        AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
+//        w.setComposite(alphaChannel);
         w.setColor(color);
         w.setFont(font);
         FontMetrics fontMetrics = w.getFontMetrics();
         Rectangle2D rect = fontMetrics.getStringBounds(message, w);
 
         // calculate center of the image
-        int centerX = (file2buffer.getWidth() - (int) rect.getWidth()) / 2 - 10;
-        int centerY = file2buffer.getHeight() / 2 + 70;
+        int centerX = (file2buffer.getWidth() - (int) rect.getWidth()) / 2 - 20;
+        int centerY = file2buffer.getHeight() / 2 + 13;
 
         // add text overlay to the image
         w.drawString(message, centerX + 20, centerY);
+        w.drawString(message, centerX + 20, centerY + 13);
 
         w.dispose();
 

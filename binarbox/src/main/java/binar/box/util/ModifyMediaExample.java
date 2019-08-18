@@ -14,8 +14,8 @@ import java.nio.ShortBuffer;
 
 public class ModifyMediaExample {
 
-    private static final String inputFilename = "C:\\Users\\Andrei\\Desktop\\result.mp4";
-    private static final String outputFilename = "C:\\Users\\Andrei\\Desktop\\testResultNew.mp4";
+    private static final String inputFilename = "C:\\Users\\Andrei\\Desktop\\pod14test.mp4";
+    private static final String outputFilename = "C:\\Users\\Andrei\\Desktop\\pod14Text.mp4";
     private static final String imageFilename = "C:\\Users\\Andrei\\Desktop\\lacatTest.png";
 
     private IAudioResampler audioResampler = null;

@@ -55,6 +55,7 @@ aws:
   system.preset.hls.400k.id: 1351620000001-200050
   system.preset.hls.600k.id: 1351620000001-200040
   system.preset.hls.1m.id: 1351620000001-200030
+  system.preset.hls.2m.id: 1351620000001-200010
   cloudfront.distribution.url: dbdee3ttou8ph.cloudfront.net
     #  bucket:
     #    category: lock-s3-bucket/Category
