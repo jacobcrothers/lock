@@ -1,3 +1,4 @@
+//TODO update dimensions
 const IMAGE_BASE_DIMENSIONS = {
   WIDTH: 1920,
   HEIGHT: 1382,

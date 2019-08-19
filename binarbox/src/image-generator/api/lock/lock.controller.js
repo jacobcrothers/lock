@@ -33,8 +33,8 @@ const setResponseStatus = (ctx, status, message) => {
 
 const generateImage = async ctx => {
 
-
-  const imageURL = API_URL.replace("{LOCK_ID}", ctx.query.lockId);
+    const {templateId} = ctx.query;
+  const imageURL = API_URL.replace("{LOCK_ID}", ctx.query.templateId);
   await loadImage(imageURL, {})
     .then(image => {
       const canvas = createCanvas(
@@ -65,7 +65,7 @@ const generateImage = async ctx => {
     })
     .catch(e => {
       ctx.log.error(
-        `Unable to load image with id ${lockId} with error ->`,
+        `Unable to load image with id ${templateId} with error ->`,
         e.toString(),
       );
       setResponseStatus(ctx, 500, "Unable to load lockTemplate")
@@ -77,7 +77,7 @@ const validateSchema = ctx => {
   const { query } = ctx.request;
 
   const schema = Joi.object().keys({
-    lockId: Joi.number()
+      templateId: Joi.number()
       .integer()
       .positive()
       .required(),
