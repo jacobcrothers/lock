@@ -20,4 +20,10 @@ public class LockStepOneDTO {
 
     @NotNull
     private Boolean privateLock;
+
+    //TODO:
+    // fontSize
+    // font
+    // color
+    // add all to DB
 }

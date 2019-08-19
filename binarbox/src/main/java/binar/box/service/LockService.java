@@ -207,6 +207,7 @@ public class LockService {
 		File sqlFile = new File();
 		sqlFile.setFileName(lockFileName);
 
+
 		fileRepository.save(sqlFile);
 
 		String path = fileStorage.store(imageWithText,
