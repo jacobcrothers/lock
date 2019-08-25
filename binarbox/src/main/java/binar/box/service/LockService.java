@@ -15,10 +15,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
+
+import static binar.box.util.ImageUtils.readImageFromURL;
 
 @Service
 @Transactional
@@ -95,11 +100,12 @@ public class LockService {
 		lock.setPrivateLock(lockStepOneDTO.getPrivateLock());
 
 		lockRepository.save(lock);
-		if (Objects.isNull(lockStepOneDTO.getLockImageWithText()))
-			saveTextOnImage(lock);
-		else {
+//		if (Objects.isNull(lockStepOneDTO.getLockImageWithText()))
+//
+//			saveTextOnImage(lock);
+//		else {
 			saveTextImageSent(lock, lockStepOneDTO.getLockImageWithText());
-		}
+//		}
         return lockConvertor.toStepOneDTO(lockRepository.save(lock));
     }
 
@@ -197,7 +203,12 @@ public class LockService {
 				.findAny()
 				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found","partial.lock.not.found"));
 
-		File sqlFile = storeFile(lockFile.getFileName(), lockImage.getInputStream());
+		String resourceURL="";
+
+		InputStream lockWithTextFromURL = readImageFromURL(resourceURL);
+
+		File sqlFile = storeFile(lockFile.getFileName(), lockWithTextFromURL);
+//		File sqlFile = storeFile(lockFile.getFileName(), lockImage.getInputStream());
 
 		lock.getFiles().add(fileRepository.save(sqlFile));
 //		TODO: Add glitter file

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
@@ -141,6 +142,16 @@ public class ImageUtils {
             e.printStackTrace();
         }
         return img;
+    }
+
+    public static InputStream readImageFromURL(String urlLocation) throws IOException {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new URL(urlLocation));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return BufferedImageToInputStream(img, PNG);
     }
 
     public static InputStream BufferedImageToInputStream(BufferedImage bridgePicBuffered, String imageExtension) throws IOException {

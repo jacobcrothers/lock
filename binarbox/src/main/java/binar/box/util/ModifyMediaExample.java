@@ -68,12 +68,18 @@ public class ModifyMediaExample {
 //            frameNumber.getAndIncrement();
             frameNumber++;
 //            System.out.println(frameNumber.get());
+
+
+            /// COPY THE SAME IMAGE AND RETURN IT EVERY TIME
+
             System.out.println(frameNumber);
             BufferedImage image = event.getImage();
 
 //            if (frameNumber.get()>2755) {
             if (frameNumber>240) {
                 // get the graphics for the image
+
+                // add PNG instead of text
                 ImageUtils.addTextToBufferedImage(
                         image,
                         "Love U",
