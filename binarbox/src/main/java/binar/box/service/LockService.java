@@ -13,11 +13,17 @@ import binar.box.util.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
+
+import static binar.box.util.ImageUtils.readImageFromURL;
 
 @Service
 @Transactional
@@ -94,7 +100,12 @@ public class LockService {
 		lock.setPrivateLock(lockStepOneDTO.getPrivateLock());
 
 		lockRepository.save(lock);
-		saveTextOnImage(lock);
+//		if (Objects.isNull(lockStepOneDTO.getLockImageWithText()))
+//
+//			saveTextOnImage(lock);
+//		else {
+			saveTextImageSent(lock, lockStepOneDTO.getLockImageWithText());
+//		}
         return lockConvertor.toStepOneDTO(lockRepository.save(lock));
     }
 
@@ -180,20 +191,38 @@ public class LockService {
 
 		InputStream storageFile = fileStorage.retrieve(lockFile.getPathToFile(), File.Type.PARTIALY_ERASED_TEMPLATE);
 		InputStream imageWithText = ImageUtils.addTextToImage(storageFile, lock.getMessage());
-		File sqlFile = storeFile(lockFile, imageWithText);
+		File sqlFile = storeFile(lockFile.getFileName(), imageWithText);
 
 		lock.getFiles().add(fileRepository.save(sqlFile));
 //		TODO: Add glitter file
 	}
 
-	private File storeFile(File lockFile, InputStream imageWithText) throws IOException {
+	private void saveTextImageSent(Lock lock, MultipartFile lockImage) throws IOException {
+		File lockFile =  lock.getLockTemplate().getFiles().stream()
+				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE))
+				.findAny()
+				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found","partial.lock.not.found"));
+
+		String resourceURL="";
+
+		InputStream lockWithTextFromURL = readImageFromURL(resourceURL);
+
+		File sqlFile = storeFile(lockFile.getFileName(), lockWithTextFromURL);
+//		File sqlFile = storeFile(lockFile.getFileName(), lockImage.getInputStream());
+
+		lock.getFiles().add(fileRepository.save(sqlFile));
+//		TODO: Add glitter file
+	}
+
+	private File storeFile(String lockFileName, InputStream imageWithText) throws IOException {
 		File sqlFile = new File();
-		sqlFile.setFileName(lockFile.getFileName());
+		sqlFile.setFileName(lockFileName);
+
 
 		fileRepository.save(sqlFile);
 
 		String path = fileStorage.store(imageWithText,
-				Constants.getFileKey(lockFile.getFileName(), File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT, sqlFile.getId()),
+				Constants.getFileKey(lockFileName, File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT, sqlFile.getId()),
 				File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT);
 		sqlFile.setPathToFile(path);
 		sqlFile.setUrlToFile(Constants.downloadFileUrl(sqlFile.getId(), domain));

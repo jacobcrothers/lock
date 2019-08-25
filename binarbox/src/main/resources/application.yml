@@ -2,11 +2,11 @@ spring:
   profiles: dev
   jpa:
     hibernate:
-      ddlAuto: create
+      ddlAuto: update
       namingStrategy: org.hibernate.cfg.EJB3NamingStrategy
     show-sql: true
-#  liquibase:
-#    change-log: classpath:/liquibase/master.xml
+  #  liquibase:
+  #    change-log: classpath:/liquibase/master.xml
   servlet:
     multipart:
       maxFileSize: 100MB
@@ -14,12 +14,12 @@ spring:
 server:
   port: 6060
   ssl:
-##    prod
+    ##    prod
     key-store: classpath:cert/keystore.jks
-#    key-store: /etc/letsencrypt/live/www.lockbridges.com/keystoreNew.p12
+    #    key-store: /etc/letsencrypt/live/www.lockbridges.com/keystoreNew.p12
     key-store-password: helloearth6
-#    keyStoreType: PKCS12
-#    key-password: helloearth6
+    #    keyStoreType: PKCS12
+    #    key-password: helloearth6
     keyAlias: selfsigned
 database:
   driverClassName: org.mariadb.jdbc.Driver
@@ -41,7 +41,8 @@ facebook:
 aws:
   access.key: AKIAJFAJZOWMKCU3CMUA
   secret.key: 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
-  region: eu-central-1
+  #  region: eu-central-1
+  region: eu-west-1
   ###AWS STREAMING
   upload.expiration.seconds: 3600
   s3.url: http://s3-eu-west-1.amazonaws.com/
@@ -54,18 +55,26 @@ aws:
   system.preset.hls.400k.id: 1351620000001-200050
   system.preset.hls.600k.id: 1351620000001-200040
   system.preset.hls.1m.id: 1351620000001-200030
+  system.preset.hls.2m.id: 1351620000001-200010
   cloudfront.distribution.url: dbdee3ttou8ph.cloudfront.net
+    #  bucket:
+    #    category: lock-s3-bucket/Category
+    #    template: lock-s3-bucket/Template
+    #    partiallyErasedTemplate: lock-s3-bucket/PartiallyErasedTemplate
+    #    partiallyErasedTemplateWithText: lock-s3-bucket/PartiallyErasedTemplateWithText
+    #    bridge: lock-s3-bucket/Bridge
+    #    glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
   bucket:
-    category: lock-s3-bucket/Category
-    template: lock-s3-bucket/Template
-    partiallyErasedTemplate: lock-s3-bucket/PartiallyErasedTemplate
-    partiallyErasedTemplateWithText: lock-s3-bucket/PartiallyErasedTemplateWithText
-    bridge: lock-s3-bucket/Bridge
-    glitterErasedTemplate: lock-s3-bucket/GlitterErasedTemplate
+    category: lock-s3-pictures/Category
+    template: lock-s3-pictures/Template
+    partiallyErasedTemplate: lock-s3-pictures/PartiallyErasedTemplate
+    partiallyErasedTemplateWithText: lock-s3-pictures/PartiallyErasedTemplateWithText
+    bridge: lock-s3-pictures/Bridge
+    glitterErasedTemplate: lock-s3-pictures/GlitterErasedTemplate
 file:
-    domain: https://localhost:6060
-#    domain: https://api.lockbridges.com
-    storageType: AWS_S3
+  domain: https://localhost:6060
+  #    domain: https://api.lockbridges.com
+  storageType: AWS_S3
 paypal:
   public.key: zph4yfbfn5j55796
   private.key: ab7e503584b183d78f198b85eb9fa7fc

@@ -1,11 +1,14 @@
 package binar.box.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
 @Data
 public class LockStepOneDTO {
+    //TODO: ADD MULTIPART FILE FOR PROCESSED LOCK
+    MultipartFile lockImageWithText;
 
     private Long id;
 
@@ -17,4 +20,10 @@ public class LockStepOneDTO {
 
     @NotNull
     private Boolean privateLock;
+
+    //TODO:
+    // fontSize
+    // font
+    // color
+    // add all to DB
 }

@@ -214,3 +214,5 @@ INSERT INTO `lock_file` (`lock_id`, `file_id`) VALUES (13, 48);
 INSERT INTO `lock_file` (`lock_id`, `file_id`) VALUES (14, 49);
 
 INSERT INTO lb.configuration VALUES(1, '2018-08-23 10:35:46', '2018-08-23 10:35:46', 30,30,30,8);
+
+INSERT INTO `video` (`id`, `created_date`, `last_modified_date`, `name`, `streamingurl`, `thumbnailurl`, `upload_expiration_date`, `upload_time`, `uploaded_source_file`, `lock_id`) VALUES (1, '2019-06-18 19:55:01.661000', '2019-06-18 19:55:01.948000', 'lockVideo.mp4', NULL, 'http://s3-eu-west-1.amazonaws.com/lock-s3-thumbnail/1', '2019-06-18 20:55:01.500000', '2019-06-18 20:55:01.500000', b'0', 1);
