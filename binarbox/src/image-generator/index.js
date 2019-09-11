@@ -1,5 +1,7 @@
 'use strict';
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
 const http = require('http');
 const server = require('./server');
 
@@ -11,7 +13,7 @@ async function bootstrap() {
    * e.g.
    * await sequelize.authenticate()
    */
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
   return http.createServer(server.callback()).listen(port);
 }
 

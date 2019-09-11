@@ -1,7 +1,11 @@
 //TODO update dimensions
-const IMAGE_BASE_DIMENSIONS = {
-  WIDTH: 1920,
-  HEIGHT: 1382,
+const IMAGE = {
+  WIDTH: 400,
+  HEIGHT: 300,
+};
+
+const TEXT = {
+  LINE_HEIGHT: 15
 };
 
 const MIME_TYPES = {
@@ -25,7 +29,8 @@ const FONT = {
 module.exports = {
   MIME_TYPES: MIME_TYPES,
   LINE_END: LINE_END,
-  IMAGE_BASE_DIMENSIONS: IMAGE_BASE_DIMENSIONS,
+  IMAGE: IMAGE,
   HTTP_HEADERS: HTTP_HEADERS,
-  API_URL: API_URL
+  API_URL: API_URL,
+  TEXT: TEXT
 };

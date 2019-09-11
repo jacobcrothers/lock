@@ -1,10 +1,9 @@
 const { createCanvas, loadImage } = require('canvas');
 const Joi = require('joi');
-const { MIME_TYPES, IMAGE_BASE_DIMENSIONS, LINE_END, HTTP_HEADERS, API_URL } = require('./constants');
+const { MIME_TYPES, IMAGE, LINE_END, HTTP_HEADERS, API_URL, TEXT } = require('./constants');
 
 const setResponseStatus = (ctx, status, message) => {
   ctx.status = status;
-
 
   let errorResponseBody = {
     status: 'ERROR',
@@ -33,13 +32,13 @@ const setResponseStatus = (ctx, status, message) => {
 
 const generateImage = async ctx => {
 
-    const {templateId} = ctx.query;
+  const {templateId} = ctx.query;
   const imageURL = API_URL.replace("{LOCK_ID}", ctx.query.templateId);
   await loadImage(imageURL, {})
     .then(image => {
       const canvas = createCanvas(
-          IMAGE_BASE_DIMENSIONS.WIDTH,
-          IMAGE_BASE_DIMENSIONS.HEIGHT,
+          IMAGE.WIDTH,
+          IMAGE.HEIGHT,
       );
       const canvasContext = canvas.getContext('2d');
       const { font, fontSize, message, color } = ctx.request.query;
@@ -52,15 +51,21 @@ const generateImage = async ctx => {
       canvasContext.fillStyle = color;
       canvasContext.drawImage(
           image,
-          50,
           0,
-          IMAGE_BASE_DIMENSIONS.WIDTH,
-          IMAGE_BASE_DIMENSIONS.HEIGHT,
+          0,
+          IMAGE.WIDTH,
+          IMAGE.HEIGHT,
       );
       canvasContext.textAlign = 'center';
-      canvasContext.fillText(firstLine, 1020, 750);
-      canvasContext.fillText(secondLine, 1020, 830);
-      ctx.body = canvas.toBuffer(MIME_TYPES.PNG);
+
+      const firstLineHeight = ( IMAGE.HEIGHT / 2 ) + TEXT.LINE_HEIGHT;
+      const secondLineHeight = ( IMAGE.HEIGHT / 2 ) + 2 * TEXT.LINE_HEIGHT;
+
+      canvasContext.fillText(firstLine, IMAGE.WIDTH / 2, firstLineHeight);
+      canvasContext.fillText(secondLine, IMAGE.WIDTH / 2, secondLineHeight);
+      ctx.body = canvas.toBuffer(MIME_TYPES.PNG, {
+
+      });
       setResponseStatus(ctx, 200);
     })
     .catch(e => {
@@ -73,28 +78,67 @@ const generateImage = async ctx => {
 
 };
 
-const validateSchema = ctx => {
+const generateImageWithoutText = async ctx => {
+    const canvas = createCanvas(
+        IMAGE.WIDTH,
+        IMAGE.HEIGHT,
+    );
+    const canvasContext = canvas.getContext('2d');
+    const {font, fontSize, message, color} = ctx.request.query;
+    const [firstLine, secondLine] = message.split(LINE_END);
+
+    canvasContext.font = `${fontSize}px ${font}`;
+    canvasContext.fillStyle = color;
+    canvasContext.textAlign = 'center';
+    const firstLineHeight = ( IMAGE.HEIGHT / 2 ) + TEXT.LINE_HEIGHT;
+    const secondLineHeight = ( IMAGE.HEIGHT / 2 ) + 2 * TEXT.LINE_HEIGHT;
+
+    canvasContext.fillText(firstLine, IMAGE.WIDTH / 2, firstLineHeight);
+    canvasContext.fillText(secondLine, IMAGE.WIDTH / 2, secondLineHeight);
+    ctx.body = canvas.toBuffer(MIME_TYPES.PNG, {});
+    setResponseStatus(ctx, 200);
+};
+
+
+/**
+ * Validate query params respect the schema
+ * @param ctx {Object} - koa request context
+ * @param schema {Object} - Joi module schema
+ * @return {Boolean}
+ * */
+
+const validateSchema = (ctx, schema) => {
   const { query } = ctx.request;
 
-  const schema = Joi.object().keys({
-      templateId: Joi.number()
-      .integer()
-      .positive()
-      .required(),
-    message: Joi.string().max(40),
-    font: Joi.string(),
-    fontSize: Joi.number(),
-    color: Joi.string(),
-  });
-
-  const result = Joi.validate(query, schema);
+  const result = Joi.validate(query, Joi.object().keys(schema));
   return result.error === null;
 };
 
-exports.generateLockWithText = async ctx => {
-  if (!validateSchema(ctx)) {
-    return setResponseStatus(ctx, 400, 'Client error, invalid parameters');
-  }
 
-  return generateImage(ctx);
+exports.generateLockWithText = async ctx => {
+    const schema =  {
+        templateId: Joi.number()
+            .integer()
+            .positive()
+            .required(),
+        message: Joi.string().max(40),
+        font: Joi.string(),
+        fontSize: Joi.number(),
+        color: Joi.string(),
+    };
+
+  return validateSchema(ctx, schema) ? generateImage(ctx)
+      : setResponseStatus(ctx, 400, 'Client error, invalid parameters');
+
+};
+
+exports.generateTransparentText = async ctx => {
+    const schema = {
+        message: Joi.string().max(40),
+        font: Joi.string(),
+        fontSize: Joi.number(),
+        color: Joi.string(),
+    };
+     return validateSchema(ctx, schema) ? generateImageWithoutText(ctx)
+         : setResponseStatus(ctx, 400, 'Client error, invalid parameters');
 };
