@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "check": "npm run format && npm run lint",
-    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js",
+    "dev": "nodemon index.js",
     "format": "prettier --write \"**/*.+(js|yml|yaml|json)\"",
     "lint": "eslint .",
     "start": "node index.js",
