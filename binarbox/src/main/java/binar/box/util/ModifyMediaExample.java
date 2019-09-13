@@ -10,7 +10,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ShortBuffer;
+
+import static binar.box.util.ImageUtils.readImageFromURL;
 
 public class ModifyMediaExample {
 
@@ -75,16 +78,29 @@ public class ModifyMediaExample {
             System.out.println(frameNumber);
             BufferedImage image = event.getImage();
 
+            String resourceURL="http://localhost:8080/api/v1/generateText?font=Arial&fontSize=11&message=Love you Jenn{LINE_END}Great type What&color=%23000000";
+            InputStream lockWithTextFromURL= null;
+            try {
+                lockWithTextFromURL = readImageFromURL(resourceURL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 //            if (frameNumber.get()>2755) {
             if (frameNumber>240) {
                 // get the graphics for the image
 
                 // add PNG instead of text
-                ImageUtils.addTextToBufferedImage(
-                        image,
-                        "Love U",
-                        new Font("Candara", Font.BOLD, 45),
-                        Color.BLUE);
+//                ImageUtils.addTextToBufferedImage(
+//                        image,
+//                        "Love U",
+//                        new Font("Candara", Font.BOLD, 45),
+//                        Color.BLUE);
+                Graphics2D g = image.createGraphics();
+                try {
+                    g.drawImage(ImageIO.read(lockWithTextFromURL), image.getWidth()/2, image.getHeight()/2,null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             // call parent which will pass the video onto next tool in chain
