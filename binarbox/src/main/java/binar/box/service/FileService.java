@@ -282,7 +282,7 @@ public class FileService {
 	}
 
 	private void drawLockOnPanel(List<Image> rescaledLocks, Graphics2D g, int i) {
-		g.drawImage(rescaledLocks.get(1),
+		g.drawImage(rescaledLocks.get(20),
 				IntersectionUtil.bridgeIntersections.get(i).getX()-196,
 				IntersectionUtil.bridgeIntersections.get(i).getY()-68,
 				null);
