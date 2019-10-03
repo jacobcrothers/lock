@@ -111,7 +111,6 @@ export class PanelsComponent implements OnInit {
 
   chooseSection(event) {
     event.preventDefault();
-    console.log("Event dispatched");
     // send this to BE
     this.selectedSection = Number(event.target.id.split("-")[1]);
     this.addLockService.savePanelSection(this.selectedSection).subscribe(data => {

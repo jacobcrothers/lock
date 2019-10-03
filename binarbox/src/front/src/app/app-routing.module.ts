@@ -30,6 +30,9 @@ const routes = [{
     path: 'panels',
     component: PanelsComponent
 }, {
+    path: 'video',
+    component: VideoPlayerComponent
+}, {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
