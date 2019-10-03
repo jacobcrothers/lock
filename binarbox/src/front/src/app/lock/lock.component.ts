@@ -25,9 +25,11 @@ export class LockComponent implements OnInit {
     public selectedMessage: string;
     public pageParams: any;
     public formSubmitted: boolean;
+    public lockPrivacy: any;
     private lockInfo: Object;
 
     @ViewChild('closeModal') closeModal:ElementRef;
+
 
 
     constructor(
@@ -107,12 +109,25 @@ export class LockComponent implements OnInit {
         this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
     }
 
+    /**
+     * Insert LINE_END after first line in order to be able to generate the lock in the text on backend
+     * Input: Messsage on line 1 /n Message on line 2
+     * Output: Message on line 1 {LINE_END} Message on line 2
+     * @param {String} message
+     * @return {String} formattedMessage
+     * */
+    formatMessageWithLineDelimitator(message: String) {
+        return message.replace(/(\r\n|\n|\r)/gm,"{LINE_END}");
+    }
+
     saveLock(formValue) {
+        const message = this.formatMessageWithLineDelimitator(formValue['insertMessage'] || "");
         let createdLock = {
-            "message": formValue['insertMessage'],
+            "message": message,
             "lockTemplate": this.selectedLock['id'],
             "privateLock": formValue['privacy'] === "private" ? true : false
         };
+        console.log(this.formatMessageWithLineDelimitator(message));
         this.addLockService.saveLock(createdLock).subscribe(data => {
             this.lockInfo = data;
             this.addLockService.setLockId(data);
