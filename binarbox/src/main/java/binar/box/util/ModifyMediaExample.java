@@ -43,7 +43,7 @@ public class ModifyMediaExample {
         imageMediaTool.addListener(audioVolumeMediaTool);
         audioVolumeMediaTool.addListener(mediaWriter);
 
-        String resourceURL="http://localhost:8080/api/v1/generateText?font=Arial&fontSize=44&message=Love you Jenn{LINE_END}Great type What&color=%23000000";
+        String resourceURL="http://localhost:8080/api/v1/generateText?font=Arial&fontSize=60&message=1234567890123{LINE_END}1234567890123&color=%23000000";
         String normalizedURL= resourceURL.replaceAll("\\s", "%20");
         try {
             InputStream lockWithTextInputStream = readImageFromURL(normalizedURL);
@@ -86,7 +86,7 @@ public class ModifyMediaExample {
 
         if (frameNumber>240) {
             Graphics2D g = image.createGraphics();
-            g.drawImage(lockWithTextFromURL, 720, 520,null);
+            g.drawImage(lockWithTextFromURL, 0, 0,null);
             // call parent which will pass the video onto next tool in chain
         }
         super.onVideoPicture(event);

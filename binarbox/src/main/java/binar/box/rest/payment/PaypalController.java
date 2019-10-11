@@ -1,4 +1,4 @@
-package binar.box.rest;
+package binar.box.rest.payment;
 
 import binar.box.dto.payment.PaypalDTO;
 import binar.box.service.payment.PaypalService;

@@ -10,12 +10,12 @@ const {
   TEXT,
 } = require('./constants');
 
-registerFont(
-  '/Users/razvan/Work/Lockbridges/lock/binarbox/src/image-generator/assets/fonts/roboto/Roboto-Regular.ttf',
-  {
-    family: 'Roboto',
-  },
-);
+// registerFont(
+//   '/Users/razvan/Work/Lockbridges/lock/binarbox/src/image-generator/assets/fonts/roboto/Roboto-Regular.ttf',
+//   {
+//     family: 'Roboto',
+//   },
+// );
 
 const setResponseStatus = (ctx, status, message) => {
   ctx.status = status;
@@ -91,8 +91,8 @@ const generateImageWithoutText = async ctx => {
   const firstLineHeight = IMAGE_WITHOUT_TEXT.HEIGHT / 2 + TEXT.LINE_HEIGHT_WITHOUT_IMAGE;
   const secondLineHeight = IMAGE_WITHOUT_TEXT.HEIGHT / 2 + 2 * TEXT.LINE_HEIGHT_WITHOUT_IMAGE;
 
-  canvasContext.fillText(firstLine, IMAGE_WITHOUT_TEXT.WIDTH / 2, firstLineHeight);
-  canvasContext.fillText(secondLine, IMAGE_WITHOUT_TEXT.WIDTH / 2, secondLineHeight);
+  canvasContext.fillText(firstLine, IMAGE_WITHOUT_TEXT.WIDTH / 2 + 15, firstLineHeight);
+  canvasContext.fillText(secondLine, IMAGE_WITHOUT_TEXT.WIDTH / 2 + 15, secondLineHeight);
   ctx.body = canvas.toBuffer(MIME_TYPES.PNG, {});
   setResponseStatus(ctx, 200);
 };
