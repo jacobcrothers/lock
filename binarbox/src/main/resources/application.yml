@@ -84,5 +84,10 @@ stripe:
   public.key: pk_test_9Mmg0Q2xkKB9TR2bDfx71Dnb
   secret.key: sk_test_DdzEdTIMYETHliRVtbKB6aJX
 
+smartbill:
+  username: binarboxsrl@gmail.com
+  token: c5d32e88aed2c4a7b2bd7cb028d4a854
+  apiURL: https://ws.smartbill.ro
+
 panelMaxLocks: 30
 
