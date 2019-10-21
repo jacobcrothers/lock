@@ -11,7 +11,7 @@ const IMAGE_WITHOUT_TEXT = {
 
 const TEXT = {
   LINE_HEIGHT: 15,
-  LINE_HEIGHT_WITHOUT_IMAGE: 52
+  LINE_HEIGHT_WITHOUT_IMAGE: 62
 };
 
 const MIME_TYPES = {
@@ -25,7 +25,7 @@ const HTTP_HEADERS = {
   CONTENT_TYPE: 'Content-Type',
 };
 
-const API_URL = 'https://localhost:6060/api/v0/download/file/{LOCK_ID}';
+const API_URL = 'https://localhost:6060/api/v0/download/file/{FILE_ID}';
 
 const FONT = {
   ARIAL: 'Arial',

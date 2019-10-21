@@ -47,7 +47,7 @@ const setResponseStatus = (ctx, status, message) => {
 
 const generateImage = async ctx => {
   const { templateId } = ctx.query;
-  const imageURL = API_URL.replace('{LOCK_ID}', ctx.query.templateId);
+  const imageURL = API_URL.replace('{FILE_ID}', ctx.query.templateId);
   await loadImage(imageURL, {})
     .then(image => {
       const canvas = createCanvas(IMAGE_WITH_TEXT.WIDTH, IMAGE_WITH_TEXT.HEIGHT);
@@ -91,8 +91,8 @@ const generateImageWithoutText = async ctx => {
   const firstLineHeight = IMAGE_WITHOUT_TEXT.HEIGHT / 2 + TEXT.LINE_HEIGHT_WITHOUT_IMAGE;
   const secondLineHeight = IMAGE_WITHOUT_TEXT.HEIGHT / 2 + 2 * TEXT.LINE_HEIGHT_WITHOUT_IMAGE;
 
-  canvasContext.fillText(firstLine, IMAGE_WITHOUT_TEXT.WIDTH / 2, firstLineHeight);
-  canvasContext.fillText(secondLine, IMAGE_WITHOUT_TEXT.WIDTH / 2, secondLineHeight);
+  canvasContext.fillText(firstLine, IMAGE_WITHOUT_TEXT.WIDTH  / 2  + 15 , firstLineHeight);
+  canvasContext.fillText(secondLine, IMAGE_WITHOUT_TEXT.WIDTH / 2 + 15, secondLineHeight);
   ctx.body = canvas.toBuffer(MIME_TYPES.PNG, {});
   setResponseStatus(ctx, 200);
 };
