@@ -34,6 +34,7 @@ export class AddLockService {
         return this.http.post(this.saveLockUrl, lock);
     }
 
+
     savePanelSection(sectionId: Number) {
         this.saveLockSectionUrl = this.saveLockSectionUrl
             .replace('{lockId}', this._lockId)
