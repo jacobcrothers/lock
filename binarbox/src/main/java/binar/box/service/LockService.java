@@ -202,15 +202,26 @@ public class LockService {
 				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE))
 				.findAny()
 				.orElseThrow(() -> new LockBridgesException("Lock partialy erased image not found","partial.lock.not.found"));
+		Long templateId = lockFile.getId();
 
-		String resourceURL="http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=42.5&message=Love you Jenn{LINE_END}Great type What&lockId=22&color=%23FFFFFF";
+		String message = lock.getMessage();
 
-		InputStream lockWithTextFromURL = readImageFromURL(resourceURL);
+		StringBuilder url = new StringBuilder("http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=")
+				.append(message)
+				.append("&templateId=")
+				.append(templateId)
+		        .append("&color=%23FF99DD");
+
+//		String resourceURL="http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=Love%20you%20Jenn{LINE_END}Esti%20grasa&templateId=18&color=%23FF99DD";
+
+		InputStream lockWithTextFromURL = readImageFromURL(url.toString());
 
 		File sqlFile = storeFile(lockFile.getFileName(), lockWithTextFromURL);
 //		File sqlFile = storeFile(lockFile.getFileName(), lockImage.getInputStream());
 
 		lock.getFiles().add(fileRepository.save(sqlFile));
+
+		lockRepository.save(lock);
 //		TODO: Add glitter file
 	}
 

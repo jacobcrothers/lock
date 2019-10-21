@@ -7,9 +7,6 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class LockStepOneDTO {
-    //TODO: ADD MULTIPART FILE FOR PROCESSED LOCK
-    MultipartFile lockImageWithText;
-
     private Long id;
 
     @NotNull

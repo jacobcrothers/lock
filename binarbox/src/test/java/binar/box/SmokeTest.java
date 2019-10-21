@@ -1,6 +1,8 @@
 package binar.box;
 
 import binar.box.rest.*;
+import binar.box.rest.payment.PaypalController;
+import binar.box.rest.payment.StripeController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

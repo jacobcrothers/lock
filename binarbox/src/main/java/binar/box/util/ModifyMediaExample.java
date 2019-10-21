@@ -17,11 +17,11 @@ import static binar.box.util.ImageUtils.readImageFromURL;
 
 public class ModifyMediaExample {
 
-    private static final String inputFilename = "C:\\Users\\Andrei\\Desktop\\pod14test.mp4";
-    private static final String outputFilename = "C:\\Users\\Andrei\\Desktop\\pod14Text.mp4";
+    private static final String inputFilename = "C:\\Users\\Andrei\\Desktop\\movie.mp4";
+    private static final String outputFilename = "C:\\Users\\Andrei\\Desktop\\movieResult.mp4";
     private static final String imageFilename = "C:\\Users\\Andrei\\Desktop\\lacatTest.png";
 
-    private IAudioResampler audioResampler = null;
+    private static BufferedImage lockWithTextFromURL = null;
 
     public static void main(String[] args) {
 
@@ -35,13 +35,23 @@ public class ModifyMediaExample {
                 ToolFactory.makeWriter(outputFilename, mediaReader);
 
         IMediaTool imageMediaTool = new StaticImageMediaTool(imageFilename);
-        IMediaTool audioVolumeMediaTool = new VolumeAdjustMediaTool(0.1);
+        IMediaTool audioVolumeMediaTool = new StaticImageMediaTool.VolumeAdjustMediaTool(0.1);
 
         // create a tool chain:
         // reader -> addStaticImage -> reduceVolume -> writer
         mediaReader.addListener(imageMediaTool);
         imageMediaTool.addListener(audioVolumeMediaTool);
         audioVolumeMediaTool.addListener(mediaWriter);
+
+        String resourceURL="http://localhost:8080/api/v1/generateText?font=Arial&fontSize=60&message=1234567890123{LINE_END}1234567890123&color=%23000000";
+        String normalizedURL= resourceURL.replaceAll("\\s", "%20");
+        try {
+            InputStream lockWithTextInputStream = readImageFromURL(normalizedURL);
+            lockWithTextFromURL = ImageIO.read(lockWithTextInputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         while (mediaReader.readPacket() == null) ;
 
@@ -68,46 +78,18 @@ public class ModifyMediaExample {
 
         @Override
         public void onVideoPicture(IVideoPictureEvent event) {
-//            frameNumber.getAndIncrement();
-            frameNumber++;
-//            System.out.println(frameNumber.get());
+        frameNumber++;
+        /// COPY THE SAME IMAGE AND RETURN IT EVERY TIME
 
+        System.out.println(frameNumber);
+        BufferedImage image = event.getImage();
 
-            /// COPY THE SAME IMAGE AND RETURN IT EVERY TIME
-
-            System.out.println(frameNumber);
-            BufferedImage image = event.getImage();
-
-            String resourceURL="http://localhost:8080/api/v1/generateText?font=Arial&fontSize=11&message=Love you Jenn{LINE_END}Great type What&color=%23000000";
-            InputStream lockWithTextFromURL= null;
-            try {
-                lockWithTextFromURL = readImageFromURL(resourceURL);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-//            if (frameNumber.get()>2755) {
-            if (frameNumber>240) {
-                // get the graphics for the image
-
-                // add PNG instead of text
-//                ImageUtils.addTextToBufferedImage(
-//                        image,
-//                        "Love U",
-//                        new Font("Candara", Font.BOLD, 45),
-//                        Color.BLUE);
-                Graphics2D g = image.createGraphics();
-                try {
-                    g.drawImage(ImageIO.read(lockWithTextFromURL), image.getWidth()/2, image.getHeight()/2,null);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
+        if (frameNumber>240) {
+            Graphics2D g = image.createGraphics();
+            g.drawImage(lockWithTextFromURL, 0, 0,null);
             // call parent which will pass the video onto next tool in chain
-            super.onVideoPicture(event);
-
         }
-
+        super.onVideoPicture(event);
     }
 
     private static class VolumeAdjustMediaTool extends MediaToolAdapter {
@@ -131,6 +113,7 @@ public class ModifyMediaExample {
 
             // call parent which will pass the audio onto next tool in chain
             super.onAudioSamples(event);
+            }
         }
     }
 }

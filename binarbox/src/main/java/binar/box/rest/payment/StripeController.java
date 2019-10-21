@@ -1,4 +1,4 @@
-package binar.box.rest;
+package binar.box.rest.payment;
 
 import binar.box.dto.payment.CardDTO;
 import binar.box.dto.payment.StripeDTO;
