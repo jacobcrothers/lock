@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "format": "prettier --write \"**/*.+(js|yml|yaml|json)\"",
     "lint": "eslint .",
-    "start": "node index.js",
+    "start": "node --inspect index.js",
     "test": "NODE_ENV=test jest'"
   },
   "devDependencies": {
