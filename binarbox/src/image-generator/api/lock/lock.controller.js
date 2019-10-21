@@ -47,7 +47,7 @@ const setResponseStatus = (ctx, status, message) => {
 
 const generateImage = async ctx => {
   const { templateId } = ctx.query;
-  const imageURL = API_URL.replace('{LOCK_ID}', ctx.query.templateId);
+  const imageURL = API_URL.replace('{FILE_ID}', ctx.query.templateId);
   await loadImage(imageURL, {})
     .then(image => {
       const canvas = createCanvas(IMAGE_WITH_TEXT.WIDTH, IMAGE_WITH_TEXT.HEIGHT);

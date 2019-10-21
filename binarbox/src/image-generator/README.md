@@ -8,3 +8,9 @@ http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=42.5&message=Love
 
 
 // DB data -> fileName (S3) pattern: erasedTemplate
+
+
+//TODO
+
+Lock with text -> 420 / 300 // 
+text without lock -> 1920 / 1080

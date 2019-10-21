@@ -104,6 +104,7 @@ export class LockComponent implements OnInit {
     
     chooseLock(lock) {
         this.selectedLock = lock;
+
         // console.log('selected lock---', this.selectedLock);
         this.lockId = lock.id;
         this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
