@@ -267,7 +267,7 @@ public class FileService {
 
         Graphics2D g = bridgePicBuffered.createGraphics();
 
-        for (int i = IntersectionUtil.bridgeIntersections.size() - 1; i> 0; i-=Math.random() * 4 + 1) {
+        for (int i =0;  i < IntersectionUtil.bridgeIntersections.size() ; i++) {
         	drawLockOnPanel(rescaledLocks, g, i);
 		}
 
@@ -283,8 +283,8 @@ public class FileService {
 
 	private void drawLockOnPanel(List<Image> rescaledLocks, Graphics2D g, int i) {
 		g.drawImage(rescaledLocks.get(1),
-				IntersectionUtil.bridgeIntersections.get(i).getX()-196,
-				IntersectionUtil.bridgeIntersections.get(i).getY()-68,
+				IntersectionUtil.bridgeIntersections.get(i).getX() - 163,
+				IntersectionUtil.bridgeIntersections.get(i).getY() - 214,
 				null);
 	}
 
