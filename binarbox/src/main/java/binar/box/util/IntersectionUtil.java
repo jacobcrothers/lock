@@ -16,22 +16,21 @@ public class IntersectionUtil {
     {
         Integer intersectionSize = 80;
 
-        Integer startY = 551;
+        final Integer startUpY = 551;
+        final Integer endUpY = 863;
         Integer step = 78 ;
         Integer halfStep = 39;
         Integer startXX= 148+halfStep;
         Integer startYY= 551+step;
-
+        int i=0;
         for(ValidInterval currentInterval : validIntervals) {
             Integer startX = currentInterval.start;
-            for (int x = 0; x < intersectionSize; x++) {
-                for (int y = 0; y < 4; y++) {
-                    if (x % 2 == 0) {
-                        bridgeIntersections.put(x * 4 + y, new Pair(startX + x * step + halfStep, startY + y * step));
-                    } else {
-                        bridgeIntersections.put(x * 4 + y, new Pair(startXX + x * step, startYY + y * step));
-                    }
+            while(startX < currentInterval.end) {
+                for(int y = startUpY; y< endUpY; ) {
+                    y= y+155;
+                    bridgeIntersections.put(i++, new Pair(startX ,  y ));
                 }
+                startX +=78;
             }
         }
     }
@@ -40,8 +39,8 @@ public class IntersectionUtil {
     public static List<ValidInterval> populateValidIntervals()
     {
         List<ValidInterval> validIntervals = new ArrayList<>();
-        validIntervals.add(new ValidInterval(149,1007));
-        validIntervals.add(new ValidInterval(1127,1985));
+        validIntervals.add(new ValidInterval(147,1007));
+        validIntervals.add(new ValidInterval(1127,1989));
         validIntervals.add(new ValidInterval(2103,2964));
         validIntervals.add(new ValidInterval(3079,3938));
 
