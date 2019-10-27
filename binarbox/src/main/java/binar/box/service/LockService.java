@@ -206,15 +206,12 @@ public class LockService {
 
 		String message = lock.getMessage();
 
-		StringBuilder url = new StringBuilder("http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=")
-				.append(message)
-				.append("&templateId=")
-				.append(templateId)
-		        .append("&color=%23FF99DD");
-
-//		String resourceURL="http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=Love%20you%20Jenn{LINE_END}Esti%20grasa&templateId=18&color=%23FF99DD";
-
-		InputStream lockWithTextFromURL = readImageFromURL(url.toString());
+		String url = "http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=" +
+				message +
+				"&templateId=" +
+				templateId +
+				"&color=%23FF99DD";
+		InputStream lockWithTextFromURL = readImageFromURL(url);
 
 		File sqlFile = storeFile(lockFile.getFileName(), lockWithTextFromURL);
 //		File sqlFile = storeFile(lockFile.getFileName(), lockImage.getInputStream());
