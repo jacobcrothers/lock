@@ -14,23 +14,25 @@ public class IntersectionUtil {
 
     static
     {
-        Integer intersectionSize = 80;
+        final int X_STEP = 78;
+        final int Y_STEP = 155;
 
-        final Integer startUpY = 551;
+        final Integer startUpY = 550;
+        final Integer startDownY = 628;
         final Integer endUpY = 863;
-        Integer step = 78 ;
-        Integer halfStep = 39;
-        Integer startXX= 148+halfStep;
-        Integer startYY= 551+step;
-        int i=0;
+        int nrOfIntersections = 0;
+        boolean isUp = true;
         for(ValidInterval currentInterval : validIntervals) {
             Integer startX = currentInterval.start;
             while(startX < currentInterval.end) {
-                for(int y = startUpY; y< endUpY; ) {
-                    y= y+155;
-                    bridgeIntersections.put(i++, new Pair(startX ,  y ));
+
+                int intiY = isUp? startUpY : startDownY;
+                for(int y = intiY; y < endUpY; ) {
+                    y= y + Y_STEP;
+                    bridgeIntersections.put(nrOfIntersections++, new Pair(startX ,  y ));
                 }
-                startX +=78;
+                isUp = ! isUp;
+                startX += X_STEP;
             }
         }
     }
