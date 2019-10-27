@@ -66,6 +66,9 @@ public class FileService {
 
 	private final UserService userService;
 
+	private final int AMAZON_X_DELTA_ERROR = 164;
+	private final int AMAZON_y_DELTA_ERROR = 214;
+
 	@Value("${file.domain}")
 	private String domain;
 
@@ -283,8 +286,8 @@ public class FileService {
 
 	private void drawLockOnPanel(List<Image> rescaledLocks, Graphics2D g, int i) {
 		g.drawImage(rescaledLocks.get(1),
-				IntersectionUtil.bridgeIntersections.get(i).getX() - 163,
-				IntersectionUtil.bridgeIntersections.get(i).getY() - 214,
+				IntersectionUtil.bridgeIntersections.get(i).getX() - AMAZON_X_DELTA_ERROR,
+				IntersectionUtil.bridgeIntersections.get(i).getY() - AMAZON_y_DELTA_ERROR,
 				null);
 	}
 
