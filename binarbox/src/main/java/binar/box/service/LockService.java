@@ -104,7 +104,7 @@ public class LockService {
 //
 //			saveTextOnImage(lock);
 //		else {
-			saveTextImageSent(lock, lockStepOneDTO.getLockImageWithText());
+			saveTextImageSent(lock);
 //		}
         return lockConvertor.toStepOneDTO(lockRepository.save(lock));
     }
@@ -197,7 +197,7 @@ public class LockService {
 //		TODO: Add glitter file
 	}
 
-	private void saveTextImageSent(Lock lock, MultipartFile lockImage) throws IOException {
+	private void saveTextImageSent(Lock lock) throws IOException {
 		File lockFile =  lock.getLockTemplate().getFiles().stream()
 				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE))
 				.findAny()
@@ -206,15 +206,12 @@ public class LockService {
 
 		String message = lock.getMessage();
 
-		StringBuilder url = new StringBuilder("http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=")
-				.append(message)
-				.append("&templateId=")
-				.append(templateId)
-		        .append("&color=%23FF99DD");
-
-//		String resourceURL="http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=Love%20you%20Jenn{LINE_END}Esti%20grasa&templateId=18&color=%23FF99DD";
-
-		InputStream lockWithTextFromURL = readImageFromURL(url.toString());
+		String url = "http://localhost:8080/api/v1/generateImage?font=Arial&fontSize=12&message=" +
+				message +
+				"&templateId=" +
+				templateId +
+				"&color=%23FF99DD";
+		InputStream lockWithTextFromURL = readImageFromURL(url);
 
 		File sqlFile = storeFile(lockFile.getFileName(), lockWithTextFromURL);
 //		File sqlFile = storeFile(lockFile.getFileName(), lockImage.getInputStream());
