@@ -104,7 +104,7 @@ public class LockService {
 //
 //			saveTextOnImage(lock);
 //		else {
-			saveTextImageSent(lock, lockStepOneDTO.getLockImageWithText());
+			saveTextImageSent(lock);
 //		}
         return lockConvertor.toStepOneDTO(lockRepository.save(lock));
     }
@@ -197,7 +197,7 @@ public class LockService {
 //		TODO: Add glitter file
 	}
 
-	private void saveTextImageSent(Lock lock, MultipartFile lockImage) throws IOException {
+	private void saveTextImageSent(Lock lock) throws IOException {
 		File lockFile =  lock.getLockTemplate().getFiles().stream()
 				.filter(f -> f.getType().equals(File.Type.PARTIALY_ERASED_TEMPLATE))
 				.findAny()
