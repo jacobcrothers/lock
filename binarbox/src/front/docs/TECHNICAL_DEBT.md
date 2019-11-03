@@ -1,3 +1,10 @@
+
+#TODO
+
+1. Send font, fontSize, color on lock request  (Add default in image-generator)
+2. Add endpoint to generate transparent font (only message). 
+
+
 # Technical Debt
 
 ####Things to be done for optimization

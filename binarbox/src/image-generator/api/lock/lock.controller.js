@@ -53,7 +53,10 @@ const generateImage = async ctx => {
       const canvas = createCanvas(IMAGE_WITH_TEXT.WIDTH, IMAGE_WITH_TEXT.HEIGHT);
       const canvasContext = canvas.getContext('2d');
       const { font, fontSize, message, color } = ctx.request.query;
-      const [firstLine, secondLine] = message.split(LINE_END);
+      const messageLines = message.split(LINE_END);
+
+      const firstLine = messageLines[0] || "";
+      const secondLine = messageLines[1] || "";
 
       //TODO Validate font and register new fonts
 
