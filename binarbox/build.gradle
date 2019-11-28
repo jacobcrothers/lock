@@ -20,6 +20,10 @@ group = 'binar.box'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 11
 
+war {
+    enabled = true
+}
+
 repositories {
     maven { url 'https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/' }
     mavenCentral()
@@ -31,7 +35,7 @@ configurations {
 
 bootRun {
     doFirst {
-        jvmArgs = ["-Dspring.profiles.active=" + "$profile"]
+        jvmArgs = ["-Dspring.profiles.active=" + "$profile", "-Dhttps.protocols=TLSv1.1,TLSv1.2"]
     }
 }
 dependencies {

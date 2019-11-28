@@ -25,24 +25,6 @@ public class PayUlController {
         this.payUService = payUService;
     }
 
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header") })
-//    @ApiOperation(value = "New PayPal payment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, code = 201)
-//    @RequestMapping(value = "/charge", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.CREATED)
-//    public ResponseEntity<PaypalDTO> createPayPalPayment(@RequestBody PaypalDTO payPalDTO) {
-//        return new ResponseEntity<>(payPalService.createTransaction(payPalDTO), HttpStatus.CREATED);
-//    }
-//
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header") })
-//    @ApiOperation(value = "PayPal refund payment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @RequestMapping(value = "/refund", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-//    public ResponseEntity refundTransaction(@RequestBody PaypalDTO payPalDTO) {
-//        payPalService.refundTransaction(payPalDTO);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header") })
     @ApiOperation(value = "PayU start payment -> redirect to 3rd party", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
