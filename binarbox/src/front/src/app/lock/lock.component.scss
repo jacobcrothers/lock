@@ -5,6 +5,9 @@
     padding: 30px;
     box-sizing: border-box;
 } */
+
+
+
 .carousel {
     background-color: #d0d0d04a;
     border-radius: 20px;
@@ -12,17 +15,12 @@
 }
 
 .carousel .carousel-item {
-    max-width: 80%;
-}
-
-.carousel .carousel-item img {
-    width: 80%;
-    margin-left: 10%;
 
 }
+
 
 .container-fluid .section-info {
-    margin-bottom: 3em;
+    margin-bottom: 1rem;
 }
 
 .lock {
@@ -61,14 +59,58 @@
     width: 100%;
 }
 
-.dorne-welcome-area .container-fit-screen {
-    max-width: unset;
-    margin: 0;
-    padding: 60px 0 0 0;
+.add-lock-container {
+    background: url("../../assets/images/background-img-big.jpg") no-repeat center center fixed;
+    /* width: 100%; */
+    background-size: cover;
+    height: 100%;
+    padding-top: 60px;
+}
+
+
+
+/* Second Screen Styles */
+.lock-slider .headline {
+    height: 10vh;
+}
+
+.lock-slider .slider-content {
+    height: calc(80vh - 60px);
+}
+
+.lock-slider .slider-navigation {
+    height: 10vh;
+    position: relative;
+}
+
+.slider-navigation button {
+    position: absolute;
+    top: 20%;
+    left: 0;
+}
+
+.slider-content .slide {
+    height: 100%;
     width: 100%;
+    text-align: center
+}
+
+.slide .carousel-inner, .carousel-inner .carousel-item {
     height: 100%;
 }
 
+.carousel-item img {
+    height: 90%;
+    margin: 5% auto;
+    width: auto;
+}
+
+
+.slider-navigation {
+
+}
+
+/* End Second Screen Styles */
 
 .customize-lock-form .lock-container {
     text-align: center;
@@ -129,13 +171,16 @@
 
 /* Carousel style */
 
+.background-container {
+    padding-top: 40px;
+}
+
 .justify-content-center {
     max-width: 100%;
 }
 
 .carousel-inner {
-    max-width: 80%;
-    margin-left: 11%
+    margin: 0 auto
 }
 
 /**
@@ -145,17 +190,42 @@
 **/
 
 @media (max-width: 767px) {
-    .dorne-welcome-area .container-fit-screen {
-        padding-top: 60px;
+
+    h4 {
+        font-size: 18px
     }
 }
 
 @media (max-width: 767px) and (min-width: 320px) {
-    .dorne-welcome-area .container-fit-screen {
-        padding-top: 60px !important;
+
+    .mobile .background-container {
+        padding-top: 40px;
+    }
+    .dorne-features-destinations-area {
+        padding: 0;
     }
 
-    .dorne-features-destinations-area {
-        padding: 0 !important;
+    .background-container > div {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    /* Reset Styles and make all divs fit the space*/
+    .background-container .customize-lock-form,
+    .background-container .lock-container,
+    .background-container .row {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .background-container .lock-container {
+        position: relative;
+    }
+
+    .lock-container img {
+        
     }
 }

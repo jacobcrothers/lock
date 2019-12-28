@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 @Component({
     selector: 'app-lock',
     templateUrl: './lock.component.html',
-    styleUrls: ['./lock.component.css']
+    styleUrls: ['./lock.component.scss']
 })
 export class LockComponent implements OnInit {
 
@@ -124,9 +124,9 @@ export class LockComponent implements OnInit {
     saveLock(formValue) {
         const message = this.formatMessageWithLineDelimitator(formValue['insertMessage'] || "");
         let createdLock = {
-            "message": message,
+            "message": encodeURIComponent(message),
             "lockTemplate": this.selectedLock['id'],
-            "privateLock": formValue['privacy'] === "private" ? true : false
+            "privateLock": formValue['privacy'] === "private"
         };
         console.log(this.formatMessageWithLineDelimitator(message));
         this.addLockService.saveLock(createdLock).subscribe(data => {
