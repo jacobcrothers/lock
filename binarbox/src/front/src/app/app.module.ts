@@ -38,6 +38,11 @@ import {VgControlsModule} from "videogular2/controls";
 import {VgOverlayPlayModule} from "videogular2/overlay-play";
 import {VgCoreModule} from "videogular2/core";
 import {VgStreamingModule} from "videogular2/streaming";
+import { FooterComponent } from './footer/footer.component';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { CookiePolicyComponent } from './alert-dialog/components/cookie-policy/cookie-policy.component';
+import { PrivacyPolicyComponent } from './alert-dialog/components/privacy-policy/privacy-policy.component';
+import { SocialLoginComponent } from './alert-dialog/components/social-login/social-login.component';
 
 
 // Configs
@@ -65,7 +70,12 @@ export function getAuthServiceConfigs() {
         LockDetailsComponent,
         PanelsComponent,
         SafeHtmlPipe,
-        VideoPlayerComponent
+        VideoPlayerComponent,
+        FooterComponent,
+        AlertDialogComponent,
+        CookiePolicyComponent,
+        PrivacyPolicyComponent,
+        SocialLoginComponent
     ],
     imports: [
         BrowserModule,
