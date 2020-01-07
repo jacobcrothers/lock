@@ -53,8 +53,6 @@ import static binar.box.domain.File.Type.PARTIALY_ERASED_TEMPLATE_WITH_TEXT;
 @Transactional
 public class FileService {
 
-
-
 	private static final long BRIDGE_ID = 4L;
 	private final FileRepository fileRepository;
 
@@ -67,6 +65,9 @@ public class FileService {
 	private final FileConverter fileConverter;
 
 	private final UserService userService;
+
+	private final int AMAZON_X_DELTA_ERROR = 164;
+	private final int AMAZON_y_DELTA_ERROR = 214;
 
 	@Value("${file.domain}")
 	private String domain;
@@ -269,7 +270,7 @@ public class FileService {
 
         Graphics2D g = bridgePicBuffered.createGraphics();
 
-        for (int i = 1; i< IntersectionUtil.bridgeIntersections.size()- 6; i+=15) {
+        for (int i =0;  i < IntersectionUtil.bridgeIntersections.size() ; i++) {
         	drawLockOnPanel(rescaledLocks, g, i);
 		}
 
@@ -284,9 +285,9 @@ public class FileService {
 	}
 
 	private void drawLockOnPanel(List<Image> rescaledLocks, Graphics2D g, int i) {
-		g.drawImage(rescaledLocks.get(i%14),
-				IntersectionUtil.bridgeIntersections.get(i).getX()-208,
-				IntersectionUtil.bridgeIntersections.get(i).getY()-50,
+		g.drawImage(rescaledLocks.get(1),
+				IntersectionUtil.bridgeIntersections.get(i).getX() - AMAZON_X_DELTA_ERROR,
+				IntersectionUtil.bridgeIntersections.get(i).getY() - AMAZON_y_DELTA_ERROR,
 				null);
 	}
 

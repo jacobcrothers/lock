@@ -7,7 +7,7 @@ import { BridgeSection } from "../../modal/BridgeSection";
 @Component({
   selector: 'app-panels',
   templateUrl: './panels.component.html',
-  styleUrls: ['./panels.component.css']
+  styleUrls: ['./panels.component.scss']
 })
 
 @HostListener('mousewheel', ['$event'])
@@ -39,12 +39,12 @@ export class PanelsComponent implements OnInit {
 
      this.panelSections = this.generateSections(1,{
          x1: 110,
-         y1: 736,
-         x2: 576,
-         y2: 920,
+         y1: 540,
+         x2: 578,
+         y2: 724,
          height: 189,
          width: 474,
-         offsetRight: 28,
+         offsetRight: 29,
          rows: 2
      });
 
@@ -111,7 +111,6 @@ export class PanelsComponent implements OnInit {
 
   chooseSection(event) {
     event.preventDefault();
-    console.log("Event dispatched");
     // send this to BE
     this.selectedSection = Number(event.target.id.split("-")[1]);
     this.addLockService.savePanelSection(this.selectedSection).subscribe(data => {

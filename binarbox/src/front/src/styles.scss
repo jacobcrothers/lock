@@ -1,11 +1,11 @@
 /* theme styles */
-@import 'theme/css/bootstrap/bootstrap.min.css';
-@import 'theme/css/others/animate.css';
-@import 'theme/css/others/magnific-popup.css';
+@import 'theme/css/bootstrap/bootstrap.min.scss';
+@import 'theme/css/others/animate.scss';
+@import 'theme/css/others/magnific-popup.scss';
 /* @import 'theme/css/others/owl.carousel.min.css'; */
 /* @import 'theme/css/others/font-awesome.min.css'; */
-@import 'theme/css/others/pe-icon-7-stroke.css';
-@import 'theme/css/responsive/responsive.css';
+@import 'theme/css/others/pe-icon-7-stroke.scss';
+@import 'theme/css/responsive/responsive.scss';
 
 
 /* Base CSS -mine css*/
@@ -336,10 +336,9 @@ li {
 }
 
 .section-heading h4 {
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1;
     color: #fff;
-    margin-bottom: 15px;
     text-transform: uppercase;
 }
 
@@ -509,7 +508,7 @@ li {
     position: fixed;
     width: 100%;
     z-index: 9999;
-    height: 120px;
+    height: 60px;
     top: 0;
     left: 0;
     z-index: 99;
@@ -583,7 +582,7 @@ li {
 
 /* Welcome Area CSS */
 
-.dorne-welcome-area {
+.background-container {
     width: 100%;
     height: 100%;
     position: relative;

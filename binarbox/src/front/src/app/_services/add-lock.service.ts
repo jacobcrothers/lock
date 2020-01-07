@@ -1,41 +1,44 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AddLockService {
 
-  private lockTypesUrl     = 'lock/category';
-  private saveLockUrl      = 'lock';
-  private savePanelcSectionUrl = 'lock/{lockId}/section/{sectionId}';
+    public createdLock: any;
+    private lockTypesUrl = 'lock/category';
+    private saveLockUrl = 'lock';
+    private saveLockSectionUrl = 'lock/{lockId}/section/{sectionId}';
+    private _lockId;
+
+    constructor(
+        private http: HttpClient,
+        private router: Router
+    ) {
+    }
+
+    getLockTypes() {
+        return this.http.get(this.lockTypesUrl, {});
+    }
 
 
-  /**
-   * TODO Update the endpoint, talk with andrei
-   * */
+    setLockId(response) {
+        this._lockId = response.id;
+    }
+
+    saveLock(lock) {
+        this.createdLock = lock;
+        return this.http.post(this.saveLockUrl, lock);
+    }
 
 
-  public createdLock: any;
-
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) { }
-
-  getLockTypes() {
-      return this.http.get(this.lockTypesUrl, {});
-  }
-
-  saveLock(lock) {
-    this.createdLock = lock;
-    this.savePanelcSectionUrl = this.savePanelcSectionUrl.replace('{lockId}', this.createdLock.lockTemplate);
-    return this.http.post(this.saveLockUrl, lock);
-  }
-
-  savePanelSection(sectionId) {
-    this.savePanelcSectionUrl = this.savePanelcSectionUrl.replace('{sectionId}', sectionId);
-    return this.http.put(this.savePanelcSectionUrl, {});
-  }
+    savePanelSection(sectionId: Number) {
+        this.saveLockSectionUrl = this.saveLockSectionUrl
+            .replace('{lockId}', this._lockId)
+            .replace('{sectionId}', sectionId.toString());
+        return this.http.put(this.saveLockSectionUrl, {});
+    }
 }

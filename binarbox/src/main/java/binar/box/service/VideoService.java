@@ -103,4 +103,10 @@ public class VideoService {
 
         return videoConverter.toDTO(video);
     }
+
+    public VideoDTO getVideoForLock(Long lockId) {
+        Video video = videoRepository.findByLockId(lockId).orElseThrow(()->new EntityNotFoundException("Video resource not found"));
+
+        return videoConverter.toDTO(video);
+    }
 }

@@ -22,24 +22,36 @@ import {
     AuthServiceConfig,
     FacebookLoginProvider,
 } from 'angular5-social-login';
-import { MessageComponent } from './message/message.component';
+import {MessageComponent} from './message/message.component';
 import {MessageService} from './_services/message.service';
-import { LockComponent } from './lock/lock.component';
-import { LockDetailsComponent } from './user/dashboard/locks/lock-details/lock-details.component';
-import { PanelsComponent } from './bridge/panels/panels.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DragScrollModule } from 'ngx-drag-scroll'
-import { PaymentService } from './_services/payment.service';
-import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
+import {LockComponent} from './lock/lock.component';
+import {LockDetailsComponent} from './user/dashboard/locks/lock-details/lock-details.component';
+import {PanelsComponent} from './bridge/panels/panels.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {DragScrollModule} from 'ngx-drag-scroll'
+import {PaymentService} from './_services/payment.service';
+import {SafeHtmlPipe} from './_pipes/safe-html.pipe';
+import {DeviceDetectorModule} from "ngx-device-detector";
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import {VgBufferingModule} from "videogular2/buffering";
+import {VgControlsModule} from "videogular2/controls";
+import {VgOverlayPlayModule} from "videogular2/overlay-play";
+import {VgCoreModule} from "videogular2/core";
+import {VgStreamingModule} from "videogular2/streaming";
+import { FooterComponent } from './footer/footer.component';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { CookiePolicyComponent } from './alert-dialog/components/cookie-policy/cookie-policy.component';
+import { PrivacyPolicyComponent } from './alert-dialog/components/privacy-policy/privacy-policy.component';
+import { SocialLoginComponent } from './alert-dialog/components/social-login/social-login.component';
 
 
 // Configs
 export function getAuthServiceConfigs() {
     const config = new AuthServiceConfig(
         [{
-                id: FacebookLoginProvider.PROVIDER_ID,
-                provider: new FacebookLoginProvider('227796454748370')
-            }
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('227796454748370')
+        }
         ]);
     return config;
 }
@@ -57,7 +69,13 @@ export function getAuthServiceConfigs() {
         LockComponent,
         LockDetailsComponent,
         PanelsComponent,
-        SafeHtmlPipe
+        SafeHtmlPipe,
+        VideoPlayerComponent,
+        FooterComponent,
+        AlertDialogComponent,
+        CookiePolicyComponent,
+        PrivacyPolicyComponent,
+        SocialLoginComponent
     ],
     imports: [
         BrowserModule,
@@ -68,7 +86,14 @@ export function getAuthServiceConfigs() {
         IconsModule,
         SocialLoginModule,
         NgbModule,
-        DragScrollModule
+        DragScrollModule,
+        BrowserModule,
+        VgCoreModule,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule,
+        VgStreamingModule,
+        DeviceDetectorModule.forRoot()
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

@@ -1,9 +1,13 @@
 <div class="video-background">
     <div class="video-foreground">
-        <iframe 
-            src="https://www.youtube.com/embed/9nKydzHIWTA?controls=0&playlist=9nKydzHIWTA&showinfo=0&rel=0&autoplay=1&loop=1&mute=1" 
-            frameborder="0" 
-            allowfullscreen>
+
+        <iframe *ngIf="this.showMobileVideo == false"
+                src="https://www.youtube.com/embed/9nKydzHIWTA?controls=0&playlist=9nKydzHIWTA&showinfo=0&rel=0&autoplay=1&loop=1&mute=1"
+                frameborder="0"
+                allowfullscreen>
         </iframe>
+        <video *ngIf="this.showMobileVideo == true" autoplay loop>
+            <source src="../../../../assets/mobile-video.mp4">
+        </video>
     </div>
 </div>

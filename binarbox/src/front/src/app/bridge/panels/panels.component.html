@@ -4,7 +4,7 @@
 
         <!-- No scroll -->
         <img class="bridge-img"
-             (touchmove)="onMousewheel($event)" 
+             (touchmove)="onMousewheel($event)"
              (wheel)="onMousewheel($event)"
              src="https://api.lockbridges.com/api/v0/download/file/1"
              [hidden]="zoomCount != 0"
@@ -13,7 +13,7 @@
 
         <!-- First scroll -->
         <img class="bridge-img"
-            (touchmove)="onMousewheel($event)" 
+            (touchmove)="onMousewheel($event)"
             (wheel)="onMousewheel($event)"
             src="https://api.lockbridges.com/api/v0/download/file/2"
             [hidden]="zoomCount != 1"
@@ -21,7 +21,7 @@
 
         <!-- Second scroll -->
         <img class="bridge-img"
-            (touchmove)="onMousewheel($event)" 
+            (touchmove)="onMousewheel($event)"
             (wheel)="onMousewheel($event)"
             src="https://api.lockbridges.com/api/v0/download/file/3"
             [hidden]="zoomCount != 2"
@@ -30,14 +30,14 @@
         <!-- Full Scroll, interactive images-->
         <img class="bridge-img scroll-image"
             [style.width.px]="imageWidth"
-            (touchmove)="onMousewheel($event)" 
+            (touchmove)="onMousewheel($event)"
             (wheel)="onMousewheel($event)"
             src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"
             [hidden]="zoomCount != 3"
-            alt="" 
+            alt=""
             usemap="#image-map"/>
     </drag-scroll>
-    
+
     <map name="image-map" *ngIf="zoomCount === 3">
             <area *ngFor="let section of panelSections"
                   target="" alt="Section {{section.id}}" title="Section {{section.id}}" href=""

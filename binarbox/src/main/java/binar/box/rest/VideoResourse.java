@@ -12,9 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by Andrei Lazar on 5/18/2017.
- */
 @Api(value = "Video API", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping(value = Constants.API + "/video")
@@ -29,10 +26,10 @@ public class VideoResourse {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header")})
     @ApiOperation(value = "Get a temporarly PUT URL for uploading a video file and a temporarly PUT URL for uploading a thumbnail image for that video file", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, code = 201)
-    @RequestMapping(value = "/temporaryUploadUrl/carehome/{carehomeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VideoUploadDTO> getTemporaryUploadURL(@PathVariable Long carehomeId,
+    @RequestMapping(value = "/temporaryUploadUrl/lock/{lockId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VideoUploadDTO> getTemporaryUploadURL(@PathVariable Long lockId,
                                                                 @RequestParam(name = "videoName", required = true) String videoName) {
-        return new ResponseEntity<>(videoService.getUploadUrl(carehomeId, videoName), HttpStatus.OK);
+        return new ResponseEntity<>(videoService.getUploadUrl(lockId, videoName), HttpStatus.OK);
     }
 
     @ApiImplicitParams({
@@ -43,5 +40,12 @@ public class VideoResourse {
         return new ResponseEntity<>(videoService.confirmVideoSourceFileUpload(videoId), HttpStatus.OK);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "token value", dataType = "string", paramType = "header")})
+    @ApiOperation(value = "Get lock video")
+    @RequestMapping(value = "/lock/{lockId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VideoDTO> getVideoLock(@PathVariable Long lockId) {
+        return new ResponseEntity<>(videoService.getVideoForLock(lockId), HttpStatus.OK);
+    }
 
 }

@@ -1,0 +1,27 @@
+<div class="video-container container-fluid h-100">
+    <div class="row">
+        <h1>Congrats for you first video</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 offset-2">
+            <vg-player class="well well-lg">
+                <video #media
+                       [vgHls]="this.videoUrl"
+                       [vgHlsHeaders]="this.headers"
+                       id="my-video"
+                       type="video/mp4"
+                       crossorigin
+                       controls>
+                </video>
+            </vg-player>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Accusamus at beatae earum, eius et eum explicabo laboriosam magni molestias nostrum, quae quasi repellat reprehenderit sint.
+        </div>
+    </div>
+
+</div>
+

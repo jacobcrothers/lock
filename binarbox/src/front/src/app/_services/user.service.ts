@@ -62,7 +62,7 @@ export class UserService {
                 if (userData['token']) {
                     let loginBody = {
                         token: userData['token']
-                    }
+                    };
                     this.http.post(this.socialLoginUrl, loginBody).subscribe(() => {
                         if (UserService.setUserToken(userData['token'])) {
                             this.isUserLoggedIn$.next(true);

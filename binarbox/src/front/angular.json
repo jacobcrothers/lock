@@ -21,15 +21,18 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css",
-              "src/app/_icons/iconStyles.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.scss",
+              "node_modules/videogular2/fonts/videogular.scss",
+              "src/styles.scss",
+              "src/app/_icons/iconStyles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/hls.js/dist/hls.min.js",
               "node_modules/image-map-resizer/js/imageMapResizer.min.js",
+              "node_modules/hls.js/dist/hls.min.js",
               "vendors/jquery.maphilight.min.js",
               "vendors/mapoid.min.js"
             ]
@@ -57,7 +60,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lock-bridges:build"
+            "browserTarget": "lock-bridges:build",
+            "port": 4200
           },
           "configurations": {
             "production": {
@@ -134,7 +138,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

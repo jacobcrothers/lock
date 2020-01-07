@@ -6,14 +6,16 @@ import { Location } from '@angular/common';
 @Component({
     selector: 'app-lock',
     templateUrl: './lock.component.html',
-    styleUrls: ['./lock.component.css']
+    styleUrls: ['./lock.component.scss']
 })
 export class LockComponent implements OnInit {
 
     public lockType: string;
     public lockId = 0;
     public locks: Array<any> = [];
-    public selectedLock = {};
+    public selectedLock = {
+        filesDTO: undefined
+    };
     public selectedLockCategory = {};
     public params = {};
     public lockCategories: any;
@@ -23,8 +25,12 @@ export class LockComponent implements OnInit {
     public selectedMessage: string;
     public pageParams: any;
     public formSubmitted: boolean;
+    public lockPrivacy: any;
+    private lockInfo: Object;
 
     @ViewChild('closeModal') closeModal:ElementRef;
+
+
 
     constructor(
         private route: ActivatedRoute,
@@ -98,18 +104,34 @@ export class LockComponent implements OnInit {
     
     chooseLock(lock) {
         this.selectedLock = lock;
+
         // console.log('selected lock---', this.selectedLock);
         this.lockId = lock.id;
         this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
     }
 
+    /**
+     * Insert LINE_END after first line in order to be able to generate the lock in the text on backend
+     * Input: Messsage on line 1 /n Message on line 2
+     * Output: Message on line 1 {LINE_END} Message on line 2
+     * @param {String} message
+     * @return {String} formattedMessage
+     * */
+    formatMessageWithLineDelimitator(message: String) {
+        return message.replace(/(\r\n|\n|\r)/gm,"{LINE_END}");
+    }
+
     saveLock(formValue) {
+        const message = this.formatMessageWithLineDelimitator(formValue['insertMessage'] || "");
         let createdLock = {
-            "message": formValue['insertMessage'],
+            "message": encodeURIComponent(message),
             "lockTemplate": this.selectedLock['id'],
-            "privateLock": formValue['privacy'] === "private" ? true : false
+            "privateLock": formValue['privacy'] === "private"
         };
+        console.log(this.formatMessageWithLineDelimitator(message));
         this.addLockService.saveLock(createdLock).subscribe(data => {
+            this.lockInfo = data;
+            this.addLockService.setLockId(data);
             this.router.navigate([`/panels`] );
         })
 

@@ -42,24 +42,24 @@ export class BridgeSection {
      * @param height (Optional) overwritten height, in case this is not defined with take the current BridgeSection height
      * @returns {BridgeSection}
      * */
-    getNextSection(id: number, offsetRight: number, offsetBottom: number, width?: number, height?: number, ) : BridgeSection {
+    getNextSection(id: number, offsetRight: number, offsetBottom: number, width?: number, height?: number,): BridgeSection {
         const sectionHeight = height || this.getCurrentHeight();
         const sectionWidth = width || this.getCurrentWidth();
 
 
         const next_x1 = this.x2 + offsetRight;
-        const next_y1 =  this.y1 + offsetBottom;
-        const next_x2 =  next_x1 + sectionWidth;
+        const next_y1 = this.y1 + offsetBottom;
+        const next_x2 = next_x1 + sectionWidth;
         const next_y2 = next_y1 + sectionHeight;
 
         return new BridgeSection(id, next_x1, next_y1, next_x2, next_y2);
     }
 
 
-     /**
-      * Returns the object used in template
-      * @returns {Object}
-      * */
+    /**
+     * Returns the object used in template
+     * @returns {Object}
+     * */
     getFlattenObject(): Object {
 
         return {

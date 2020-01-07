@@ -50,6 +50,9 @@ public class AWSVideoService {
     @Value("${aws.system.preset.hls.1m.id}")
     private String awsSystemPresetHls1mId;
 
+    @Value("${aws.system.preset.hls.2m.id}")
+    private String awsSystemPresetHls2mId;
+
     @Value("${aws.encoding.segment.duration.seconds}")
     private String awsEncodingSegmentDurationSeconds;
 
@@ -144,18 +147,20 @@ public class AWSVideoService {
         // setup the encoding job outputs using the HLS presets
 //		CreateJobOutput hls400kJobOutput = new CreateJobOutput().withKey("hls400k/hls400k").withPresetId(awsSystemPresetHls400kId)
 //				.withSegmentDuration(awsEncodingSegmentDurationSeconds);
-        CreateJobOutput hls600kJobOutput = new CreateJobOutput().withKey("hls600k/hls600k").withPresetId(awsSystemPresetHls600kId)
-                .withSegmentDuration(awsEncodingSegmentDurationSeconds);
-//		CreateJobOutput hls1mJobOutput = new CreateJobOutput().withKey("hls1m/hls1m").withPresetId(awsSystemPresetHls1mId)
-//				.withSegmentDuration(awsEncodingSegmentDurationSeconds);
+//        CreateJobOutput hls600kJobOutput = new CreateJobOutput().withKey("hls600k/hls600k").withPresetId(awsSystemPresetHls600kId)
+//                .withSegmentDuration(awsEncodingSegmentDurationSeconds);
+		CreateJobOutput hls1mJobOutput = new CreateJobOutput().withKey("hls2m/hls2m").withPresetId(awsSystemPresetHls2mId)
+				.withSegmentDuration(awsEncodingSegmentDurationSeconds);
 //		List<CreateJobOutput> encodingJobOutputs = Arrays.asList(hls400kJobOutput, hls600kJobOutput, hls1mJobOutput);
-        List<CreateJobOutput> encodingJobOutputs = Arrays.asList(hls600kJobOutput);
+//        List<CreateJobOutput> encodingJobOutputs = Arrays.asList(hls600kJobOutput);
+        List<CreateJobOutput> encodingJobOutputs = Arrays.asList(hls1mJobOutput);
 
         // setup the master playlist which can be used to play encoded video using adaptive bitrate streaming
 //		CreateJobPlaylist playlist = new CreateJobPlaylist().withName("index").withFormat("HLSv3")
 //				.withOutputKeys(hls400kJobOutput.getKey(), hls600kJobOutput.getKey(), hls1mJobOutput.getKey());
         CreateJobPlaylist playlist = new CreateJobPlaylist().withName("index").withFormat("HLSv3")
-                .withOutputKeys(hls600kJobOutput.getKey());
+//                .withOutputKeys(hls600kJobOutput.getKey());
+                .withOutputKeys(hls1mJobOutput.getKey());
 
         // Create the job.
         CreateJobRequest createJobRequest = new CreateJobRequest().withPipelineId(awsEncodingPipelineId).withInput(encodingJobInput)
@@ -175,7 +180,7 @@ public class AWSVideoService {
      * @return
      */
     private String generateStreamingURL(String streamingFolder) {
-        return "http://" + awsCloudFrontDistributionUrl + "/" + streamingFolder + "/hls600k/hls600k.m3u8";
+        return "http://" + awsCloudFrontDistributionUrl + "/" + streamingFolder + "/hls2m/hls2m.m3u8";
     }
 
     /**
