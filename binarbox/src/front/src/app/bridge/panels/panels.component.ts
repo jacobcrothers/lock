@@ -7,7 +7,7 @@ import { BridgeSection } from "../../modal/BridgeSection";
 @Component({
   selector: 'app-panels',
   templateUrl: './panels.component.html',
-  styleUrls: ['./panels.component.css']
+  styleUrls: ['./panels.component.scss']
 })
 
 @HostListener('mousewheel', ['$event'])

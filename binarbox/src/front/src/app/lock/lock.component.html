@@ -1,9 +1,8 @@
-<section class="dorne-welcome-area bg-img bg-overlay"
+<section class="background-container bg-img bg-overlay"
          style="background-image: url(../../../assets/images/background-img-big.jpg);">
     <div class="container container-fit-screen">
-        <div class="h-100">
-            <div class="row h-100 align-items-center justify-content-center">
-                <section class="dorne-features-destinations-area">
+            <div class="row">
+
                     <!-- Choose category area -->
                     <div class="container-fluid" *ngIf="!lockType">
                         <div class="row section-info">
@@ -17,7 +16,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-4">
+                        <div class="row">
                             <div class="col-12">
                                 <div class="features-slides owl-carousel slides-container">
                                     <!-- Single Features Area -->
@@ -38,17 +37,16 @@
                     </div>
 
                     <!-- Choose lock area -->
-                    <div class="container-fluid" *ngIf="lockType && !lockId">
-                        <div class="row mb-4">
+                    <div class="container-fluid lock-slider" *ngIf="lockType && !lockId">
+                        <div class="row headline">
                             <div class="col-12">
                                 <div class="section-heading dark text-center">
-                                    <h4>Add a lock</h4>
-                                    <p>Now, choose your lock</p>
-                                    <p>Check out those locks</p>
+                                    <h4>Now, choose your lock</h4>
+                                    <p>Check out those models</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-4">
+                        <div class="row slider-content">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -58,7 +56,7 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item" *ngFor="let lock of locks; let i = index"
                                          (click)="chooseLock(lock)" [ngClass]="{'active' : !i}">
-                                        <img class="d-block w-100" [src]="lock.filesDTO[0].urlToFile" alt="First slide">
+                                        <img [src]="lock.filesDTO[0].urlToFile" alt="First slide">
                                     </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
@@ -73,7 +71,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="row mb-4">
+                        <div class="row slider-navigation">
                             <div class="col-12">
                                 <button class="btn btn-outline-primary button-outline" (click)="goBack('lockType')">
                                     Back
@@ -130,9 +128,6 @@
                             </div>
                         </div>
                     </div>
-                </section>
             </div>
-        </div>
-
     </div>
 </section>

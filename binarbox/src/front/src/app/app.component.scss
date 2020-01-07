@@ -35,33 +35,58 @@ TODO:
 
 /** Mobile Overwritten style **/
 .header_area.mobile {
-    height: 60px;
+    height: 40px;
 }
-
+.header_area.mobile .navbar {
+    padding: 0;
+}
+.header_area.mobile .navbar-brand {
+    font-size: 1.3rem;
+    line-height: 40px;
+    padding: 0;
+}
 .header_area.mobile .logo-container {
     height: inherit;
 }
 
 .header_area.mobile .logo-container button {
+    padding: 0;
     margin: 0;
+    width: 30px;
+    height: 26px;
+    padding-bottom: 2px;
+}
+
+.header_area.mobile .logo-container button .navbar-toggler-icon {
+    margin-bottom: 5px;
+}
+
+.header_area.mobile  .navbar-toggler-icon {
+    height: 20px !important;
+    padding: 0;
 }
 
 
-
 @media screen and (min-width: 991px) {
-    #dorneNav {
+    #navigationMenu {
         margin-top: -45px;
     }
 }
 
 @media (max-width: 767px) {
-    #dorneNav {
-        top: 60px !important;
+    #navigationMenu {
+        top: 40px !important;
+        background-color: #F2F2F2;
+        color: #F23847;
     }
 
-    .dorne-welcome-area .container-fit-screen {
-        padding-top: 60px !important;
+    .background-container {
+        padding-top: 40px;
     }
+
+    /*.background-container .container-fit-screen {*/
+    /*    padding-top: 60px !important;*/
+    /*}*/
 
     .dorne-features-destinations-area {
         padding: 0 !important;
@@ -69,19 +94,19 @@ TODO:
 }
 
 @media (max-width: 991px) and (min-width: 768px) {
-    #dorneNav {
+    #navigationMenu {
         top: 60px !important;
     }
 }
 
 @media (max-width: 767px) and (min-width: 320px) {
-    #dorneNav {
-        top: 60px;
+    #navigationMenu {
+        top: 40px;
     }
 
-    .dorne-welcome-area .container-fit-screen {
-        padding-top: 60px !important;
-    }
+    /*.background-container .container-fit-screen {*/
+    /*    padding-top: 60px !important;*/
+    /*}*/
 
     .dorne-features-destinations-area {
         padding: 0 !important;

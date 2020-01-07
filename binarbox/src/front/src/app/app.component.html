@@ -8,15 +8,15 @@
                         <button class="navbar-toggler"
                                 type="button"
                                 data-toggle="collapse"
-                                data-target="#dorneNav"
-                                aria-controls="dorneNav"
+                                data-target="#navigationMenu"
+                                aria-controls="navigationMenu"
                                 aria-expanded="false"
                                 aria-label="Toggle navigation">
-                            <i-align-justify class="navbar-toggler-icon i-size-24"></i-align-justify>
+                            <i-align-justify class="navbar-toggler-icon" [ngClass]=" { 'i-size-24': this.isMobilePlatform != true, 'i-size-16': this.isMobilePlatform == true } "></i-align-justify>
                         </button>
                     </div>
                     <!-- Nav -->
-                    <div class="collapse navbar-collapse menu-container" id="dorneNav">
+                    <div class="collapse navbar-collapse menu-container" id="navigationMenu">
                         <ul class="navbar-nav mr-auto" id="dorneMenu">
                             <li class="nav-item" *ngIf="loggedIn">
                                 <a class="nav-link" routerLink="/dashboard" [routerLinkActive]="['activeLink']">Dashboard</a>
@@ -75,3 +75,6 @@
 </div>
 
 <app-message></app-message>
+
+
+<app-footer></app-footer>
