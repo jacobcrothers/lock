@@ -102,6 +102,7 @@
               "src/tsconfig.spec.json"
             ],
             "exclude": [
+                "**/src/**",
               "**/node_modules/**"
             ]
           }
