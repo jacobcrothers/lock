@@ -21,7 +21,7 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/videogular2/fonts/videogular.css",
               "src/styles.scss",
               "src/app/_icons/iconStyles.scss"
@@ -84,9 +84,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.scss",
               "src/styles.css",
-              "src/app/_icons/iconStyles.css"
+              "src/app/_icons/iconStyles.scss"
             ],
             "assets": [
               "src/assets",
