@@ -31,18 +31,18 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DragScrollModule} from 'ngx-drag-scroll'
 import {PaymentService} from './_services/payment.service';
 import {SafeHtmlPipe} from './_pipes/safe-html.pipe';
-import {DeviceDetectorModule} from "ngx-device-detector";
+import {DeviceDetectorModule} from 'ngx-device-detector';
 import { VideoPlayerComponent } from './video-player/video-player.component';
-import {VgBufferingModule} from "videogular2/buffering";
-import {VgControlsModule} from "videogular2/controls";
-import {VgOverlayPlayModule} from "videogular2/overlay-play";
-import {VgCoreModule} from "videogular2/core";
-import {VgStreamingModule} from "videogular2/streaming";
+import {VgBufferingModule} from 'videogular2/buffering';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgCoreModule} from 'videogular2/core';
+import {VgStreamingModule} from 'videogular2/streaming';
 import { FooterComponent } from './footer/footer.component';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
-import { CookiePolicyComponent } from './alert-dialog/components/cookie-policy/cookie-policy.component';
-import { PrivacyPolicyComponent } from './alert-dialog/components/privacy-policy/privacy-policy.component';
 import { SocialLoginComponent } from './alert-dialog/components/social-login/social-login.component';
+import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
+import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
 
 
 // Configs
@@ -73,9 +73,9 @@ export function getAuthServiceConfigs() {
         VideoPlayerComponent,
         FooterComponent,
         AlertDialogComponent,
-        CookiePolicyComponent,
-        PrivacyPolicyComponent,
-        SocialLoginComponent
+        SocialLoginComponent,
+        CookiesPolicyComponent,
+        PrivacyPolicyComponent
     ],
     imports: [
         BrowserModule,

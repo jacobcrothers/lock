@@ -9,7 +9,9 @@ import {LocksComponent} from './user/dashboard/locks/locks.component';
 import {SocialComponent} from './user/dashboard/social/social.component';
 import {LockComponent} from './lock/lock.component';
 import {PanelsComponent} from './bridge/panels/panels.component';
-import {VideoPlayerComponent} from "./video-player/video-player.component";
+import {VideoPlayerComponent} from './video-player/video-player.component';
+import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
+import {CookiesPolicyComponent} from './cookies-policy/cookies-policy.component';
 
 const routes = [{
     path: '',
@@ -32,6 +34,12 @@ const routes = [{
 }, {
     path: 'video',
     component: VideoPlayerComponent
+}, {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
+}, {
+    path: 'cookies-policy',
+    component: CookiesPolicyComponent
 }, {
     path: 'dashboard',
     component: DashboardComponent,
