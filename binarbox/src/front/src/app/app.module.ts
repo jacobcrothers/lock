@@ -34,10 +34,8 @@ import {VideoPlayerComponent} from './video-player/video-player.component';
 import {VgCoreModule} from 'videogular2/core';
 import {VgStreamingModule} from 'videogular2/streaming';
 
-import {FooterComponent} from './footer/footer.component';
-import {AlertDialogComponent} from './alert-dialog/alert-dialog.component';
-import {SocialLoginComponent} from './alert-dialog/components/social-login/social-login.component';
 import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
 
 // Configs
 export function getAuthServiceConfigs() {
@@ -64,9 +62,7 @@ export function getAuthServiceConfigs() {
         SafeHtmlPipe,
         VideoPlayerComponent,
         HeaderComponent,
-        FooterComponent,
-        AlertDialogComponent,
-        SocialLoginComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
