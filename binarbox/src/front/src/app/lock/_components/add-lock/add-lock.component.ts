@@ -166,6 +166,6 @@ export class AddLockComponent implements OnInit {
     }
 
     setColor(color: string) {
-        return color.replace('_', '').toLowerCase();
+        return color ? color.replace('_', '').toLowerCase() : 'lightgray';
     }
 }
