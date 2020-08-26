@@ -6,7 +6,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {SeeAllLocksComponent} from './_components/see-all-locks/see-all-locks.component';
 import {AddLockComponent} from './_components/add-lock/add-lock.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
         LockRoutingModule,
 
         NgbModule,
+        ReactiveFormsModule,
         FormsModule,
     ],
     declarations: [

@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate, OnInit {
         }
 
 
-        //TODO review this, as now the user is blocked into a empty screen
+        // TODO review this, as now the user is blocked into a empty screen
         // Redirect the user to the login page if not logged in
         this.router.navigate(['login']);
         return false;

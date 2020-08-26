@@ -2,6 +2,7 @@ import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/c
 import {ActivatedRoute, Router} from '@angular/router';
 import {AddLockService} from '../../../_services/add-lock.service';
 import {Location} from '@angular/common';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-add-lock',
@@ -11,6 +12,8 @@ import {Location} from '@angular/common';
 export class AddLockComponent implements OnInit {
     @ViewChild('closeModal') closeModal: ElementRef;
 
+    public addLockMessageForm: FormGroup;
+
     public lockType: string;
     public lockId = 0;
     public locks: Array<any> = [];
@@ -19,11 +22,9 @@ export class AddLockComponent implements OnInit {
     };
     public selectedLockCategory = {};
     public lockCategories: any;
-    // public predefinedMessages: Array<any> = [];
-    public selectedMessage: string;
     public pageParams: any;
-    public lockPrivacy: any;
     public isEllipticText: boolean;
+    // public predefinedMessages: Array<any> = [];
 
     private lockInfo: Object;
 
@@ -32,6 +33,7 @@ export class AddLockComponent implements OnInit {
         private router: Router,
         private addLockService: AddLockService,
         private location: Location,
+        private formBuilder: FormBuilder
     ) {
     }
 
@@ -48,6 +50,8 @@ export class AddLockComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.createForm();
+
         this.getCategories();
         this.route.params.subscribe((params) => {
             if (params) {
@@ -127,12 +131,17 @@ export class AddLockComponent implements OnInit {
         return message.replace(/(\r\n|\n|\r)/gm, '{LINE_END}');
     }
 
-    saveLock(formValue) {
-        const message = this.formatMessageWithLineDelimitator(formValue['insertMessage'] || '');
+    saveLock() {
+        if (!this.addLockMessageForm.valid) {
+            return;
+        }
+
+        const formValue = this.addLockMessageForm.value;
+        const message = this.formatMessageWithLineDelimitator(formValue.message || '');
         const createdLock = {
             'message': encodeURIComponent(message),
             'lockTemplate': this.selectedLock['id'],
-            'privateLock': formValue['privacy'] === 'private'
+            'privateLock': formValue.privateLock
         };
         // console.log(this.formatMessageWithLineDelimitator(message));
         this.addLockService.saveLock(createdLock).subscribe(data => {
@@ -165,7 +174,18 @@ export class AddLockComponent implements OnInit {
         this.isEllipticText = element.offsetWidth < element.scrollWidth;
     }
 
-    setColor(color: string) {
+    public setColor(color: string): string {
         return color ? color.replace('_', '').toLowerCase() : 'lightgray';
+    }
+
+    public clearForm() {
+        this.addLockMessageForm.reset();
+    }
+
+    private createForm() {
+        this.addLockMessageForm = this.formBuilder.group({
+            message: ['', Validators.required],
+            privateLock: [false]
+        });
     }
 }
