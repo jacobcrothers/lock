@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit {
     private deviceInfo;
     public showMobileVideo: boolean;
 
-    constructor(private deviceService: DeviceDetectorService
-    ) {
+    constructor(
+        private deviceService: DeviceDetectorService) {
     }
 
     ngOnInit() {
@@ -25,5 +25,4 @@ export class HomeComponent implements OnInit {
         this.deviceInfo = this.deviceService.getDeviceInfo();
         this.showMobileVideo = this.deviceService.isMobile() || this.deviceService.isTablet();
     }
-
 }

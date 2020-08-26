@@ -60,7 +60,7 @@ export class UserService {
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
                 if (userData['token']) {
-                    let loginBody = {
+                    const loginBody = {
                         token: userData['token']
                     };
                     this.http.post(this.socialLoginUrl, loginBody).subscribe(() => {

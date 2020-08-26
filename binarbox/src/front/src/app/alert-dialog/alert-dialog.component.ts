@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {CookiesPolicyComponent} from '../cookies-policy/cookies-policy.component';
-import {PrivacyPolicyComponent} from '../privacy-policy/privacy-policy.component';
+import {PrivacyPolicyComponent} from '../privacy/_components/privacy-policy/privacy-policy.component';
 
 @Component({
     selector: 'app-alert-dialog',
@@ -11,18 +10,18 @@ export class AlertDialogComponent implements OnInit {
 
 
     @ViewChild('closeModal') closeModal: ElementRef;
-    private component: CookiesPolicyComponent;
+    private component;
 
     constructor(type: String) {
         switch (type) {
             case 'COOKIE_POLICY':
-                this.component = new CookiesPolicyComponent();
+                // this.component = new CookiesPolicyComponent();
                 break;
             case 'PRIVACY_POLICY':
                 this.component = new PrivacyPolicyComponent();
                 break;
             case 'SOCIAL_LOGIN':
-                this.component = new CookiesPolicyComponent();
+                // this.component = new CookiesPolicyComponent();
                 break;
             default:
                 this.component = null;

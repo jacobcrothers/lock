@@ -1,43 +1,26 @@
-import {Component, OnInit, ElementRef, ViewChild, DoCheck} from '@angular/core';
-import {UserService} from './_services/user.service';
-import {Router} from '@angular/router';
-import {DeviceDetectorService} from "ngx-device-detector";
+import {Component, OnInit} from '@angular/core';
+import {NavigationStart, Router} from '@angular/router';
+import {filter} from 'rxjs/operators';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, DoCheck {
-    public collapseMenu = false;
-    public loggedIn: any = false;
-    public isMobilePlatform: boolean;
-    @ViewChild('closeModal') closeModal: ElementRef;
+export class AppComponent implements OnInit {
+
+    public showImgBg: boolean;
 
     constructor(
-        private userService: UserService,
         private router: Router,
-        private deviceService: DeviceDetectorService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
-        this.userService.isUserLoggedIn$.subscribe((loggedIn) => {
-            this.loggedIn = loggedIn;
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationStart)
+        ).subscribe((navigationStart: NavigationStart) => {
+            const isBaseURL = navigationStart.url === '/';
+            this.showImgBg = !isBaseURL;
         });
-        this.isMobilePlatform = this.deviceService.isTablet() || this.deviceService.isMobile();
     }
-
-    ngDoCheck() {
-        if (this.loggedIn) {
-            this.closeModal.nativeElement.click();
-        }
-    }
-
-    logout() {
-        localStorage.removeItem('token');
-        this.router.navigate([`/`]);
-        this.loggedIn = false;
-    }
-
 }

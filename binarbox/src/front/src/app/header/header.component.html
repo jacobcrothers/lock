@@ -1,3 +1,74 @@
-<p>
-  header works!
-</p>
+<header [ngClass]=" { 'mobile': this.isMobilePlatform == true, isMobilePlatform: undefined} "
+        class="header_area"
+        id="header">
+    <div class="h-100">
+        <div class="row h-100">
+            <div class="col-12 h-100">
+                <nav class="h-100 navbar navbar-expand-lg navbar-inverse bg-inverse">
+                    <div class="logo-container">
+                        <a class="navbar-brand" [routerLink]="'/'">Lock Bridges</a>
+                        <button aria-controls="navigationMenu"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                                class="navbar-toggler"
+                                data-target="#navigationMenu"
+                                data-toggle="collapse"
+                                type="button">
+                            <i-align-justify [ngClass]=" { 'i-size-24': this.isMobilePlatform != true, 'i-size-16': this.isMobilePlatform == true } "
+                                             class="navbar-toggler-icon"></i-align-justify>
+                        </button>
+                    </div>
+                    <!-- Nav -->
+                    <div class="collapse navbar-collapse menu-container" id="navigationMenu">
+                        <ul class="navbar-nav mr-auto" id="dorneMenu">
+                            <li *ngIf="loggedIn" class="nav-item">
+                                <a [routerLinkActive]="['activeLink']" class="nav-link" [routerLink]="'/dashboard'">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a [routerLinkActive]="['activeLink']" class="nav-link" [routerLink]="'/locks'">
+                                    See all locks
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a *ngIf="loggedIn" [routerLinkActive]="['activeLink']" class="nav-link"
+                                   routerLink="/locks/add-lock">Add a lock</a>
+                                <button *ngIf="!loggedIn" class="nav-link login-btn" data-target="#loginModal"
+                                        data-toggle="modal" type="button">Add a lock
+                                </button>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li *ngIf="loggedIn" class="nav-item">
+                                <button (click)="logout()" class="nav-link login-btn" type="button">Logout</button>
+                            </li>
+                            <li *ngIf="!loggedIn" class="nav-item">
+                                <button class="nav-link login-btn" data-target="#loginModal" data-toggle="modal"
+                                        type="button">Login
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-login></app-login>
+            </div>
+        </div>
+    </div>
+</div>
+

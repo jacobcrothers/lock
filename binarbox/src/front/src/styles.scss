@@ -5,9 +5,11 @@
 @import 'theme/css/others/pe-icon-7-stroke.scss';
 @import 'theme/css/responsive/responsive.scss';
 
-@import 'src/styles/grid-breakpoints';
-
 /* Base CSS -mine css*/
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --bridge-main-color: #FF9900;
 }
@@ -33,6 +35,37 @@ html, body {
 
 /* You can add global styles to this file, and also import other style files */
 
+
+::-webkit-scrollbar {
+    width: 25px;
+    height: 0;
+}
+
+.page main::-webkit-scrollbar-thumb {
+    height: 1em;
+    border: 0.5em solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    -webkit-border-radius: 1em;
+    background-color: rgba(145, 145, 145, .66);
+    -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.025);
+}
+
+.page main:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(145, 145, 145, .84);
+}
+
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+
+
 .h-100 {
     height: 100%;
 }
@@ -44,19 +77,32 @@ html, body {
 .flex {
     display: flex;
 
+    &--space-between {
+        justify-content: space-between;
+    }
+
     &--center {
-        align-items: center;
+        align-items: safe center;
+    }
+
+    &--horizontal {
+        flex-direction: column;
+    }
+
+    &--horizontal-center {
+        flex-direction: column;
+        justify-content: safe center;
     }
 
     &--vertical-center {
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: safe center;
+        justify-content: safe center;
     }
 
     &--center-center {
-        align-items: center;
-        justify-content: center;
+        align-items: safe center;
+        justify-content: safe center;
     }
 
     &--space-around {
@@ -68,10 +114,26 @@ html, body {
     }
 }
 
+.shadow-box {
+    border: 1px solid #0000001f;
+    border-radius: 20px;
+    background-image: linear-gradient(-35deg, #0000002e, #ffffff73);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.46), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    &.shadow-hover:hover {
+        border: none;
+        background-image: linear-gradient(0deg, #04040694, #ffffff3b);
+    }
+}
+
 .text {
     &--align-center {
         text-align: center;
     }
+}
+
+.modal-open .modal {
+    overflow: hidden;
 }
 
 .ng-invalid:not(form):not(.ng-untouched) {
@@ -89,38 +151,20 @@ html, body {
 
 .slides-container {
     display: flex;
-    flex-direction: row;
 }
 
-//.slides-container .slide-container {
-//    margin: 0 10px;
-//}
-.slides-container .slide-container .feature-content p {
+.slides-container .lock-box .feature-content p {
     color: #dedbdb;
 }
 
-.slides-container .slide-container .feature-content h5 {
+.slides-container .lock-box .feature-content h5 {
     color: #dedbdb;
 }
-
-
-/* Buttons */
-/* .btn-outline-primary {
-    border-color: #fff;
-    color: #fff;
-} */
 
 .button-outline {
     border-color: #fff;
     color: #fff;
 }
-
-.btn-outline-primary:hover {
-
-}
-
-
-
 
 /* Base CSS -theme css*/
 
@@ -372,6 +416,8 @@ li {
 .section-heading {
     position: relative;
     z-index: 1;
+
+    margin: 1rem 0;
 }
 
 .section-heading span {
@@ -429,7 +475,6 @@ li {
 .bg-overlay,
 .bg-overlay-9 {
     position: relative;
-    z-index: 1;
 }
 
 .bg-overlay:after,
@@ -440,8 +485,8 @@ li {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(14, 2, 35, 0.5);
-    z-index: -1;
+
+    background-image: linear-gradient(-225deg, #7900ff0a, #000000cc);
 }
 
 .bg-overlay-9:after {
@@ -549,53 +594,6 @@ li {
     border-radius: 20px;
     border: 2px solid #ccc9c9;
 }
-/* Header & Menu Area CSS */
-
-.header_area {
-    position: fixed;
-    width: 100%;
-    z-index: 9999;
-    height: 60px;
-    top: 0;
-    left: 0;
-    z-index: 99;
-    -webkit-transition-duration: 700ms;
-    transition-duration: 700ms;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    background: #00000038;
-}
-
-.sticky .header_area {
-    background-color: rgba(14, 2, 35, 0.9);
-    height: 80px;
-    z-index: 9999;
-    border-bottom: 1px solid transparent;
-}
-
-.navbar-brand {
-	color: #fff;
-	font-size: 24px;
-	font-weight: 700;
-	margin-right: 20px;
-}
-
-.navbar-brand:hover,
-.navbar-brand:focus {
-    color: #fff;
-    font-weight: 700;
-}
-
-.navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 15px;
-    padding-left: 15px;
-    color: #fff;
-    font-size: 15px;
-}
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-item.active .nav-link {
-    color: #7643ea;
-}
 
 .dorne-search-btn > a,
 .dorne-signin-btn > a {
@@ -628,20 +626,6 @@ li {
 }
 
 /* Welcome Area CSS */
-
-.background-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 100%;
-    padding: calc(45px + 1rem) 0 1rem 0;
-
-    z-index: 0;
-
-    @media (max-width: 998px) and (max-height: 998px) {
-        padding: calc(24px + 1rem) 0 1.9rem 0;
-    }
-}
 
 .hero-content h2 {
     color: #fff;
@@ -880,18 +864,6 @@ li {
     }
 }
 
-.slide-container {
-    // TODO: create a mixin. See article: https://css-tricks.com/approaches-media-queries-sass/
-    @media (max-width: 470px) {
-        margin-bottom: .5rem;
-        margin-right: 0;
-    }
-
-    @media (min-width: 470px) {
-        margin-bottom: 0;
-    }
-}
-
 .single-features-area .price-start p {
     position: absolute;
     top: 20px;
@@ -908,8 +880,8 @@ li {
 }
 
 .feature-content {
-    padding: 20px 30px;
-    border-top: 1px solid #b7b7b7;
+    padding: 10px 30px;
+    border-top: 1px solid #b7b7b742;
 }
 
 .feature-content .feature-title h5 {
@@ -962,10 +934,10 @@ li {
     display: flex;
     -webkit-box-align: center;
         -ms-flex-align: center;
-            align-items: center;
+            align-items: safe center;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
-            justify-content: center;
+            justify-content: safe center;
     -webkit-transition-duration: 500ms;
             transition-duration: 500ms;
 }
@@ -1022,10 +994,10 @@ li {
     display: flex;
     -webkit-box-align: center;
         -ms-flex-align: center;
-            align-items: center;
+            align-items: safe center;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
-            justify-content: center;
+            justify-content: safe center;
     -webkit-transition-duration: 500ms;
             transition-duration: 500ms;
 }
@@ -1434,7 +1406,7 @@ li {
     display: flex;
     -webkit-box-align: center;
         -ms-flex-align: center;
-            align-items: center;
+            align-items: safe center;
 }
 
 .single-listing-nav li a {
