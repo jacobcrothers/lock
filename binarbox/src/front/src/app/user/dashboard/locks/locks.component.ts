@@ -42,7 +42,7 @@ export class LocksComponent implements OnInit {
 
         this.locks[index]['selected'] = true;
 
-        console.log(this.locks);
+        // console.log(this.locks);
     }
 
 }

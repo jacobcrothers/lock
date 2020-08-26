@@ -1,114 +1,22 @@
-.main-menu {
+.background-container {
     position: absolute;
     width: 100%;
-    z-index: 400;
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-.wrapper {
     height: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow-y: hidden;
+    min-height: 100%;
+
+    overflow: hidden;
+    background-image: url("../assets/images/background-img-big.jpg");
+    background-attachment: fixed;
+
+    z-index: -1;
 }
 
-.login-btn {
-    background: transparent;
-    border: 0;
-}
+.page {
+    height: 100%;
+    overflow: hidden;
 
-.login-btn:focus {
-    outline: 0px;
-}
-
-
-
-/***
-TODO:
-    1. Define base dimensions ( elements padding, margin, line height, etc)
-    2. Mobile, Table, Desktop, ( style for different platform, also consider large screens, retina)
-
-
-***/
-
-
-/** Mobile Overwritten style **/
-.header_area.mobile {
-    height: 40px;
-}
-.header_area.mobile .navbar {
-    padding: 0;
-}
-.header_area.mobile .navbar-brand {
-    font-size: 1.3rem;
-    line-height: 40px;
-    padding: 0;
-}
-.header_area.mobile .logo-container {
-    height: inherit;
-}
-
-.header_area.mobile .logo-container button {
-    padding: 0;
-    margin: 0;
-    width: 30px;
-    height: 26px;
-    padding-bottom: 2px;
-}
-
-.header_area.mobile .logo-container button .navbar-toggler-icon {
-    margin-bottom: 5px;
-}
-
-.header_area.mobile  .navbar-toggler-icon {
-    height: 20px !important;
-    padding: 0;
-}
-
-
-@media screen and (min-width: 991px) {
-    #navigationMenu {
-        margin-top: -45px;
-    }
-}
-
-@media (max-width: 767px) {
-    #navigationMenu {
-        top: 40px !important;
-        background-color: #F2F2F2;
-        color: #F23847;
-    }
-
-    .background-container {
-        padding-top: 40px;
-    }
-
-    /*.background-container .container-fit-screen {*/
-    /*    padding-top: 60px !important;*/
-    /*}*/
-
-    .dorne-features-destinations-area {
-        padding: 0 !important;
-    }
-}
-
-@media (max-width: 991px) and (min-width: 768px) {
-    #navigationMenu {
-        top: 60px !important;
-    }
-}
-
-@media (max-width: 767px) and (min-width: 320px) {
-    #navigationMenu {
-        top: 40px;
-    }
-
-    /*.background-container .container-fit-screen {*/
-    /*    padding-top: 60px !important;*/
-    /*}*/
-
-    .dorne-features-destinations-area {
-        padding: 0 !important;
+    main {
+        overflow-y: auto;
+        flex-grow: 98;
     }
 }

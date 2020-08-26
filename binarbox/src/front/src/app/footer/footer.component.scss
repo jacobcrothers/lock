@@ -2,13 +2,10 @@ $footer-height: 30px;
 $color-white: #ffffff;
 $small-links-font-size: 12px;
 
-.regulator-footer {
+footer {
     width: 100%;
     height: $footer-height;
     background: rgba(0 ,0 ,0, .25);
-    position: fixed;
-    bottom: 0;
-    left:0;
     text-align: center;
 
     span  {
@@ -26,6 +23,4 @@ $small-links-font-size: 12px;
             text-decoration: underline;
         }
     }
-
-
 }

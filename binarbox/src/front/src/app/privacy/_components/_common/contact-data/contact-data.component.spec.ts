@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CookiePolicyComponent } from './cookie-policy.component';
+import { ContactDataComponent } from './contact-data.component';
 
-describe('CookiePolicyComponent', () => {
-  let component: CookiePolicyComponent;
-  let fixture: ComponentFixture<CookiePolicyComponent>;
+describe('ContactDataComponent', () => {
+  let component: ContactDataComponent;
+  let fixture: ComponentFixture<ContactDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CookiePolicyComponent ]
+      declarations: [ ContactDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CookiePolicyComponent);
+    fixture = TestBed.createComponent(ContactDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

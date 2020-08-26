@@ -1,4 +1,4 @@
-@media (min-width: 992px) and (max-width: 1199px) {
+ @media (min-width: 992px) and (max-width: 1199px) {
     .header_area {
         padding: 0;
     }
@@ -48,7 +48,6 @@
     .navbar-toggler {
         border: 2px solid #fff;
         color: #fff;
-        margin: 37px 0;
         -webkit-transition-duration: 500ms;
                 transition-duration: 500ms;
     }
@@ -152,7 +151,7 @@
     .navbar-toggler {
         border: 2px solid #fff;
         color: #fff;
-        margin: 37px 0;
+        //margin: 37px 0;
         -webkit-transition-duration: 500ms;
                 transition-duration: 500ms;
     }

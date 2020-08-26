@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LockComponent } from './lock.component';
+import { SeeAllLocksComponent } from './see-all-locks.component';
 
-describe('LockComponent', () => {
-  let component: LockComponent;
-  let fixture: ComponentFixture<LockComponent>;
+describe('SeeAllLocksComponent', () => {
+  let component: SeeAllLocksComponent;
+  let fixture: ComponentFixture<SeeAllLocksComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LockComponent ]
+      declarations: [ SeeAllLocksComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LockComponent);
+    fixture = TestBed.createComponent(SeeAllLocksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

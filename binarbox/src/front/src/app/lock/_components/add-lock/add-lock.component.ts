@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AddLockService } from '../_services/add-lock.service';
-import { Location } from '@angular/common';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AddLockService} from '../../../_services/add-lock.service';
+import {Location} from '@angular/common';
 
 @Component({
-    selector: 'app-lock',
-    templateUrl: './lock.component.html',
-    styleUrls: ['./lock.component.scss']
+    selector: 'app-add-lock',
+    templateUrl: './add-lock.component.html',
+    styleUrls: ['./add-lock.component.scss']
 })
-export class LockComponent implements OnInit {
+export class AddLockComponent implements OnInit {
+    @ViewChild('closeModal') closeModal: ElementRef;
 
     public lockType: string;
     public lockId = 0;
@@ -17,37 +18,43 @@ export class LockComponent implements OnInit {
         filesDTO: undefined
     };
     public selectedLockCategory = {};
-    public params = {};
     public lockCategories: any;
-    public predefinedMessages: Array<any> = [];
-    public fontColors: Array<any> = [];
-    public isCustomLockSaved = false;
+    // public predefinedMessages: Array<any> = [];
     public selectedMessage: string;
     public pageParams: any;
-    public formSubmitted: boolean;
     public lockPrivacy: any;
+    public isEllipticText: boolean;
+
     private lockInfo: Object;
-
-    @ViewChild('closeModal') closeModal:ElementRef;
-
-
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private addLockService: AddLockService,
-        private location: Location
+        private location: Location,
     ) {
+    }
+
+    @HostListener('window:resize') onWindowResize() {
+        // debounce resize, wait for resize to finish before doing stuff
+        // if (this.resizeTimeout) {
+        //     clearTimeout(this.resizeTimeout);
+        // }
+        // this.resizeTimeout = setTimeout((() => {
+        //     console.log('Resize complete');
+        // }).bind(this), 500);
+
+
     }
 
     ngOnInit() {
         this.getCategories();
         this.route.params.subscribe((params) => {
-            if(params) {
+            if (params) {
                 this.pageParams = params;
                 this.updateParams(params);
             }
-        });   
+        });
     }
 
     updateParams(parameters) {
@@ -76,17 +83,17 @@ export class LockComponent implements OnInit {
                     }
                 }
             }
-            console.log(this.lockCategories);
+            // console.log(this.lockCategories);
         });
     }
 
     setLockFromParams(category, lockId) {
         category['lockTypeTemplate'].forEach(template => {
-            if(template['id'].toString() === lockId) {
+            if (template['id'].toString() === lockId) {
                 this.selectedLock = template;
-                console.log('selected lock from params', this.selectedLock);
+                // console.log('selected lock from params', this.selectedLock);
             }
-            this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
+            this.location.replaceState(`/locks/add-lock/${this.lockType}/${this.selectedLock['id']}`);
         });
     }
 
@@ -98,16 +105,15 @@ export class LockComponent implements OnInit {
     chooseCategory(lockCategory) {
         this.selectedLockCategory = lockCategory;
         this.lockType = lockCategory.category;
-        this.location.replaceState(`/add-lock/${this.selectedLockCategory['category']}`);
-        this.displayLocks()
+        this.location.replaceState(`/locks/add-lock/${this.selectedLockCategory['category']}`);
+        this.displayLocks();
     }
-    
+
     chooseLock(lock) {
         this.selectedLock = lock;
 
-        // console.log('selected lock---', this.selectedLock);
         this.lockId = lock.id;
-        this.location.replaceState(`/add-lock/${this.lockType}/${this.selectedLock['id']}`);
+        this.location.replaceState(`/locks/add-lock/${this.lockType}/${this.selectedLock['id']}`);
     }
 
     /**
@@ -118,41 +124,48 @@ export class LockComponent implements OnInit {
      * @return {String} formattedMessage
      * */
     formatMessageWithLineDelimitator(message: String) {
-        return message.replace(/(\r\n|\n|\r)/gm,"{LINE_END}");
+        return message.replace(/(\r\n|\n|\r)/gm, '{LINE_END}');
     }
 
     saveLock(formValue) {
-        const message = this.formatMessageWithLineDelimitator(formValue['insertMessage'] || "");
-        let createdLock = {
-            "message": encodeURIComponent(message),
-            "lockTemplate": this.selectedLock['id'],
-            "privateLock": formValue['privacy'] === "private"
+        const message = this.formatMessageWithLineDelimitator(formValue['insertMessage'] || '');
+        const createdLock = {
+            'message': encodeURIComponent(message),
+            'lockTemplate': this.selectedLock['id'],
+            'privateLock': formValue['privacy'] === 'private'
         };
-        console.log(this.formatMessageWithLineDelimitator(message));
+        // console.log(this.formatMessageWithLineDelimitator(message));
         this.addLockService.saveLock(createdLock).subscribe(data => {
             this.lockInfo = data;
             this.addLockService.setLockId(data);
-            this.router.navigate([`/panels`] );
-        })
-
-    }
-
-    saveMessage(formValue) {
-        this.predefinedMessages.forEach(msg => {
-            if (formValue['messageSelect'] == msg.id) {
-                this.selectedMessage = msg.value;
-                this.closeModal.nativeElement.click();
-            } 
+            this.router.navigate([`/panels`]).then();
         });
     }
 
+    // saveMessage(formValue) {
+    //     this.predefinedMessages.forEach(msg => {
+    //         if (formValue['messageSelect'] === msg.id) {
+    //             this.selectedMessage = msg.value;
+    //             this.closeModal.nativeElement.click();
+    //         }
+    //     });
+    // }
+
     goBack(path) {
         if (path === 'lockType') {
-            this.location.replaceState('/add-lock');
+            this.location.replaceState('/locks/add-lock');
             this.lockType = '';
         } else if (path === 'lockId') {
-            this.location.replaceState(`/add-lock/${this.lockType}`);
+            this.location.replaceState(`/locks/add-lock/${this.lockType}`);
             this.lockId = 0;
         }
+    }
+
+    isEllipsisActive(element: HTMLHeadingElement) {
+        this.isEllipticText = element.offsetWidth < element.scrollWidth;
+    }
+
+    setColor(color: string) {
+        return color.replace('_', '').toLowerCase();
     }
 }
