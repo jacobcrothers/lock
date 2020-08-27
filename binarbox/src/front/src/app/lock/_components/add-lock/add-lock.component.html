@@ -86,42 +86,40 @@
     <section class="lock-customization">
         <div class="lock-container">
             <div class="form-container shadow-box">
-                <form #lockForm="ngForm" (ngSubmit)="saveLock(lockForm.value)">
+                <form [formGroup]="addLockMessageForm">
                     <div class="textareaContainer">
                         <img [src]="selectedLock.filesDTO[0].urlToFile" alt="">
                         <div class="controls">
-                            <span class="text--align-center" [ngStyle]="{'color': setColor(selectedLock['fontsDTO'][0]['fontColor'])}">
+                            <span class="text--align-center" [ngStyle]="{'color': setColor(selectedLock['fontsDTO'][0]?.fontColor)}">
                                 Type your loving message
                             </span>
 
                             <textarea
-                                [ngModel]="selectedMessage"
-                                [value]="selectedMessage"
+                                formControlName="message"
                                 class="form-control"
                                 cols="3"
                                 id="customMessageInput"
                                 maxlength="30"
-                                name="insertMessage"
+                                name="message"
                                 placeholder="Send your love!"
                                 required
                                 rows="2"
                                 scroll="disable"
                                 type="textarea"
                                 wrap="hard"
-                                [ngStyle]="{'color': setColor(selectedLock['fontsDTO'][0]['fontColor'])}">
-                                {{selectedMessage}}
+                                [ngStyle]="{'color': setColor(selectedLock['fontsDTO'][0]?.fontColor)}">
                             </textarea>
 
                             <div class="form-group">
                                 <div class="col-12 flex flex--center-center">
                                     <label class="custom-control custom-checkbox mb-3">
-                                        <input [(ngModel)]="lockPrivacy"
+                                        <input formControlName="privateLock"
                                                class="custom-control-input"
-                                               name="privacy"
-                                               type="checkbox"
-                                               value="private">
-                                        <span class="custom-control-indicator" [ngStyle]="{'border-color': setColor(selectedLock['fontsDTO'][0]['fontColor'])}"></span>
-                                        <span class="custom-control-description" [ngStyle]="{'color': setColor(selectedLock['fontsDTO'][0]['fontColor'])}">Private</span>
+                                               name="privateLock"
+                                               type="checkbox">
+
+                                        <span class="custom-control-indicator" [ngStyle]="{'border-color': setColor(selectedLock['fontsDTO'][0]?.fontColor)}"></span>
+                                        <span class="custom-control-description" [ngStyle]="{'color': setColor(selectedLock['fontsDTO'][0]?.fontColor)}">Private</span>
                                     </label>
                                 </div>
                             </div>
@@ -131,12 +129,12 @@
             </div>
 
             <div class="actions-wrapper">
-                <button (click)="goBack('lockId')" class="btn btn-outline btn-outline-custom">
-                    Back
-                </button>
-                <button [disabled]="!lockForm.valid" class="btn btn-outline-primary button-outline btn-outline-primary-custom"
-                        type="submit">Add lock
-                </button>
+                <button (click)="goBack('lockId'); clearForm();"
+                        class="btn btn-outline btn-outline-custom">Back</button>
+                <button type="submit"
+                        class="btn btn-outline-primary button-outline btn-outline-primary-custom"
+                        [disabled]="!addLockMessageForm.valid"
+                        (click)="saveLock()">Add lock</button>
             </div>
         </div>
     </section>
