@@ -41,7 +41,7 @@ html, body {
     height: 0;
 }
 
-.page main::-webkit-scrollbar-thumb {
+.page .inner-content::-webkit-scrollbar-thumb {
     height: 1em;
     border: 0.5em solid rgba(0, 0, 0, 0);
     background-clip: padding-box;
@@ -50,7 +50,7 @@ html, body {
     -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.025);
 }
 
-.page main:hover::-webkit-scrollbar-thumb {
+.page .inner-content:hover::-webkit-scrollbar-thumb {
     background-color: rgba(145, 145, 145, .84);
 }
 
@@ -63,8 +63,6 @@ html, body {
 ::-webkit-scrollbar-corner {
     background-color: transparent;
 }
-
-
 
 .h-100 {
     height: 100%;
