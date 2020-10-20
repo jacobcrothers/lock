@@ -21,6 +21,8 @@ const routes = [
         path: 'video',
         component: VideoPlayerComponent
     }, {
+        path: 'contact', loadChildren: './contact/contact.module#ContactModule'
+    }, {
         path: 'locks', loadChildren: './lock/lock.module#LockModule'
     }, {
         path: 'privacy', loadChildren: './privacy/privacy.module#PrivacyModule'

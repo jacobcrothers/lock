@@ -37,6 +37,11 @@
                                         data-toggle="modal" type="button">Add a lock
                                 </button>
                             </li>
+                            <li class="nav-item">
+                                <a [routerLinkActive]="['activeLink']"
+                                   class="nav-link"
+                                   [routerLink]="'/contact'">Contact</a>
+                            </li>
                         </ul>
                         <ul class="navbar-nav">
                             <li *ngIf="loggedIn" class="nav-item">
