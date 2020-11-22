@@ -1511,3 +1511,22 @@ li {
     height: 380px;
 }
 
+section {
+    .title {
+        text-transform: uppercase;
+    }
+}
+
+.video-bg {
+    width: 100%;
+    height: 100%;
+
+    @media (orientation: landscape) {
+        object-fit: contain;
+    }
+
+    @media (orientation: portrait) {
+        object-fit: cover;
+    }
+}
+
