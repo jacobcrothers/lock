@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {
-    AuthService,
-    FacebookLoginProvider
-} from 'angular5-social-login';
+    FacebookLoginProvider, SocialAuthService
+} from 'angularx-social-login';
 
 @Injectable()
 export class UserService {
@@ -18,7 +17,7 @@ export class UserService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private socialAuthService: AuthService
+        private socialAuthService: SocialAuthService
     ) {
     }
 

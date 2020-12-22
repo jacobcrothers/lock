@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
         this.userService.isUserLoggedIn$.subscribe((loggedIn) => {
             this.loggedIn = loggedIn;
             if (this.loggedIn) {
-                this.closeModal.nativeElement.click();
+                this.closeModal?.nativeElement?.click();
             }
         });
         this.isMobilePlatform = this.deviceService.isTablet() || this.deviceService.isMobile();

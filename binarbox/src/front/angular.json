@@ -23,7 +23,6 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/videogular2/fonts/videogular.css",
               "src/styles.scss",
               "src/app/_icons/iconStyles.scss"
             ],
