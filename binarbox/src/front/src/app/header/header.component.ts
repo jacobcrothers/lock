@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
     public collapseMenu = false;
     public loggedIn: any = false;
     public isMobilePlatform: boolean;
-    @ViewChild('closeModal', {static: false}) closeModal: ElementRef;
+    @ViewChild('closeModal') closeModal: ElementRef;
 
     constructor(
         private userService: UserService,

@@ -6,7 +6,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from
     styleUrls: ['../_common/privacy.scss', './cookies-policy.component.scss']
 })
 export class CookiesPolicyComponent implements OnInit, AfterViewInit {
-    @ViewChild('cookieDeclaration', {static: false}) cookieDeclaration: ElementRef;
+    @ViewChild('cookieDeclaration') cookieDeclaration: ElementRef;
 
     constructor(
         private renderer: Renderer2

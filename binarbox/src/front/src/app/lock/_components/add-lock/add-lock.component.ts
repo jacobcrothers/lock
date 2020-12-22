@@ -10,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
     styleUrls: ['./add-lock.component.scss']
 })
 export class AddLockComponent implements OnInit {
-    @ViewChild('closeModal', {static: false}) closeModal: ElementRef;
+    @ViewChild('closeModal') closeModal: ElementRef;
 
     public addLockMessageForm: FormGroup;
 
