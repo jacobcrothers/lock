@@ -21,11 +21,11 @@ const routes = [
         path: 'video',
         component: VideoPlayerComponent
     }, {
-        path: 'contact', loadChildren: './contact/contact.module#ContactModule'
+        path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
     }, {
-        path: 'locks', loadChildren: './lock/lock.module#LockModule'
+        path: 'locks', loadChildren: () => import('./lock/lock.module').then(m => m.LockModule)
     }, {
-        path: 'privacy', loadChildren: './privacy/privacy.module#PrivacyModule'
+        path: 'privacy', loadChildren: () => import('./privacy/privacy.module').then(m => m.PrivacyModule)
     }, {
         path: 'dashboard',
         component: DashboardComponent,

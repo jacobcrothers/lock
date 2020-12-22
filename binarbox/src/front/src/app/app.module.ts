@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {HttpModule} from '@angular/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthGuard} from './_guards/auth.guard';
 import {UserService} from './_services/user.service';
@@ -68,7 +67,6 @@ export function getAuthServiceConfigs() {
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        HttpModule,
         AppRoutingModule,
         IconsModule,
         SocialLoginModule,
