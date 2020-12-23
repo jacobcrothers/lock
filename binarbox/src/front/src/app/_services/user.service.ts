@@ -58,12 +58,12 @@ export class UserService {
 
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
-                if (userData['token']) {
+                if (userData['authToken']) {
                     const loginBody = {
-                        token: userData['token']
+                        token: userData['authToken']
                     };
                     this.http.post(this.socialLoginUrl, loginBody).subscribe(() => {
-                        if (UserService.setUserToken(userData['token'])) {
+                        if (UserService.setUserToken(userData['authToken'])) {
                             this.isUserLoggedIn$.next(true);
                             setTimeout(() => {
                                 this.router.navigate(['/']);

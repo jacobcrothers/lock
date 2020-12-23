@@ -40,7 +40,7 @@
 
     <map name="image-map" *ngIf="zoomCount === 3">
             <area *ngFor="let section of panelSections"
-                  target="" alt="Section {{section.id}}" title="Section {{section.id}}" href=""
-                  id="section-{{section.id}}" [coords]="section.coords" shape="rect" (click)="chooseSection($event)" class="image-area">
+                  target="" alt="Section {{section['id']}}" title="Section {{section['id']}}" href=""
+                  id="section-{{section['id']}}" [coords]="section['coords']" shape="rect" (click)="chooseSection($event)" class="image-area">
     </map>
 </section>

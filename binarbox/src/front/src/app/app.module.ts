@@ -29,6 +29,8 @@ import {VideoPlayerComponent} from './video-player/video-player.component';
 
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
+import {VgCoreModule} from '@videogular/ngx-videogular/core';
+import {VgStreamingModule} from '@videogular/ngx-videogular/streaming';
 
 @NgModule({
     declarations: [
@@ -56,7 +58,9 @@ import {FooterComponent} from './footer/footer.component';
         SocialLoginModule,
         NgbModule,
         BrowserModule,
-        DeviceDetectorModule.forRoot()
+        DeviceDetectorModule.forRoot(),
+        VgCoreModule,
+        VgStreamingModule
     ],
     providers: [
         {
@@ -66,11 +70,11 @@ import {FooterComponent} from './footer/footer.component';
         },     {
             provide: 'SocialAuthServiceConfig',
             useValue: {
-                autoLogin: false,
+                autoLogin: true,
                 providers: [
                     {
                         id: FacebookLoginProvider.PROVIDER_ID,
-                        provider: new FacebookLoginProvider('clientId')
+                        provider: new FacebookLoginProvider('227796454748370')
                     }
                 ]
             } as SocialAuthServiceConfig,

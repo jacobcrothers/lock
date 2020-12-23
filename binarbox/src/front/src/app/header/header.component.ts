@@ -1,7 +1,8 @@
-import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from '../_services/user.service';
 import {Router} from '@angular/router';
 import {DeviceDetectorService} from 'ngx-device-detector';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-header',
@@ -17,14 +18,15 @@ export class HeaderComponent implements OnInit {
     constructor(
         private userService: UserService,
         private router: Router,
-        private deviceService: DeviceDetectorService
+        private deviceService: DeviceDetectorService,
+        private modalService: NgbModal
     ) { }
 
     ngOnInit() {
         this.userService.isUserLoggedIn$.subscribe((loggedIn) => {
             this.loggedIn = loggedIn;
             if (this.loggedIn) {
-                this.closeModal?.nativeElement?.click();
+                this.modalService.dismissAll();
             }
         });
         this.isMobilePlatform = this.deviceService.isTablet() || this.deviceService.isMobile();
@@ -34,5 +36,11 @@ export class HeaderComponent implements OnInit {
         localStorage.removeItem('token');
         this.router.navigate([`/`]).then();
         this.loggedIn = false;
+    }
+
+    open(content: TemplateRef<any>) {
+
+        this.modalService.open(content, {centered: true}).result.then((result) => {}, (reason) => {});
+
     }
 }
