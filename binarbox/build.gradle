@@ -20,9 +20,9 @@ group = 'binar.box'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 11
 
-war {
-    enabled = true
-}
+//war {
+//    enabled = true
+//}
 
 repositories {
     maven { url 'https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/' }

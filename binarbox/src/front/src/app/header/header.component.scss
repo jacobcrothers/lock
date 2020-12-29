@@ -1,0 +1,150 @@
+/* Header & Menu Area CSS */
+
+.header_area {
+    width: 100%;
+    height: 50px;
+    flex-grow: 17;
+
+    -webkit-transition-duration: 700ms;
+    transition-duration: 700ms;
+    background-image: linear-gradient(-9deg, #ffffff21, #000000bd);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.36), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.sticky .header_area {
+    background-color: rgba(14, 2, 35, 0.9);
+    height: 80px;
+    z-index: 9999;
+    border-bottom: 1px solid transparent;
+}
+
+.navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    margin-right: 20px;
+    padding: 0;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+    color: #fff;
+    font-weight: 700;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 15px;
+    padding-left: 15px;
+    color: #fff;
+    font-size: 15px;
+}
+
+.login-btn {
+    text-transform: uppercase;
+    background: transparent;
+    border: 0;
+
+    &:hover {
+        cursor: pointer;
+        font-weight: 900;
+    }
+}
+
+.login-btn:focus {
+    outline: 0;
+}
+
+#navigationMenu {
+    margin-top: -38px;
+
+    a {
+        text-transform: uppercase;
+        font-weight: 100;
+
+        &:hover {
+            font-weight: 900;
+        }
+    }
+}
+
+/***
+TODO:
+    1. Define base dimensions ( elements padding, margin, line height, etc)
+    2. Mobile, Table, Desktop, ( style for different platform, also consider large screens, retina)
+
+
+***/
+
+
+/** Mobile Overwritten style **/
+.header_area.mobile .navbar {
+    padding: 0;
+}
+
+.header_area.mobile .navbar-brand {
+    font-size: 1.3rem;
+    line-height: 40px;
+    padding: 0;
+}
+
+.logo-container {
+    z-index: 1;
+}
+
+.header_area.mobile .logo-container {
+    height: inherit;
+}
+
+.header_area.mobile .logo-container button {
+    padding: 0;
+    margin: 0;
+    width: 30px;
+    height: 26px;
+    padding-bottom: 2px;
+}
+
+.header_area.mobile .logo-container button .navbar-toggler-icon {
+    margin-bottom: 5px;
+}
+
+.header_area.mobile  .navbar-toggler-icon {
+    height: 20px !important;
+    padding: 0;
+}
+
+// Phone landscape & portrait
+@media (max-width: 823px) and (min-width: 280px) {
+    .logo-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .navbar-brand {
+            margin-left: .5rem;
+        }
+
+        button, button:active, button:focus {
+            border: none !important;
+            outline: none;
+        }
+    }
+
+    #navigationMenu {
+        position: absolute;
+        top: 50px !important;
+        margin-top: 0;
+
+        background-color: #000000b3;
+        z-index: 2;
+
+        a {
+            text-transform: uppercase;
+            font-weight: 100;
+        }
+    }
+}
+
+.close {
+    outline: unset !important;
+}

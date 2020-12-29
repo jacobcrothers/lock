@@ -1,46 +1,46 @@
 
 <section class="dorne-welcome-area bg-img bg-overlay panels-container">
-    <drag-scroll class="drag-scroll-section" scrollbar-hidden="true" drag-scroll-y-disabled="true">
+<!--    <drag-scroll class="drag-scroll-section" scrollbar-hidden="true" drag-scroll-y-disabled="true">-->
 
-        <!-- No scroll -->
-        <img class="bridge-img"
-             (touchmove)="onMousewheel($event)" 
-             (wheel)="onMousewheel($event)" 
-             src="../../../assets/images/bridge/bridge-scroll-0.jpg"
-             [hidden]="zoomCount != 0"
-             alt=""/>
+<!--        &lt;!&ndash; No scroll &ndash;&gt;-->
+<!--        <img class="bridge-img"-->
+<!--             (touchmove)="onMousewheel($event)"-->
+<!--             (wheel)="onMousewheel($event)"-->
+<!--             src="https://api.lockbridges.com/api/v0/download/file/1"-->
+<!--             [hidden]="zoomCount != 0"-->
+<!--             alt=""/>-->
 
 
-        <!-- First scroll -->
-        <img class="bridge-img"
-            (touchmove)="onMousewheel($event)" 
-            (wheel)="onMousewheel($event)"
-            src="../../../assets/images/bridge/bridge-scroll-1.jpg"
-            [hidden]="zoomCount != 1"
-            alt=""/>
+<!--        &lt;!&ndash; First scroll &ndash;&gt;-->
+<!--        <img class="bridge-img"-->
+<!--            (touchmove)="onMousewheel($event)"-->
+<!--            (wheel)="onMousewheel($event)"-->
+<!--            src="https://api.lockbridges.com/api/v0/download/file/2"-->
+<!--            [hidden]="zoomCount != 1"-->
+<!--            alt=""/>-->
 
-        <!-- Second scroll -->
-        <img class="bridge-img"
-            (touchmove)="onMousewheel($event)" 
-            (wheel)="onMousewheel($event)"
-            src="https://localhost:6060/api/v0/download/file/3"
-            [hidden]="zoomCount != 2"
-            alt=""/>
+<!--        &lt;!&ndash; Second scroll &ndash;&gt;-->
+<!--        <img class="bridge-img"-->
+<!--            (touchmove)="onMousewheel($event)"-->
+<!--            (wheel)="onMousewheel($event)"-->
+<!--            src="https://api.lockbridges.com/api/v0/download/file/3"-->
+<!--            [hidden]="zoomCount != 2"-->
+<!--            alt=""/>-->
 
-        <!-- Full Scroll, interactive images-->
-        <img class="bridge-img scroll-image"
-            [style.width.px]="imageWidth"
-            (touchmove)="onMousewheel($event)" 
-            (wheel)="onMousewheel($event)" 
-            src="https://localhost:6060/api/v0/download/file/bridgeLocks"
-            [hidden]="zoomCount != 3"
-            alt="" 
-            usemap="#image-map"/>
-    </drag-scroll>
-    
+<!--        &lt;!&ndash; Full Scroll, interactive images&ndash;&gt;-->
+<!--        <img class="bridge-img scroll-image"-->
+<!--            [style.width.px]="imageWidth"-->
+<!--            (touchmove)="onMousewheel($event)"-->
+<!--            (wheel)="onMousewheel($event)"-->
+<!--            src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"-->
+<!--            [hidden]="zoomCount != 3"-->
+<!--            alt=""-->
+<!--            usemap="#image-map"/>-->
+<!--    </drag-scroll>-->
+
     <map name="image-map" *ngIf="zoomCount === 3">
             <area *ngFor="let section of panelSections"
-                  target="" alt="Section {{section.id}}" title="Section {{section.id}}" href=""
-                  id="section-{{section.id}}" [coords]="section.coords" shape="rect" (click)="chooseSection($event)" class="image-area">
+                  target="" alt="Section {{section['id']}}" title="Section {{section['id']}}" href=""
+                  id="section-{{section['id']}}" [coords]="section['coords']" shape="rect" (click)="chooseSection($event)" class="image-area">
     </map>
 </section>

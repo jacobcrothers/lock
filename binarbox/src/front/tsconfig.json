@@ -2,6 +2,8 @@
   "compileOnSave": false,
   "preserveWhitespaces": "off",
   "compilerOptions": {
+    "downlevelIteration": true,
+    "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "paths": {
       "@angular/*": ["../node_modules/@angular/*"]
@@ -11,7 +13,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -19,7 +21,7 @@
       "es2017",
       "dom"
     ],
-    "module": "es2015",
+    "module": "es2020",
     "baseUrl": "./"
   }
 }

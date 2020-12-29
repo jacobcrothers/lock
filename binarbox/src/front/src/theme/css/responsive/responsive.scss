@@ -1,4 +1,4 @@
-@media (min-width: 992px) and (max-width: 1199px) {
+ @media (min-width: 992px) and (max-width: 1199px) {
     .header_area {
         padding: 0;
     }
@@ -48,14 +48,13 @@
     .navbar-toggler {
         border: 2px solid #fff;
         color: #fff;
-        margin: 37px 0;
         -webkit-transition-duration: 500ms;
                 transition-duration: 500ms;
     }
     .sticky .navbar-toggler {
         margin: 17px 0
     }
-    #dorneNav {
+    #navigationMenu {
         padding: 30px;
         background-color: #341a79;
         box-shadow: 1px 9px 10px rgba(255, 255, 255, 0.15);
@@ -152,14 +151,14 @@
     .navbar-toggler {
         border: 2px solid #fff;
         color: #fff;
-        margin: 37px 0;
+        //margin: 37px 0;
         -webkit-transition-duration: 500ms;
                 transition-duration: 500ms;
     }
     .sticky .navbar-toggler {
         margin: 17px 0
     }
-    #dorneNav {
+    #navigationMenu {
         padding: 15px;
         background-color: #341a79;
         box-shadow: 1px 9px 10px rgba(255, 255, 255, 0.15);

@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 import {
-    AuthService,
-    FacebookLoginProvider
-} from 'angular5-social-login';
+    FacebookLoginProvider, SocialAuthService
+} from 'angularx-social-login';
 
 @Injectable()
 export class UserService {
@@ -18,7 +17,7 @@ export class UserService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private socialAuthService: AuthService
+        private socialAuthService: SocialAuthService
     ) {
     }
 
@@ -59,12 +58,12 @@ export class UserService {
 
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
-                if (userData['token']) {
-                    let loginBody = {
-                        token: userData['token']
-                    }
+                if (userData['authToken']) {
+                    const loginBody = {
+                        token: userData['authToken']
+                    };
                     this.http.post(this.socialLoginUrl, loginBody).subscribe(() => {
-                        if (UserService.setUserToken(userData['token'])) {
+                        if (UserService.setUserToken(userData['authToken'])) {
                             this.isUserLoggedIn$.next(true);
                             setTimeout(() => {
                                 this.router.navigate(['/']);

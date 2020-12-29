@@ -7,7 +7,7 @@ import { BridgeSection } from "../../modal/BridgeSection";
 @Component({
   selector: 'app-panels',
   templateUrl: './panels.component.html',
-  styleUrls: ['./panels.component.css']
+  styleUrls: ['./panels.component.scss']
 })
 
 @HostListener('mousewheel', ['$event'])
@@ -105,7 +105,8 @@ export class PanelsComponent implements OnInit {
 
     if (this.zoomCount === 3) {
       this.mouseEnter();
-      $("map[name=image-map]").imageMapResize();
+      // TODO: refactor
+      // $("map[name=image-map]").imageMapResize();
     }
   }
 
@@ -119,17 +120,18 @@ export class PanelsComponent implements OnInit {
   }
 
   mouseEnter() {
-    setTimeout(() => {
-      $("map[name=image-map]").mapoid( {
-        strokeColor: 'black',
-        strokeWidth: 1,
-        fillColor: 'black',
-        fillOpacity: 0.5,
-        fadeTime: 500,
-        selectedArea: false,
-        selectOnClick: true
-      });
-    }, 200)
+      // TODO: refactor
+    // setTimeout(() => {
+    //   $("map[name=image-map]").mapoid( {
+    //     strokeColor: 'black',
+    //     strokeWidth: 1,
+    //     fillColor: 'black',
+    //     fillOpacity: 0.5,
+    //     fadeTime: 500,
+    //     selectedArea: false,
+    //     selectOnClick: true
+    //   });
+    // }, 200)
   }
-  
+
 }

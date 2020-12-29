@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -8,11 +7,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class PaymentService {
 
   constructor(
-    private http: Http
+    private http: HttpClient
   ) { }
 
   chargeCard(token: string) {
-    const headers = new Headers({'token': token, 'amount': 100});
+    const headers = new HttpHeaders({'token': token, 'amount': '100'});
     return this.http.post('http://localhost:8080/payment/charge', {}, {headers: headers});
   }
 }

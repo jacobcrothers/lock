@@ -1,8 +1,11 @@
-import {Injectable, Injector} from '@angular/core';
+
+import {throwError as observableThrowError, Observable} from 'rxjs';
+
+import {catchError} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
+
+
 import {UserService} from '../_services/user.service';
 import {MessageService} from '../_services/message.service';
 
@@ -24,8 +27,8 @@ export class RequestInterceptor implements HttpInterceptor {
             url: `${BASE_URL}/${req.url}`
         });
 
-        return next.handle(authReq)
-            .catch((error, caught) => {
+        return next.handle(authReq).pipe(
+            catchError((error, caught) => {
                 let message = `
                     Whoops! Something broke!
                     Try again in a few minutes and if the problem persists contact someone from our team using the contact form.`;
@@ -37,7 +40,7 @@ export class RequestInterceptor implements HttpInterceptor {
                 }
 
                 this.message.postMessage(message, 'error');
-                return Observable.throw(error);
-            }) as any;
+                return observableThrowError(error);
+            })) as any;
     }
 }

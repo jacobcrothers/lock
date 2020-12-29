@@ -53,7 +53,10 @@ const generateImage = async ctx => {
       const canvas = createCanvas(IMAGE_WITH_TEXT.WIDTH, IMAGE_WITH_TEXT.HEIGHT);
       const canvasContext = canvas.getContext('2d');
       const { font, fontSize, message, color } = ctx.request.query;
-      const [firstLine, secondLine] = message.split(LINE_END);
+      const messageLines = message.split(LINE_END);
+
+      const firstLine = messageLines[0] || "";
+      const secondLine = messageLines[1] || "";
 
       //TODO Validate font and register new fonts
 
@@ -91,8 +94,8 @@ const generateImageWithoutText = async ctx => {
   const firstLineHeight = IMAGE_WITHOUT_TEXT.HEIGHT / 2 + TEXT.LINE_HEIGHT_WITHOUT_IMAGE;
   const secondLineHeight = IMAGE_WITHOUT_TEXT.HEIGHT / 2 + 2 * TEXT.LINE_HEIGHT_WITHOUT_IMAGE;
 
-  canvasContext.fillText(firstLine, IMAGE_WITHOUT_TEXT.WIDTH / 2 + 15, firstLineHeight);
-  canvasContext.fillText(secondLine, IMAGE_WITHOUT_TEXT.WIDTH / 2 + 15, secondLineHeight);
+  canvasContext.fillText(firstLine, IMAGE_WITHOUT_TEXT.WIDTH / 2, firstLineHeight);
+  canvasContext.fillText(secondLine, IMAGE_WITHOUT_TEXT.WIDTH / 2, secondLineHeight);
   ctx.body = canvas.toBuffer(MIME_TYPES.PNG, {});
   setResponseStatus(ctx, 200);
 };

@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
     selector: 'app-locks',
     templateUrl: './locks.component.html',
-    styleUrls: ['./locks.component.css']
+    styleUrls: ['./locks.component.scss']
 })
 export class LocksComponent implements OnInit {
     public currentLock;
@@ -42,7 +42,7 @@ export class LocksComponent implements OnInit {
 
         this.locks[index]['selected'] = true;
 
-        console.log(this.locks);
+        // console.log(this.locks);
     }
 
 }
