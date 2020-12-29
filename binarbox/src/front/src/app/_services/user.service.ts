@@ -60,7 +60,7 @@ export class UserService {
             (userData) => {
                 if (userData['authToken']) {
                     const loginBody = {
-                        token: userData['authToken']
+                        authToken: userData['authToken']
                     };
                     this.http.post(this.socialLoginUrl, loginBody).subscribe(() => {
                         if (UserService.setUserToken(userData['authToken'])) {
