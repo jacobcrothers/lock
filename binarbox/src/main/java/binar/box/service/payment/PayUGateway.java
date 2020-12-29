@@ -23,13 +23,12 @@ public class PayUGateway {
         String randomId = Integer.toString(rand.nextInt()) + (System.currentTimeMillis() / 1000L);
         String txnId = "Dev" + hashCal("SHA-256", randomId).substring(0, 12);
         paymentDetail.setTxnId(txnId);
-        //String otherPostParamSeq = "phone|surl|furl|lastname|curl|address1|address2|city|state|country|zipcode|pg";
         String hashSequence = "key|txnid|amount|productinfo|firstname|email|||||||||||";
         hashString = hashSequence.concat(paymentSalt);
         hashString = hashString.replace("key", paymentKey);
         hashString = hashString.replace("txnid", txnId);
         hashString = hashString.replace("amount", paymentDetail.getAmount());
-        hashString = hashString.replace("productinfo", paymentDetail.getProductInfo());
+//        hashString = hashString.replace("productinfo", paymentDetail.getProductInfo());
         hashString = hashString.replace("firstname", paymentDetail.getName());
         hashString = hashString.replace("email", paymentDetail.getEmail());
 

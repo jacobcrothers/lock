@@ -10,5 +10,5 @@ public class FacebookTokenDTO {
 
 	@NotEmpty
 	@NotNull
-	private String token;
+	private String authToken;
 }

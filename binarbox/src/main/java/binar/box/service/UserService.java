@@ -44,7 +44,7 @@ public class UserService {
 	}
 
 	public void loginUser(FacebookTokenDTO facebookTokenDTO) {
-		var faceBookUser = getFacebookUser(facebookTokenDTO.getToken(),
+		var faceBookUser = getFacebookUser(facebookTokenDTO.getAuthToken(),
 				new String[] { Constants.FACEBOOK_ID, Constants.FACEBOOK_EMAIL, Constants.FACEBOOK_FIRST_NAME,
 						Constants.FACEBOOK_LAST_NAME, Constants.LOCATION });
 		getFacebookUserFromDataIfRegistered(faceBookUser).orElseGet(() ->
