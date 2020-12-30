@@ -18,10 +18,14 @@
     height: 100vh;
 }
 
-
 .bridge-img.scroll-image {
     height: 100%;
     width: 625%;
     max-width: 625%;
+}
+
+.draggable-container {
+    cursor: grab;
+    overflow: auto;
 }
 
