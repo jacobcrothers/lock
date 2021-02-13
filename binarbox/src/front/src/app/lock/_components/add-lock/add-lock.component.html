@@ -15,7 +15,7 @@
                         <img [src]="lockCategory.fileDTO.urlToFile" alt="">
                         <div class="feature-content d-flex align-items-center justify-content-between">
                             <div class="feature-title w-100">
-                                <h5 #ellipticText (resized)="isEllipsisActive(ellipticText)" class="elliptic-text">
+                                <h5 #ellipticText (resize)="isEllipsisActive(ellipticText)" class="elliptic-text">
                                 <span *ngIf="isEllipticText" ngbTooltip="{{lockCategory.category}}" placement="top">
                                     {{lockCategory.category}}
                                 </span>

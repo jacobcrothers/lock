@@ -33,9 +33,10 @@ p {
     z-index: 0;
 
     .inner-content {
-        max-width: 60%;
+        max-width: 100%;
         padding: 2rem;
 
+        border-radius: 3px;
         position: relative;
         background-color: $light-bg-box + d4;
         transition-duration: 500ms;

@@ -1,62 +1,57 @@
-<section class="dorne-welcome-area panels-container">
-    <drag-scroll class="drag-scroll-section"
-                 scrollbar-hidden="true"
-                 drag-scroll-y-disabled="true">
+<section class="dorne-welcome-area panels-container"
+         #panelContainer>
+    <!-- No scroll -->
+    <img class="bridge-img"
+         #bridgeImg
+         drag-scroll-item
+         src="https://api.lockbridges.com/api/v0/download/file/1"
+         [class]="zoomCount === 0 ? 'show' : 'hide'"
+         [hidden]="false"
+         alt=""/>
 
-        <!-- No scroll -->
-        <img class="bridge-img"
+    <!-- First scroll -->
+    <img class="bridge-img"
+         #bridgeImg
+         drag-scroll-item
+         src="https://api.lockbridges.com/api/v0/download/file/2"
+         [class]="zoomCount === 1 ? 'show' : 'hide'"
+         [hidden]="false"
+         alt=""/>
+
+    <!-- Second scroll -->
+    <img class="bridge-img"
+         #bridgeImg
+         drag-scroll-item
+         src="https://api.lockbridges.com/api/v0/download/file/3"
+         [class]="zoomCount === 2 ? 'show' : 'hide'"
+         [hidden]="false"
+         alt=""/>
+
+    <!-- Full Scroll, interactive images-->
+    <div #draggableContainer
+         class="draggable-container">
+        <map name="image-map"
+             *ngIf="zoomCount === 3">
+            <area *ngFor="let section of panelSections"
+                  target=""
+                  alt="Section {{section['id']}}"
+                  title="Section {{section['id']}}"
+                  href=""
+                  id="section-{{section['id']}}"
+                  [coords]="section['coords']"
+                  shape="rect"
+                  (click)="chooseSection($event)"
+                  class="image-area">
+        </map>
+        <img class="bridge-img scroll-image"
+             #bridgeImg
              drag-scroll-item
-             (touchmove)="onMousewheel($event)"
-             (wheel)="onMousewheel($event)"
-             src="https://api.lockbridges.com/api/v0/download/file/1"
-             [hidden]="zoomCount != 0"
-             alt=""/>
-
-        <!-- First scroll -->
-        <img class="bridge-img"
-             drag-scroll-item
-             (touchmove)="onMousewheel($event)"
-             (wheel)="onMousewheel($event)"
-             src="https://api.lockbridges.com/api/v0/download/file/2"
-             [hidden]="zoomCount != 0"
-             alt=""/>
-
-        <!-- Second scroll -->
-        <img class="bridge-img"
-             drag-scroll-item
-             (touchmove)="onMousewheel($event)"
-             (wheel)="onMousewheel($event)"
-             src="https://api.lockbridges.com/api/v0/download/file/3"
-             [hidden]="zoomCount != 2"
-             alt=""/>
-
-        <!-- Full Scroll, interactive images-->
-        <div #draggableContainer
-             class="draggable-container">
-            <img class="bridge-img scroll-image"
-                 drag-scroll-item
-                 [style.width.px]="imageWidth"
-                 (touchmove)="onMousewheel($event)"
-                 (wheel)="onMousewheel($event)"
-                 (mousedown)="onMouseDownHandler($event)"
-                 src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"
-                 [hidden]="zoomCount != 3"
-                 alt=""
-                 usemap="#image-map"/>
-        </div>
-    </drag-scroll>
-
-    <map name="image-map"
-         *ngIf="zoomCount === 3">
-        <area *ngFor="let section of panelSections"
-              target=""
-              alt="Section {{section['id']}}"
-              title="Section {{section['id']}}"
-              href=""
-              id="section-{{section['id']}}"
-              [coords]="section['coords']"
-              shape="rect"
-              (click)="chooseSection($event)"
-              class="image-area">
-    </map>
+             [style.width.px]="imageWidth"
+             (mousedown)="onMouseDownHandler($event)"
+             src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"
+             [class]="zoomCount === 3 ? 'show' : 'hide'"
+             [hidden]="false"
+             alt=""
+             usemap="#image-map"/>
+    </div>
 </section>

@@ -25,6 +25,11 @@ export class AddLockService {
     }
 
 
+    getLockId() {
+        return this._lockId;
+    }
+
+
     setLockId(response) {
         this._lockId = response.id;
     }

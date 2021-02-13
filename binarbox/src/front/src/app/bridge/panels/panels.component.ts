@@ -1,7 +1,19 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {AddLockService} from '../../_services/add-lock.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BridgeSection} from '../../modal/BridgeSection';
+import {fromEvent} from 'rxjs';
+import {debounceTime, tap} from 'rxjs/operators';
+
+interface SectionOptions {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    height: number;
+    width: number;
+    bridgePipeWidth: number;
+}
 
 @Component({
     selector: 'app-panels',
@@ -9,19 +21,19 @@ import {BridgeSection} from '../../modal/BridgeSection';
     styleUrls: ['./panels.component.scss']
 })
 
-@HostListener('mousewheel', ['$event'])
-export class PanelsComponent implements OnInit {
+export class PanelsComponent implements OnInit, AfterViewInit {
 
     @ViewChild('draggableContainer') draggableContainer: ElementRef;
+    @ViewChild('panelContainer') panelContainer: ElementRef;
 
     public createdLock: any;
     public zoomCount = 0;
     public screenHeight: any;
     public imageWidth: number;
-    public panelSections: Array<Object>;
+    public panelSections: ReturnType<BridgeSection['getFlattenObject']>[];
     public selectedSection: number;
 
-    private position = { left: 0, x: 0 };
+    private position = {left: 0, x: 0};
 
     constructor(
         private addLockService: AddLockService,
@@ -31,41 +43,71 @@ export class PanelsComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.addLockService.getLockId() === undefined) {
+            this.router.navigate(['/locks/add-lock']);
+        }
+
         this.createdLock = this.addLockService.createdLock;
         this.imageWidth = 6.25 * window.innerHeight;
 
-        this.panelSections = this.generateSections(1, {
-            x1: 110,
-            y1: 540,
-            x2: 578,
-            y2: 724,
-            height: 189,
+        const firstSectionsRowHeight = 189;
+        const bridgePipeWidth = 29;
+        const firstRowOptions: SectionOptions = {
+            x1: 100,
+            y1: 549,
+            x2: 581,
+            y2: 741,
+            height: firstSectionsRowHeight,
             width: 474,
-            offsetRight: 29,
-            rows: 2
+            bridgePipeWidth,
+        };
+        const secondSectionsRowHeight = 242;
+        const secondRowOptions = {
+            x1: firstRowOptions.x1,
+            y1: firstRowOptions.y1 + firstRowOptions.height,
+            x2: firstRowOptions.x2,
+            y2: firstRowOptions.y2 + secondSectionsRowHeight,
+            height: secondSectionsRowHeight,
+            width: firstRowOptions.width,
+            bridgePipeWidth,
+        };
+
+        this.panelSections = [
+            ...this.generateSectionsRange(firstRowOptions, [1, 16]),
+            ...this.generateSectionsRange(secondRowOptions, [17, 32]),
+        ];
+
+        document.addEventListener('wheel', (e) => {
+            this.onMousewheel(e);
         });
+    }
+
+    ngAfterViewInit() {
+        fromEvent(this.panelContainer.nativeElement, 'click').pipe(
+            debounceTime(4000),
+            tap(this.onMousewheel)
+        );
+
+        fromEvent(this.panelContainer.nativeElement, 'touchmove').pipe(
+            debounceTime(4000),
+            tap(this.onMousewheel)
+        );
     }
 
     /**
      * @param firstSectionId first section id
-     * @param options
+     * @param sectionOptions
      * @param idGeneratorRule pattern to generate ids, if not specified the id will be incremented by one
      * */
-    private generateSections(firstSectionId: number, options: any, idGeneratorRule?: Function): Array<Object> {
-        const sections: Array<Object> = new Array<Object>();
-        const {x1, y1, x2, y2, width, height, offsetRight} = options;
-        let element = new BridgeSection(1, x1, y1, x2, y2);
-
+    private generateSectionsRange(sectionOptions: SectionOptions, [startSectionNr, endSectionNumber]: number[]) {
+        const sections: ReturnType<BridgeSection['getFlattenObject']>[] = [];
+        const {x1, y1, x2, y2, width, height, bridgePipeWidth} = sectionOptions;
+        let element = new BridgeSection(startSectionNr, x1, y1, x2, y2);
+        // 1 - 16
         sections.push(element.getFlattenObject());
-        for (let i = 2; i <= 16; i++) {
-            element = element.getNextSection(i, i % 2 !== 0 ? offsetRight : 0, 0, width);
-            sections.push(element.getFlattenObject());
-        }
-
-        element = new BridgeSection(17, x1, y1 + height, x2, y2 + height);
-        sections.push(element.getFlattenObject());
-        for (let i = 18; i <= 32; i++) {
-            element = element.getNextSection(i, i % 2 !== 0 ? offsetRight : 0, 0, width);
+        for (let i = startSectionNr + 1; i <= endSectionNumber; i++) {
+            const currentSectionIsNearABridgePipe = i % 2 !== 0;
+            element = element.getNextSection(i, currentSectionIsNearABridgePipe ? bridgePipeWidth : 0, 0, width);
             sections.push(element.getFlattenObject());
         }
 
@@ -88,18 +130,18 @@ export class PanelsComponent implements OnInit {
      *
      * */
     public onMousewheel(event) {
-        if (event.deltaY > 0) {
-            if (this.zoomCount < 3) {
-                this.zoomCount = this.zoomCount + 1;
-            } else {
-                this.zoomCount = 3;
-            }
-        }
-
-        if (this.zoomCount === 3) {
-            this.mouseEnter();
-            // TODO: refactor
-            ($('map[name=image-map]') as any).imageMapResize();
+        if (this.zoomCount < 3) {
+            setTimeout(() => {
+                this.zoomCount = 1;
+                setTimeout(() => {
+                    this.zoomCount = 2;
+                    setTimeout(() => {
+                        this.zoomCount = 3;
+                        this.enableMapHighlight();
+                        // TODO: refactor
+                    }, 1000);
+                }, 1000);
+            }, 1000);
         }
     }
 
@@ -112,19 +154,20 @@ export class PanelsComponent implements OnInit {
         });
     }
 
-    private mouseEnter() {
+    private enableMapHighlight() {
         // TODO: refactor
-        setTimeout(() => {
-            ($('map[name=image-map]') as any).mapoid({
-                strokeColor: 'black',
-                strokeWidth: 1,
-                fillColor: 'black',
-                fillOpacity: 0.5,
-                fadeTime: 500,
-                selectedArea: false,
-                selectOnClick: true
-            });
-        }, 200);
+
+        ($('map[name=image-map]') as any).mapoid({
+            strokeColor: 'black',
+            strokeWidth: 1,
+            fillColor: 'black',
+            fillOpacity: 0.5,
+            fadeTime: 500,
+            selectedArea: false,
+            selectOnClick: true
+        });
+
+        ($('map[name=image-map]') as any).imageMapResize();
     }
 
     /**
@@ -152,7 +195,7 @@ export class PanelsComponent implements OnInit {
     private mouseMoveHandler = (event?) => {
         const dx = event.clientX - this.position.x;
         this.draggableContainer.nativeElement.scrollLeft = this.position.left - dx;
-    }
+    };
 
     /**
      * When mouse up we remove the mousemove and mouseup events
@@ -163,5 +206,5 @@ export class PanelsComponent implements OnInit {
 
         document.removeEventListener('mousemove', this.mouseMoveHandler);
         document.removeEventListener('mouseup', this.mouseUpHandler);
-    }
+    };
 }
