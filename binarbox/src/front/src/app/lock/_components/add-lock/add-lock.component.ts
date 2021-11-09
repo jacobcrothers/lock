@@ -37,18 +37,6 @@ export class AddLockComponent implements OnInit {
     ) {
     }
 
-    @HostListener('window:resize') onWindowResize() {
-        // debounce resize, wait for resize to finish before doing stuff
-        // if (this.resizeTimeout) {
-        //     clearTimeout(this.resizeTimeout);
-        // }
-        // this.resizeTimeout = setTimeout((() => {
-        //     console.log('Resize complete');
-        // }).bind(this), 500);
-
-
-    }
-
     ngOnInit() {
         this.createForm();
 
@@ -87,7 +75,6 @@ export class AddLockComponent implements OnInit {
                     }
                 }
             }
-            // console.log(this.lockCategories);
         });
     }
 
@@ -95,7 +82,6 @@ export class AddLockComponent implements OnInit {
         category['lockTypeTemplate'].forEach(template => {
             if (template['id'].toString() === lockId) {
                 this.selectedLock = template;
-                // console.log('selected lock from params', this.selectedLock);
             }
             this.location.replaceState(`/locks/add-lock/${this.lockType}/${this.selectedLock['id']}`);
         });
@@ -143,7 +129,6 @@ export class AddLockComponent implements OnInit {
             'lockTemplate': this.selectedLock['id'],
             'privateLock': formValue.privateLock
         };
-        // console.log(this.formatMessageWithLineDelimitator(message));
         this.addLockService.saveLock(createdLock).subscribe(data => {
             this.lockInfo = data;
             this.addLockService.setLockId(data);

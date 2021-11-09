@@ -1,7 +1,10 @@
+.bg-overlay:after, .bg-overlay-9:after {
+    background-image: unset;
+}
 
 .dashboard-container {
     height: 100%;
-    padding-top: 120px;
+    //padding-top: 120px;
 }
 
 .dashboard {
@@ -41,11 +44,11 @@
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 120px;
+    //top: 120px;
     left: 0;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    //padding-top: 60px;
 }
 
 .dashboard-menu.active {

@@ -20,7 +20,7 @@ export class BridgeSection {
     }
 
 
-    getHtmlAreaCoordonates(): String {
+    getHtmlAreaCoordonates() {
         return [this.x1, this.y1, this.x2, this.y2].join(",");
     }
 
@@ -42,7 +42,7 @@ export class BridgeSection {
      * @param height (Optional) overwritten height, in case this is not defined with take the current BridgeSection height
      * @returns {BridgeSection}
      * */
-    getNextSection(id: number, offsetRight: number, offsetBottom: number, width?: number, height?: number,): BridgeSection {
+    getNextSection(id: number, offsetRight: number, offsetBottom: number, width?: number, height?: number) {
         const sectionHeight = height || this.getCurrentHeight();
         const sectionWidth = width || this.getCurrentWidth();
 
@@ -60,12 +60,12 @@ export class BridgeSection {
      * Returns the object used in template
      * @returns {Object}
      * */
-    getFlattenObject(): Object {
+    getFlattenObject() {
 
         return {
             id: this.id,
             coords: this.getHtmlAreaCoordonates()
-        }
+        };
     }
 
 }

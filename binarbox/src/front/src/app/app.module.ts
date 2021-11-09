@@ -31,6 +31,7 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {VgCoreModule} from '@videogular/ngx-videogular/core';
 import {VgStreamingModule} from '@videogular/ngx-videogular/streaming';
+import {DragScrollModule} from 'ngx-drag-scroll';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import {VgStreamingModule} from '@videogular/ngx-videogular/streaming';
         BrowserModule,
         DeviceDetectorModule.forRoot(),
         VgCoreModule,
-        VgStreamingModule
+        VgStreamingModule,
+        DragScrollModule
     ],
     providers: [
         {

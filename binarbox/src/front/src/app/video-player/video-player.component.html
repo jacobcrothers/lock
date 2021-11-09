@@ -6,6 +6,7 @@
         <div class="col-lg-8 offset-2">
             <vg-player class="well well-lg">
                 <video #media
+                       [vgMedia]="media"
                        [vgHls]="this.videoUrl"
                        [vgHlsHeaders]="this.headers"
                        id="my-video"
