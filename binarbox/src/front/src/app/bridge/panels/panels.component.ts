@@ -130,6 +130,22 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         this.bridgeImageDragSubscription?.unsubscribe();
     }
+    //for testing automatic scrolling
+    public onMousewheel1() {
+        if (this.zoomCount < 3) {
+            setTimeout(() => {
+                this.zoomCount = 1;
+                setTimeout(() => {
+                    this.zoomCount = 2;
+                    setTimeout(() => {
+                        this.zoomCount = 3;
+                        this.enableMapHighlight();
+                        // TODO: refactor
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+    }
 
     /**
      * @param firstSectionId first section id
