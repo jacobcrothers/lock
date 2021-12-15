@@ -84,6 +84,7 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
         document.addEventListener('wheel', (e) => {
             this.onMousewheel(e);
         });
+        this.onMousewheel1();
     }
 
     ngAfterViewInit() {
@@ -224,3 +225,4 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
         ($('map[name=image-map]') as any).imageMapResize();
     }
 }
+
