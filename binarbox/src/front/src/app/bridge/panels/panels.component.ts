@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {AddLockService} from '../../_services/add-lock.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BridgeSection} from '../../modal/BridgeSection';
-import {fromEvent, Observable, Subscription} from 'rxjs';
-import {debounceTime, finalize, map, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {debounceTime, tap} from 'rxjs/operators';
 
 interface SectionOptions {
     x1: number;
@@ -21,11 +21,10 @@ interface SectionOptions {
     styleUrls: ['./panels.component.scss']
 })
 
-export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PanelsComponent implements OnInit, AfterViewInit {
 
     @ViewChild('draggableContainer') draggableContainer: ElementRef;
     @ViewChild('panelContainer') panelContainer: ElementRef;
-    @ViewChild('draggableBridgeImage') draggableBridgeImage: ElementRef;
 
     public createdLock: any;
     public zoomCount = 0;
@@ -34,10 +33,7 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
     public panelSections: ReturnType<BridgeSection['getFlattenObject']>[];
     public selectedSection: number;
 
-    private move$ = fromEvent<MouseEvent>(document, 'mousemove');
-    private up$ = fromEvent<MouseEvent>(document, 'mouseup');
-    private bridgeImageDrag$: Observable<void>;
-    private bridgeImageDragSubscription: Subscription;
+    private position = {left: 0, x: 0};
 
     constructor(
         private addLockService: AddLockService,
@@ -84,55 +80,10 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
         document.addEventListener('wheel', (e) => {
             this.onMousewheel(e);
         });
-        this.onMousewheel1();
+        this.autoScroll();
     }
-
-    ngAfterViewInit() {
-        fromEvent(this.panelContainer.nativeElement, 'click').pipe(
-            debounceTime(4000),
-            tap(this.onMousewheel)
-        );
-
-        fromEvent(this.panelContainer.nativeElement, 'touchmove').pipe(
-            debounceTime(4000),
-            tap(this.onMousewheel)
-        );
-
-        const down$ = fromEvent<MouseEvent>(this.draggableBridgeImage.nativeElement, 'mousedown');
-        this.bridgeImageDrag$ = down$.pipe(
-            tap(() => {
-                // Change the cursor and prevent user from selecting the text
-                this.draggableContainer.nativeElement.style.cursor = 'grabbing';
-                this.draggableContainer.nativeElement.style.userSelect = 'none';
-            }),
-            map((event) => {
-                return {
-                    // The current scroll
-                    left: this.draggableContainer.nativeElement.scrollLeft,
-                    // Get the current mouse position
-                    x: event.clientX,
-                };
-            }),
-            switchMap(position => this.move$.pipe(
-                    map(move => {
-                        const dx = move.clientX - position.x;
-                        this.draggableContainer.nativeElement.scrollLeft = position.left - dx;
-                    }),
-                    takeUntil(this.up$),
-                    finalize(() => {
-                        this.draggableContainer.nativeElement.style.cursor = 'grab';
-                        this.draggableContainer.nativeElement.style.removeProperty('user-select');
-                    })
-                )
-            )
-        );
-    }
-
-    ngOnDestroy(): void {
-        this.bridgeImageDragSubscription?.unsubscribe();
-    }
-    //for testing automatic scrolling
-    public onMousewheel1() {
+    //automatically scrolling image after clicking "Add lock" button
+    public autoScroll() {
         if (this.zoomCount < 3) {
             setTimeout(() => {
                 this.zoomCount = 1;
@@ -147,6 +98,19 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 1000);
         }
     }
+
+    ngAfterViewInit() {
+        fromEvent(this.panelContainer.nativeElement, 'click').pipe(
+            debounceTime(4000),
+            tap(this.onMousewheel)
+        );
+
+        fromEvent(this.panelContainer.nativeElement, 'touchmove').pipe(
+            debounceTime(4000),
+            tap(this.onMousewheel)
+        );
+    }
+
     /**
      * @param firstSectionId first section id
      * @param sectionOptions
@@ -209,7 +173,6 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private enableMapHighlight() {
         // TODO: refactor
-        this.bridgeImageDragSubscription = this.bridgeImageDrag$.subscribe();
 
         ($('map[name=image-map]') as any).mapoid({
             strokeColor: 'black',
@@ -223,4 +186,42 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
 
         ($('map[name=image-map]') as any).imageMapResize();
     }
+
+    /**
+     * Handle drag the last image by using the mouse
+     * */
+    public onMouseDownHandler(event: MouseEvent) {
+        // Change the cursor and prevent user from selecting the text
+        this.draggableContainer.nativeElement.style.cursor = 'grabbing';
+        this.draggableContainer.nativeElement.style.userSelect = 'none';
+
+        this.position = {
+            // The current scroll
+            left: this.draggableContainer.nativeElement.scrollLeft,
+            // Get the current mouse position
+            x: event.clientX,
+        };
+
+        document.addEventListener('mousemove', this.mouseMoveHandler);
+        document.addEventListener('mouseup', this.mouseUpHandler);
+    }
+
+    /**
+     * How far the mouse has been moved we scroll the element
+     * */
+    private mouseMoveHandler = (event?) => {
+        const dx = event.clientX - this.position.x;
+        this.draggableContainer.nativeElement.scrollLeft = this.position.left - dx;
+    };
+
+    /**
+     * When mouse up we remove the mousemove and mouseup events
+     * */
+    private mouseUpHandler = (event?) => {
+        this.draggableContainer.nativeElement.style.cursor = 'grab';
+        this.draggableContainer.nativeElement.style.removeProperty('user-select');
+
+        document.removeEventListener('mousemove', this.mouseMoveHandler);
+        document.removeEventListener('mouseup', this.mouseUpHandler);
+    };
 }
