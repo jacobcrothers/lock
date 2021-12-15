@@ -80,6 +80,7 @@ export class PanelsComponent implements OnInit, AfterViewInit {
         document.addEventListener('wheel', (e) => {
             this.onMousewheel(e);
         });
+        this.onMousewheel1();
     }
 
     ngAfterViewInit() {
@@ -93,7 +94,22 @@ export class PanelsComponent implements OnInit, AfterViewInit {
             tap(this.onMousewheel)
         );
     }
-
+    //for testing automatic scrolling
+    public onMousewheel1() {
+        if (this.zoomCount < 3) {
+            setTimeout(() => {
+                this.zoomCount = 1;
+                setTimeout(() => {
+                    this.zoomCount = 2;
+                    setTimeout(() => {
+                        this.zoomCount = 3;
+                        this.enableMapHighlight();
+                        // TODO: refactor
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+    }
     /**
      * @param firstSectionId first section id
      * @param sectionOptions
