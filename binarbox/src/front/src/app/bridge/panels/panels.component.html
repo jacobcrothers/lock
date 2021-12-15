@@ -44,10 +44,10 @@
                   class="image-area">
         </map>
         <img class="bridge-img scroll-image"
-             #bridgeImg
+             draggable="false"
+             #draggableBridgeImage
              drag-scroll-item
              [style.width.px]="imageWidth"
-             (mousedown)="onMouseDownHandler($event)"
              src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"
              [class]="zoomCount === 3 ? 'show' : 'hide'"
              [hidden]="false"
