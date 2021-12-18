@@ -30,28 +30,55 @@
     <!-- Full Scroll, interactive images-->
     <div #draggableContainer
          class="draggable-container">
-        <map name="image-map"
+         <img class="bridge-img scroll-image"
+              draggable="false"
+              #draggableBridgeImage
+              drag-scroll-item
+              [style.width.px]="imageWidth"
+              src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"
+              [class]="zoomCount === 3 ? 'show' : 'hide'"
+              [hidden]="false"
+              alt=""
+              usemap="#image-map"/>
+          <div name="image-map" class="new-container1" *ngIf="zoomCount === 3">
+               <div 
+                    *ngFor="let section of panelSections5; let i = index"
+                    style="margin-right: 27px;"
+                    target="Section {{section['id']}}"
+                    id="section-{{section['id']}}" 
+                    title="Section {{section['id']}}" 
+                    alt="Section {{section['id']}}" 
+                    href="Section {{section['id']}}"
+                    (click)="chooseSection($event)"
+                    class="new" type="button">
+               </div>
+          </div>
+
+          <div name="image-map" class="new-container2" *ngIf="zoomCount === 3">
+               <div 
+                    *ngFor="let section of panelSections6; let i = index" 
+                    style="margin-right: 27px;"
+                    target="Section {{section['id']}}"
+                    id="section-{{section['id']}}" 
+                    title="Section {{section['id']}}" 
+                    alt="Section {{section['id']}}" 
+                    href="Section {{section['id']}}"
+                    (click)="chooseSection($event)"
+                    class="new" type="button">
+               </div>
+          </div>
+          <!-- <map name="image-map"
              *ngIf="zoomCount === 3">
             <area *ngFor="let section of panelSections"
-                  target=""
+                  target="Section {{section['id']}}"
                   alt="Section {{section['id']}}"
                   title="Section {{section['id']}}"
-                  href=""
+                  href="Section {{section['id']}}"
                   id="section-{{section['id']}}"
                   [coords]="section['coords']"
                   shape="rect"
                   (click)="chooseSection($event)"
                   class="image-area">
-        </map>
-        <img class="bridge-img scroll-image"
-             draggable="false"
-             #draggableBridgeImage
-             drag-scroll-item
-             [style.width.px]="imageWidth"
-             src="https://api.lockbridges.com/api/v0/download/file/bridgeLocks"
-             [class]="zoomCount === 3 ? 'show' : 'hide'"
-             [hidden]="false"
-             alt=""
-             usemap="#image-map"/>
+        </map> -->
     </div>
 </section>

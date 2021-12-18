@@ -45,3 +45,37 @@
     opacity: 0;
 }
 
+.new-container1 {
+    position: absolute; 
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    top: 340px;
+    left: 60px;
+}
+
+.new-container2 {
+    position: absolute; 
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    top: 448px;
+    left: 60px;
+}
+
+.new {
+    border:none;
+    width: 258.125px;
+    height: 108px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.new:hover {
+    background-color: black;
+    opacity: 0.3;
+}
+
+.gapping {
+    margin-right: 27px;
+}
