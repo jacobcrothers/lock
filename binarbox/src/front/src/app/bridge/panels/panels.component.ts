@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AddLockService} from '../../_services/add-lock.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BridgeSection} from '../../modal/BridgeSection';
-import {fromEvent} from 'rxjs';
-import {debounceTime, tap} from 'rxjs/operators';
+import {fromEvent, Observable, Subscription} from 'rxjs';
+import {debounceTime, finalize, map, switchMap, takeUntil, tap} from 'rxjs/operators';
 
 interface SectionOptions {
     x1: number;
@@ -21,19 +21,32 @@ interface SectionOptions {
     styleUrls: ['./panels.component.scss']
 })
 
-export class PanelsComponent implements OnInit, AfterViewInit {
+export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('draggableContainer') draggableContainer: ElementRef;
     @ViewChild('panelContainer') panelContainer: ElementRef;
+    @ViewChild('draggableBridgeImage') draggableBridgeImage: ElementRef;
 
     public createdLock: any;
     public zoomCount = 0;
     public screenHeight: any;
     public imageWidth: number;
     public panelSections: ReturnType<BridgeSection['getFlattenObject']>[];
+    public panelSections1: any = [];
+    public panelSections2: any = [];
+    public panelSections3: any = [];
+    public panelSections4: any = [];
+    public panelSections5: any = [];
+    public panelSections6: any = [];
+
+    public panelSections7: any = [];
+    public panelSections8: any = [];
     public selectedSection: number;
 
-    private position = {left: 0, x: 0};
+    private move$ = fromEvent<MouseEvent>(document, 'mousemove');
+    private up$ = fromEvent<MouseEvent>(document, 'mouseup');
+    private bridgeImageDrag$: Observable<void>;
+    private bridgeImageDragSubscription: Subscription;
 
     constructor(
         private addLockService: AddLockService,
@@ -77,13 +90,51 @@ export class PanelsComponent implements OnInit, AfterViewInit {
             ...this.generateSectionsRange(secondRowOptions, [17, 32]),
         ];
 
+        for (var i = 1; i <= this.panelSections.length; i +=4) {
+            let id = this.panelSections[i - 1].id;
+            let coords = this.panelSections[i - 1].coords;
+            this.panelSections1.push({key: i, id: id, coords: coords});
+        }
+
+        for (var i = 2; i <= this.panelSections.length; i +=4) {
+            let id = this.panelSections[i - 1].id;
+            let coords = this.panelSections[i - 1].coords;
+            this.panelSections2.push({key: i, id: id, coords: coords});
+        }
+
+        for (var i = 3; i <= this.panelSections.length; i +=4) {
+            let id = this.panelSections[i - 1].id;
+            let coords = this.panelSections[i - 1].coords;
+            this.panelSections3.push({key: i, id: id, coords: coords});
+        }
+
+        for (var i = 4; i <= this.panelSections.length; i +=4) {
+            let id = this.panelSections[i - 1].id;
+            let coords = this.panelSections[i - 1].coords;
+            this.panelSections4.push({key: i, id: id, coords: coords});
+        }
+
+        this.panelSections5 = this.panelSections1.concat(this.panelSections2);
+        this.panelSections6 = this.panelSections3.concat(this.panelSections4);
+
+        this.panelSections5 = this.panelSections5.sort((a, b) => a.key - b.key);
+        this.panelSections6 = this.panelSections6.sort((a, b) => a.key - b.key);
         document.addEventListener('wheel', (e) => {
             this.onMousewheel(e);
         });
-        this.autoScroll();
+        // setTimeout(()=>{
+        //     // this.autoScroll();
+        //     //this.onMousewheel(WheelEvent);
+       
+        // },300);
+         
     }
-    //automatically scrolling image after clicking "Add lock" button
+           /**
+         Automatically scrolling the image after clicking "Add lock" button
+         *
+         * */
     public autoScroll() {
+        
         if (this.zoomCount < 3) {
             setTimeout(() => {
                 this.zoomCount = 1;
@@ -99,18 +150,65 @@ export class PanelsComponent implements OnInit, AfterViewInit {
         }
     }
 
+
     ngAfterViewInit() {
         fromEvent(this.panelContainer.nativeElement, 'click').pipe(
             debounceTime(4000),
             tap(this.onMousewheel)
+            
         );
+        
 
         fromEvent(this.panelContainer.nativeElement, 'touchmove').pipe(
             debounceTime(4000),
             tap(this.onMousewheel)
+            
+        
         );
+
+        const down$ = fromEvent<MouseEvent>(this.draggableBridgeImage.nativeElement, 'mousedown');
+        this.bridgeImageDrag$ = down$.pipe(
+            tap(() => {
+                // Change the cursor and prevent user from selecting the text
+                this.draggableContainer.nativeElement.style.cursor = 'grabbing';
+                this.draggableContainer.nativeElement.style.userSelect = 'none';
+            }),
+            map((event) => {
+                return {
+                    // The current scroll
+                    left: this.draggableContainer.nativeElement.scrollLeft,
+                    // Get the current mouse position
+                    x: event.clientX,
+                };
+            }),
+            switchMap(position => this.move$.pipe(
+                    map(move => {
+                        const dx = move.clientX - position.x;
+                        this.draggableContainer.nativeElement.scrollLeft = position.left - dx;
+                    }),
+                    takeUntil(this.up$),
+                    finalize(() => {
+                        this.draggableContainer.nativeElement.style.cursor = 'grab';
+                        this.draggableContainer.nativeElement.style.removeProperty('user-select');
+                    })
+                )
+            )
+        );
+        console.log("fromEvent click");
+        // //  this.onMousewheel(WheelEvent);
+        // var ev=jQuery.Event("mousewheel");
+        // $(window).trigger(ev);
+        this.pageScroll();
     }
 
+    ngAferViewChecked(): void {
+        console.log("ngAfterViewChecked");
+   
+    }
+
+    ngOnDestroy(): void {
+        this.bridgeImageDragSubscription?.unsubscribe();
+    }
     /**
      * @param firstSectionId first section id
      * @param sectionOptions
@@ -165,6 +263,7 @@ export class PanelsComponent implements OnInit, AfterViewInit {
     public chooseSection(event) {
         event.preventDefault();
         // send this to BE
+         console.log("chooseSection");
         this.selectedSection = Number(event.target.id.split('-')[1]);
         this.addLockService.savePanelSection(this.selectedSection).subscribe(data => {
             this.router.navigate([`dashboard/payment`]);
@@ -173,6 +272,7 @@ export class PanelsComponent implements OnInit, AfterViewInit {
 
     private enableMapHighlight() {
         // TODO: refactor
+        this.bridgeImageDragSubscription = this.bridgeImageDrag$.subscribe();
 
         ($('map[name=image-map]') as any).mapoid({
             strokeColor: 'black',
@@ -187,42 +287,8 @@ export class PanelsComponent implements OnInit, AfterViewInit {
         ($('map[name=image-map]') as any).imageMapResize();
     }
 
-    /**
-     * Handle drag the last image by using the mouse
-     * */
-    public onMouseDownHandler(event: MouseEvent) {
-        // Change the cursor and prevent user from selecting the text
-        this.draggableContainer.nativeElement.style.cursor = 'grabbing';
-        this.draggableContainer.nativeElement.style.userSelect = 'none';
-
-        this.position = {
-            // The current scroll
-            left: this.draggableContainer.nativeElement.scrollLeft,
-            // Get the current mouse position
-            x: event.clientX,
-        };
-
-        document.addEventListener('mousemove', this.mouseMoveHandler);
-        document.addEventListener('mouseup', this.mouseUpHandler);
+    public pageScroll() {
+        this.autoScroll();
+        console.log(this.panelSections, "++++");
     }
-
-    /**
-     * How far the mouse has been moved we scroll the element
-     * */
-    private mouseMoveHandler = (event?) => {
-        const dx = event.clientX - this.position.x;
-        this.draggableContainer.nativeElement.scrollLeft = this.position.left - dx;
-    };
-
-    /**
-     * When mouse up we remove the mousemove and mouseup events
-     * */
-    private mouseUpHandler = (event?) => {
-        this.draggableContainer.nativeElement.style.cursor = 'grab';
-        this.draggableContainer.nativeElement.style.removeProperty('user-select');
-
-        document.removeEventListener('mousemove', this.mouseMoveHandler);
-        document.removeEventListener('mouseup', this.mouseUpHandler);
-    };
 }
-
