@@ -475,17 +475,17 @@ li {
     position: relative;
 }
 
-.bg-overlay:after,
-.bg-overlay-9:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+// .bg-overlay:after,
+// .bg-overlay-9:after {
+//     content: '';
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     top: 0;
+//     left: 0;
 
-    background-image: linear-gradient(-225deg, #7900ff0a, #000000cc);
-}
+//     background-image: linear-gradient(-225deg, #7900ff0a, #000000cc);
+// }
 
 .bg-overlay-9:after {
     background-color: rgba(14, 2, 35, 0.9);
