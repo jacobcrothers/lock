@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PaymentService } from '../../../_services/payment.service';
 
@@ -10,19 +11,28 @@ import { PaymentService } from '../../../_services/payment.service';
 export class PaymentComponent {
 
     strikeCheckout:any = null;
-    constructor(private paymentService: PaymentService, private http: HttpClient) {}
+    constructor(private paymentService: PaymentService, private http: HttpClient, private router: Router) {}
     token:string = '';
+    lock:any = {};
+    visible:boolean = false;
 
     ngOnInit() {
-        this.stripePaymentGateway();
+        this.getLocks();
     }   
+
+    getLocks() {
+        this.lock = JSON.parse(localStorage.getItem("lockInfo"));
+        if (this.lock != undefined && this.lock != null && this.lock != "" && this.lock != "null" ) {
+            this.visible = true;
+            this.stripePaymentGateway();
+        }
+    }
 
     checkout(amount){
         const strikeCheckout = (<any>window).StripeCheckout.configure({
             key: 'pk_test_EykuMGqVFU5B3sqMAw73hnlO',
             locale: 'auto',
             token: (stripeToken: any) => {
-                // PaymentComponent.token = stripeToken.id;
                 this.charge(stripeToken.id, amount);
             }
         });
@@ -53,7 +63,6 @@ export class PaymentComponent {
     }
 
     charge(stripeToken, amount) {
-        console.log("++++++");
         const chargeUrl = "https://api.stripe.com/v1/charges";
         const headers = new HttpHeaders()
             .set('Authorization', 'Bearer sk_test_yj5vdPXDBxmL9X4Sy17nRa51')
@@ -61,12 +70,13 @@ export class PaymentComponent {
 
         let body = new URLSearchParams();
         body.set('source', stripeToken);
-        body.set('amount', amount);
+        body.set('amount', amount + "00");
         body.set('currency', 'usd');
-        body.set('description', 'RAMA test');
+        body.set('description', this.lock.message);
 
         this.http.post(chargeUrl, body, {headers: headers}).subscribe(res => {
-            console.log(res);
+            localStorage.removeItem("lockInfo");
+            this.router.navigate([`dashboard/video`]);
         });
     };
 }

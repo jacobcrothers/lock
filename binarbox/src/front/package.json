@@ -26,6 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@videogular/ngx-videogular": "^2.1.0",
     "angular-feather": "^5.4.0",
+    "angular-notifier": "^9.1.0",
     "angularx-social-login": "^4.0.1",
     "bootstrap": "^4.5.3",
     "core-js": "^2.6.12",

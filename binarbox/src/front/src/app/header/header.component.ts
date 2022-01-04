@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
 
     public logout() {
         localStorage.removeItem('token');
+        localStorage.removeItem('lockInfo');
         this.router.navigate([`/`]).then();
         this.loggedIn = false;
     }

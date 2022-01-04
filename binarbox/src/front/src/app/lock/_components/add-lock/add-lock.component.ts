@@ -20,7 +20,10 @@ export class AddLockComponent implements OnInit {
     public selectedLock = {
         filesDTO: undefined
     };
-    public selectedLockCategory = {};
+    public selectedLockCategory:any = {};
+    public selectedLockInfo = {
+        url: ''
+    };
     public lockCategories: any;
     public pageParams: any;
     public isEllipticText: boolean;
@@ -38,6 +41,7 @@ export class AddLockComponent implements OnInit {
     }
 
     ngOnInit() {
+        localStorage.removeItem('lockInfo');
         this.createForm();
 
         this.getCategories();
@@ -61,9 +65,6 @@ export class AddLockComponent implements OnInit {
     getCategories() {
         this.addLockService.getLockTypes().subscribe(data => {
             this.lockCategories = data;
-            this.lockCategories[0].url = 'assets/images/lock1.png';
-            this.lockCategories[1].url = 'assets/images/lock2.png';
-            this.lockCategories[2].url = 'assets/images/lock3.png';
             if (this.pageParams) {
                 if (this.pageParams['type']) {
                     this.selectedLockCategory = this.lockCategories.find(category => {
@@ -93,6 +94,7 @@ export class AddLockComponent implements OnInit {
     }
 
     chooseCategory(lockCategory) {
+        this.selectedLockInfo = lockCategory;
         this.selectedLockCategory = lockCategory;
         this.lockType = lockCategory.category;
         this.location.replaceState(`/locks/add-lock/${this.selectedLockCategory['category']}`);
@@ -131,6 +133,9 @@ export class AddLockComponent implements OnInit {
         };
         this.addLockService.saveLock(createdLock).subscribe(data => {
             this.lockInfo = data;
+            this.selectedLockInfo = Object.assign(this.selectedLockInfo, data);
+            this.selectedLockInfo.url = this.selectedLock.filesDTO[0].urlToFile;
+            localStorage.setItem("lockInfo", JSON.stringify(this.selectedLockInfo));
             this.addLockService.setLockId(data);
             this.router.navigate([`/panels`]).then();
         });

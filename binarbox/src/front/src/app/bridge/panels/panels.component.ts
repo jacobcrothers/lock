@@ -134,11 +134,6 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
         document.addEventListener('wheel', (e) => {
             this.onMousewheel(e);
         });
-        // setTimeout(()=>{
-        //     // this.autoScroll();
-        //     //this.onMousewheel(WheelEvent);
-       
-        // },300);
          
     }
            /**
@@ -206,10 +201,6 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
                 )
             )
         );
-        console.log("fromEvent click");
-        // //  this.onMousewheel(WheelEvent);
-        // var ev=jQuery.Event("mousewheel");
-        // $(window).trigger(ev);
         this.pageScroll();
     }
 
@@ -286,6 +277,10 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.addLockService.savePanelSection(this.selectedSection).subscribe(data => {
             this.router.navigate([`dashboard/payment`]);
         });
+    }
+
+    public gotoPayment() {
+        this.router.navigate([`dashboard/payment`]);
     }
 
     private enableMapHighlight() {
