@@ -65,6 +65,33 @@ export class AddLockComponent implements OnInit {
     getCategories() {
         this.addLockService.getLockTypes().subscribe(data => {
             this.lockCategories = data;
+            let fonts1 = ["blue", "blueviolet", "violet", "yellow", "greenyellow", "yellowgreen"];
+            for (let i = 0; i < this.lockCategories[0]["lockTypeTemplate"].length; i ++) {
+                if (this.lockCategories[0]["lockTypeTemplate"][i].fontsDTO.length > 0) {
+                    this.lockCategories[0]["lockTypeTemplate"][i].fontsDTO[0].fontColor = fonts1[i];
+                } else {
+                    this.lockCategories[0]["lockTypeTemplate"][i].fontsDTO.push({ "fontColor": fonts1[i]});
+                }
+            }
+
+            let fonts2 = ["cyan", "mediumpurple", "tan"];
+            for (let i = 0; i < this.lockCategories[1]["lockTypeTemplate"].length; i ++) {
+                if (this.lockCategories[1]["lockTypeTemplate"][i].fontsDTO.length > 0) {
+                    this.lockCategories[1]["lockTypeTemplate"][i].fontsDTO[0].fontColor = fonts2[i];
+                } else {
+                    this.lockCategories[1]["lockTypeTemplate"][i].fontsDTO.push({ "fontColor": fonts2[i]});
+                }
+            }
+
+            let fonts3 = ["black", "#1e7e34", "white", "#2d9b96", "#8ba136"];
+            for (let i = 0; i < this.lockCategories[2]["lockTypeTemplate"].length; i ++) {
+                if (this.lockCategories[2]["lockTypeTemplate"][i].fontsDTO.length > 0) {
+                    this.lockCategories[2]["lockTypeTemplate"][i].fontsDTO[0].fontColor = fonts3[i];
+                } else {
+                    this.lockCategories[2]["lockTypeTemplate"][i].fontsDTO.push({ "fontColor": fonts3[i]});
+                }
+            }
+            
             if (this.pageParams) {
                 if (this.pageParams['type']) {
                     this.selectedLockCategory = this.lockCategories.find(category => {
