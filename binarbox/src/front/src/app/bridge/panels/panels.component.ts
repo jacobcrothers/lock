@@ -59,6 +59,7 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.getLocksByUserId();
         // image ratio times viewport height -> so that the image won't be stretched
         if (this.addLockService.getLockId() === undefined) {
             this.router.navigate(['/locks/add-lock']);
@@ -302,5 +303,11 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public pageScroll() {
         this.autoScroll();
+    }
+
+    private getLocksByUserId() {
+        this.addLockService.getLocksByUserId().subscribe(data => {
+            console.log(data, "-----");
+        })
     }
 }

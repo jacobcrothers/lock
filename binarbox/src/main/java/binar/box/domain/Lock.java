@@ -35,6 +35,7 @@ public class Lock extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
+        private String userId;
 	private User user;
 
 	@OneToMany
