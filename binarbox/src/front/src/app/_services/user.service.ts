@@ -39,9 +39,32 @@ export class UserService {
         return true;
     }
 
+    static setUserId(value?) {
+        if (value) {
+            try {
+                localStorage.setItem('sd', value);
+            } catch (e) {
+                return false;
+            }
+        } else {
+            try {
+                localStorage.removeItem('sd');
+            } catch (e) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     static getUserToken() {
         const token = localStorage.getItem('token');
         return token ? token : '';
+    }
+
+    static getUserId() {
+        const userId = localStorage.getItem('sd');
+        return userId ? userId : '';
     }
 
     logout() {
@@ -63,6 +86,7 @@ export class UserService {
                         authToken: userData['authToken']
                     };
                     this.http.post(this.socialLoginUrl, loginBody).subscribe(() => {
+                        UserService.setUserId(userData['id']);
                         if (UserService.setUserToken(userData['authToken'])) {
                             this.isUserLoggedIn$.next(true);
                             setTimeout(() => {

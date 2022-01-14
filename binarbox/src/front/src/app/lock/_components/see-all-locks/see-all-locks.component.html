@@ -1,1 +1,65 @@
-<span>See all locks - COMING SOON</span>
+<section class="dorne-welcome-area panels-container"
+         #panelContainer>
+    <!-- No scroll -->
+    <img class="bridge-img"
+         #bridgeImg
+         drag-scroll-item
+         src="https://api.lockbridges.com/api/v0/download/file/1"
+         [class]="zoomCount === 0 ? 'show' : 'hide'"
+         [hidden]="false"
+         alt=""/>
+
+    <!-- First scroll -->
+    <img class="bridge-img"
+         #bridgeImg
+         drag-scroll-item
+         src="https://api.lockbridges.com/api/v0/download/file/2"
+         [class]="zoomCount === 1 ? 'show' : 'hide'"
+         [hidden]="false"
+         alt=""/>
+
+    <!-- Second scroll -->
+    <img class="bridge-img"
+         #bridgeImg
+         drag-scroll-item
+         src="https://api.lockbridges.com/api/v0/download/file/3"
+         [class]="zoomCount === 2 ? 'show' : 'hide'"
+         [hidden]="false"
+         alt=""/>
+
+    <!-- Full Scroll, interactive images-->
+     <div #draggableContainer
+         class="draggable-container">
+         <img class="bridge-img scroll-image"
+              draggable="false"
+              #draggableBridgeImage
+              drag-scroll-item
+              [style.width.px]="imageWidth"
+              src="../../../assets/images/lock-bridge.jpg"
+              [class]="zoomCount === 3 ? 'show' : 'hide'"
+              [hidden]="false"
+              alt=""
+              usemap="#image-map"/>
+              
+          
+          <div name="image-map" class="new-container1" *ngIf="zoomCount === 3" [style.width.px]="imageWidth" [ngStyle]="{'padding-left': imageleft, 'padding-right': imageleft}">
+               <div 
+                    *ngFor="let section of panelSections5; let i = index"
+                    [style.width.px]="smallwidth"
+                    [ngStyle]="{'background-position': 'center', 'background-size': '200px, 114px', 'background-repeat': 'no-repeat'}"
+                    [style.background-image]= "section['url']"
+                    class="new">
+               </div>
+          </div>
+     
+          <div name="image-map" class="new-container2" *ngIf="zoomCount === 3" [style.width.px]="imageWidth" [ngStyle]="{'padding-left': imageleft, 'padding-right': imageleft}">
+               <div 
+                    *ngFor="let section of panelSections6; let i = index" 
+                    [style.width.px]="smallwidth"
+                    [ngStyle]="{'background-position': 'center', 'background-size': '200px, 114px', 'background-repeat': 'no-repeat'}"
+                    [style.background-image]= "section['url']"
+                    class="new">
+               </div>
+          </div>
+     </div>
+</section>

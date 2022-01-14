@@ -31,6 +31,9 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
     public zoomCount = 0;
     public screenHeight: any;
     public imageWidth: number;
+    public imageleft: any;
+    public imagestick: any;
+    public smallwidth: any;
     public panelSections: ReturnType<BridgeSection['getFlattenObject']>[];
     public panelSections1: any = [];
     public panelSections2: any = [];
@@ -56,12 +59,22 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.getLocksByUserId();
+        // image ratio times viewport height -> so that the image won't be stretched
         if (this.addLockService.getLockId() === undefined) {
             this.router.navigate(['/locks/add-lock']);
         }
 
         this.createdLock = this.addLockService.createdLock;
         this.imageWidth = 6.25 * window.innerHeight;
+
+        this.imageleft = this.imageWidth * 0.01216;
+        this.imageleft = this.imageleft.toString() + "px";
+
+        this.imagestick = this.imageWidth * 0.006548 / 2;
+        this.imagestick = this.imagestick.toString() + "px";
+
+        this.smallwidth = this.imageWidth * 0.0625;
 
         const firstSectionsRowHeight = 189;
         const bridgePipeWidth = 29;
@@ -122,11 +135,6 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
         document.addEventListener('wheel', (e) => {
             this.onMousewheel(e);
         });
-        // setTimeout(()=>{
-        //     // this.autoScroll();
-        //     //this.onMousewheel(WheelEvent);
-       
-        // },300);
          
     }
            /**
@@ -194,10 +202,6 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
                 )
             )
         );
-        console.log("fromEvent click");
-        // //  this.onMousewheel(WheelEvent);
-        // var ev=jQuery.Event("mousewheel");
-        // $(window).trigger(ev);
         this.pageScroll();
     }
 
@@ -234,6 +238,13 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.screenHeight = event.target.innerHeight;
         // image ratio times viewport height -> so that the image won't be stretched
         this.imageWidth = 6.25 * this.screenHeight;
+        this.imageleft = this.imageWidth * 0.01216;
+        this.imageleft = this.imageleft.toString() + "px";
+
+        this.imagestick = this.imageWidth * 0.006548 / 2;
+        this.imagestick = this.imagestick.toString() + "px";
+
+        this.smallwidth = this.imageWidth * 0.0625;
     }
 
     /**
@@ -263,11 +274,14 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
     public chooseSection(event) {
         event.preventDefault();
         // send this to BE
-         console.log("chooseSection");
         this.selectedSection = Number(event.target.id.split('-')[1]);
         this.addLockService.savePanelSection(this.selectedSection).subscribe(data => {
             this.router.navigate([`dashboard/payment`]);
         });
+    }
+
+    public gotoPayment() {
+        this.router.navigate([`dashboard/payment`]);
     }
 
     private enableMapHighlight() {
@@ -289,6 +303,11 @@ export class PanelsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public pageScroll() {
         this.autoScroll();
-        console.log(this.panelSections, "++++");
+    }
+
+    private getLocksByUserId() {
+        this.addLockService.getLocksByUserId().subscribe(data => {
+            console.log(data, "-----");
+        })
     }
 }

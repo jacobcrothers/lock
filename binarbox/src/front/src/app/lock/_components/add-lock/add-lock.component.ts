@@ -20,7 +20,10 @@ export class AddLockComponent implements OnInit {
     public selectedLock = {
         filesDTO: undefined
     };
-    public selectedLockCategory = {};
+    public selectedLockCategory:any = {};
+    public selectedLockInfo = {
+        url: ''
+    };
     public lockCategories: any;
     public pageParams: any;
     public isEllipticText: boolean;
@@ -38,6 +41,7 @@ export class AddLockComponent implements OnInit {
     }
 
     ngOnInit() {
+        localStorage.removeItem('lockInfo');
         this.createForm();
 
         this.getCategories();
@@ -61,9 +65,33 @@ export class AddLockComponent implements OnInit {
     getCategories() {
         this.addLockService.getLockTypes().subscribe(data => {
             this.lockCategories = data;
-            this.lockCategories[0].url = 'assets/images/lock1.png';
-            this.lockCategories[1].url = 'assets/images/lock2.png';
-            this.lockCategories[2].url = 'assets/images/lock3.png';
+            let fonts1 = ["blue", "blueviolet", "violet", "yellow", "greenyellow", "yellowgreen"];
+            for (let i = 0; i < this.lockCategories[0]["lockTypeTemplate"].length; i ++) {
+                if (this.lockCategories[0]["lockTypeTemplate"][i].fontsDTO.length > 0) {
+                    this.lockCategories[0]["lockTypeTemplate"][i].fontsDTO[0].fontColor = fonts1[i];
+                } else {
+                    this.lockCategories[0]["lockTypeTemplate"][i].fontsDTO.push({ "fontColor": fonts1[i]});
+                }
+            }
+
+            let fonts2 = ["cyan", "mediumpurple", "tan"];
+            for (let i = 0; i < this.lockCategories[1]["lockTypeTemplate"].length; i ++) {
+                if (this.lockCategories[1]["lockTypeTemplate"][i].fontsDTO.length > 0) {
+                    this.lockCategories[1]["lockTypeTemplate"][i].fontsDTO[0].fontColor = fonts2[i];
+                } else {
+                    this.lockCategories[1]["lockTypeTemplate"][i].fontsDTO.push({ "fontColor": fonts2[i]});
+                }
+            }
+
+            let fonts3 = ["black", "#1e7e34", "white", "#2d9b96", "#8ba136"];
+            for (let i = 0; i < this.lockCategories[2]["lockTypeTemplate"].length; i ++) {
+                if (this.lockCategories[2]["lockTypeTemplate"][i].fontsDTO.length > 0) {
+                    this.lockCategories[2]["lockTypeTemplate"][i].fontsDTO[0].fontColor = fonts3[i];
+                } else {
+                    this.lockCategories[2]["lockTypeTemplate"][i].fontsDTO.push({ "fontColor": fonts3[i]});
+                }
+            }
+            
             if (this.pageParams) {
                 if (this.pageParams['type']) {
                     this.selectedLockCategory = this.lockCategories.find(category => {
@@ -93,6 +121,7 @@ export class AddLockComponent implements OnInit {
     }
 
     chooseCategory(lockCategory) {
+        this.selectedLockInfo = lockCategory;
         this.selectedLockCategory = lockCategory;
         this.lockType = lockCategory.category;
         this.location.replaceState(`/locks/add-lock/${this.selectedLockCategory['category']}`);
@@ -131,6 +160,9 @@ export class AddLockComponent implements OnInit {
         };
         this.addLockService.saveLock(createdLock).subscribe(data => {
             this.lockInfo = data;
+            this.selectedLockInfo = Object.assign(this.selectedLockInfo, data);
+            this.selectedLockInfo.url = this.selectedLock.filesDTO[0].urlToFile;
+            localStorage.setItem("lockInfo", JSON.stringify(this.selectedLockInfo));
             this.addLockService.setLockId(data);
             this.router.navigate([`/panels`]).then();
         });

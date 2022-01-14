@@ -22,9 +22,15 @@ export class RequestInterceptor implements HttpInterceptor {
         const token = UserService.getUserToken();
 
         // Clone the request to add the authentication token header.
+        var url = "";
+        if (req.url.indexOf("stripe") != -1) {
+            url = `${req.url}`;
+        } else {
+            url = `${BASE_URL}/${req.url}`;
+        }
         const authReq = req.clone({
             headers: req.headers.set('token', token),
-            url: `${BASE_URL}/${req.url}`
+            url: url
         });
 
         return next.handle(authReq).pipe(
