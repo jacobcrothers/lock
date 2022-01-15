@@ -17,6 +17,9 @@ public class LockStepOneDTO {
 
     @NotNull
     private Boolean privateLock;
+    
+    @NotNull
+    private String userId;
 
     //TODO:
     // fontSize
