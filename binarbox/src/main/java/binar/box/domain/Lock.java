@@ -28,15 +28,17 @@ public class Lock extends BaseEntity {
 
 	@Column(name = "font_color")
 	private String fontColor;
+        
+        @Column(name = "user_id")
+	private String userId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lockSection_id")
 	private LockSection lockSection;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-        private String userId;
-	private User user;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "user_id")
+//	private User userId;
 
 	@OneToMany
 	@JoinTable(name="LockFile",
