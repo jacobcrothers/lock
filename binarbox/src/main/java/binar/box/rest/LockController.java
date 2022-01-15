@@ -137,11 +137,4 @@ public class LockController {
 		lockService.removeUserLock(token);
 	}
 
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "token", value = "ex: eyJ0eXAiO....", dataType = "string", paramType = "header") })
-	@ApiOperation(value = "Get locks by userID", notes = "Requesting this endpoint will get all locks by userID.", hidden = true)
-	@GetMapping(value = Constants.GET_LOCKS_BY_USER_ID)
-	private void getLocksByUserId(@RequestParam("userId") String userId) {
-		lockService.findByUserId(userId);
-	}
 }
