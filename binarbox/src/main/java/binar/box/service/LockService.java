@@ -98,7 +98,6 @@ public class LockService {
 		lock.setLockTemplate(lockTemplateRepository.findOne(lockStepOneDTO.getLockTemplate()));
 		lock.setMessage(lockStepOneDTO.getMessage());
 		lock.setPrivateLock(lockStepOneDTO.getPrivateLock());
-		lock.setUserId(lockStepOneDTO.getUserId());
 
 		lockRepository.save(lock);
 //		if (Objects.isNull(lockStepOneDTO.getLockImageWithText()))
@@ -254,9 +253,5 @@ public class LockService {
 
 	public Lock get(Long lockId) {
 		return lockRepository.findOne(lockId);
-	}
-
-	public List<Lock> findByUserId(String userId) {
-		return lockRepository.findByUserId(userId);
 	}
 }
