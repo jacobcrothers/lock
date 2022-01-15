@@ -35,7 +35,7 @@ configurations {
 
 bootRun {
     doFirst {
-//        jvmArgs = ["-Dspring.profiles.active=" + "$profile", "-Dhttps.protocols=TLSv1.1,TLSv1.2"]
+       jvmArgs = ["-Dspring.profiles.active=" + "$profile", "-Dhttps.protocols=TLSv1.1,TLSv1.2"]
     }
 }
 dependencies {
