@@ -60,8 +60,7 @@ public class LockConvertor {
         lock.setLockSection(Objects.isNull(lockSection) ? lock.getLockSection() : lockSection);
         lock.setLockTemplate(Objects.isNull(lockTemplate) ? lock.getLockTemplate() : lockTemplate);
         lock.setPoint(Objects.isNull(point) ? lock.getPoint() : point);
-//        lock.setUser(user);
-        lock.setUserId(lock.getUserId());
+        lock.setUser(user);
 
         return lock;
     }
